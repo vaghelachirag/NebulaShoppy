@@ -30,6 +30,7 @@ class AddToCart extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
+              print("Cart"+"Removed");
               onItemRemoved();
             },
             child: Container(
@@ -64,7 +65,7 @@ class AddToCart extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              onItemRemoved();
+              onItemAdd();
             },
             child: Align(
                 alignment: Alignment.topRight,

@@ -35,6 +35,9 @@ class _CategoryListState extends State<CategoryList>
   var selectedPosition = 0;
   var selectedId = 0;
   String device_Id = "";
+
+  
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
   @override
   void initState() {
     super.initState();
@@ -242,7 +245,11 @@ class _CategoryListState extends State<CategoryList>
                     mrp: rupees_Sybol +
                         " " +
                         _listproductList[index].mrp.toString()),
-                gradientColors: [Colors.white, Colors.white],
+                gradientColors: [Colors.white, Colors.white], onCartAddClick: () { 
+                    showLoadingDialog(
+                                  context, _dialogKey, "Please Wait..");
+                  print("AddClick"+"AddClick");
+                   }, onCartRemovedClick: () {  }, onCountChanges: (int ) {  },
               );
             },
           ),
@@ -292,7 +299,7 @@ class _CategoryListState extends State<CategoryList>
                           remainingQuantity: 5,
                           price: '\$' + "Test",
                           mrp: '\$' + "Test"),
-                      gradientColors: [Colors.white, Colors.white],
+                      gradientColors: [Colors.white, Colors.white], onCartAddClick: () {  }, onCartRemovedClick: () {  }, onCountChanges: (int ) {  },
                     ),
                   )));
         },
@@ -329,7 +336,9 @@ class _CategoryListState extends State<CategoryList>
                   remainingQuantity: 5,
                   price: _listproductList[index].salePrice.toString(),
                   mrp: _listproductList[index].mrp.toString()),
-              gradientColors: [Colors.white, Colors.white],
+              gradientColors: [Colors.white, Colors.white], onCartAddClick: () { 
+                
+               }, onCartRemovedClick: () {  }, onCountChanges: (int ) {  },
             ),
           ));
         },

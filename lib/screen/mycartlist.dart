@@ -5,8 +5,10 @@ import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
+import 'package:nebulashoppy/widget/LoginDialoug.dart';
 import 'package:nebulashoppy/widget/cartitemwidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
+import 'package:nebulashoppy/widget/getmyAddressDialoug.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../model/getCartItemResponse/getCarItemResponse.dart';
@@ -23,6 +25,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 
 class MyCartList extends StatefulWidget {
   String device_Id = "";
+  
   @override
   State<MyCartList> createState() => _MyCartListState();
 
@@ -37,6 +40,8 @@ class _MyCartListState extends State<MyCartList> {
 
   String str_GrandTotal = "";
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
+  String str_UserId = "";
 
   @override
   void initState() {
@@ -83,8 +88,12 @@ class _MyCartListState extends State<MyCartList> {
         )));
   }
 
-  SingleChildScrollView getMyCartData() {
-    return SingleChildScrollView(
+  Column getMyCartData() {
+   return  Column(
+      children: [
+        locationHeader(),
+        
+        SingleChildScrollView(
       child: Column(
         children: [
           Row(
@@ -168,6 +177,31 @@ class _MyCartListState extends State<MyCartList> {
             },
           )
         ],
+      ),
+    )
+      ],
+    );
+    ;
+  }
+
+  Container locationHeader (){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 40,
+      color: Colors.cyan[500],
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: [
+            IconButton(onPressed: () {
+              
+            }, icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),  color: Colors.black),
+            Text("Deliver to",style: TextStyle(color: Colors.black,fontSize: 16),),
+            IconButton(onPressed: () {
+              onLocationPressed();
+            }, icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),  color: Colors.black)
+          ],
+        ),
       ),
     );
   }
@@ -341,8 +375,20 @@ class _MyCartListState extends State<MyCartList> {
                     callMethodRemoveItemFromCart(int);
                   },
                   onCountChanges: (int) {},
-                  onCartAddClick: () {},
-                  onCartRemovedClick: () {},
+                  onCartAddClick: () {
+                    print("Cart"+ "Add Add");
+                     showLoadingDialog(
+                                context, _dialogKey, "Please Wait..");
+                          addToCart(widget.device_Id, str_UserId,
+                                 _listCartItem[index].productId.toString(), 1, Flag_Plus);
+                  },
+                  onCartRemovedClick: () {
+                         print("Cart"+ "Add Minus");
+                         showLoadingDialog(
+                                context, _dialogKey, "Please Wait..");
+                          addToCart(widget.device_Id, str_UserId,
+                                 _listCartItem[index].productId.toString(), 1, Flag_Minus);
+                  },
                 );
               },
             ))
@@ -395,7 +441,7 @@ class _MyCartListState extends State<MyCartList> {
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () {
-                print('Pressed');
+                openCheckoutDialoug();
               },
             ),
           )
@@ -438,4 +484,126 @@ class _MyCartListState extends State<MyCartList> {
               }))
             });
   }
+
+
+   void addToCart(String deviceId, String str_userId, String productId,
+      int quntity, String flag) {
+    Service()
+        .getAddToCartResponse(
+            deviceId, str_userId, productId, quntity.toString(), flag)
+        .then((value) => {
+              setState((() {
+                if (_dialogKey.currentContext != null) {
+                  Navigator.pop(_dialogKey.currentContext!);
+                  if (value.statusCode == 1) {
+                    if (flag == Flag_Plus) {
+                      showSnakeBar(context, "Item Added to Cart!");     
+                        setState(() {
+                        _listCartItem.clear();
+                        getCartItemList();
+                      });            
+                    } else {             
+                      showSnakeBar(context, "Item Removed from Cart!");
+                      setState(() {
+                        _listCartItem.clear();
+                        getCartItemList();
+                      });
+                    }
+                  } else {
+                    showSnakeBar(context, "Opps! Something Wrong");
+                  }
+                }
+              }))
+            });
+  }
+
+  void onLocationPressed() {
+       showModalBottomSheet(
+            context: context,
+            builder: (builder){
+              return new Container(
+                height: MediaQuery.of(context).size.height/3,
+                color: Colors.transparent, //could change this to Color(0xFF737373), 
+                           //so you don't have to change MaterialApp canvasColor
+                child: new Container(
+                    decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(10.0),
+                            topRight: const Radius.circular(10.0))),
+                    child:
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child:GETMYADDRESSDIALOUG() ,
+                    )
+                     ,
+                    ),
+              );
+            }
+        );
+  }
+
+  Column locationaddressData(){
+    return Column(
+        children: [
+          Padding(padding: EdgeInsets.all(10), child:
+          Text("Choose Your Location",style: TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold),)),
+           Padding(padding: EdgeInsets.all(10), child:
+          Text("Select a delivery location to see product availability and delivery options",style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.normal),)),
+          Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),child:
+          GestureDetector(
+            onTap: () {
+              print("Tap"+ "Dorr Click");
+            },
+            child:  Card(
+  elevation: 5,
+  child: Row(
+    children: [
+        IconButton(onPressed: () {
+              }, icon: Icon(CommunityMaterialIcons.dump_truck),  color: Colors.cyan),
+              Text("Door step delivery (shipping charges applicable).",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)
+    ],
+  ),
+) ,
+          )
+         
+          ),
+           Padding(padding: EdgeInsets.all(5),child:  Text("OR",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),),
+           Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),child:
+           GestureDetector(
+             onTap: () {
+               
+             },
+             child:  Card(
+  elevation: 5,
+  child: Row(
+    children: [
+        IconButton(onPressed: () {
+              }, icon: Icon(CommunityMaterialIcons.map_marker_circle),  color: Colors.cyan),
+              Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)
+    ],
+  ),
+),
+           )
+         
+          )
+        ],
+    );
+  }
+
+  void openCheckoutDialoug() {
+    showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return LoginDialoug(
+            context,
+            title: "SoldOut",
+            description:
+                "This product may not be available at the selected address.",
+          );
+        },
+      );
+  }
+
 }

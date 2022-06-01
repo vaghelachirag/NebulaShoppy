@@ -160,6 +160,7 @@ class CartItemWidget extends StatelessWidget {
                               onCartAddClick();
                             },
                             onItemRemoved: () {
+                                print("Cart"+"Removed inner");
                               onCartRemovedClick();
                             },
                             onCountChanged: (int) {},

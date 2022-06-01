@@ -14,8 +14,20 @@ class CategoryProductWidget extends StatelessWidget {
   final Product product;
   final List<Color> gradientColors;
 
-  const CategoryProductWidget(
-      {required this.product, required this.gradientColors});
+  final VoidCallback onCartRemovedClick;
+  final VoidCallback onCartAddClick;
+  final Function(int) onCountChanges;
+
+
+  
+  CategoryProductWidget({
+    required this.product,
+    required this.gradientColors,
+    required this.onCartRemovedClick,
+    required this.onCartAddClick,
+    required this.onCountChanges,
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +138,10 @@ class CategoryProductWidget extends StatelessWidget {
               padding: EdgeInsets.all(5),
               child: AddToCart(
                 count: 1,
-                onItemAdd: () {},
+                onItemAdd: () {
+                  print("CartWidget"+ "Add");
+                  onCartAddClick();
+                },
                 onItemRemoved: () {},
                 onCountChanged: (int) {},
               ),
