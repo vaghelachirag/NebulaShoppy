@@ -1,61 +1,33 @@
+// To parse this JSON data, do
+//
+//     final getLoginResponse = getLoginResponseFromJson(jsonString);
+
 import 'dart:convert';
 
-GetAddToCartResponse getAddToCartResponseFromJson(String str) => GetAddToCartResponse.fromJson(json.decode(str));
+GetLoginResponse getLoginResponseFromJson(String str) => GetLoginResponse.fromJson(json.decode(str));
 
-String getAddToCartResponseToJson(GetAddToCartResponse data) => json.encode(data.toJson());
+String getLoginResponseToJson(GetLoginResponse data) => json.encode(data.toJson());
 
-class GetAddToCartResponse {
-    GetAddToCartResponse({
-        required this.accessToken,
-        required this.tokenType,
-        required this.expiresIn,
-        required this.refreshToken,
-        required this.userName,
-        required this.iboKeyId,
-        required this.role,
-        required this.displayName,
-        required this.encryptUserName,
-        required this.issued,
-        required this.expires,
+class GetLoginResponse {
+    GetLoginResponse({
+        required this.statusCode,
+        required this.message,
+        required this.data,
     });
 
-    String accessToken;
-    String tokenType;
-    int expiresIn;
-    String refreshToken;
-    String userName;
-    String iboKeyId;
-    String role;
-    String displayName;
-    String encryptUserName;
-    String issued;
-    String expires;
+    int statusCode;
+    String message;
+    int data;
 
-    factory GetAddToCartResponse.fromJson(Map<String, dynamic> json) => GetAddToCartResponse(
-        accessToken: json["access_token"],
-        tokenType: json["token_type"],
-        expiresIn: json["expires_in"],
-        refreshToken: json["refresh_token"],
-        userName: json["UserName"],
-        iboKeyId: json["IBOKeyId"],
-        role: json["Role"],
-        displayName: json["DisplayName"],
-        encryptUserName: json["EncryptUserName"],
-        issued: json[".issued"],
-        expires: json[".expires"],
+    factory GetLoginResponse.fromJson(Map<String, dynamic> json) => GetLoginResponse(
+        statusCode: json["StatusCode"],
+        message: json["Message"],
+        data: json["Data"],
     );
 
     Map<String, dynamic> toJson() => {
-        "access_token": accessToken,
-        "token_type": tokenType,
-        "expires_in": expiresIn,
-        "refresh_token": refreshToken,
-        "UserName": userName,
-        "IBOKeyId": iboKeyId,
-        "Role": role,
-        "DisplayName": displayName,
-        "EncryptUserName": encryptUserName,
-        ".issued": issued,
-        ".expires": expires,
+        "StatusCode": statusCode,
+        "Message": message,
+        "Data": data,
     };
 }
