@@ -27,7 +27,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   List<ItembannerimageData> _listBannerImage = [];
   List<HomeCategoryData> _listHomeCategory = [];
   List<itemNewLaunchedProduct> _listNewLaunched = [];
@@ -43,6 +43,9 @@ class _HomeState extends State<Home> {
     getBannerImage();
     getDeviceId();
     getCartCount();
+    setState(() {
+      bl_ShowCart = true;
+    });
   }
 
   @override
@@ -58,6 +61,9 @@ class _HomeState extends State<Home> {
     double multiplier = 25;
 
     return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: appBarWidget(context, 3, "Product detail", true)),
       body: SingleChildScrollView(
           child: ConstrainedBox(
         constraints: BoxConstraints(),
@@ -440,6 +446,7 @@ class _HomeState extends State<Home> {
     Service().getCartCount(DeviceId.toString(), "").then((value) => {
           setState(() {
             int_CartCounters = value.data!.sumOfQty;
+            QTYCount = value.data!.sumOfQty.toString();
           })
         });
   }

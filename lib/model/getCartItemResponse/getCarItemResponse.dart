@@ -15,13 +15,13 @@ class GetCartlistItem {
 
   int? statusCode;
   String? message;
-  Data data;
+  GetCartItemData data;
 
   factory GetCartlistItem.fromJson(Map<String, dynamic> json) =>
       GetCartlistItem(
         statusCode: json["StatusCode"],
         message: json["Message"],
-        data: Data.fromJson(json["Data"]),
+        data: GetCartItemData.fromJson(json["Data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,8 +31,8 @@ class GetCartlistItem {
       };
 }
 
-class Data {
-  Data({
+class GetCartItemData {
+  GetCartItemData({
     required this.cart,
     this.shippingCharge,
     this.subTotal,
@@ -80,7 +80,7 @@ class Data {
   bool? isEwalletfreeze;
   dynamic? isEwalletOnOff;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory GetCartItemData.fromJson(Map<String, dynamic> json) => GetCartItemData(
         cart:
             List<ItemCart>.from(json["Cart"].map((x) => ItemCart.fromJson(x))),
         shippingCharge: json["ShippingCharge"],

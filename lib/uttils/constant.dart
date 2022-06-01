@@ -23,6 +23,7 @@ const WS_GET_PRODUCT_VARINT_DATA =
 const WS_GET_CART_COUNT = '/API/ECom/GetCartSumOfQty';
 const WS_ADD_TO_CART = '/API/ECom/AddToCart';
 const WS_GET_CART_ITEM = '/API/ECom/GetCartItemsListWithoutUser';
+const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
@@ -30,8 +31,52 @@ const Flag_Plus = 'plus';
 const Flag_Minus = 'minus';
 var DeviceId = '';
 int int_CartCounters = 0;
+String QTYCount = "0";
+bool bl_ShowCart = true;
+
+String str_ErrorMsg = "Opps! Something Wrong...";
+String str_NoDataMsg = "No Data Found!";
+
 // Message
 const somethingWrong = "Opps Something Wrong!";
+
+const PRIMARY_COLOR = Color(0xFF1A8D1C);
+const YELLOW_THEME_COLOR = Color(0xFFF5EE88);
+const YELLOW_DARK = Color(0xFFffe725);
+const GRAY = Color(0xFFeaeaea);
+const BLACK = Color(0xFF232323);
+const LIGHT_GREEN = Color(0xFF459A16);
+const SECONDARY_COLOR = Color(0xFF0f464c);
+const DARK_GRAY = Color(0xFFDADADA);
+const LIGHT_BLACK = Color(0xFF50555C);
+const PISTACHIO = Color(0xFFe4f6e8);
+const GREEN = Color(0xFF589677);
+const Orange = Color(0xFFFFA500);
+const RED = Color(0xFFFF0000);
+const Blue = Color(0xFF0000FF);
+const LIGHT_BLUE = Color(0xFFe7edf8);
+const TRANSPARENT_WHITE = Color.fromRGBO(255, 255, 255, 0.1);
+const SCREEN_BACKGROUND = Color(0xFFDFE6E6);
+const CLOSE_ICON = Color(0xFF393A3A);
+const MARUN = Color(0xFF5D5073);
+const DARK_MARUN = Color(0xFF862663);
+const HOME_BG = Color(0xFFFBFBFB);
+const CHOCOLATE = Color(0xFF924D23);
+const SEARCH_CLR = Color(0xFF0F2851);
+const SEARCH_BAR_CLR = Color(0xFFDADADA);
+const SETTINGS_GB = Color(0xFFE5E5E5);
+const PIC_IMAGE = Color(0xFFFAFAFA);
+const SILVER = Color(0XFFC0C0C0);
+const LIGHT_SILVER = Color(0XFFD3D3D3);
+const SEGMENTCLR = Color(0XFFE1E1E1);
+const HOME_CIGAR = Color(0XFF924D23);
+const CARD_BORDER = Color(0XFFDEDEDE);
+const WRITE_REVIEW = Color(0XFFF2970E);
+const SHADOW_GRAY = Color.fromRGBO(0, 0, 0, 0.16);
+const LIGHT_ACCENT_GRAY = Color(0xFFE5DBDD);
+const PRODUCT_PRICE = Color(0xFF44293B);
+const PRODUCT_OLD_PRICE = Color(0xFF898989);
+const white = Color(0xFFffffff);
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(

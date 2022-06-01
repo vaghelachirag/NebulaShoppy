@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/productdetail/productbanner.dart';
 import '../model/search/SearchProduct.dart';
+import 'dart:convert';
 
 class Service {
   Map<String, String> rerequestHeaders = Map();
@@ -226,7 +227,7 @@ class Service {
     }
   }
 
-  Future<GetCartlistItem> getCartItemWithoutLogin(
+  Future<dynamic> getCartItemWithoutLogin(
       String _deviceid, String _pickupid) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
@@ -237,10 +238,54 @@ class Service {
         "&" +
         "pickupid=" +
         _pickupid);
-    var response = await client.get(uri);
-    var json = response.body;
+      var response = await client.get(uri);
+      var jsons = response.body;
 
-    print("CartList" + uri.toString());
-    return getCartlistItemFromJson(json);
+        final jsonBody = json.decode(response.body);
+        print("MyJson"+ jsonBody["Data"].toString());
+
+    if (response.statusCode == 200) { 
+        if(jsonBody["Data"] == 0){
+           return str_NoDataMsg;
+        }
+        else{
+        return getCartlistItemFromJson(jsons);
+        }
+     
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+       return str_ErrorMsg;
+    }
   }
+
+   Future<GetAddToCartResponse> getCartRemoveItemWithoutLogin(
+       String _deviceid, String productid) async {
+    var queryparams = {
+      'deviceid': _deviceid,
+      'productid': productid
+    };
+
+    Uri httpsUri = Uri(
+        scheme: 'https',
+        host: 'nebulacompanies.net',
+        path: WS_REMOVE_CART_ITEM,
+        queryParameters: queryparams);
+
+    final response = await http.post(httpsUri);
+
+    print("ResponseCode" + queryparams.toString());
+    print("AddToCart" + response.body.toString());
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return GetAddToCartResponse.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
 }

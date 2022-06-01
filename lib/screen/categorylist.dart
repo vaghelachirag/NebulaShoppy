@@ -26,26 +26,64 @@ class CategoryList extends StatefulWidget {
   State<CategoryList> createState() => _CategoryListState();
 }
 
-class _CategoryListState extends State<CategoryList> {
+class _CategoryListState extends State<CategoryList>
+    with WidgetsBindingObserver {
   List<HomeCategoryData> _listHomeCategory = [];
   List<itemNewLaunchedProduct> _listproductList = [];
 
   get somethingWrong => null;
   var selectedPosition = 0;
   var selectedId = 0;
+  String device_Id = "";
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
     selectedPosition = widget.position;
     selectedId = widget.id;
+    getDeviceId();
+    getCartCount();
     getHomeCategory();
+  }
+
+  @override
+  void dispose() {
+    // Remove the observer
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    // These are the callbacks
+    switch (state) {
+      case AppLifecycleState.resumed:
+        // widget is resumed
+        print("Activity" + "Resume");
+        getCartCount();
+        break;
+      case AppLifecycleState.inactive:
+        print("Activity" + "Inactive");
+        // widget is inactive
+        break;
+      case AppLifecycleState.paused:
+        print("Activity" + "Paused");
+        // widget is paused
+        break;
+      case AppLifecycleState.detached:
+        print("Activity" + "Detached");
+        // widget is detached
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
-     /*24 is for notification bar on Android*/
+    /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
     final double itemWidth = size.width / 2;
 
@@ -55,8 +93,7 @@ class _CategoryListState extends State<CategoryList> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context,3,"Product List",true)
-      ),
+          child: appBarWidget(context, 3, "Product List", true)),
       body: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -80,12 +117,12 @@ class _CategoryListState extends State<CategoryList> {
     Service().getHomeCategory().then((value) => {
           setState((() {
             if (value.statusCode == 1) {
-            //  print("Categorylist" + value.message);
+              //  print("Categorylist" + value.message);
               _listHomeCategory = value.data;
               getProductListByCategory(selectedId.toString());
             } else {
               showSnakeBar(context, somethingWrong);
-            //  print("Categorylist" + "Opps Something Wrong!");
+              //  print("Categorylist" + "Opps Something Wrong!");
             }
           }))
         });
@@ -95,11 +132,11 @@ class _CategoryListState extends State<CategoryList> {
     Service().getNewLaunched("1", "0", 1, 50).then((value) => {
           setState((() {
             if (value.statusCode == 1) {
-             // print("Categorylist" + value.statusCode.toString());
+              // print("Categorylist" + value.statusCode.toString());
               _listproductList = value.data.products;
             } else {
               showSnakeBar(context, somethingWrong);
-            //  print("Categorylist" + "Opps Something Wrong!");
+              //  print("Categorylist" + "Opps Something Wrong!");
             }
           }))
         });
@@ -199,8 +236,12 @@ class _CategoryListState extends State<CategoryList> {
                     icon: _listproductList[index].mainImage.toString(),
                     rating: 5,
                     remainingQuantity: 5,
-                    price: rupees_Sybol + " "+ _listproductList[index].salePrice.toString(),
-                    mrp: rupees_Sybol + " "+ _listproductList[index].mrp.toString()),
+                    price: rupees_Sybol +
+                        " " +
+                        _listproductList[index].salePrice.toString(),
+                    mrp: rupees_Sybol +
+                        " " +
+                        _listproductList[index].mrp.toString()),
                 gradientColors: [Colors.white, Colors.white],
               );
             },
@@ -286,7 +327,7 @@ class _CategoryListState extends State<CategoryList> {
                   icon: _listproductList[index].mainImage.toString(),
                   rating: 5,
                   remainingQuantity: 5,
-                  price:   _listproductList[index].salePrice.toString(),
+                  price: _listproductList[index].salePrice.toString(),
                   mrp: _listproductList[index].mrp.toString()),
               gradientColors: [Colors.white, Colors.white],
             ),
@@ -311,9 +352,19 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  void showSnakeBar(BuildContext context, somethingWrong) {}
-  
- static  addToCart(){
-   
+  void getCartCount() async {
+    setState(() {
+      device_Id = DeviceId.toString();
+    });
+    Service().getCartCount(DeviceId.toString(), "").then((value) => {
+          setState(() {
+            int_CartCounters = value.data!.sumOfQty;
+            QTYCount = value.data!.sumOfQty.toString();
+          })
+        });
   }
+
+  void showSnakeBar(BuildContext context, somethingWrong) {}
+
+  static addToCart() {}
 }

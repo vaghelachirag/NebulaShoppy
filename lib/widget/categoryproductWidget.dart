@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nebulashoppy/screen/home.dart';
+import 'package:nebulashoppy/widget/AddToCart.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
 import '../model/product.dart';
 import '../uttils/constant.dart';
@@ -121,63 +122,15 @@ class CategoryProductWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      
-                    },
-                    child:  Container(
-                    child: Padding(
-                      padding: EdgeInsets.all(0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.cyan,
-                        maxRadius: 15,
-                        child: Text(
-                          "-",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  ) ,
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "1",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.cyan,
-                            maxRadius: 15,
-                            child: Text(
-                              "+",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        ),
-                      ))
-                ],
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: AddToCart(
+                count: 1,
+                onItemAdd: () {},
+                onItemRemoved: () {},
+                onCountChanged: (int) {},
               ),
-            ),
+            )
           ]),
     );
   }

@@ -49,10 +49,6 @@ class _MyHomePageNewState extends State<MyHomePage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 0, "Hi, Guest User", true),
-        ),
         body: IndexedStack(
           index: currentIndex,
           children: viewContainer,

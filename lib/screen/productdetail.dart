@@ -72,6 +72,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   int? int_ProductQuantity = 0;
   int? int_CartQuantity = 0;
+  int? int_CartCounter = 0;
   bool is_ShowDescription = false;
   bool is_ShowCart = false;
   final controller = PageController(viewportFraction: 1, keepPage: true);
@@ -81,6 +82,7 @@ class _ProductDetailState extends State<ProductDetail> {
   void initState() {
     super.initState();
     setDeviceId();
+    getCartCounter();
 
     getProductBanner(widget.productid.toString());
 
@@ -107,7 +109,7 @@ class _ProductDetailState extends State<ProductDetail> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Product detail",true)),
+          child: appBarWidget(context, 3, "Product detail", true)),
       bottomNavigationBar: Visibility(
         visible: is_ShowCart,
         child: Container(
@@ -1372,7 +1374,8 @@ class _ProductDetailState extends State<ProductDetail> {
     );
   }
 
-  void addToCart(String deviceId, String str_userId, String productId,  int quntity, String flag) {
+  void addToCart(String deviceId, String str_userId, String productId,
+      int quntity, String flag) {
     Service()
         .getAddToCartResponse(
             deviceId, str_userId, productId, quntity.toString(), flag)
@@ -1385,13 +1388,19 @@ class _ProductDetailState extends State<ProductDetail> {
                       showSnakeBar(context, "Item Added to Cart!");
                       setState(() {
                         int_CartCounters = int_CartCounters + 1;
-                         int_CartQuantity = int_CartQuantity! + 1;
+                        int_CartQuantity = int_CartQuantity! + 1;
+                        int_CartCounter = int_CartCounter! + 1;
+                        QTYCount = int_CartCounter.toString();
+                        setState(() {});
                       });
                     } else {
                       setState(() {
                         if (int_CartQuantity! > 0) {
                           int_CartCounters = int_CartCounters - 1;
                           int_CartQuantity = int_CartQuantity! - 1;
+                          int_CartCounter = int_CartCounter! - 1;
+                          QTYCount = int_CartCounter.toString();
+                          setState(() {});
                         }
                       });
                       showSnakeBar(context, "Item Removed from Cart!");
@@ -1405,9 +1414,9 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   void setDeviceId() async {
-     setState(() {
-    widget.device_Id = DeviceId.toString();
-  });
+    setState(() {
+      widget.device_Id = DeviceId.toString();
+    });
   }
 
   void getCartItemList() {
@@ -1425,15 +1434,29 @@ class _ProductDetailState extends State<ProductDetail> {
         });
   }
 
+  void getCartCounter() {
+    Service().getCartCount(DeviceId.toString(), "").then((value) => {
+          setState(() {
+            QTYCount = value.data!.sumOfQty.toString();
+            setState(() {});
+            print("TestCounter" + value.data!.sumOfQty.toString());
+            int_CartCounter = value.data!.sumOfQty;
+          })
+        });
+  }
+
   void compareproductquntity(List<ItemCart> listCartItem) {
     if (listCartItem.isNotEmpty) {
       for (int i = 0; i < listCartItem.length; i++) {
-        print("CartItem" + listCartItem[i].productId.toString() + " "+widget.productid.toString());
+        print("CartItem" +
+            listCartItem[i].productId.toString() +
+            " " +
+            widget.productid.toString());
         if (listCartItem[i].productId == widget.productid) {
           print("CartItemQuanity" + listCartItem[i].cartQuantity.toString());
-           setState(() {
-             int_CartQuantity =  listCartItem[i].cartQuantity;
-            });        
+          setState(() {
+            int_CartQuantity = listCartItem[i].cartQuantity;
+          });
           break;
         }
       }

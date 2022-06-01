@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
+import 'package:nebulashoppy/widget/AddToCart.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
 import '../model/getCartItemResponse/setcartitem.dart';
 import '../model/product.dart';
@@ -18,10 +20,21 @@ import 'package:community_material_icon/community_material_icon.dart';
 class CartItemWidget extends StatelessWidget {
   final SetCartItem product;
   final List<Color> gradientColors;
-  final  double itemWidth = 0.0; 
+  final double itemWidth = 0.0;
+  final Function(int) onItemRemovedClick;
 
-  const CartItemWidget(
-      {required this.product, required this.gradientColors});
+  final VoidCallback onCartRemovedClick;
+  final VoidCallback onCartAddClick;
+  final Function(int) onCountChanges;
+
+  CartItemWidget({
+    required this.product,
+    required this.gradientColors,
+    required this.onItemRemovedClick,
+    required this.onCartRemovedClick,
+    required this.onCartAddClick,
+    required this.onCountChanges,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,21 +54,23 @@ class CartItemWidget extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                        _productImage(context),
-                        _productDetails(context),
-                        Container(
-                        alignment: Alignment.topRight,
-                         width: MediaQuery.of(context).size.width/6,
-                         child:  Align(
-                          alignment: Alignment.topRight,
-                          child:  IconButton(onPressed: () {                        
-                        }, icon:  Icon(CommunityMaterialIcons.delete)),
-                        ) ,
-                        )
-                                            
+                          _productImage(context),
+                          _productDetails(context),
+                          Container(
+                            alignment: Alignment.topRight,
+                            width: MediaQuery.of(context).size.width / 6,
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                  onPressed: () {
+                                    print("Delete" + "Delete");
+                                    onItemRemovedClick(product.productid);
+                                  },
+                                  icon: Icon(CommunityMaterialIcons.delete)),
+                            ),
+                          )
                         ],
                       ),
-                      
                     ],
                   ),
                 ),
@@ -69,8 +84,7 @@ class CartItemWidget extends StatelessWidget {
   }
 
   _productImage(BuildContext context) {
-    return 
-    Stack(
+    return Stack(
       children: <Widget>[
         ClipPath(
           clipper: ProductImageContainerClipper(),
@@ -117,25 +131,42 @@ class CartItemWidget extends StatelessWidget {
   }
 
   _productDetails(BuildContext context) {
-    return 
-    Container(
-      width: MediaQuery.of(context).size.width - 200,
-     child: 
-    Padding(
-      padding: EdgeInsets.only(left: 15),
-      child: Padding(padding: EdgeInsets.all(10),child: 
-       Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            setTextData(product.name, 16),
-            Padding(padding: EdgeInsets.only(top: 5),child:  setTextData(product.desc, 12)),
-            Padding(padding: EdgeInsets.only(top: 5),child:   setProductPrice(product)),
-            Padding(padding: EdgeInsets.only(top: 5),child:   setPvNv(product)), 
-            Padding(padding: EdgeInsets.only(top: 10),child:  setProductCounter(product)),           
-            
-          ]),
-    )
-    ));
+    return Container(
+        width: MediaQuery.of(context).size.width - 200,
+        child: Padding(
+            padding: EdgeInsets.only(left: 15),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    setTextData(product.name, 16),
+                    Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: setTextData(product.desc, 12)),
+                    Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: setProductPrice(product)),
+                    Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: setPvNv(product)),
+                    Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Container(
+                          child: AddToCart(
+                            count: product.int_cartQuntity,
+                            onItemAdd: () {
+                              print("Add TO Cart");
+                              onCartAddClick();
+                            },
+                            onItemRemoved: () {
+                              onCartRemovedClick();
+                            },
+                            onCountChanged: (int) {},
+                          ),
+                        )),
+                  ]),
+            )));
   }
 }
 
@@ -209,117 +240,61 @@ Container setTextData(String text, double i) {
         style: TextStyle(fontSize: i, fontWeight: FontWeight.bold),
       ));
 }
-Container setProductCounter(SetCartItem product){
-  return   Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                    
-                     
-                    },
-                    child:  Container(
-                    child: Padding(
-                      padding: EdgeInsets.all(0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.cyan,
-                        maxRadius: 15,
-                        child: Text(
-                          "-",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  ),
-                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0),child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                     product.int_cartQuntity.toString(),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ) ,)
-                 ,
-                  Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.cyan,
-                            maxRadius: 15,
-                            child: Text(
-                              "+",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        ),
-                      ))
-                ],
-              ),
-            );
+
+Row setProductPrice(SetCartItem product) {
+  return Row(
+    children: <Widget>[
+      Text(rupees_Sybol + " " + product.price,
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red))
+    ],
+  );
 }
 
-Row setProductPrice(SetCartItem product){
-  return   Row(
-              children: <Widget>[
-                Text( rupees_Sybol +" "+ product.price,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red))
-              ],
-            );
-}
-Row setPvNv(SetCartItem product){
-  return  Row(
-              children: <Widget>[
-                Text( "PV",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),),
-                         Padding(padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-                         child: 
-                         Text(product.pv,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),),),
-                     Text( "NV",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),),
-                         Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                         child: 
-                         Text(product.nv,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),)),                       
-                      Text( "BV",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),),
-                         Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                         child: 
-                         Text(product.bv + "%",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),))
-              ],
-            );
+Row setPvNv(SetCartItem product) {
+  return Row(
+    children: <Widget>[
+      Text(
+        "PV",
+        style: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
+        child: Text(
+          product.pv,
+          style: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
+        ),
+      ),
+      Text(
+        "NV",
+        style: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+      Padding(
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Text(
+            product.nv,
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+                color: Colors.black),
+          )),
+      Text(
+        "BV",
+        style: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+      Padding(
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Text(
+            product.bv + "%",
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+                color: Colors.black),
+          ))
+    ],
+  );
 }
