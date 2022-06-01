@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -52,6 +53,10 @@ String str_IBO_Id = "iboKeyId";
 String str_Refrence_Id = "encryptUserName";
 String str_IsLogin = "IsLogin";
 
+
+  // Is Login
+bool is_Login  = false;
+
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
 const YELLOW_THEME_COLOR = Color(0xFFF5EE88);
 const YELLOW_DARK = Color(0xFFffe725);
@@ -97,6 +102,11 @@ showSnakeBar(BuildContext context, String msg) {
       behavior: SnackBarBehavior.floating,
     ),
   );
+}
+
+checkUserLoginOrNot() async {
+ is_Login = await SharedPref.readBool(str_IsLogin);
+ print("IsLogin"+ is_Login.toString());
 }
 
 Future<void> showLoadingDialog(

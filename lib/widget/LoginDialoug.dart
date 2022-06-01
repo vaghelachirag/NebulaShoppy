@@ -32,8 +32,8 @@ class _LoginDialougState extends State<LoginDialoug> {
 
   static final _formKey = GlobalKey<FormState>();
 
-bool _passwordInVisible = true;
-  
+  bool _passwordInVisible = true;
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -217,13 +217,16 @@ bool _passwordInVisible = true;
   }
 
   void getLoginResponse() {
+       showLoadingDialog(context, _dialogKey, "Please Wait..");
       Service()
         .getGenerateTokenResponse(_usernameController.text,_passwordController.text,'password')
         .then((value) => {
           if(value.toString() == str_ErrorMsg){
+            Navigator.pop(_dialogKey.currentContext!),
             showSnakeBar(context, "The user name or password is incorrect")
           }
           else{
+            Navigator.pop(_dialogKey.currentContext!),
             getValidLoginResponse(value)
           }
         });
@@ -234,6 +237,8 @@ bool _passwordInVisible = true;
         .getLoginResponse(value.iboKeyId)
         .then((loginresponse) => {
             if(loginresponse.statusCode == 1){
+              Navigator.pop(context),
+             showSnakeBar(context, "Login Successfully!"),
              setLoginData(value)
             }      
         });
@@ -250,13 +255,10 @@ bool _passwordInVisible = true;
     SharedPref.saveString(str_Token, token);
     SharedPref.saveString(str_RefreshToken, refreshToken);
     SharedPref.saveString(str_Role, role);
-     SharedPref.saveString(str_DisplayName, displayName);
-     SharedPref.saveString(str_IBO_Id, ibo_key_id);
-     SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
-     SharedPref.saveBoolean(str_IsLogin, true);
-
-     print("LoginId"+ibo_key_id);
-
+    SharedPref.saveString(str_DisplayName, displayName);
+    SharedPref.saveString(str_IBO_Id, ibo_key_id);
+    SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
+    SharedPref.saveBoolean(str_IsLogin, true);
   }
 }
 

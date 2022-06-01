@@ -595,6 +595,7 @@ class _MyCartListState extends State<MyCartList> {
   }
 
   void openCheckoutDialoug() {
+    if(!is_Login){
     showDialog(
         barrierColor: Colors.black26,
         context: context,
@@ -607,11 +608,11 @@ class _MyCartListState extends State<MyCartList> {
           );
         },
       );
-  }
-
-  void checkUserLoginOrNot() async {
-    String login = await SharedPref.readString(str_IBO_Id);
-    print("Login"+ login.toString());
+    }
+    else{
+      showSnakeBar(context, "Checkout");
+    }
+   
   }
 
 }

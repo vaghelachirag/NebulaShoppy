@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
-import 'package:page_transition/page_transition.dart';
 import '../main.dart';
-import '../screen/search.dart';
 
-class BottomNavBarWidget extends StatefulWidget {
+class BottomNavBarWidgetLogin extends StatefulWidget {
   @override
-  _BottomNavBarWidgetState createState() => _BottomNavBarWidgetState();
+  _BottomNavBarWidgetLoginState createState() => _BottomNavBarWidgetLoginState();
 }
 
-class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
+class _BottomNavBarWidgetLoginState extends State<BottomNavBarWidgetLogin> {
   @override
   Widget build(BuildContext context) {
     
     int _selectedIndex = 0;
-
     void _onItemTapped(int index) {
       setState(() {
-        _selectedIndex = 1;
+        _selectedIndex = index;
         navigateToScreens(index);
+        print("OnSelected"+ index.toString());
       });
     }
 
@@ -30,10 +28,6 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.shippingFast),
-          label: 'My Order',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.user),
