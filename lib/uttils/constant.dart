@@ -24,6 +24,8 @@ const WS_GET_CART_COUNT = '/API/ECom/GetCartSumOfQty';
 const WS_ADD_TO_CART = '/API/ECom/AddToCart';
 const WS_GET_CART_ITEM = '/API/ECom/GetCartItemsListWithoutUser';
 const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
+const WS_GENERATE_TOKEN = '/API/Token';
+const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
@@ -39,6 +41,16 @@ String str_NoDataMsg = "No Data Found!";
 
 // Message
 const somethingWrong = "Opps Something Wrong!";
+
+
+// Sharred Prefrences
+String str_Token = "accessToken";
+String str_RefreshToken = "refreshToken";
+String str_Role = "role";
+String str_DisplayName = "displayName";
+String str_IBO_Id = "iboKeyId";
+String str_Refrence_Id = "encryptUserName";
+String str_IsLogin = "IsLogin";
 
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
 const YELLOW_THEME_COLOR = Color(0xFFF5EE88);

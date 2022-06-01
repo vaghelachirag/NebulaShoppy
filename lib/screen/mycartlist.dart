@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
+import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/LoginDialoug.dart';
 import 'package:nebulashoppy/widget/cartitemwidget.dart';
@@ -51,6 +52,8 @@ class _MyCartListState extends State<MyCartList> {
       bl_ShowCart = false;
     });
     getCartItemList();
+    checkUserLoginOrNot();
+   
   }
 
   final GlobalKey<_MyCartListState> _myWidgetState =
@@ -604,6 +607,11 @@ class _MyCartListState extends State<MyCartList> {
           );
         },
       );
+  }
+
+  void checkUserLoginOrNot() async {
+    String login = await SharedPref.readString(str_IBO_Id);
+    print("Login"+ login.toString());
   }
 
 }

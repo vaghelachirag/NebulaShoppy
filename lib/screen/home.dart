@@ -46,6 +46,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     setState(() {
       bl_ShowCart = true;
     });
+
   }
 
   @override
@@ -450,4 +451,5 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           })
         });
   }
+  
 }

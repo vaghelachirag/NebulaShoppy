@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/services.dart';
+import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
 
+import '../model/getcartCountResponse/getAddToCartResponse.dart';
+import '../network/service.dart';
 import '../uttils/constant.dart';
 
 class LoginDialoug extends StatefulWidget {
@@ -25,7 +30,7 @@ class _LoginDialougState extends State<LoginDialoug> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-    static final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
 bool _passwordInVisible = true;
   
@@ -106,6 +111,7 @@ bool _passwordInVisible = true;
                        FocusScope.of(context).unfocus();
                         if (_formKey.currentState!.validate()) {
                            print("Valid"+ "Valid");
+                           getLoginResponse();
                         }
                     },
                     child: const Text(
@@ -208,6 +214,49 @@ bool _passwordInVisible = true;
         ),
       ),
     );
+  }
+
+  void getLoginResponse() {
+      Service()
+        .getGenerateTokenResponse(_usernameController.text,_passwordController.text,'password')
+        .then((value) => {
+          if(value.toString() == str_ErrorMsg){
+            showSnakeBar(context, "The user name or password is incorrect")
+          }
+          else{
+            getValidLoginResponse(value)
+          }
+        });
+  }
+
+  getValidLoginResponse(value) {
+      Service()
+        .getLoginResponse(value.iboKeyId)
+        .then((loginresponse) => {
+            if(loginresponse.statusCode == 1){
+             setLoginData(value)
+            }      
+        });
+  }
+
+  setLoginData(value) {
+    String token = value.tokenType + value.accessToken; 
+    String refreshToken = value.tokenType + value.refreshToken; 
+    String role = value.tokenType + value.role; 
+    String displayName = value.displayName; 
+    String ibo_key_id = value.iboKeyId; 
+    String ibo_ref_id = value.encryptUserName; 
+
+    SharedPref.saveString(str_Token, token);
+    SharedPref.saveString(str_RefreshToken, refreshToken);
+    SharedPref.saveString(str_Role, role);
+     SharedPref.saveString(str_DisplayName, displayName);
+     SharedPref.saveString(str_IBO_Id, ibo_key_id);
+     SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
+     SharedPref.saveBoolean(str_IsLogin, true);
+
+     print("LoginId"+ibo_key_id);
+
   }
 }
 

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
+import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
+import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itembannerimage.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
@@ -288,4 +290,47 @@ class Service {
     }
   }
 
+   Future<dynamic> getGenerateTokenResponse(String str_username, String str_password, String str_type) async {
+   Map<String, dynamic> body = {'username': str_username, 'password': str_password,'grant_type': str_type};
+
+   final response = await http.post(Uri.parse(BASE_URL +
+        WS_GENERATE_TOKEN ),
+       //body: body,
+       body: body,
+       headers: {
+         "Accept": "application/json",
+         "Content-Type": "application/x-www-form-urlencoded"
+       },
+       encoding: Encoding.getByName("utf-8")
+   );
+
+    print("Response"+ response.statusCode.toString());
+    if (response.statusCode == 200) {
+      return GetGenerateTokenresponse.fromJson(jsonDecode(response.body));
+    } else {
+     return str_ErrorMsg; 
+    }
+  }
+
+
+ Future<dynamic> getLoginResponse(
+      String _ibokey) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        WS_LOGIN_VALIDATE_KEY +
+        "?" +
+        "IBOKeyID=" +
+        _ibokey);
+
+   var response = await client.get(uri);
+   var json = response.body;
+
+     print("Response"+ response.statusCode.toString());
+
+     if (response.statusCode == 200) {
+      return GetLoginResponse.fromJson(jsonDecode(response.body));
+    } else {
+     return str_ErrorMsg;   
+    }
+  }
 }

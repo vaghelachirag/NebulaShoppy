@@ -17,8 +17,9 @@ class SharedPref {
   }
 
   static readString(String key) async {
-    final value = await readObject(key);
-    return value != null ? value : '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString(key);
+    return stringValue != null ? stringValue : '';
   }
 
   static readInt(String key) async {
@@ -35,8 +36,13 @@ class SharedPref {
   }
 
   static saveString(String key, value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString(key, value);
+  }
+
+  static saveBoolean(String key, value) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, value);
+    await prefs.setBool(key, value);
   }
 
   static saveInt(String key, value) async {
