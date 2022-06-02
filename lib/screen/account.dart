@@ -2,8 +2,10 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
+import 'package:nebulashoppy/model/setmyAccount/setmyAccount.dart';
 import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
@@ -11,17 +13,23 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../widget/Accountwidget.dart';
 import '../widget/LoginDialoug.dart';
+import '../widget/myorderwidget.dart';
+import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:intl/intl.dart';
+
 
 class Account extends StatefulWidget {
   @override
@@ -30,11 +38,14 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> with WidgetsBindingObserver {
 
- 
+   bool bl_showNoData = false;
+   List<GetMyOrderData> _orderList = [];
+   List<String> _orderDate = [];
+   String string_Date = "";
   @override
   void initState() {
     super.initState();
-    checkUserLoginOrNotSession();
+    getMyOrderList();
     
   }
 
@@ -50,61 +61,113 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
 
-    return Scaffold(
+  return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Product detail", false)),
-      body:  
-      FutureBuilder(
-        future: checkUserLoginOrNot(),
-        builder: (context, snapshot) {
-         if(!is_Login){
-           return Text("Login");
-         }
-         else{
-           return Container(
-              child: Text("data"),
-           );
-         }
-      },));
+          child: appBarWidget(context, 3, "Order List", false)),
+             body:   ListView.builder(
+            itemCount: 3,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                
+                },
+                child: 
+                   AccountWiget(
+                  product: SetMyAccount(
+                    postition: 0,
+                    is_Ewallet: false,
+                       Title: "My Account" ),
+                  gradientColors: [Colors.white, Colors.white],
+                )
+                ,
+              );
+              ;
+            },
+          ),
+       // This trailing comma makes auto-formatting nicer for build methods.
+    );
          
   }
- void openCheckoutDialoug() {
-    if(!is_Login){
-    showDialog(
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return LoginDialoug(
-            context,
-            title: "SoldOut",
-            description:
-                "This product may not be available at the selected address.",
-          );
-        },
-      );
-    }
-    else{
-      showSnakeBar(context, "Checkout");
-    }
-   
+
+  
+    Shimmer loadSkeletonLoader(Column skeletonbuildNewLaunch) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.white,
+      period: Duration(milliseconds: 2000),
+      child: skeletonbuildNewLaunch,
+    );
   }
 
-  void checkUserLoginOrNotSession() async{
-    checkUserLoginOrNot();
-    showDialog(
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return LoginDialoug(
-            context,
-            title: "SoldOut",
-            description:
-                "This product may not be available at the selected address.",
-          );
-        },
-      );
-    print("CheckUser"+is_Login.toString());
+   Column skeletonbuildNewLaunch() {
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.all(5),
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          height: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+            itemCount: 10,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  showSnakeBar(context, "Click");
+                },
+                child: SearchItem(
+                  product: Product(
+                      id: 1,
+                      productid: 1,
+                      catid: 1,
+                      company: "Test",
+                      name: "Test",
+                      icon: "Test",
+                      rating: 5,
+                      remainingQuantity: 5,
+                      price: "Test",
+                      mrp: "Test"),
+                  gradientColors: [Colors.white, Colors.white],
+                ),
+              );
+              ;
+            },
+          ),
+        )
+      ],
+    );
   }
 
+  void getMyOrderList() async {
+   Service().getMyOrderList().then((value) => {
+            setState((() {
+                 if (value.statusCode == 1) {
+                   _orderList = value.data;
+                   bl_showNoData = false;
+                 }
+                  else {
+                    bl_showNoData = true;
+                    showSnakeBar(context, "Opps! Something Wrong");
+                  }
+              }))
+        });
+  }
+
+  getformatedDate(int orderDate) async{
+  var date = new DateTime.fromMillisecondsSinceEpoch(orderDate * 1000,isUtc: false);
+ var timezone = date.timeZoneName;
+  final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
+   var dates = formatter.format(date.toUtc()) + "GMT-0";
+    print("OrderDare"+dates.toString());
+  setState(() {
+      string_Date = formatter.format(date);
+      _orderDate.add(string_Date);
+       
+  });
+
+
+  }
+
+  
 }

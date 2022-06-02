@@ -1,6 +1,6 @@
 class SetMyAccount {
   final int postition;
-  final int Title;
+  final String Title;
   bool is_Ewallet;
  
 
