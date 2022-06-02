@@ -25,7 +25,7 @@ class MyOrderWiget extends StatelessWidget {
     
 
     double rectWidth = MediaQuery.of(context).size.width;
-    double trendCardWidth = ScreenUtil().setHeight(160);
+ 
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;

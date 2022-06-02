@@ -63,55 +63,17 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, "Order List", false)),
-      body: SingleChildScrollView(
-          child: ConstrainedBox(
-        constraints: BoxConstraints(),
-        child: Column(
-          children: [
-            Visibility(
-                visible: bl_showNoData,
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: Center(
-                      child: Text(
-                        "No Data Found!",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ))),
-            Padding(padding: EdgeInsets.only(bottom: 30),child:  Visibility(
-                visible: !bl_showNoData,
-                child: Container(
+             body:  Container(
+                      padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
+                    color: Colors.grey[300],
                     child:  FutureBuilder(
                   builder: (context, snapshot) {
                     if (_orderList.isEmpty) {
                       return loadSkeletonLoader(skeletonbuildNewLaunch());
                     } else {
-                      return  buildMyOrder();
-                    }
-                  },
-                )),
-                )
-               ,)        
-           
-          ],
-        ),
-      )), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-         
-  }
-
-  Column buildMyOrder() {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: MediaQuery.of(context).size.height,
-          child: ListView.builder(
+                      return  ListView.builder(
             itemCount: _orderList.length,
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
@@ -135,12 +97,16 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
               );
               ;
             },
-          ),
-        )
-      ],
+          );
+                    }
+                  },
+                )),
+       // This trailing comma makes auto-formatting nicer for build methods.
     );
+         
   }
 
+  
     Shimmer loadSkeletonLoader(Column skeletonbuildNewLaunch) {
     return Shimmer.fromColors(
       baseColor: Colors.grey.shade300,
