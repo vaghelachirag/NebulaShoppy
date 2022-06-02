@@ -6,6 +6,7 @@ import 'package:nebulashoppy/screen/account.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
+import 'package:nebulashoppy/screen/myorderlist.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/screen/test.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
@@ -50,7 +51,7 @@ class _MyHomePageNewState extends State<MyHomePage> {
    
     final List _screensWithLogin = [
     {"screen": Home(), "title": "Screen A Title"},
-    {"screen": Test(), "title": "Screen B Title"},
+    {"screen": MyOrderList(), "title": "Screen B Title"},
     {"screen": Account(), "title": "Screen B Title"}
   ];
 

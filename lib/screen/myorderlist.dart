@@ -1,0 +1,222 @@
+import 'dart:math';
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
+import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
+import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
+import 'package:nebulashoppy/network/service.dart';
+import 'package:nebulashoppy/screen/categorylist.dart';
+import 'package:nebulashoppy/screen/productdetail.dart';
+import 'package:nebulashoppy/screen/search.dart';
+import 'package:nebulashoppy/uttils/constant.dart';
+import 'package:nebulashoppy/widget/AppBarWidget.dart';
+import 'package:nebulashoppy/widget/SearchWidget.dart';
+import '../model/getmyorderresponse/setmyorder.dart';
+import '../model/homescreen/itembannerimage.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../model/product.dart';
+import '../widget/LoginDialoug.dart';
+import '../widget/myorderwidget.dart';
+import '../widget/searchitem.dart';
+import '../widget/star_rating.dart';
+import '../widget/trending_item.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:intl/intl.dart';
+
+
+class MyOrderList extends StatefulWidget {
+  @override
+  State<MyOrderList> createState() => _MyOrderListState();
+}
+
+class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
+
+   bool bl_showNoData = false;
+   List<GetMyOrderData> _orderList = [];
+   List<String> _orderDate = [];
+   String string_Date = "";
+  @override
+  void initState() {
+    super.initState();
+    getMyOrderList();
+    
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    ScreenUtil.init(context);
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
+    final double itemWidth = size.width / 2;
+
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+    double multiplier = 25;
+
+  return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: appBarWidget(context, 3, "Order List", false)),
+      body: SingleChildScrollView(
+          child: ConstrainedBox(
+        constraints: BoxConstraints(),
+        child: Column(
+          children: [
+            Visibility(
+                visible: bl_showNoData,
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Center(
+                      child: Text(
+                        "No Data Found!",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ))),
+            Padding(padding: EdgeInsets.only(bottom: 30),child:  Visibility(
+                visible: !bl_showNoData,
+                child: Container(
+                      width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child:  FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_orderList.isEmpty) {
+                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                    } else {
+                      return  buildMyOrder();
+                    }
+                  },
+                )),
+                )
+               ,)        
+           
+          ],
+        ),
+      )), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+         
+  }
+
+  Column buildMyOrder() {
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.all(5),
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          height: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+            itemCount: _orderList.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                
+                },
+                child: 
+                 FutureBuilder(
+                   future: getformatedDate(_orderList[index].orderDate),
+                   builder: (context, snapshot) {
+                    return   MyOrderWiget(
+                  product: SetMyOrder(
+                        id: 1,
+                        date: _orderDate[index],
+                        ordernumber: _orderList[index].orderNumber),
+                  gradientColors: [Colors.white, Colors.white],
+                );
+                 },)
+                ,
+              );
+              ;
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+    Shimmer loadSkeletonLoader(Column skeletonbuildNewLaunch) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.white,
+      period: Duration(milliseconds: 2000),
+      child: skeletonbuildNewLaunch,
+    );
+  }
+
+   Column skeletonbuildNewLaunch() {
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.all(5),
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          height: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+            itemCount: 10,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  showSnakeBar(context, "Click");
+                },
+                child: SearchItem(
+                  product: Product(
+                      id: 1,
+                      productid: 1,
+                      catid: 1,
+                      company: "Test",
+                      name: "Test",
+                      icon: "Test",
+                      rating: 5,
+                      remainingQuantity: 5,
+                      price: "Test",
+                      mrp: "Test"),
+                  gradientColors: [Colors.white, Colors.white],
+                ),
+              );
+              ;
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  void getMyOrderList() async {
+   Service().getMyOrderList().then((value) => {
+            setState((() {
+                 if (value.statusCode == 1) {
+                   _orderList = value.data;
+                   bl_showNoData = false;
+                 }
+                  else {
+                    bl_showNoData = true;
+                    showSnakeBar(context, "Opps! Something Wrong");
+                  }
+              }))
+        });
+  }
+
+  getformatedDate(int orderDate) async{
+  var date = new DateTime.fromMillisecondsSinceEpoch(orderDate * 1000,isUtc: false);
+ var timezone = date.timeZoneName;
+  final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
+   var dates = formatter.format(date.toUtc()) + "GMT-0";
+    print("OrderDare"+dates.toString());
+  setState(() {
+      string_Date = formatter.format(date);
+      _orderDate.add(string_Date);
+       
+  });
+
+
+  }
+
+  
+}

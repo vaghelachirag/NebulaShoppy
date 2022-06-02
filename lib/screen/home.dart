@@ -64,7 +64,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Product detail", true)),
+          child: appBarWidget(context, 3, "Home", true)),
       body: SingleChildScrollView(
           child: ConstrainedBox(
         constraints: BoxConstraints(),

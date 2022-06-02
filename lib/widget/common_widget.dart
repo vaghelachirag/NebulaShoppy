@@ -64,3 +64,20 @@ ButtonStyle buttonShapeStle() {
 }
 
 
+ButtonStyle buttonShapeOrderDetail() {
+  return ButtonStyle(
+    shape: MaterialStateProperty.all(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft:Radius.circular(10) ,
+          bottomRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+          topRight: Radius.circular(10)
+        ),
+      ),
+    ),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),
+  );
+}
+
+

@@ -5,6 +5,7 @@ import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dar
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
+import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itembannerimage.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
@@ -329,6 +330,23 @@ class Service {
 
      if (response.statusCode == 200) {
       return GetLoginResponse.fromJson(jsonDecode(response.body));
+    } else {
+     return str_ErrorMsg;   
+    }
+  }
+
+  Future<dynamic> getMyOrderList() async {
+     requestHeaders = {
+        'Authorization': '${str_AuthId}',
+      };
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +WS_GET_MY_ORDER_LIST );
+
+   var response = await client.get(uri,headers: requestHeaders);
+     if (response.statusCode == 200) {
+      var json = response.body;
+     print("Response"+ response.body.toString());
+    return getMyOrderResponseFromJson(json);
     } else {
      return str_ErrorMsg;   
     }

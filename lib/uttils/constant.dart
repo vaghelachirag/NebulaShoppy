@@ -27,6 +27,8 @@ const WS_GET_CART_ITEM = '/API/ECom/GetCartItemsListWithoutUser';
 const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
 const WS_GENERATE_TOKEN = '/API/Token';
 const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
+const WS_GET_MY_ORDER_LIST = '/API/ECom/GetOrderList';
+
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
@@ -56,6 +58,7 @@ String str_IsLogin = "IsLogin";
 
   // Is Login
 bool is_Login  = false;
+String str_AuthId = "";
 
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
 const YELLOW_THEME_COLOR = Color(0xFFF5EE88);
@@ -106,7 +109,13 @@ showSnakeBar(BuildContext context, String msg) {
 
 checkUserLoginOrNot() async {
  is_Login = await SharedPref.readBool(str_IsLogin);
+ getAuthId();
  print("IsLogin"+ is_Login.toString());
+}
+
+getAuthId() async{
+  str_AuthId = await SharedPref.readString(str_Token);
+   print("Auth"+ str_AuthId.toString());
 }
 
 Future<void> showLoadingDialog(

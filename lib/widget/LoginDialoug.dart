@@ -245,7 +245,7 @@ class _LoginDialougState extends State<LoginDialoug> {
   }
 
   setLoginData(value) {
-    String token = value.tokenType + value.accessToken; 
+    String token = value.tokenType +" " + value.accessToken; 
     String refreshToken = value.tokenType + value.refreshToken; 
     String role = value.tokenType + value.role; 
     String displayName = value.displayName; 
