@@ -15,7 +15,6 @@ import 'package:nebulashoppy/screen/productdetail.dart';
 import 'common_widget.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
-
 class AccountWiget extends StatelessWidget {
   final SetMyAccount product;
   final List<Color> gradientColors;
@@ -25,10 +24,8 @@ class AccountWiget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    
 
     double rectWidth = MediaQuery.of(context).size.width;
- 
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
@@ -37,79 +34,49 @@ class AccountWiget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Card(
-                elevation: 0,
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    children: <Widget>[_productDetails(context)],
-                  ),
-                ),
-              ),
-            ),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: const EdgeInsets.all(1.0),
+            decoration:
+                BoxDecoration(border: Border.all(color: Colors.black45)),
+            child: _productDetails(context),
           ),
         ],
       ),
       onTap: () {
-    
+        print("onTap" + product.postition.toString());
       },
-    );
-  }
-
-  _productImage() {
-    return Stack(
-      children: <Widget>[
-        ClipPath(
-          clipper: ProductImageContainerClipper(),
-          child: Container(
-            width: 100,
-            height: 70,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: gradientColors)),
-          ),
-        ),
-        Center(
-            child: Container(
-          width: 100,
-          height: 80,
-          child:   Image.asset('assets/images/order_image.png',fit: BoxFit.contain,),
-        ))
-      ],
     );
   }
 
   _productDetails(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-                Text(    
+        padding: EdgeInsets.only(left: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
               product.Title,
               maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
             ),
-         IconButton(
-                                  onPressed: () {
-                                    print("Delete" + "Delete");
-                                    
-                                  },
-                                  icon: Icon(CommunityMaterialIcons.arrow_all))
-             ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: Row(
+                children: [
+                  Visibility(
+                      visible: product.is_Ewallet,
+                      child: Text(
+                        rupees_Sybol + "0.0",
+                        style: TextStyle(color: Colors.green, fontSize: 12),
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        print("onTap" + product.postition.toString());
+                      },
+                      icon: Icon(CommunityMaterialIcons.arrow_right))
+                ],
+              ),
             )
-           
-           
-                     
           ],
         ));
   }

@@ -47,19 +47,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageNewState extends State<MyHomePage> {
   int int_tablength = 1;
-    int _selectedScreenIndex = 0;
-   
-    final List _screensWithLogin = [
-    {"screen": Home(), "title": "Screen A Title"},
+  int _selectedScreenIndex = 0;
+
+  final List _screensWithLogin = [
+    {"screen": Test(), "title": "Screen A Title"},
     {"screen": MyOrderList(), "title": "Screen B Title"},
     {"screen": Account(), "title": "Screen B Title"}
   ];
 
-   
-    final List _screensWithoutLogin = [
-    {"screen": Home(), "title": "Screen A Title"},
+  final List _screensWithoutLogin = [
+    {"screen": Test(), "title": "Screen A Title"},
     {"screen": Account(), "title": "Screen B Title"},
-
   ];
 
   @override
@@ -67,15 +65,12 @@ class _MyHomePageNewState extends State<MyHomePage> {
     super.initState();
     checkUserLoginOrNot();
 
-    if(is_Login){
+    if (is_Login) {
       int_tablength = 2;
-    }
-    else{
-        int_tablength = 3;
+    } else {
+      int_tablength = 3;
     }
   }
-    
-
 
   void _selectScreen(int index) {
     setState(() {
@@ -83,50 +78,48 @@ class _MyHomePageNewState extends State<MyHomePage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return  FutureBuilder(
+    return FutureBuilder(
       future: checkUserLoginOrNot(),
       builder: (context, snapshot) {
-        if(is_Login){
-      return Scaffold(
-      body: _screensWithLogin[_selectedScreenIndex]["screen"],
-      bottomNavigationBar: BottomNavigationBar(
-         backgroundColor: Colors.cyan[400],
-          type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        currentIndex: _selectedScreenIndex,
-        onTap: _selectScreen,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.shippingFast), label: 'My Order'),
-          BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.user), label: 'Account')
-        ],
-      ),
+        if (is_Login) {
+          return Scaffold(
+            body: _screensWithLogin[_selectedScreenIndex]["screen"],
+            bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.cyan[400],
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.white,
+              currentIndex: _selectedScreenIndex,
+              onTap: _selectScreen,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.shippingFast),
+                    label: 'My Order'),
+                BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.user), label: 'Account')
+              ],
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: _screensWithoutLogin[_selectedScreenIndex]["screen"],
+            bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.cyan[400],
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.white,
+              currentIndex: _selectedScreenIndex,
+              onTap: _selectScreen,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.user), label: 'Account')
+              ],
+            ),
+          );
+        }
+      },
     );
-    }
-    else{
-      return Scaffold(
-      body: _screensWithoutLogin[_selectedScreenIndex]["screen"],
-      bottomNavigationBar: BottomNavigationBar(
-         backgroundColor: Colors.cyan[400],
-          type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        currentIndex: _selectedScreenIndex,
-        onTap: _selectScreen,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.user), label: 'Account')
-        ],
-      ),
-    );
-    }
-       
-      },);
-    
   }
 }

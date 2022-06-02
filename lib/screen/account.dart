@@ -30,23 +30,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
 
-
 class Account extends StatefulWidget {
   @override
   State<Account> createState() => _AccountState();
 }
 
 class _AccountState extends State<Account> with WidgetsBindingObserver {
+  bool bl_showNoData = false;
+  List<SetMyAccount> _accountList = [];
 
-   bool bl_showNoData = false;
-   List<GetMyOrderData> _orderList = [];
-   List<String> _orderDate = [];
-   String string_Date = "";
   @override
   void initState() {
     super.initState();
-    getMyOrderList();
-    
+    addAccountData();
   }
 
   @override
@@ -61,113 +57,50 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
 
-  return Scaffold(
+    return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, "Order List", false)),
-             body:   ListView.builder(
-            itemCount: 3,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                
-                },
-                child: 
-                   AccountWiget(
-                  product: SetMyAccount(
-                    postition: 0,
-                    is_Ewallet: false,
-                       Title: "My Account" ),
-                  gradientColors: [Colors.white, Colors.white],
-                )
-                ,
-              );
-              ;
-            },
-          ),
-       // This trailing comma makes auto-formatting nicer for build methods.
-    );
-         
-  }
-
-  
-    Shimmer loadSkeletonLoader(Column skeletonbuildNewLaunch) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.white,
-      period: Duration(milliseconds: 2000),
-      child: skeletonbuildNewLaunch,
+      body: Container(
+        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        child: ListView.builder(
+          itemCount: _accountList.length,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {},
+              child: AccountWiget(
+                product: SetMyAccount(
+                    postition: _accountList[index].postition,
+                    is_Ewallet: _accountList[index].is_Ewallet,
+                    Title: _accountList[index].Title),
+                gradientColors: [Colors.white, Colors.white],
+              ),
+            );
+            ;
+          },
+        ),
+      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-   Column skeletonbuildNewLaunch() {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: MediaQuery.of(context).size.height,
-          child: ListView.builder(
-            itemCount: 10,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  showSnakeBar(context, "Click");
-                },
-                child: SearchItem(
-                  product: Product(
-                      id: 1,
-                      productid: 1,
-                      catid: 1,
-                      company: "Test",
-                      name: "Test",
-                      icon: "Test",
-                      rating: 5,
-                      remainingQuantity: 5,
-                      price: "Test",
-                      mrp: "Test"),
-                  gradientColors: [Colors.white, Colors.white],
-                ),
-              );
-              ;
-            },
-          ),
-        )
-      ],
-    );
+  void addAccountData() {
+    _accountList.add(
+        SetMyAccount(postition: 0, Title: "My Address", is_Ewallet: false));
+    _accountList.add(
+        SetMyAccount(postition: 1, Title: "My Profile", is_Ewallet: false));
+    _accountList.add(
+        SetMyAccount(postition: 2, Title: "My E-wallet", is_Ewallet: true));
+    _accountList
+        .add(SetMyAccount(postition: 3, Title: "About Us", is_Ewallet: false));
+    _accountList.add(
+        SetMyAccount(postition: 4, Title: "Return Policy", is_Ewallet: false));
+    _accountList.add(SetMyAccount(
+        postition: 5, Title: "Shipping Policy", is_Ewallet: false));
+    _accountList.add(
+        SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false));
+    _accountList.add(
+        SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false));
   }
-
-  void getMyOrderList() async {
-   Service().getMyOrderList().then((value) => {
-            setState((() {
-                 if (value.statusCode == 1) {
-                   _orderList = value.data;
-                   bl_showNoData = false;
-                 }
-                  else {
-                    bl_showNoData = true;
-                    showSnakeBar(context, "Opps! Something Wrong");
-                  }
-              }))
-        });
-  }
-
-  getformatedDate(int orderDate) async{
-  var date = new DateTime.fromMillisecondsSinceEpoch(orderDate * 1000,isUtc: false);
- var timezone = date.timeZoneName;
-  final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
-   var dates = formatter.format(date.toUtc()) + "GMT-0";
-    print("OrderDare"+dates.toString());
-  setState(() {
-      string_Date = formatter.format(date);
-      _orderDate.add(string_Date);
-       
-  });
-
-
-  }
-
-  
 }
