@@ -18,14 +18,17 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
 
     void _onItemTapped(int index) {
       setState(() {
-        _selectedIndex = 1;
+        _selectedIndex = index;
         navigateToScreens(index);
+        print("OnSelected"+ _selectedIndex.toString());
       });
     }
 
-    return BottomNavigationBar(
+    return  BottomNavigationBar(
       backgroundColor: Colors.cyan[400],
       type: BottomNavigationBarType.fixed,
+      
+      
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -42,7 +45,13 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: Colors.white,
-      onTap: _onItemTapped,
+      
+      onTap: (value) {
+           print("OnTap"+  "OnTap");
+           _onItemTapped(value);
+          _selectedIndex = 1;
+          setState(() {});
+        },
     );
   }
 }

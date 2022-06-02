@@ -17,7 +17,7 @@ class _BottomNavBarWidgetLoginState extends State<BottomNavBarWidgetLogin> {
       setState(() {
         _selectedIndex = index;
         navigateToScreens(index);
-        print("OnSelected"+ index.toString());
+        print("OnSelected"+ _selectedIndex.toString());
       });
     }
 
