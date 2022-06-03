@@ -40,8 +40,8 @@ class GetEWalletHistoryData {
     });
 
     String ?iboKeyId;
-    int ?amount;
-    int ?balance;
+    double ?amount;
+    double ?balance;
     String ?transactiontype;
     String ?remark;
     DateTime ?createdOn;

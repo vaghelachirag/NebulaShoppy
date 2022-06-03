@@ -13,6 +13,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import '../model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,6 +21,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../uttils/sharedpref.dart';
 import '../widget/Accountwidget.dart';
 import '../widget/LoginDialoug.dart';
 import '../widget/myorderwidget.dart';
@@ -49,10 +51,15 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory> with WidgetsB
   
  bool isLoading=true;
   final _key = UniqueKey();
+  String str_IboKey = "";
+
+ List<GetEWalletHistoryData> _GetMyEWalletHistory= [];
+
   @override
   void initState() {
     super.initState();
-    
+    getIboKey();
+ 
   }
 
   @override
@@ -73,21 +80,63 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory> with WidgetsB
           child: appBarWidget(context, 3,widget.str_Title, false)),
         body: Stack(
         children: <Widget>[
-          WebView(
-            key: _key,
-            initialUrl: widget.str_Url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onPageFinished: (finish) {
-              setState(() {
-                isLoading = false;
-              });
-            },
-          ),
-          isLoading ? Center( child: CircularProgressIndicator(),)
-                    : Stack(),
+          Container(
+        color: Colors.white,
+        width: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.all(20.0),
+        child: Table(
+          border: TableBorder.all(color: Colors.black),
+          children: [
+            TableRow(children: [
+             setTableTitle("Amount"),
+            setTableTitle("Transaction"),            
+            setTableTitle("Date"),    
+             setTableTitle("Remark"),    
+            ]),
+            TableRow(children: [
+              Text('Cell 4'),
+              Text('Cell 5'),
+              Text('Cell 6'),
+              Text('Cell 6'),
+            ])
+          ],
+        ),
+      )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void getMyEWalletHistory() {
+
+     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
+            setState((() {
+                 if (value.statusCode == 1) {
+                    _GetMyEWalletHistory= value.data ;
+                 }
+                  else {                   
+                showSnakeBar(context, "Opps! Something Wrong");
+                  }
+              }))
+        });
+  }
+
+  Container setTableTitle(String str_Title){
+    return   Container(
+                color: Colors.cyan[400],
+                child:   Center(
+               child: 
+               Padding(padding: EdgeInsets.all(10),
+               child:  Text(str_Title,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold)) ,)
+              ,
+              ),
+              );
+  }
+
+  void getIboKey() async{
+    str_IboKey = await SharedPref.readString(str_IBO_Id);
+   print("IboKeyId"+ str_IboKey.toString());
+    getMyEWalletHistory();
   }
 }

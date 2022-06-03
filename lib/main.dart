@@ -50,13 +50,13 @@ class _MyHomePageNewState extends State<MyHomePage> {
   int _selectedScreenIndex = 0;
 
   final List _screensWithLogin = [
-    {"screen": Test(), "title": "Screen A Title"},
+    {"screen": Home(), "title": "Screen A Title"},
     {"screen": MyOrderList(), "title": "Screen B Title"},
     {"screen": Account(), "title": "Screen B Title"}
   ];
 
   final List _screensWithoutLogin = [
-    {"screen": Test(), "title": "Screen A Title"},
+    {"screen": Home(), "title": "Screen A Title"},
     {"screen": Account(), "title": "Screen B Title"},
   ];
 

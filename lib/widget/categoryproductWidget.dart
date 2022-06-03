@@ -120,13 +120,13 @@ class CategoryProductWidget extends StatelessWidget {
             setTextData(product.name, 12),
             Row(
               children: <Widget>[
-                Text(product.price,
+                Text( rupees_Sybol+ product.price,
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.red)),
                 Text(
-                  product.mrp,
+                  rupees_Sybol+ product.mrp,
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,

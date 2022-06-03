@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
+import 'package:nebulashoppy/model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
@@ -406,8 +407,10 @@ class Service {
    var response = await client.get(uri);
    var json = response.body;
 
+    print("Response"+ response.body.toString());
+
      if (response.statusCode == 200) {
-      return GetMyWalletResponse.fromJson(jsonDecode(response.body));
+      return getMyEwalletHistoryResponseFromJson(json);
     } else {
      return str_ErrorMsg;   
     }
