@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nebulashoppy/screen/getmyEWalletHistory.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
 
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/product.dart';
 import '../model/setmyAccount/setmyAccount.dart';
+import '../network/service.dart';
 import '../screen/webview.dart';
 import '../uttils/constant.dart';
 import 'clip_shadow_path.dart';
@@ -27,9 +29,14 @@ class AccountWiget extends StatelessWidget {
   final SetMyAccount product;
   final List<Color> gradientColors;
 
-  
+    final VoidCallback onProfileClicked;
 
-   AccountWiget({required this.product, required this.gradientColors});
+
+  AccountWiget({
+    required this.product,
+    required this.gradientColors,
+    required this.onProfileClicked
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +70,12 @@ class AccountWiget extends StatelessWidget {
     if (index == 0) {
     
     }
-    if (index == 1) {}
-    if (index == 2) {}
+    if (index == 1) {
+     onProfileClicked();
+    }
+    if (index == 2) {
+        onEWalletClick(context);
+    }
     if (index == 3) {
       openWebview(context,about,"About Us");
     }
@@ -126,6 +137,20 @@ void openWebview(BuildContext context, String about,String  title) {
           ],
         ));
   }
+
+  void onEWalletClick(BuildContext context) {
+      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          child: GetMyEWalletHistory(
+                            str_Title: "E-Wallet",
+                            str_Url: "fdf",
+                          ),
+                        ));
+  }
+
+ 
 }
 
 @override

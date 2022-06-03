@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
+import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
@@ -16,6 +17,7 @@ import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/network/EndPoint.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/getMyProfileResponse/getMyProfileResponse.dart';
 import '../model/productdetail/productbanner.dart';
 import '../model/search/SearchProduct.dart';
 import 'dart:convert';
@@ -351,4 +353,64 @@ class Service {
      return str_ErrorMsg;   
     }
   }
+
+  
+  Future<dynamic> getMyProfile() async {
+     requestHeaders = {
+        'Authorization': '${str_AuthId}',
+      };
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +WS_GET_MY_PROFILE );
+
+   var response = await client.get(uri,headers: requestHeaders);
+     if (response.statusCode == 200) {
+      var json = response.body;
+     print("Response"+ response.body.toString());
+    return getMyProfileResponseFromJson(json);
+    } else {
+     return str_ErrorMsg;   
+    }
+  }
+
+  
+  Future<dynamic> getMyWalletResponse(
+      String _ibokey) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        "API/EComCouponCode/GetIBOWalletBalance" +
+        "?" +
+        "IBOKeyID=" +
+        _ibokey);
+
+   var response = await client.get(uri);
+   var json = response.body;
+
+     if (response.statusCode == 200) {
+      return GetMyWalletResponse.fromJson(jsonDecode(response.body));
+    } else {
+     return str_ErrorMsg;   
+    }
+  }
+
+
+
+  Future<dynamic> getMyWalletHistoryResponse(
+      String _ibokey) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        "API/EComCouponCode/GetIBOWalletList"+
+        "?" +
+        "IBOKeyID=" +
+        _ibokey);
+
+   var response = await client.get(uri);
+   var json = response.body;
+
+     if (response.statusCode == 200) {
+      return GetMyWalletResponse.fromJson(jsonDecode(response.body));
+    } else {
+     return str_ErrorMsg;   
+    }
+  }
+
 }

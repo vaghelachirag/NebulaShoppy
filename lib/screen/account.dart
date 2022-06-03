@@ -21,6 +21,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../uttils/sharedpref.dart';
 import '../widget/Accountwidget.dart';
 import '../widget/LoginDialoug.dart';
 import '../widget/myorderwidget.dart';
@@ -31,6 +32,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
 
+import '../widget/userprofilewidget.dart';
+
 
 class Account extends StatefulWidget {
   @override
@@ -40,13 +43,16 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> with WidgetsBindingObserver {
   bool bl_showNoData = false;
   List<SetMyAccount> _accountList = [];
+  String str_IboKey = "";
 
-  
-
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
+  double walletAmount = 0.0;
   @override
   void initState() {
     super.initState();
     addAccountData();
+    getIboKey();
+  
   }
 
   @override
@@ -73,14 +79,16 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-          
+                print("object"+"onTap");
               },
               child: AccountWiget(
                 product: SetMyAccount(
                     postition: _accountList[index].postition,
                     is_Ewallet: _accountList[index].is_Ewallet,
                     Title: _accountList[index].Title),
-                gradientColors: [Colors.white, Colors.white],
+                gradientColors: [Colors.white, Colors.white], onProfileClicked: () {  
+                  getMyProfile();
+                },
               ),
             );
             ;
@@ -111,6 +119,57 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   }
 
  
-  
+   void getMyProfile() async {
+         showLoadingDialog(context, _dialogKey, "Please Wait..");
+   Service().getMyProfile().then((value) => {
+     
+            setState((() {
+                Navigator.pop(_dialogKey.currentContext!);
+                 if (value.statusCode == 1) {
+                   showProfileDialoug(value);
+                 }
+                  else {
+
+                    bl_showNoData = true;
+                    showSnakeBar(context, "Opps! Something Wrong");
+                  }
+              }))
+        });
+  }
+
+  void showProfileDialoug(value) {
+     showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return UserProfileWidget(
+            context,
+            name: value.data.firstName,
+            mobile: value.data.mobile,
+            email: value.data.email,
+            gender:  value.data.gender,
+          );
+        },
+      );
+  }
+
+  void getEWalletResponse() {
+    Service().getMyWalletResponse(str_IboKey).then((value) => {
+            setState((() {
+                 if (value.statusCode == 1) {
+                    walletAmount = value.data;
+                 }
+                  else {                   
+                showSnakeBar(context, "Opps! Something Wrong");
+                  }
+              }))
+        });
+  }
+
+  void getIboKey() async{
+    str_IboKey = await SharedPref.readString(str_IBO_Id);
+   print("IboKeyId"+ str_IboKey.toString());
+   getEWalletResponse();
+  }
 
 }

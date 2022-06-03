@@ -28,6 +28,9 @@ const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
 const WS_GENERATE_TOKEN = '/API/Token';
 const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
 const WS_GET_MY_ORDER_LIST = '/API/ECom/GetOrderList';
+const WS_GET_MY_PROFILE = '/API/ECom/Me';
+const WS_GET_E_WALLET = 'API/EComCouponCode/GetIBOWalletBalance';
+const WS_GET_E_WALLET_History = 'API/EComCouponCode/GetIBOWalletList';
 
 
 const placeholder_path = 'assets/images/placeholder.jpg';
@@ -117,6 +120,8 @@ getAuthId() async{
   str_AuthId = await SharedPref.readString(str_Token);
    print("Auth"+ str_AuthId.toString());
 }
+
+
 
 Future<void> showLoadingDialog(
     BuildContext context, GlobalKey _key, String message) async {
