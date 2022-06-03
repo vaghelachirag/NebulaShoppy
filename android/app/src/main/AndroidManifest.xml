@@ -1,6 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nebulashoppy">
     <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.intent.category.LAUNCHER"/>
+
+    <queries>
+  <!-- If your app opens https URLs -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="https" />
+  </intent>
+</queries>
    <application
         android:label="nebulashoppy"
         android:name="${applicationName}"

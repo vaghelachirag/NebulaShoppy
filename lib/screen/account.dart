@@ -29,6 +29,7 @@ import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -38,6 +39,12 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> with WidgetsBindingObserver {
   bool bl_showNoData = false;
   List<SetMyAccount> _accountList = [];
+
+  String about = "https://shop.nebulacare.in/Home/About";
+  String returnpolicy = "https://shop.nebulacare.in/Home/ReturnPolicy";
+  String shipping = "https://shop.nebulacare.in/Home/ShippingPolicy";
+  String privacy = "https://shop.nebulacare.in/Home/PrivacyPolicy";
+  String contactus = "https://shop.nebulacare.in/Home/Contact";
 
   @override
   void initState() {
@@ -68,7 +75,10 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                print("OnTap" + index.toString());
+                openAccountData(index);
+              },
               child: AccountWiget(
                 product: SetMyAccount(
                     postition: _accountList[index].postition,
@@ -102,5 +112,37 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
         SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false));
     _accountList.add(
         SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false));
+  }
+
+  void openAccountData(int index) {
+    if (index == 0) {
+      _launchURLBrowser();
+    }
+    if (index == 1) {}
+    if (index == 2) {}
+    if (index == 3) {}
+    if (index == 4) {}
+
+    if (index == 5) {}
+    if (index == 6) {}
+    if (index == 7) {}
+  }
+}
+
+_launchURLBrowser() async {
+  const url = 'https://flutterdevs.com/';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+_launchURLApp() async {
+  const url = 'https://flutterdevs.com/';
+  if (await canLaunch(url)) {
+    await launch(url, forceSafariVC: true, forceWebView: true);
+  } else {
+    throw 'Could not launch $url';
   }
 }
