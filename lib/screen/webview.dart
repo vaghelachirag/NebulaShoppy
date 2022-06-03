@@ -10,7 +10,6 @@ import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/screen/search.dart';
-import 'package:nebulashoppy/screen/webview.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
@@ -30,23 +29,30 @@ import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
+class Webview extends StatefulWidget {
 
-class Account extends StatefulWidget {
+  String str_Url = "";
+ String str_Title = "";
+
+ 
+
+Webview({Key? key, required this.str_Url , required this.str_Title })
+      : super(key: key);
+  
   @override
-  State<Account> createState() => _AccountState();
+  State<Webview> createState() => _WebviewState();
 }
 
-class _AccountState extends State<Account> with WidgetsBindingObserver {
-  bool bl_showNoData = false;
-  List<SetMyAccount> _accountList = [];
-
+class _WebviewState extends State<Webview> with WidgetsBindingObserver {
   
-
+ bool isLoading=true;
+  final _key = UniqueKey();
   @override
   void initState() {
     super.initState();
-    addAccountData();
+    
   }
 
   @override
@@ -64,53 +70,24 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Order List", false)),
-      body: Container(
-        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-        child: ListView.builder(
-          itemCount: _accountList.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-          
-              },
-              child: AccountWiget(
-                product: SetMyAccount(
-                    postition: _accountList[index].postition,
-                    is_Ewallet: _accountList[index].is_Ewallet,
-                    Title: _accountList[index].Title),
-                gradientColors: [Colors.white, Colors.white],
-              ),
-            );
-            ;
-          },
-        ),
+          child: appBarWidget(context, 3,widget.str_Title, false)),
+        body: Stack(
+        children: <Widget>[
+          WebView(
+            key: _key,
+            initialUrl: widget.str_Url,
+            javascriptMode: JavascriptMode.unrestricted,
+            onPageFinished: (finish) {
+              setState(() {
+                isLoading = false;
+              });
+            },
+          ),
+          isLoading ? Center( child: CircularProgressIndicator(),)
+                    : Stack(),
+        ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-  void addAccountData() {
-    _accountList.add(
-        SetMyAccount(postition: 0, Title: "My Address", is_Ewallet: false));
-    _accountList.add(
-        SetMyAccount(postition: 1, Title: "My Profile", is_Ewallet: false));
-    _accountList.add(
-        SetMyAccount(postition: 2, Title: "My E-wallet", is_Ewallet: true));
-    _accountList
-        .add(SetMyAccount(postition: 3, Title: "About Us", is_Ewallet: false));
-    _accountList.add(
-        SetMyAccount(postition: 4, Title: "Return Policy", is_Ewallet: false));
-    _accountList.add(SetMyAccount(
-        postition: 5, Title: "Shipping Policy", is_Ewallet: false));
-    _accountList.add(
-        SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false));
-    _accountList.add(
-        SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false));
-  }
-
- 
-  
-
 }

@@ -6,6 +6,7 @@ import 'package:nebulashoppy/widget/star_rating.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/product.dart';
 import '../model/setmyAccount/setmyAccount.dart';
+import '../screen/webview.dart';
 import '../uttils/constant.dart';
 import 'clip_shadow_path.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,10 +17,19 @@ import 'common_widget.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
 class AccountWiget extends StatelessWidget {
+
+  String about = 'https://shop.nebulacare.in/Home/About';
+  String returnpolicy = 'https://shop.nebulacare.in/Home/ReturnPolicy';
+  String shipping = 'https://shop.nebulacare.in/Home/ShippingPolicy';
+  String privacy = 'https://shop.nebulacare.in/Home/PrivacyPolicy';
+  String contactus = 'https://shop.nebulacare.in/Home/Contact';
+
   final SetMyAccount product;
   final List<Color> gradientColors;
 
-  const AccountWiget({required this.product, required this.gradientColors});
+  
+
+   AccountWiget({required this.product, required this.gradientColors});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +53,45 @@ class AccountWiget extends StatelessWidget {
         ],
       ),
       onTap: () {
-        print("onTap" + product.postition.toString());
+       openAccountData(product.postition,context);
       },
     );
+  }
+
+   void openAccountData(int index, BuildContext context) {
+      print("OnTap" + "Test");
+    if (index == 0) {
+    
+    }
+    if (index == 1) {}
+    if (index == 2) {}
+    if (index == 3) {
+      openWebview(context,about,"About Us");
+    }
+    if (index == 4) {
+      openWebview(context,returnpolicy,"Return Policy");
+    }
+
+    if (index == 5) {
+       openWebview(context,shipping,"Shipping Policy");
+    }
+    if (index == 6) {
+       openWebview(context,privacy,"Privacy Policy");
+    }
+    if (index == 7) {
+       openWebview(context,contactus,"Contact Us");
+    }
+  }
+void openWebview(BuildContext context, String about,String  title) {
+     Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: Webview(
+                          str_Title: title,
+                          str_Url: about,
+                        ),
+                      ));
   }
 
   _productDetails(BuildContext context) {
@@ -71,7 +117,7 @@ class AccountWiget extends StatelessWidget {
                       )),
                   IconButton(
                       onPressed: () {
-                        print("onTap" + product.postition.toString());
+                         openAccountData(product.postition,context);
                       },
                       icon: Icon(CommunityMaterialIcons.arrow_right))
                 ],
