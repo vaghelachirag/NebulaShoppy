@@ -63,6 +63,32 @@ ButtonStyle buttonShapeStle() {
   );
 }
 
+InputDecoration addressText(String hint){
+  return InputDecoration(
+                hintText: hint,
+                 
+                contentPadding: const EdgeInsets.all(15),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)));
+}
+
+
+InputDecoration inputwithdropdown(getHint) {
+  return  InputDecoration(
+                hintText: getHint,
+                   prefixIcon: const Padding(
+      padding: EdgeInsets.only(top: 0), // add padding to adjust icon
+      child: Icon(
+        Icons.arrow_drop_down,
+        color: BLACK,
+        
+      ),
+    ),
+                contentPadding: const EdgeInsets.all(15),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)));
+}
+
 
 ButtonStyle buttonShapeOrderDetail() {
   return ButtonStyle(

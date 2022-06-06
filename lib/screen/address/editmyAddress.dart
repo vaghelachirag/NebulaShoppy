@@ -34,7 +34,7 @@ class _EditMyAddressState extends State<EditMyAddress>
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
     List<GetMyAddressData> _listMyAddress = [];
     bool bl_ShowAddress = false;
-    String dropdownValue = 'One';
+    
 
   @override
   void initState() {
@@ -78,9 +78,17 @@ class _EditMyAddressState extends State<EditMyAddress>
       ,child:getAddressText("Area, Colony, Street,Sector,Village"),),
           Padding(padding: EdgeInsets.all(10)
       ,child:getAddressText("Landmark e.g. near Apollo Hospital"),),
-         Padding(padding: EdgeInsets.all(10)
-      ,child: 
-
+      
+        DropdownButton<String>(
+  items: <String>['A', 'B', 'C', 'D'].map((String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(value),
+    );
+  }).toList(),
+  onChanged: (_) {},
+)
+        
         ],
       ) ,)
    
