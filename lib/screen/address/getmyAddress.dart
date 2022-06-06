@@ -2,19 +2,20 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
+import 'package:nebulashoppy/screen/address/editmyAddress.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../model/getMyAddressResponse/getMyAddressResponse.dart';
-import '../model/homescreen/itemNewLaunched.dart';
-import '../model/homescreen/itemhomecategory.dart';
-import '../model/product.dart';
-import '../network/service.dart';
-import '../uttils/constant.dart';
-import '../widget/trending_item.dart';
+import '../../model/getMyAddressResponse/getMyAddressResponse.dart';
+import '../../model/homescreen/itemNewLaunched.dart';
+import '../../model/homescreen/itemhomecategory.dart';
+import '../../model/product.dart';
+import '../../network/service.dart';
+import '../../uttils/constant.dart';
+import '../../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -167,6 +168,13 @@ class _GetMyAddressState extends State<GetMyAddress>
                   IconButton(
                       onPressed: () {
                         // openAccountData(product.postition,context);
+                           Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  child: EditMyAddress(),
+                ),
+              );
                       },
                       icon: Icon(CommunityMaterialIcons.arrow_right))
                 ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:nebulashoppy/screen/getmyAddress.dart';
+import 'package:nebulashoppy/screen/address/getmyAddress.dart';
 import 'package:nebulashoppy/screen/getmyEWalletHistory.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';

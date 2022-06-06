@@ -6,73 +6,42 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../model/getMyAddressResponse/getMyAddressResponse.dart';
-import '../model/homescreen/itemNewLaunched.dart';
-import '../model/homescreen/itemhomecategory.dart';
-import '../model/product.dart';
-import '../network/service.dart';
-import '../uttils/constant.dart';
-import '../widget/trending_item.dart';
+import '../../model/getMyAddressResponse/getMyAddressResponse.dart';
+import '../../model/homescreen/itemNewLaunched.dart';
+import '../../model/homescreen/itemhomecategory.dart';
+import '../../model/product.dart';
+import '../../network/service.dart';
+import '../../uttils/constant.dart';
+import '../../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
-class GetMyAddress extends StatefulWidget {
+class EditMyAddress extends StatefulWidget {
 
-  GetMyAddress({Key? key})
+  EditMyAddress({Key? key})
       : super(key: key);
   @override
-  State<GetMyAddress> createState() => _GetMyAddressState();
+  State<EditMyAddress> createState() => _EditMyAddressState();
 }
 
-class _GetMyAddressState extends State<GetMyAddress>
+class _EditMyAddressState extends State<EditMyAddress>
     with WidgetsBindingObserver {
  
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
     List<GetMyAddressData> _listMyAddress = [];
     bool bl_ShowAddress = false;
+    String dropdownValue = 'One';
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
    
   }
 
-  @override
-  void dispose() {
-    // Remove the observer
-    WidgetsBinding.instance!.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    // These are the callbacks
-    switch (state) {
-      case AppLifecycleState.resumed:
-        // widget is resumed
-        print("Activity" + "Resume");
-
-        break;
-      case AppLifecycleState.inactive:
-        print("Activity" + "Inactive");
-        // widget is inactive
-        break;
-      case AppLifecycleState.paused:
-        print("Activity" + "Paused");
-        // widget is paused
-        break;
-      case AppLifecycleState.detached:
-        print("Activity" + "Detached");
-        // widget is detached
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,30 +57,55 @@ class _GetMyAddressState extends State<GetMyAddress>
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Address", false)),
+          child: appBarWidget(context, 3, "EditAddress", false)),
       body:  SingleChildScrollView(child:   Column(
         children:  <Widget>[
   Padding(padding: EdgeInsets.all(0),
       child: 
       Padding(padding: EdgeInsets.all(10),child:   Align(
         alignment:  Alignment.topLeft,
-        child: Text("Your Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),
+        child: Text("Personal Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),
       ) ,),
-      addnewAddress(context),
-       Visibility(
-         visible: bl_ShowAddress,
-         child: Padding(padding: EdgeInsets.all(10),child:  Align(
-        alignment:  Alignment.topLeft,
-        child: Text("Personal Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),),),
-        Visibility(
-          visible: bl_ShowAddress,
-          child:  myAdrresList())
-       
+      Padding(padding: EdgeInsets.all(10)
+      ,child:getAddressText("Full Name"),),
+        Padding(padding: EdgeInsets.all(10)
+      ,child:getAddressText("Mobile Number"),),
+      Padding(padding: EdgeInsets.all(10)
+      ,child:getAddressText("Pincode"),),
+       Padding(padding: EdgeInsets.all(10)
+      ,child:getAddressText("Flat,House no.. Building, Company,Apartment"),),
+         Padding(padding: EdgeInsets.all(10)
+      ,child:getAddressText("Area, Colony, Street,Sector,Village"),),
+          Padding(padding: EdgeInsets.all(10)
+      ,child:getAddressText("Landmark e.g. near Apollo Hospital"),),
+         Padding(padding: EdgeInsets.all(10)
+      ,child: 
+
         ],
       ) ,)
    
       ,
     );
+  }
+
+  TextField getAddressText(String hint){
+    return  TextField(
+            
+            decoration: addressText(hint),
+            onChanged: (value) {
+              // do something
+            },
+);
+  }
+
+  TextField getDropDownn(String hint){
+    return  TextField(
+             enabled: false, 
+            decoration: inputwithdropdown(hint),
+            onChanged: (value) {
+              // do something
+            },
+);
   }
 
    getMyAddress() {
