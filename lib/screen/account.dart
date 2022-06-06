@@ -34,7 +34,6 @@ import 'package:intl/intl.dart';
 
 import '../widget/userprofilewidget.dart';
 
-
 class Account extends StatefulWidget {
   @override
   State<Account> createState() => _AccountState();
@@ -46,13 +45,14 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   String str_IboKey = "";
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
-  double walletAmount = 0.0;
+  dynamic walletAmount = 0.0;
+  bool bl_IsLogin = false;
   @override
   void initState() {
     super.initState();
     addAccountData();
     getIboKey();
-  
+    checkUserLoginOrNot();
   }
 
   @override
@@ -79,14 +79,15 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                print("object"+"onTap");
+                print("object" + "onTap");
               },
               child: AccountWiget(
                 product: SetMyAccount(
                     postition: _accountList[index].postition,
                     is_Ewallet: _accountList[index].is_Ewallet,
                     Title: _accountList[index].Title),
-                gradientColors: [Colors.white, Colors.white], onProfileClicked: () {  
+                gradientColors: [Colors.white, Colors.white],
+                onProfileClicked: () {
                   getMyProfile();
                 },
               ),
@@ -118,58 +119,52 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
         SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false));
   }
 
- 
-   void getMyProfile() async {
-         showLoadingDialog(context, _dialogKey, "Please Wait..");
-   Service().getMyProfile().then((value) => {
-     
-            setState((() {
-                Navigator.pop(_dialogKey.currentContext!);
-                 if (value.statusCode == 1) {
-                   showProfileDialoug(value);
-                 }
-                  else {
-
-                    bl_showNoData = true;
-                    showSnakeBar(context, "Opps! Something Wrong");
-                  }
-              }))
+  void getMyProfile() async {
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Service().getMyProfile().then((value) => {
+          setState((() {
+            Navigator.pop(_dialogKey.currentContext!);
+            if (value.statusCode == 1) {
+              showProfileDialoug(value);
+            } else {
+              bl_showNoData = true;
+              showSnakeBar(context, "Opps! Something Wrong");
+            }
+          }))
         });
   }
 
   void showProfileDialoug(value) {
-     showDialog(
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return UserProfileWidget(
-            context,
-            name: value.data.firstName,
-            mobile: value.data.mobile,
-            email: value.data.email,
-            gender:  value.data.gender,
-          );
-        },
-      );
+    showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return UserProfileWidget(
+          context,
+          name: value.data.firstName,
+          mobile: value.data.mobile,
+          email: value.data.email,
+          gender: value.data.gender,
+        );
+      },
+    );
   }
 
   void getEWalletResponse() {
     Service().getMyWalletResponse(str_IboKey).then((value) => {
-            setState((() {
-                 if (value.statusCode == 1) {
-                    walletAmount = value.data;
-                 }
-                  else {                   
-                showSnakeBar(context, "Opps! Something Wrong");
-                  }
-              }))
+          setState((() {
+            if (value.statusCode == 1) {
+              walletAmount = value.data;
+            } else {
+              showSnakeBar(context, "Opps! Something Wrong");
+            }
+          }))
         });
   }
 
-  void getIboKey() async{
+  void getIboKey() async {
     str_IboKey = await SharedPref.readString(str_IBO_Id);
-   print("IboKeyId"+ str_IboKey.toString());
-   getEWalletResponse();
+    print("IboKeyId" + str_IboKey.toString());
+    // /getEWalletResponse();
   }
-
 }

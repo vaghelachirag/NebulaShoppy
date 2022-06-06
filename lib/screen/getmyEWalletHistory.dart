@@ -34,32 +34,29 @@ import 'package:intl/intl.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class GetMyEWalletHistory extends StatefulWidget {
-
   String str_Url = "";
- String str_Title = "";
+  String str_Title = "";
 
- 
-
-GetMyEWalletHistory({Key? key, required this.str_Url , required this.str_Title })
+  GetMyEWalletHistory(
+      {Key? key, required this.str_Url, required this.str_Title})
       : super(key: key);
-  
+
   @override
   State<GetMyEWalletHistory> createState() => _GetMyEWalletHistoryState();
 }
 
-class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory> with WidgetsBindingObserver {
-  
- bool isLoading=true;
+class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
+    with WidgetsBindingObserver {
+  bool isLoading = true;
   final _key = UniqueKey();
   String str_IboKey = "";
 
- List<GetEWalletHistoryData> _GetMyEWalletHistory= [];
+  List<GetEWalletHistoryData> _GetMyEWalletHistory = [];
 
   @override
   void initState() {
     super.initState();
     getIboKey();
- 
   }
 
   @override
@@ -77,66 +74,106 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory> with WidgetsB
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3,widget.str_Title, false)),
-        body: Stack(
+          child: appBarWidget(context, 3, widget.str_Title, false)),
+      body: Stack(
         children: <Widget>[
           Container(
-        color: Colors.white,
-        width: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.all(20.0),
-        child: Table(
-          border: TableBorder.all(color: Colors.black),
-          children: [
-            TableRow(children: [
-             setTableTitle("Amount"),
-            setTableTitle("Transaction"),            
-            setTableTitle("Date"),    
-             setTableTitle("Remark"),    
-            ]),
-            TableRow(children: [
-              Text('Cell 4'),
-              Text('Cell 5'),
-              Text('Cell 6'),
-              Text('Cell 6'),
-            ])
-          ],
-        ),
-      )
+              color: Colors.white,
+              width: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.all(20.0),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [_createDataTable()],
+              ))
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  void getMyEWalletHistory() {
+  DataTable _createDataTable() {
+    return DataTable(columns: _createColumns(), rows: _createRows());
+  }
 
-     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
-            setState((() {
-                 if (value.statusCode == 1) {
-                    _GetMyEWalletHistory= value.data ;
-                 }
-                  else {                   
-                showSnakeBar(context, "Opps! Something Wrong");
-                  }
-              }))
+  List<DataColumn> _createColumns() {
+    return [
+      DataColumn(label: Text('Amount')),
+      DataColumn(label: Text('Transaction')),
+      DataColumn(label: Text('Date')),
+      DataColumn(label: Text('Remarks')),
+    ];
+  }
+
+  List<DataRow> _createRows() {
+    return [
+      DataRow(cells: [
+        DataCell(Text('Amount')),
+        DataCell(Text('Transaction')),
+        DataCell(Text('David John')),
+        DataCell(Text('David John'))
+      ]),
+      DataRow(cells: [
+        DataCell(Text('#101')),
+        DataCell(Text('Dart Internals')),
+        DataCell(Text('Alex Wick')),
+        DataCell(Text('David John'))
+      ])
+    ];
+  }
+
+  void getMyEWalletHistory() {
+    Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
+          setState((() {
+            if (value.statusCode == 1) {
+              _GetMyEWalletHistory = value.data;
+            } else {
+              showSnakeBar(context, "Opps! Something Wrong");
+            }
+          }))
         });
   }
 
-  Container setTableTitle(String str_Title){
-    return   Container(
-                color: Colors.cyan[400],
-                child:   Center(
-               child: 
-               Padding(padding: EdgeInsets.all(10),
-               child:  Text(str_Title,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold)) ,)
-              ,
-              ),
-              );
+  Container setTableTitle(String str_Title) {
+    return Container(
+      color: Colors.cyan[400],
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(str_Title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
+        ),
+      ),
+    );
   }
 
-  void getIboKey() async{
+  void getIboKey() async {
     str_IboKey = await SharedPref.readString(str_IBO_Id);
-   print("IboKeyId"+ str_IboKey.toString());
+    print("IboKeyId" + str_IboKey.toString());
     getMyEWalletHistory();
   }
+
+  List<DataRow> _createRows() {
+    return _GetMyEWalletHistory.map((book) => DataRow(cells: [
+          DataCell(Text('#' + book.balance.toString())),
+          _createTitleCell(book.balance.toString()),
+          DataCell(Text(book.createdOn.toString()))
+        ])).toList();
+  }
+
+  DataCell _createTitleCell(bookTitle) {
+    return DataCell(Text(bookTitle));
+  }
+
+  List<DataRow> _createRows() {
+    return _GetMyEWalletHistory.map((book) => DataRow(cells: [
+          DataCell(Text('#' + book.amount.toString()),
+          _createTitleCell(book.createdOn.toString()),
+          DataCell(Text(book.remark.toString()))
+        ])).toList();
+  }
+
+  
 }

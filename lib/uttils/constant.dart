@@ -32,7 +32,6 @@ const WS_GET_MY_PROFILE = '/API/ECom/Me';
 const WS_GET_E_WALLET = 'API/EComCouponCode/GetIBOWalletBalance';
 const WS_GET_E_WALLET_History = 'API/EComCouponCode/GetIBOWalletList';
 
-
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
 const Flag_Plus = 'plus';
@@ -48,7 +47,6 @@ String str_NoDataMsg = "No Data Found!";
 // Message
 const somethingWrong = "Opps Something Wrong!";
 
-
 // Sharred Prefrences
 String str_Token = "accessToken";
 String str_RefreshToken = "refreshToken";
@@ -58,9 +56,8 @@ String str_IBO_Id = "iboKeyId";
 String str_Refrence_Id = "encryptUserName";
 String str_IsLogin = "IsLogin";
 
-
-  // Is Login
-bool is_Login  = false;
+// Is Login
+bool is_Login = false;
 String str_AuthId = "";
 
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
@@ -111,17 +108,18 @@ showSnakeBar(BuildContext context, String msg) {
 }
 
 checkUserLoginOrNot() async {
- is_Login = await SharedPref.readBool(str_IsLogin);
- getAuthId();
- print("IsLogin"+ is_Login.toString());
+  is_Login = await SharedPref.readBool(str_IsLogin);
+  if (is_Login) {
+    getAuthId();
+  }
+
+  print("IsLogin" + is_Login.toString());
 }
 
-getAuthId() async{
+getAuthId() async {
   str_AuthId = await SharedPref.readString(str_Token);
-   print("Auth"+ str_AuthId.toString());
+  print("Auth" + str_AuthId.toString());
 }
-
-
 
 Future<void> showLoadingDialog(
     BuildContext context, GlobalKey _key, String message) async {
