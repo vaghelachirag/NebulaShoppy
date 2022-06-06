@@ -75,52 +75,73 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, widget.str_Title, false)),
-      body: Stack(
+      body: Column(
         children: <Widget>[
           Container(
-              color: Colors.white,
-              width: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.all(20.0),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [_createDataTable()],
-              ))
+              height: 40.0,
+              child: Row(
+                children: <Widget>[
+                   Container(
+                      padding: EdgeInsets.all(4.0),
+                      width: 100.0,
+                      child: Text(
+                        "Amount",
+                        style: TextStyle(fontSize: 18),
+                      )),
+                        Container(
+                      padding: EdgeInsets.all(4.0),
+                      width: 100.0,
+                      child: Text(
+                        "Transaction",
+                        style: TextStyle(fontSize: 18),
+                      )),
+                        Container(
+                      padding: EdgeInsets.all(4.0),
+                      width: 100.0,
+                      child: Text(
+                        "Date",
+                        style: TextStyle(fontSize: 18),
+                      )),
+                        Container(
+                      padding: EdgeInsets.all(4.0),
+                      width: 100.0,
+                      child: Text(
+                        "Remarks",
+                        style: TextStyle(fontSize: 18),
+                      )),
+                ],
+              ),
+          ),
+          getTable()
         ],
-      ),
+      )
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  DataTable _createDataTable() {
-    return DataTable(columns: _createColumns(), rows: _createRows());
-  }
-
-  List<DataColumn> _createColumns() {
-    return [
-      DataColumn(label: Text('Amount')),
-      DataColumn(label: Text('Transaction')),
-      DataColumn(label: Text('Date')),
-      DataColumn(label: Text('Remarks')),
-    ];
-  }
-
-  List<DataRow> _createRows() {
-    return [
-      DataRow(cells: [
-        DataCell(Text('Amount')),
-        DataCell(Text('Transaction')),
-        DataCell(Text('David John')),
-        DataCell(Text('David John'))
-      ]),
-      DataRow(cells: [
-        DataCell(Text('#101')),
-        DataCell(Text('Dart Internals')),
-        DataCell(Text('Alex Wick')),
-        DataCell(Text('David John'))
-      ])
-    ];
-  }
-
+Container getTable(){
+  return   Container(
+        color: Colors.white,
+        padding: EdgeInsets.all(20.0),
+        child: Table(
+  border: TableBorder.all(width: 1.0, color: Colors.black),
+  children: _GetMyEWalletHistory.map((video){
+    return TableRow(children: [
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            new Text('VideoId'),
+            new Text(video.amount.toString()),
+          ],
+        ),
+      )
+    ]);
+  }).toList(),
+),
+);
+}
+  
   void getMyEWalletHistory() {
     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
           setState((() {
@@ -154,26 +175,4 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
     print("IboKeyId" + str_IboKey.toString());
     getMyEWalletHistory();
   }
-
-  List<DataRow> _createRows() {
-    return _GetMyEWalletHistory.map((book) => DataRow(cells: [
-          DataCell(Text('#' + book.balance.toString())),
-          _createTitleCell(book.balance.toString()),
-          DataCell(Text(book.createdOn.toString()))
-        ])).toList();
-  }
-
-  DataCell _createTitleCell(bookTitle) {
-    return DataCell(Text(bookTitle));
-  }
-
-  List<DataRow> _createRows() {
-    return _GetMyEWalletHistory.map((book) => DataRow(cells: [
-          DataCell(Text('#' + book.amount.toString()),
-          _createTitleCell(book.createdOn.toString()),
-          DataCell(Text(book.remark.toString()))
-        ])).toList();
-  }
-
-  
 }

@@ -32,6 +32,9 @@ const WS_GET_MY_PROFILE = '/API/ECom/Me';
 const WS_GET_E_WALLET = 'API/EComCouponCode/GetIBOWalletBalance';
 const WS_GET_E_WALLET_History = 'API/EComCouponCode/GetIBOWalletList';
 
+
+const WS_GET_CART_ITEM_WITH_LOGIN = '/API/ECom/GetCartItemsList';
+
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
 const Flag_Plus = 'plus';
@@ -59,6 +62,9 @@ String str_IsLogin = "IsLogin";
 // Is Login
 bool is_Login = false;
 String str_AuthId = "";
+String str_UserId = "";
+
+
 
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
 const YELLOW_THEME_COLOR = Color(0xFFF5EE88);
@@ -120,6 +126,12 @@ getAuthId() async {
   str_AuthId = await SharedPref.readString(str_Token);
   print("Auth" + str_AuthId.toString());
 }
+
+getUserId() async {
+  str_UserId = await SharedPref.readString(str_IBO_Id);
+  print("Auth" + str_UserId.toString());
+}
+
 
 Future<void> showLoadingDialog(
     BuildContext context, GlobalKey _key, String message) async {

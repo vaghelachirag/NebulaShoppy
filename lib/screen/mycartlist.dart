@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
+import 'package:nebulashoppy/screen/ordersummery.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
@@ -610,9 +611,15 @@ class _MyCartListState extends State<MyCartList> {
       );
     }
     else{
-      showSnakeBar(context, "Checkout");
-    }
-   
+     Navigator.push(context,
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          child: OrderSummery(
+                            str_Title: "Order Summery",
+                            str_Url: "fdf",
+                          ),
+                        ));
   }
+    }
 
 }

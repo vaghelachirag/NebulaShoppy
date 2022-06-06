@@ -416,4 +416,38 @@ class Service {
     }
   }
 
+
+ Future<dynamic> getOrderSummery(
+      String _deviceid, String userid,  String _pickupid) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        WS_GET_CART_ITEM_WITH_LOGIN +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+         "userid=" +
+         userid +
+        "pickupid=" +
+        _pickupid);
+      var response = await client.get(uri);
+      var jsons = response.body;
+
+        final jsonBody = json.decode(response.body);
+        print("MyJson"+ uri.toString());
+
+    if (response.statusCode == 200) { 
+        if(jsonBody["Data"] == 0){
+           return str_NoDataMsg;
+        }
+        else{
+        return getCartlistItemFromJson(jsons);
+        }
+     
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+       return str_ErrorMsg;
+    }
+  }
 }
