@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:nebulashoppy/model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
+import 'package:nebulashoppy/model/getMyAddressResponse/getMyAddressResponse.dart';
 import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
@@ -448,6 +449,24 @@ class Service {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
        return str_ErrorMsg;
+    }
+  }
+
+   Future<dynamic> getMyAddress() async {
+  
+     requestHeaders = {
+        'Authorization': '${str_AuthId}',
+      };
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL + WS_GET_MY_ADDRESS );
+
+   var response = await client.get(uri,headers: requestHeaders);
+     if (response.statusCode == 200) {
+      var json = response.body;
+     print("Response"+ response.body.toString());
+    return getMyAddressResponseFromJson(json);
+    } else {
+     return str_ErrorMsg;   
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nebulashoppy/screen/getmyAddress.dart';
 import 'package:nebulashoppy/screen/getmyEWalletHistory.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
@@ -68,7 +69,13 @@ class AccountWiget extends StatelessWidget {
    void openAccountData(int index, BuildContext context) {
       print("OnTap" + "Test");
     if (index == 0) {
-    
+       Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  child: GetMyAddress(),
+                ),
+              );
     }
     if (index == 1) {
      onProfileClicked();

@@ -31,9 +31,8 @@ const WS_GET_MY_ORDER_LIST = '/API/ECom/GetOrderList';
 const WS_GET_MY_PROFILE = '/API/ECom/Me';
 const WS_GET_E_WALLET = 'API/EComCouponCode/GetIBOWalletBalance';
 const WS_GET_E_WALLET_History = 'API/EComCouponCode/GetIBOWalletList';
-
-
 const WS_GET_CART_ITEM_WITH_LOGIN = '/API/ECom/GetCartItemsList';
+const WS_GET_MY_ADDRESS = '/API/ECom/GetAddresses';
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
