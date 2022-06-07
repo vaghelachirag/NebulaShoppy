@@ -20,7 +20,6 @@ import 'common_widget.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
 class AccountWiget extends StatelessWidget {
-
   String about = 'https://shop.nebulacare.in/Home/About';
   String returnpolicy = 'https://shop.nebulacare.in/Home/ReturnPolicy';
   String shipping = 'https://shop.nebulacare.in/Home/ShippingPolicy';
@@ -30,14 +29,12 @@ class AccountWiget extends StatelessWidget {
   final SetMyAccount product;
   final List<Color> gradientColors;
 
-    final VoidCallback onProfileClicked;
+  final VoidCallback onProfileClicked;
 
-
-  AccountWiget({
-    required this.product,
-    required this.gradientColors,
-    required this.onProfileClicked
-  });
+  AccountWiget(
+      {required this.product,
+      required this.gradientColors,
+      required this.onProfileClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -61,55 +58,56 @@ class AccountWiget extends StatelessWidget {
         ],
       ),
       onTap: () {
-       openAccountData(product.postition,context);
+        openAccountData(product.postition, context);
       },
     );
   }
 
-   void openAccountData(int index, BuildContext context) {
-      print("OnTap" + "Test");
+  void openAccountData(int index, BuildContext context) {
+    print("OnTap" + "Test");
     if (index == 0) {
-       Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  child: GetMyAddress(),
-                ),
-              );
+      Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          child: GetMyAddress(),
+        ),
+      );
     }
     if (index == 1) {
-     onProfileClicked();
+      onProfileClicked();
     }
     if (index == 2) {
-        onEWalletClick(context);
+      onEWalletClick(context);
     }
     if (index == 3) {
-      openWebview(context,about,"About Us");
+      openWebview(context, about, "About Us");
     }
     if (index == 4) {
-      openWebview(context,returnpolicy,"Return Policy");
+      openWebview(context, returnpolicy, "Return Policy");
     }
 
     if (index == 5) {
-       openWebview(context,shipping,"Shipping Policy");
+      openWebview(context, shipping, "Shipping Policy");
     }
     if (index == 6) {
-       openWebview(context,privacy,"Privacy Policy");
+      openWebview(context, privacy, "Privacy Policy");
     }
     if (index == 7) {
-       openWebview(context,contactus,"Contact Us");
+      openWebview(context, contactus, "Contact Us");
     }
   }
-void openWebview(BuildContext context, String about,String  title) {
-     Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: Webview(
-                          str_Title: title,
-                          str_Url: about,
-                        ),
-                      ));
+
+  void openWebview(BuildContext context, String about, String title) {
+    Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          child: Webview(
+            str_Title: title,
+            str_Url: about,
+          ),
+        ));
   }
 
   _productDetails(BuildContext context) {
@@ -135,7 +133,7 @@ void openWebview(BuildContext context, String about,String  title) {
                       )),
                   IconButton(
                       onPressed: () {
-                         openAccountData(product.postition,context);
+                        openAccountData(product.postition, context);
                       },
                       icon: Icon(CommunityMaterialIcons.arrow_right))
                 ],
@@ -146,18 +144,16 @@ void openWebview(BuildContext context, String about,String  title) {
   }
 
   void onEWalletClick(BuildContext context) {
-      Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child: GetMyEWalletHistory(
-                            str_Title: "E-Wallet",
-                            str_Url: "fdf",
-                          ),
-                        ));
+    Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          child: GetMyEWalletHistory(
+            str_Title: "E-Wallet",
+            str_Url: "fdf",
+          ),
+        ));
   }
-
- 
 }
 
 @override

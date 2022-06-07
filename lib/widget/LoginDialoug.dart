@@ -11,16 +11,14 @@ import '../network/service.dart';
 import '../uttils/constant.dart';
 
 class LoginDialoug extends StatefulWidget {
-  const LoginDialoug(BuildContext context, {
+  const LoginDialoug(
+    BuildContext context, {
     Key? key,
     required this.title,
     required this.description,
   }) : super(key: key);
 
-
-
   final String title, description;
-  
 
   @override
   _LoginDialougState createState() => _LoginDialougState();
@@ -43,104 +41,123 @@ class _LoginDialougState extends State<LoginDialoug> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Form(
-        key: _formKey,
-        child: 
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-            Align(
-              alignment: Alignment.topRight,
-              child:  IconButton(onPressed: () {
-                Navigator.pop(context);
-              }, icon: Icon(CommunityMaterialIcons.close_box),  color: Colors.cyan),
-            ),
-           Text("Associate / IBO Login",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500),),
-          SizedBox(height: 15),
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-            padding:  EdgeInsets.fromLTRB(10, 5, 10, 0),
-            width: MediaQuery.of(context).size.width,
-              child: Center(
-                child:  TextFormField(
-                                  controller: _usernameController,
-                                  obscureText: false,
-                                  enabled: true,
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.number,
-                                  // inputFormatters: [
-                                  //   LengthLimitingTextInputFormatter(10),
-                                  // ],
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]')),
-                                    LengthLimitingTextInputFormatter(10),
-                                  ],
-                                  decoration:
-                                      inputDecorationWithBorderAndIconEmail(
-                                          'Associate / IBO Login'),
-                                  validator: (email) {
-                                    if (email!.isEmpty) {
-                                      return 'Please enter Login Id';
-                                    }  else {
-                                      return null;
-                                    }
-                                  },
-                                  onChanged: (text) {
-                                    setState(() {});
-                                  },
-                                ),
-            ),
-          ),
-          SizedBox(height: 5),
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-            padding:  EdgeInsets.fromLTRB(10, 5, 10, 0),
-            width: MediaQuery.of(context).size.width,
-              child: Center(
-                child:    Container(
-                                  margin: const EdgeInsets.only(top: 15.0),
-                                  child: buildPasswordFormField('Password'),
-                                ),
-            ),
-          ),
-           SizedBox(height: 20),
-           ElevatedButton(
-                    // style: elevatedButtonStyle(),
-                    style: buttonShapeStle(),
-                    onPressed: () async {
-                       FocusScope.of(context).unfocus();
-                        if (_formKey.currentState!.validate()) {
-                           print("Valid"+ "Valid");
-                           getLoginResponse();
-                        }
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
-                    child: const Text(
-                      'Login',
+                    icon: Icon(CommunityMaterialIcons.close_box),
+                    color: Colors.cyan),
+              ),
+              Text(
+                "Associate / IBO Login",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 15),
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: TextFormField(
+                    controller: _usernameController,
+                    obscureText: false,
+                    enabled: true,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.number,
+                    // inputFormatters: [
+                    //   LengthLimitingTextInputFormatter(10),
+                    // ],
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                      LengthLimitingTextInputFormatter(10),
+                    ],
+                    decoration: inputDecorationWithBorderAndIconEmail(
+                        'Associate / IBO Login'),
+                    validator: (email) {
+                      if (email!.isEmpty) {
+                        return 'Please enter Login Id';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (text) {
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: buildPasswordFormField('Password'),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                // style: elevatedButtonStyle(),
+                style: buttonShapeStle(),
+                onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  if (_formKey.currentState!.validate()) {
+                    print("Valid" + "Valid");
+                    getLoginResponse();
+                  }
+                },
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    child: Text(
+                      "Forgot Password",
                       style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
+                          color: Colors.red[300],
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                   SizedBox(height: 10),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                       child: Text("Forgot Password",style: TextStyle(color: Colors.red[300],fontSize: 14,fontWeight: FontWeight.bold),),),
-                         Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                       child: Text("Register Here",style: TextStyle(color: Colors.black54,fontSize: 14,fontWeight: FontWeight.bold),),)
-                       
-                     ],
-                   )
-          
-        ],
-      )
-      ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    child: Text(
+                      "Register Here",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              )
+            ],
+          )),
     );
   }
-  
- TextFormField buildPasswordFormField(getHint) {
+
+  TextFormField buildPasswordFormField(getHint) {
     return TextFormField(
       enabled: true,
       controller: _passwordController,
@@ -217,40 +234,43 @@ class _LoginDialougState extends State<LoginDialoug> {
   }
 
   void getLoginResponse() {
-       showLoadingDialog(context, _dialogKey, "Please Wait..");
-      Service()
-        .getGenerateTokenResponse(_usernameController.text,_passwordController.text,'password')
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Service()
+        .getGenerateTokenResponse(
+            _usernameController.text, _passwordController.text, 'password')
         .then((value) => {
-          if(value.toString() == str_ErrorMsg){
-            Navigator.pop(_dialogKey.currentContext!),
-            showSnakeBar(context, "The user name or password is incorrect")
-          }
-          else{
-            Navigator.pop(_dialogKey.currentContext!),
-            getValidLoginResponse(value)
-          }
-        });
+              if (value.toString() == str_ErrorMsg)
+                {
+                  Navigator.pop(_dialogKey.currentContext!),
+                  showSnakeBar(
+                      context, "The user name or password is incorrect")
+                }
+              else
+                {
+                  Navigator.pop(_dialogKey.currentContext!),
+                  getValidLoginResponse(value)
+                }
+            });
   }
 
   getValidLoginResponse(value) {
-      Service()
-        .getLoginResponse(value.iboKeyId)
-        .then((loginresponse) => {
-            if(loginresponse.statusCode == 1){
+    Service().getLoginResponse(value.iboKeyId).then((loginresponse) => {
+          if (loginresponse.statusCode == 1)
+            {
               Navigator.pop(context),
-             showSnakeBar(context, "Login Successfully!"),
-             setLoginData(value)
-            }      
+              showSnakeBar(context, "Login Successfully!"),
+              setLoginData(value)
+            }
         });
   }
 
   setLoginData(value) {
-    String token = value.tokenType +" " + value.accessToken; 
-    String refreshToken = value.tokenType + value.refreshToken; 
-    String role = value.tokenType + value.role; 
-    String displayName = value.displayName; 
-    String ibo_key_id = value.iboKeyId; 
-    String ibo_ref_id = value.encryptUserName; 
+    String token = value.tokenType + " " + value.accessToken;
+    String refreshToken = value.tokenType + value.refreshToken;
+    String role = value.tokenType + value.role;
+    String displayName = value.displayName;
+    String ibo_key_id = value.iboKeyId;
+    String ibo_ref_id = value.encryptUserName;
 
     SharedPref.saveString(str_Token, token);
     SharedPref.saveString(str_RefreshToken, refreshToken);
@@ -261,4 +281,3 @@ class _LoginDialougState extends State<LoginDialoug> {
     SharedPref.saveBoolean(str_IsLogin, true);
   }
 }
-

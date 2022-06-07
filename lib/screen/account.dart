@@ -46,13 +46,29 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   dynamic walletAmount = 0.0;
-  bool bl_IsLogin = false;
+  bool is_Login = false;
   @override
   void initState() {
     super.initState();
     addAccountData();
     getIboKey();
     checkUserLoginOrNot();
+    Future.delayed(Duration.zero, () {
+      if (!is_Login) {
+        showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (context) {
+            return LoginDialoug(
+              context,
+              title: "SoldOut",
+              description:
+                  "This product may not be available at the selected address.",
+            );
+          },
+        );
+      }
+    });
   }
 
   @override
@@ -166,5 +182,10 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     str_IboKey = await SharedPref.readString(str_IBO_Id);
     print("IboKeyId" + str_IboKey.toString());
     // /getEWalletResponse();
+  }
+
+  void checkSession() async {
+    is_Login = await SharedPref.readBool(str_IsLogin);
+    print("IsLogin" + await SharedPref.readBool(str_IsLogin));
   }
 }
