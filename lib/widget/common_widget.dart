@@ -93,6 +93,9 @@ InputDecoration inputwithdropdown(getHint) {
 Text setHeaderText(String title,double size){
   return Text(title,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 14));
 }
+Text setPickupLocation(String title,double size){
+  return Text(title,style: TextStyle(color: Colors.black45, fontWeight: FontWeight.bold,fontSize: 14));
+}
 
  Container divider(BuildContext context) {
     return Container(

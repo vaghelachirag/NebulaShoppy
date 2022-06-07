@@ -146,7 +146,9 @@ class GetMyOrderData {
         imageUrl: json["ImageURL"],
         status: datumStatusValues.map[json["Status"]],
         statusUpdatedOn: json["StatusUpdatedOn"],
-        eWalletAmount: json["EWalletAmount"]
+        eWalletAmount: json["EWalletAmount"],
+       orderDetails: List<OrderDetail>.from(json["OrderDetails"].map((x) => OrderDetail.fromJson(x)))
+        
     );
 
     Map<String, dynamic> toJson() => {
@@ -214,7 +216,7 @@ class OrderDetail {
         this.updatedOn,
         this.isDelete,
         this.status,
-        this.isCancellable,
+        required this.isCancellable,
     });
 
     int ?detailsId;
@@ -222,17 +224,17 @@ class OrderDetail {
     int ?productId;
     String ?productName;
     String ?imageUrl;
-    int ?price;
+    double ?price;
     int ?quantity;
-    int ?discount;
-    int ?total;
+    double ?discount;
+    double ?total;
     DateTime ?shippingDate;
     DateTime ?billingDate;
     DateTime ?createdOn;
     DateTime ?updatedOn;
     bool ?isDelete;
     OrderDetailStatus ?status;
-    bool ?isCancellable;
+    bool isCancellable;
 
     factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
         detailsId: json["DetailsId"],

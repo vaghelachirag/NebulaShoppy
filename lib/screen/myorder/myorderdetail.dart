@@ -28,16 +28,21 @@ class MyOrderDetail extends StatefulWidget {
 
    String ?ordernumber;
    String ?shippingAddress;
+    String ?billingAddress;
+        String ?mobileNumber;
   final String? subTotal; 
   final String? shippingCharge;
   final String? grandTotal; 
   final String? shippingTransectionId; 
   final int? isPickupPoint; 
-  List<OrderDetail> ?orderList = [];
+   final String? shippingAddressUser; 
+  final String? billingAddressUser; 
+
+  List<OrderDetail> ?orderDetails = [];
   
   MyOrderDetail(
       {Key? key,
-      required this.ordernumber,required this.shippingAddress,required this.subTotal,required this.shippingCharge,required this.grandTotal,required this.shippingTransectionId,required this.isPickupPoint,required this.orderList})
+      required this.ordernumber,required this.shippingAddress,required this.billingAddress,required this.mobileNumber,required this.subTotal,required this.shippingCharge,required this.grandTotal,required this.shippingTransectionId,required this.isPickupPoint,required this.shippingAddressUser,required this.billingAddressUser,required this.orderDetails})
       : super(key: key);
 
 
@@ -53,7 +58,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   @override
   void initState() {
     super.initState();
-
+   
   }
 
 
@@ -110,11 +115,17 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                          child:   Text("Transaction ID:" + " "+widget.ordernumber.toString(),style: TextStyle(color: Colors.grey,) )                        
                     ),),
                     dividerLine(),
-                     Padding(padding: EdgeInsets.all(10),child: Align(
-                         alignment: Alignment.topLeft,
-                         child:   setHeaderText('Pickup Location',14)                           
-                    ),),
-                     getOderDetail()
+                     getOderDetail(),
+                     FutureBuilder(
+                       builder: (context, snapshot) {
+                         if(widget.isPickupPoint == 0){
+                           return  setPickupLocation();
+                         }
+                         else{
+                           return   setPickupLocation();
+                         }
+                       },)
+                   
               ],
             ),
            )
@@ -125,19 +136,61 @@ class _MyOrderDetailState extends State<MyOrderDetail>
     );
   }
 
+  Column setPickupLocation(){
+    return Column(
+      children: [
+      Padding(padding: EdgeInsets.all(10),
+                      child: Align(
+                         alignment: Alignment.topLeft,
+                         child:   setHeaderText('Pickup Location',14)                     
+                    ),),
+      setPickupLocationText(widget.billingAddressUser.toString()),
+       setPickupLocationText(widget.billingAddress.toString()),
+        setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
+      
+      ],
+    );
+  }
+ 
+ Column setShippingLocation(){
+    return Column(
+      children: [
+         Padding(padding: EdgeInsets.all(10),
+                      child: Align(
+                         alignment: Alignment.topLeft,
+                         child:   setHeaderText('Shipping Detail',14)                     
+                    ),),
+       setPickupLocationText(widget.billingAddressUser.toString()),
+       setPickupLocationText(widget.billingAddress.toString()),
+        setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
+      
+      ],
+    );
+  }
+ 
+
+ Padding setPickupLocationText(String str_Data){
+   return   Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                      child: Align(
+                         alignment: Alignment.topLeft,
+                         child: Text(str_Data,style: TextStyle(fontSize: 14),)              
+                    ),);
+ }
+  
+
   Visibility getOderDetail(){
     return Visibility(
       child:   Container(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.all(10),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
           height: MediaQuery.of(context).size.height,
           child: ListView.builder(
-            itemCount: widget.orderList?.length,
+            itemCount: widget.orderDetails!.length,
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               return GestureDetector(
                 child: MyOrderDetailWidget(gradientColors: [Colors.white, Colors.white], 
-                product: SetMyOrderDetailItem(id: 1, productimage: widget.orderList?[index].productName, productname: widget.orderList?[index].productName, price: "widget._orderList![index].price.toString()", qunatity: "widget._orderList![index].quantity.toString()")),
+                product: SetMyOrderDetailItem(id: 1, productimage: widget.orderDetails?[index].imageUrl, productname: widget.orderDetails?[index].productName, price:widget.orderDetails?[index].price.toString(), qunatity:widget.orderDetails?[index].quantity.toString(),is_Cancelled: widget.orderDetails![index].isCancellable)),
                
               );
               ;
@@ -146,13 +199,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
         ) );
   }
   
-  Column setPickupLocation(){
-    return Column(
-      children: [
-        Text(widget.shippingAddress.toString())
-      ],
-    );
-  }
+  
 
   Padding dividerLine(){
   return    Padding(padding: EdgeInsets.only(top: 10),child:    divider(context));

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nebulashoppy/screen/home.dart';
@@ -53,7 +55,7 @@ class MyOrderWiget extends StatelessWidget {
         ],
       ),
       onTap: () {
-    
+        print("OnTap"+"OnTap" + product.data.orderDetails!.length.toString());
       },
     );
   }
@@ -110,7 +112,7 @@ class MyOrderWiget extends StatelessWidget {
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
-                  child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,orderList: product.orderDetails, ),
+                  child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,  billingAddress: product.billingAddress, mobileNumber: product.mobileNumber, subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,billingAddressUser: product.orderbillingAddressUser,shippingAddressUser: product.ordershippingAddressUser,orderDetails: product.data.orderDetails, ),
                 ),
               );
                     },

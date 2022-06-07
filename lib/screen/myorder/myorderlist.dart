@@ -91,13 +91,16 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                         date: _orderDate[index],
                         ordernumber: _orderList[index].orderNumber,
                         shippingAddress: _orderList[index].shippingAddresses,
+                        billingAddress:  _orderList[index].billingAddresses,
                         subTotal: _orderList[index].subTotal.toString(),
                         shippingCharge: _orderList[index].shippingCharges.toString(),
                         grandTotal: _orderList[index].grandTotal.toString(),
                         shippingTransectionId: _orderList[index].transactionId.toString(),
                         isPickup: _orderList[index].isPickUpPoint,
-                        orderDetails: _orderList[index].orderDetails
-
+                        data: _orderList[index],
+                        orderbillingAddressUser: _orderList[index].billingAddressUser.toString(),
+                        ordershippingAddressUser: _orderList[index].shippingAddressUser.toString(),
+                        mobileNumber: _orderList[index].mobileNo.toString()
                         ),
                   gradientColors: [Colors.white, Colors.white],
                 );

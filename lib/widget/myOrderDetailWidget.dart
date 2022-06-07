@@ -21,8 +21,7 @@ class MyOrderDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
 
-    double rectWidth = MediaQuery.of(context).size.width;
-    double trendCardWidth = ScreenUtil().setHeight(160);
+
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
@@ -40,7 +39,18 @@ class MyOrderDetailWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
-                    children: <Widget>[_productImage(), _productDetails()],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                       _productImage(), _productDetails(),
+                      Row(
+                        children: [
+                         Visibility(
+                           visible: product.is_Cancelled,
+                           child:  cancelText()) 
+                       
+                        ],
+                      )
+                     ,],
                   ),
                 ),
               ),
@@ -57,27 +67,19 @@ class MyOrderDetailWidget extends StatelessWidget {
   _productImage() {
     return Stack(
       children: <Widget>[
-        ClipPath(
-          clipper: ProductImageContainerClipper(),
-          child: Container(
-            width: 100,
-            height: 70,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: gradientColors)),
-          ),
-        ),
-        Center(
-            child: Container(
+       Align(
+     alignment: Alignment.topLeft,
+     child:   Container(
           width: 100,
           height: 80,
+          color: Colors.white,
           child: FadeInImage.assetNetwork(
               placeholder: placeholder_path,
               image: product.productimage.toString(),
               fit: BoxFit.contain),
-        ))
+        ),
+       )
+      
       ],
     );
   }
@@ -93,16 +95,38 @@ class MyOrderDetailWidget extends StatelessWidget {
               maxLines: 1,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            Text(
-              product.price.toString(),
+            Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+            child:  Text(
+              rupees_Sybol+  product.price.toString(),
               maxLines: 1,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-            ),
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14,color: Colors.red),
+            ) ,)
+          ,
+           Padding(padding: EdgeInsets.only(top: 10),
+            child:  Text(
+              "Quantity:" + " "+product.qunatity.toString(),
+              maxLines: 1,
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14,color: Colors.black),
+            ) ,)
+          ,
           
           ],
         ));
   }
+
+  cancelText() {
+     return  Align(
+              alignment: Alignment.topRight,
+              child: Text(
+              "Cancelled",
+              maxLines: 1,
+              style: TextStyle(fontSize: 16,color: Colors.red, fontWeight: FontWeight.bold),
+            )  ,
+            );
+  }
 }
+
+
 
 @override
 bool shouldReclip(CustomClipper<Path> oldClipper) {
