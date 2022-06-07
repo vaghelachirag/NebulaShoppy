@@ -6,7 +6,7 @@ import 'package:nebulashoppy/screen/account.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
-import 'package:nebulashoppy/screen/myorderlist.dart';
+import 'package:nebulashoppy/screen/myorder/myorderlist.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/screen/test.dart';
 import 'package:nebulashoppy/uttils/constant.dart';

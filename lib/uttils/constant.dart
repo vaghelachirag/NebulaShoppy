@@ -2,10 +2,14 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/screen/myorder/myorderdetail.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../screen/address/editmyAddress.dart';
 
 const HOME_SCREEN = 'home_screen';
 
@@ -34,6 +38,7 @@ const WS_GET_E_WALLET_History = 'API/EComCouponCode/GetIBOWalletList';
 const WS_GET_CART_ITEM_WITH_LOGIN = '/API/ECom/GetCartItemsList';
 const WS_GET_MY_ADDRESS = '/API/ECom/GetAddresses';
 const WS_GET_DELETE_ADDRESS = '/API/ECom/DeleteAddress';
+const WS_GET_STATE_LIST = '/API/Config/StateInfo';
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
@@ -111,6 +116,10 @@ showSnakeBar(BuildContext context, String msg) {
       behavior: SnackBarBehavior.floating,
     ),
   );
+}
+
+gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail){
+ 
 }
 
 checkUserLoginOrNot() async {

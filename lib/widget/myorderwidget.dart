@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nebulashoppy/screen/home.dart';
+import 'package:nebulashoppy/screen/myorder/myorderdetail.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
 
 import '../model/getmyorderresponse/setmyorder.dart';
@@ -105,7 +106,13 @@ class MyOrderWiget extends StatelessWidget {
                     // style: elevatedButtonStyle(),
                     style: buttonShapeOrderDetail(),
                     onPressed: () async {
-                      
+                       Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  child: MyOrderDetail(),
+                ),
+              );
                     },
                     child: const Text(
                       'View Order',

@@ -46,14 +46,15 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   dynamic walletAmount = 0.0;
-  bool is_Login = false;
+  
   @override
   void initState() {
     super.initState();
     addAccountData();
     getIboKey();
     checkUserLoginOrNot();
-    Future.delayed(Duration.zero, () {
+    Future.delayed(Duration(seconds:  5), () {
+      print("IsLogin"+ is_Login.toString());
       if (!is_Login) {
         showDialog(
           barrierColor: Colors.black26,

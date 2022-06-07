@@ -21,15 +21,15 @@ import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
-class EditMyAddress extends StatefulWidget {
+class MyOrderDetail extends StatefulWidget {
 
-  EditMyAddress({Key? key})
+  MyOrderDetail({Key? key})
       : super(key: key);
   @override
-  State<EditMyAddress> createState() => _EditMyAddressState();
+  State<MyOrderDetail> createState() => _MyOrderDetailState();
 }
 
-class _EditMyAddressState extends State<EditMyAddress>
+class _MyOrderDetailState extends State<MyOrderDetail>
     with WidgetsBindingObserver {
  
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
@@ -60,7 +60,7 @@ class _EditMyAddressState extends State<EditMyAddress>
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "EditAddress", false)),
+          child: appBarWidget(context, 3, "Order Summary", false)),
       body:  SingleChildScrollView(child:   Column(
         children:  <Widget>[
   Padding(padding: EdgeInsets.all(0),

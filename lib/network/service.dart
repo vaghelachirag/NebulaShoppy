@@ -10,6 +10,7 @@ import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dar
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
 import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
+import 'package:nebulashoppy/model/getstateResponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itembannerimage.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
@@ -502,5 +503,17 @@ class Service {
       throw Exception('Failed to create album.');
     }
   }
+
+  Future<GetstateResponse> getStateList() async {
+    var client = http.Client();
+    var response = await client.get(Uri.parse(BASE_URL + WS_GET_STATE_LIST+ "?" +
+        "CountryName=" +
+        "India" ),
+        headers: requestHeaders);
+    var json = response.body;
+    print("object"+json.toString());
+    return getstateResponseFromJson(json);
+  }
+
 
 }
