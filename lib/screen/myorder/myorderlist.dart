@@ -79,7 +79,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                
+                  print("GetMyOderDatat"+ _orderList[index].toString());
                 },
                 child: 
                  FutureBuilder(
@@ -89,7 +89,16 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                   product: SetMyOrder(
                         id: 1,
                         date: _orderDate[index],
-                        ordernumber: _orderList[index].orderNumber),
+                        ordernumber: _orderList[index].orderNumber,
+                        shippingAddress: _orderList[index].shippingAddresses,
+                        subTotal: _orderList[index].subTotal.toString(),
+                        shippingCharge: _orderList[index].shippingCharges.toString(),
+                        grandTotal: _orderList[index].grandTotal.toString(),
+                        shippingTransectionId: _orderList[index].transactionId.toString(),
+                        isPickup: _orderList[index].isPickUpPoint,
+                        orderDetails: _orderList[index].orderDetails
+
+                        ),
                   gradientColors: [Colors.white, Colors.white],
                 );
                  },)

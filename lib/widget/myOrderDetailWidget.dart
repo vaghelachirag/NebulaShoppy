@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nebulashoppy/screen/home.dart';
-import 'package:nebulashoppy/screen/myorder/myorderdetail.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
 
-import '../model/getmyorderresponse/setmyorder.dart';
+import '../model/getmyorderresponse/setmyoderdetailitem.dart';
 import '../model/product.dart';
 import '../uttils/constant.dart';
 import 'clip_shadow_path.dart';
@@ -12,21 +11,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
 
-import 'common_widget.dart';
-
-class MyOrderWiget extends StatelessWidget {
-  final SetMyOrder product;
+class MyOrderDetailWidget extends StatelessWidget {
+  final SetMyOrderDetailItem product; 
   final List<Color> gradientColors;
 
-  const MyOrderWiget({required this.product, required this.gradientColors});
+  const MyOrderDetailWidget({required this.gradientColors,required this.product});
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    
 
     double rectWidth = MediaQuery.of(context).size.width;
- 
+    double trendCardWidth = ScreenUtil().setHeight(160);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
@@ -44,7 +40,7 @@ class MyOrderWiget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
-                    children: <Widget>[_productImage(), _productDetails(context)],
+                    children: <Widget>[_productImage(), _productDetails()],
                   ),
                 ),
               ),
@@ -53,7 +49,7 @@ class MyOrderWiget extends StatelessWidget {
         ],
       ),
       onTap: () {
-    
+        
       },
     );
   }
@@ -77,53 +73,32 @@ class MyOrderWiget extends StatelessWidget {
             child: Container(
           width: 100,
           height: 80,
-          child:   Image.asset('assets/images/order_image.png',fit: BoxFit.contain,),
+          child: FadeInImage.assetNetwork(
+              placeholder: placeholder_path,
+              image: product.productimage.toString(),
+              fit: BoxFit.contain),
         ))
       ],
     );
   }
 
-  _productDetails(BuildContext context) {
+  _productDetails() {
     return Padding(
         padding: EdgeInsets.only(left: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-           
-              product.ordernumber.toString(),
+              product.productname.toString(),
               maxLines: 1,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
-        product.date.toString(),
+              product.price.toString(),
               maxLines: 1,
               style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-            ), 
-            Container(
-              width: MediaQuery.of(context).size.width /2 ,
-              child:  ElevatedButton(
-                    // style: elevatedButtonStyle(),
-                    style: buttonShapeOrderDetail(),
-                    onPressed: () async {
-                       Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,orderList: product.orderDetails, ),
-                ),
-              );
-                    },
-                    child: const Text(
-                      'View Order',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ) ,
-            )
-                     
+            ),
+          
           ],
         ));
   }

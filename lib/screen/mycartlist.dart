@@ -20,6 +20,7 @@ import '../model/homescreen/itemhomecategory.dart';
 import '../model/product.dart';
 import '../network/service.dart';
 import '../uttils/constant.dart';
+import '../widget/common_widget.dart';
 import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -210,13 +211,7 @@ class _MyCartListState extends State<MyCartList> {
     );
   }
 
-  Container divider(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      color: Colors.black,
-      height: 0.5,
-    );
-  }
+ 
 
   Container getMycartDetail(String title, String? detail) {
     return Container(

@@ -90,6 +90,19 @@ InputDecoration inputwithdropdown(getHint) {
 }
 
 
+Text setHeaderText(String title,double size){
+  return Text(title,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 14));
+}
+
+ Container divider(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: Colors.black,
+      height: 0.5,
+    );
+  }
+  
+
 ButtonStyle buttonShapeOrderDetail() {
   return ButtonStyle(
     shape: MaterialStateProperty.all(
