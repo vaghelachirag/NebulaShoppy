@@ -19,6 +19,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     checkUserLoginOrNot();
@@ -80,7 +81,7 @@ class _MyHomePageNewState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return  WillPopScope(child:  FutureBuilder(
       future: checkUserLoginOrNot(),
       builder: (context, snapshot) {
         if (is_Login) {
@@ -120,6 +121,20 @@ class _MyHomePageNewState extends State<MyHomePage> {
           );
         }
       },
-    );
+    ), onWillPop: onWillPop);
+    
+   
+  }
+
+   Future<bool> onWillPop() {
+    print("BackPress"+"Backpress");
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null || 
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+     showBackPressAlert(context);
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 }

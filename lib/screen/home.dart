@@ -37,6 +37,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   Map? _info;
   String device_Id = "";
+
+  DateTime currentBackPressTime = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +68,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, "Home", true)),
-      body: SingleChildScrollView(
+      body:  WillPopScope(child: SingleChildScrollView(
           child: ConstrainedBox(
         constraints: BoxConstraints(),
         child: Column(
@@ -119,7 +122,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             )
           ],
         ),
-      )), // This trailing comma makes auto-formatting nicer for build methods.
+      )), onWillPop: onWillPop)
+     , // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -451,5 +455,19 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           })
         });
   }
+  
+  Future<bool> onWillPop() {
+    print("BackPress"+"Backpress");
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null || 
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+        currentBackPressTime = now;
+      // showSnakeBar(context, "Please Press back!");
+       
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   
 }

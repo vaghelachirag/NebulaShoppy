@@ -167,6 +167,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   
   Visibility orderStatus(){
     return   Visibility(
+          visible: widget.orderDetails![0].quantity.toString() != "0",
           child: 
      Padding(padding: EdgeInsets.all(10),
           child: Align(

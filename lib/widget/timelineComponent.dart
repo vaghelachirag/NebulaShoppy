@@ -76,7 +76,7 @@ class TimelineComponet extends StatelessWidget {
     return Container(
       color: Colors.amber.shade400,
       height: 1.0,
-      width: 50.0,
+      width: 80.0,
     );
   }
 
@@ -84,7 +84,7 @@ class TimelineComponet extends StatelessWidget {
     return Container(
       color: Colors.white,
       height: 1.0,
-      width: 30.0,
+      width: 60.0,
     );
   }
 

@@ -115,6 +115,8 @@ const THEME_COLOR = Colors.cyan;
    const kRedColor = Color(0xFFFE4067);
    const kGreenColor = Color(0xFFADE9E3);
 
+     DateTime currentBackPressTime = DateTime.now();
+
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -199,3 +201,46 @@ String getDeviceHeight(BuildContext context) {
     return "Medium";
   }
 }
+
+Future<bool> willPopCallback() async {
+   // await showDialog or Show add banners or whatever
+   // then
+   return Future.value(true);
+}
+
+
+
+  showBackPressAlert(BuildContext context) {
+ 
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("No"),
+    onPressed:  () {
+       Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Yes"),
+    onPressed:  () {
+     exit(0);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text("Are you sure want to delete this address"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+  }
