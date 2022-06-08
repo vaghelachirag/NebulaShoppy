@@ -19,6 +19,7 @@ import '../../model/product.dart';
 import '../../network/service.dart';
 import '../../uttils/constant.dart';
 import '../../widget/myOrderDetailWidget.dart';
+import '../../widget/timelineComponent.dart';
 import '../../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,12 +38,14 @@ class MyOrderDetail extends StatefulWidget {
   final int? isPickupPoint; 
    final String? shippingAddressUser; 
   final String? billingAddressUser; 
+  final String? status; 
 
   List<OrderDetail> ?orderDetails = [];
+  int int_orderDeviveryStatus = 0;
   
   MyOrderDetail(
       {Key? key,
-      required this.ordernumber,required this.shippingAddress,required this.billingAddress,required this.mobileNumber,required this.subTotal,required this.shippingCharge,required this.grandTotal,required this.shippingTransectionId,required this.isPickupPoint,required this.shippingAddressUser,required this.billingAddressUser,required this.orderDetails})
+      required this.ordernumber,required this.shippingAddress,required this.billingAddress,required this.mobileNumber,required this.subTotal,required this.shippingCharge,required this.grandTotal,required this.shippingTransectionId,required this.isPickupPoint,required this.shippingAddressUser,required this.billingAddressUser,required this.orderDetails,required this.status})
       : super(key: key);
 
 
@@ -58,6 +61,20 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   @override
   void initState() {
     super.initState();
+    print("Test"+ widget.status.toString());
+    if( widget.status.toString() == 'DatumStatus.PROCESSING'){
+      setState(() {
+         widget.int_orderDeviveryStatus = 1;
+      });
+     
+    }
+     if( widget.status.toString() == 'DatumStatus.DELIVERED'){
+      setState(() {
+         widget.int_orderDeviveryStatus = 3;
+      });
+     
+    }
+    
    
   }
 
@@ -115,7 +132,6 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                          child:   Text("Transaction ID:" + " "+widget.ordernumber.toString(),style: TextStyle(color: Colors.grey,) )                        
                     ),),
                     dividerLine(),
-                     getOderDetail(),
                      FutureBuilder(
                        builder: (context, snapshot) {
                          if(widget.isPickupPoint == 0){
@@ -124,8 +140,21 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                          else{
                            return   setPickupLocation();
                          }
-                       },)
-                   
+                       },),
+                     dividerLine(),
+                     getOderDetail(),
+                     orderStatus(),
+                     dividerLine(),
+                     needHelpContainer(),
+                    Container(
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: const EdgeInsets.all(1.0),
+            decoration:
+                BoxDecoration(border: Border.all(color: Colors.black45)),
+            child: _productDetails(context),
+          ),
+         
+               
               ],
             ),
            )
@@ -135,7 +164,33 @@ class _MyOrderDetailState extends State<MyOrderDetail>
       ,
     );
   }
-
+  
+  Visibility orderStatus(){
+    return   Visibility(
+          child: 
+     Padding(padding: EdgeInsets.all(10),
+          child: Align(
+               alignment: Alignment.center,
+               child:  TimelineComponet(ticks:  widget.int_orderDeviveryStatus) ,
+             ) ,));
+            
+  }
+  
+ Container needHelpContainer(){
+   return Container(
+     padding: EdgeInsets.all(10),
+     margin: EdgeInsets.all(5),
+     child: Column(
+       children: [
+       Align(
+         alignment: Alignment.topLeft,
+         child:  setHeaderText("Need help with this order?", 20) ,
+       )  
+ 
+       ],
+     ),
+   );
+ }
   Column setPickupLocation(){
     return Column(
       children: [
@@ -183,10 +238,11 @@ class _MyOrderDetailState extends State<MyOrderDetail>
       child:   Container(
           margin: EdgeInsets.all(10),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: MediaQuery.of(context).size.height,
           child: ListView.builder(
             itemCount: widget.orderDetails!.length,
             scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return GestureDetector(
                 child: MyOrderDetailWidget(gradientColors: [Colors.white, Colors.white], 
@@ -246,6 +302,37 @@ class _MyOrderDetailState extends State<MyOrderDetail>
             },
 );
   }
+
+
+
+  _productDetails(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+            "Raise an issue",
+              maxLines: 1,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Row(
+                children: [
+                
+                  IconButton(
+                      onPressed: () {
+                     
+                      },
+                      icon: Icon(CommunityMaterialIcons.arrow_right))
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+
 
    
 }

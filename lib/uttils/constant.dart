@@ -108,6 +108,12 @@ const LIGHT_ACCENT_GRAY = Color(0xFFE5DBDD);
 const PRODUCT_PRICE = Color(0xFF44293B);
 const PRODUCT_OLD_PRICE = Color(0xFF898989);
 const white = Color(0xFFffffff);
+const THEME_COLOR = Colors.cyan;
+
+
+  const kPurpleColor = Color(0xFFB97DFE);
+   const kRedColor = Color(0xFFFE4067);
+   const kGreenColor = Color(0xFFADE9E3);
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(

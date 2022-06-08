@@ -91,7 +91,7 @@ InputDecoration inputwithdropdown(getHint) {
 
 
 Text setHeaderText(String title,double size){
-  return Text(title,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 14));
+  return Text(title,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: size));
 }
 Text setPickupLocation(String title,double size){
   return Text(title,style: TextStyle(color: Colors.black45, fontWeight: FontWeight.bold,fontSize: 14));

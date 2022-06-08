@@ -21,41 +21,38 @@ class MyOrderDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
 
-
-
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
 
     return GestureDetector(
       child: Stack(
         children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
           Container(
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Card(
-                elevation: 0,
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                       _productImage(), _productDetails(),
-                      Row(
-                        children: [
-                         Visibility(
-                           visible: product.is_Cancelled,
-                           child:  cancelText()) 
-                       
-                        ],
-                      )
-                     ,],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          alignment: Alignment.topLeft,
+          width: 80,
+          height: 80,
+          color: Colors.white,
+          child: FadeInImage.assetNetwork(
+              placeholder: placeholder_path,
+              image: product.productimage.toString(),
+              fit: BoxFit.fill),
+        ),
+        _productDetails(),
+        Visibility(
+          visible: product.qunatity == "0",
+          child:   Expanded(child: Align(
+            alignment: Alignment.topRight,
+            child:  Visibility(child:  cancelText()),
+          )))
+      
+        
+         
+     ],
+          )
+         
         ],
       ),
       onTap: () {
@@ -64,30 +61,14 @@ class MyOrderDetailWidget extends StatelessWidget {
     );
   }
 
-  _productImage() {
-    return Stack(
-      children: <Widget>[
-       Align(
-     alignment: Alignment.topLeft,
-     child:   Container(
-          width: 100,
-          height: 80,
-          color: Colors.white,
-          child: FadeInImage.assetNetwork(
-              placeholder: placeholder_path,
-              image: product.productimage.toString(),
-              fit: BoxFit.contain),
-        ),
-       )
-      
-      ],
-    );
-  }
-
+  
   _productDetails() {
     return Padding(
-        padding: EdgeInsets.only(left: 10),
-        child: Column(
+        padding: EdgeInsets.only(left: 0),
+        child:
+        Align(
+          alignment: Alignment.topLeft,
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
@@ -111,7 +92,9 @@ class MyOrderDetailWidget extends StatelessWidget {
           ,
           
           ],
-        ));
+        ) ,
+        )
+         );
   }
 
   cancelText() {

@@ -53,7 +53,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     addAccountData();
     getIboKey();
     checkUserLoginOrNot();
-    Future.delayed(Duration(seconds:  5), () {
+    Future.delayed(Duration(seconds:  0), () {
       print("IsLogin"+ is_Login.toString());
       if (!is_Login) {
         showDialog(

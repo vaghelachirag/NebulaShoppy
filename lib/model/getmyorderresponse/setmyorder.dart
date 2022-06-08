@@ -15,6 +15,7 @@ class SetMyOrder {
   final String ?orderbillingAddressUser ;
    final String ?ordershippingAddressUser ;
     final String ?mobileNumber ;
+  final String ?status ;
 
   SetMyOrder(
       {required this.id,
@@ -30,6 +31,7 @@ class SetMyOrder {
        required this.data,
         required this.orderbillingAddressUser,
          required this.ordershippingAddressUser,
-            required this.mobileNumber
+            required this.mobileNumber,
+                 required this.status,
       });
 }

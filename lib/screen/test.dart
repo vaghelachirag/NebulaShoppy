@@ -11,6 +11,7 @@ import '../model/product.dart';
 import '../network/service.dart';
 import '../widget/categoryproductWidget.dart';
 import '../widget/soldoutdialoug.dart';
+import '../widget/timelineComponent.dart';
 import '../widget/trending_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:http/http.dart' as http;
@@ -45,17 +46,13 @@ class _TestState extends State<Test> {
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-      body: Center(
-        child: MaterialButton(
-          color: Theme.of(context).primaryColor,
-          onPressed: () {
-            showNoProduct();
-            
-          },
-          child: Text("Click Button"),
-        ),
+   return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Timeline',
+      theme: ThemeData(
+        primaryColor: kPurpleColor,
       ),
+      home: TimelineComponet(ticks: 1),
     );
   }
 

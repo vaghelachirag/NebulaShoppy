@@ -112,7 +112,7 @@ class MyOrderWiget extends StatelessWidget {
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
-                  child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,  billingAddress: product.billingAddress, mobileNumber: product.mobileNumber, subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,billingAddressUser: product.orderbillingAddressUser,shippingAddressUser: product.ordershippingAddressUser,orderDetails: product.data.orderDetails, ),
+                  child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,  billingAddress: product.billingAddress, mobileNumber: product.mobileNumber, subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,billingAddressUser: product.orderbillingAddressUser,shippingAddressUser: product.ordershippingAddressUser,orderDetails: product.data.orderDetails,status: product.data.status.toString(), ),
                 ),
               );
                     },
