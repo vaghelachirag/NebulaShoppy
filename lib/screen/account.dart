@@ -102,7 +102,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
                 product: SetMyAccount(
                     postition: _accountList[index].postition,
                     is_Ewallet: _accountList[index].is_Ewallet,
-                    Title: _accountList[index].Title),
+                    Title: _accountList[index].Title,is_ShowLine: _accountList[index].is_ShowLine),
                 gradientColors: [Colors.white, Colors.white],
                 onProfileClicked: () {
                   getMyProfile();
@@ -119,21 +119,21 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
 
   void addAccountData() {
     _accountList.add(
-        SetMyAccount(postition: 0, Title: "My Address", is_Ewallet: false));
+        SetMyAccount(postition: 0, Title: "My Address", is_Ewallet: false,is_ShowLine: true));
     _accountList.add(
-        SetMyAccount(postition: 1, Title: "My Profile", is_Ewallet: false));
+        SetMyAccount(postition: 1, Title: "My Profile", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(
-        SetMyAccount(postition: 2, Title: "My E-wallet", is_Ewallet: true));
+        SetMyAccount(postition: 2, Title: "My E-wallet", is_Ewallet: true,is_ShowLine: false));
     _accountList
-        .add(SetMyAccount(postition: 3, Title: "About Us", is_Ewallet: false));
+        .add(SetMyAccount(postition: 3, Title: "About Us", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(
-        SetMyAccount(postition: 4, Title: "Return Policy", is_Ewallet: false));
+        SetMyAccount(postition: 4, Title: "Return Policy", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(SetMyAccount(
-        postition: 5, Title: "Shipping Policy", is_Ewallet: false));
+        postition: 5, Title: "Shipping Policy", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(
-        SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false));
+        SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(
-        SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false));
+        SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false,is_ShowLine: true));
   }
 
   void getMyProfile() async {

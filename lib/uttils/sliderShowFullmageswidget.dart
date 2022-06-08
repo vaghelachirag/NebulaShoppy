@@ -82,7 +82,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
             SizedBox(
                        height: MediaQuery.of(context).size.height - 100,
                         child: PageView.builder(
-                          controller: PageController(initialPage: widget.current, keepPage: true, viewportFraction: 1),
+                          controller: widget.controller,
                           // itemCount: pages.length,
                           itemBuilder: (_, index) {
                             return pages[index % pages.length];
