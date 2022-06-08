@@ -16,6 +16,7 @@ import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
+import 'package:nebulashoppy/uttils/sliderShowFullmageswidget.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/dotted_slider.dart';
@@ -361,7 +362,13 @@ class _ProductDetailState extends State<ProductDetail> {
                 borderRadius: BorderRadius.circular(16),
                 color: Colors.white,
               ),
-              child: Container(
+              child: 
+              InkWell(
+                onTap: (){
+                   print("Test"+"Test");
+                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SliderShowFullmages(listBannerImage: _listBannerImage,current: 0,)));
+                },
+                child:   Container(
                 width: MediaQuery.of(context).size.width,
                 height: 280,
                 child: Center(
@@ -371,6 +378,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       fit: BoxFit.fill),
                 ),
               ),
+              )
+            ,
             ));
 
     return Container(

@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/myorder/myorderdetail.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
@@ -9,7 +10,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../main.dart';
 import '../screen/address/editmyAddress.dart';
+import '../widget/restartWidget.dart';
 
 const HOME_SCREEN = 'home_screen';
 
@@ -229,7 +232,7 @@ Future<bool> willPopCallback() async {
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text("Alert"),
-    content: Text("Are you sure want to delete this address"),
+    content: Text("Are you sure want to exit from this app?"),
     actions: [
       cancelButton,
       continueButton,
@@ -244,3 +247,42 @@ Future<bool> willPopCallback() async {
     },
   );
   }
+
+
+
+  showLogoutDialoug(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("No"),
+    onPressed:  () {
+       Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Yes"),
+    onPressed:  () {
+     SharedPref.resetData();
+     Navigator.pop(context);
+      runApp(MyApp());
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text("Are you sure want to Logout?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+  }
+  

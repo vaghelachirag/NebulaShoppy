@@ -48,13 +48,28 @@ class AccountWiget extends StatelessWidget {
     return GestureDetector(
       child: Stack(
         children: <Widget>[
+          Visibility(
+            visible: product.is_ShowLine,
+            child:
           Container(
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            padding: const EdgeInsets.all(1.0),
+            padding: const EdgeInsets.all(0.5),
             decoration:
-                BoxDecoration(border: Border.all(color: Colors.black45)),
+                BoxDecoration(
+                  border: Border.all(color: Colors.black45)),
             child: _productDetails(context),
-          ),
+          )),
+            Visibility(
+            visible: !product.is_ShowLine,
+            child:
+          Container(
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: const EdgeInsets.all(0.1),
+            decoration:
+                BoxDecoration(
+                  border: Border.all(color: Colors.grey)),
+            child: _productDetails(context),
+          ))
         ],
       ),
       onTap: () {
@@ -64,7 +79,7 @@ class AccountWiget extends StatelessWidget {
   }
 
   void openAccountData(int index, BuildContext context) {
-    print("OnTap" + "Test");
+    print("OnTap" + "Test" + index.toString());
     if (index == 0) {
       Navigator.push(
         context,
@@ -94,7 +109,11 @@ class AccountWiget extends StatelessWidget {
       openWebview(context, privacy, "Privacy Policy");
     }
     if (index == 7) {
-      openWebview(context, contactus, "Contact Us");
+      showLogoutDialoug(context);
+      //openWebview(context, contactus, "Contact Us");
+    }
+     if (index == 8) {
+      showLogoutDialoug(context);
     }
   }
 
