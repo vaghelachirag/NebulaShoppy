@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../uttils/constant.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../uttils/skeletonloader.dart';
 
 InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
   return InputDecoration(
@@ -105,12 +108,20 @@ Text setPickupLocation(String title,double size){
     );
   }
 
+  Container loadNewLaunchSkeleton(){
+    return Container(
+             margin: EdgeInsets.all(5),
+              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+               height: ScreenUtil().setHeight(200),
+               child: loadSkeletonLoaders(boxNewLaunch(),  Axis.horizontal) ,);
+  }
+
   Padding loadSkeletonLoaders(Widget box, Axis vertical) {
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: ListView.builder(
           itemCount: 20,
-          scrollDirection: vertical,
+          scrollDirection:vertical,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext ctx, index) {

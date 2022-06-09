@@ -6,6 +6,7 @@ import 'package:nebulashoppy/screen/ordersummery.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
+import 'package:nebulashoppy/uttils/skeletonloader.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/LoginDialoug.dart';
 import 'package:nebulashoppy/widget/cartitemwidget.dart';
@@ -107,9 +108,12 @@ class _MyCartListState extends State<MyCartList> {
               FutureBuilder(
                 builder: (context, snapshot) {
                   if (_listCartItem.isEmpty) {
-                    return setSkeletonCategoryList();
+                    return    Container(
+                    width: MediaQuery.of(context).size.width,child: loadSkeletonLoaders(boxMyCartList(),Axis.vertical));
+                  
                   } else {
-                    return setCategoryList(false);
+                    return  setCategoryList(false);
+                     
                     //  return setCategoryList(false);
                   }
                 },

@@ -119,14 +119,172 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
  Widget boxVerticalCategory() {
     return Padding(
         padding: EdgeInsets.all(5),
-        child: Row(
+        child: Column(
           children: [
             Container(
               width: ScreenUtil().setSp(50),
               height: ScreenUtil().setSp(50),
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
-            )         
+            ),
+             SizedBox(
+                    height: 10,
+                  ),
+              Container(
+                    width: 20,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  )       
           ],
         ));
+  }
+
+
+  // My CartList
+ Widget boxMyCartList() {
+    return Padding(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+              decoration:
+                  BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
+            ),
+            SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width:double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                   SizedBox(
+                    height: 10,
+                  ),
+                 Container(
+                    width: double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+  // Tranding Item
+ Widget boxTrandingItem() {
+    return Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+              decoration:
+                  BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
+            ),
+            SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width:double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                   SizedBox(
+                    height: 10,
+                  ),
+                 Container(
+                    width: double.infinity,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+
+    Widget boxNewLaunch(){
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15)
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.grey
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(5),
+                    width: 100,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                   Container(
+            margin: EdgeInsets.all(3),
+                    width: 80,
+                    height: 8,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                   Container(
+            margin: EdgeInsets.all(3),
+                    width: 60,
+                    height: 5,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  )
+                  
+        ],
+      ),
+    );
   }

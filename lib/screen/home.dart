@@ -11,12 +11,14 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../uttils/skeletonloader.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -85,7 +87,19 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   },
                   child: SearchWidget(),
                 ),
-                homeCategory(),
+                
+                 FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_listBannerImage.isEmpty) {
+                      return
+                      Container(
+                     margin: EdgeInsets.only(top: 6),
+                    height: ScreenUtil().setHeight(80),child:   loadSkeletonLoaders(boxVerticalCategory(),Axis.horizontal),);
+                    } else {
+                    return  homeCategory();
+                    }
+                  },
+                ),
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listBannerImage.isEmpty) {
@@ -103,7 +117,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   future: getNewLaunchedProduct(),
                   builder: (context, snapshot) {
                     if (_listNewLaunched.isEmpty) {
-                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                      return loadNewLaunchSkeleton();
                     } else {
                       return buildNewLaunch();
                     }
@@ -114,7 +128,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   future: getNewLaunchedProduct(),
                   builder: (context, snapshot) {
                     if (_listNewLaunched.isEmpty) {
-                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                     return loadNewLaunchSkeleton();
                     } else {
                       return buildTranding();
                     }
