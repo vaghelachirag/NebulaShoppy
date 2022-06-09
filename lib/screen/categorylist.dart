@@ -6,6 +6,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../model/homescreen/itemNewLaunched.dart';
@@ -13,6 +14,7 @@ import '../model/homescreen/itemhomecategory.dart';
 import '../model/product.dart';
 import '../network/service.dart';
 import '../uttils/constant.dart';
+import '../uttils/skeletonloader.dart';
 import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -100,7 +102,17 @@ class _CategoryListState extends State<CategoryList>
       body: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          homeCategory(),
+          //homeCategory(),
+           FutureBuilder(
+            builder: (context, snapshot) {
+              if (_listHomeCategory.isEmpty) {
+                return loadhomeCategorySkeleton();
+              } else {
+                return  homeCategory();  
+                //  return setCategoryList(false);
+              }
+            },
+          ),
           FutureBuilder(
             builder: (context, snapshot) {
               if (_listproductList.isEmpty) {
@@ -371,6 +383,13 @@ class _CategoryListState extends State<CategoryList>
             QTYCount = value.data!.sumOfQty.toString();
           })
         });
+  }
+
+  Container loadhomeCategorySkeleton(){
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width / 4,
+      child:  loadSkeletonLoaders(boxVerticalCategory(),Axis.vertical));
   }
 
   void showSnakeBar(BuildContext context, somethingWrong) {}

@@ -127,16 +127,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
             ),
-             SizedBox(
-                    height: 10,
-                  ),
-              Container(
-                    width: 20,
-                    height: 10,
+               SizedBox(height: 5),
+               Container(
+                    width: 50,
+                    height: 5,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.grey),
-                  )       
+                  ),
           ],
         ));
   }
