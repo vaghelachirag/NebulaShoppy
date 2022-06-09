@@ -49,7 +49,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     setState(() {
       bl_ShowCart = true;
     });
-
   }
 
   @override
@@ -68,62 +67,64 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, "Home", true)),
-      body:  WillPopScope(child: SingleChildScrollView(
-          child: ConstrainedBox(
-        constraints: BoxConstraints(),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    child: Search(),
-                  ),
-                );
-              },
-              child: SearchWidget(),
+      body: WillPopScope(
+          child: SingleChildScrollView(
+              child: ConstrainedBox(
+            constraints: BoxConstraints(),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: Search(),
+                      ),
+                    );
+                  },
+                  child: SearchWidget(),
+                ),
+                homeCategory(),
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_listBannerImage.isEmpty) {
+                      return loadSkeletonLoader(skeletontopbannerImage());
+                    } else {
+                      return topbannerImage();
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                topHeader("New Launch"),
+                FutureBuilder(
+                  future: getNewLaunchedProduct(),
+                  builder: (context, snapshot) {
+                    if (_listNewLaunched.isEmpty) {
+                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                    } else {
+                      return buildNewLaunch();
+                    }
+                  },
+                ),
+                topHeader("Trending"),
+                FutureBuilder(
+                  future: getNewLaunchedProduct(),
+                  builder: (context, snapshot) {
+                    if (_listNewLaunched.isEmpty) {
+                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                    } else {
+                      return buildTranding();
+                    }
+                  },
+                )
+              ],
             ),
-            homeCategory(),
-            FutureBuilder(
-              builder: (context, snapshot) {
-                if (_listBannerImage.isEmpty) {
-                  return loadSkeletonLoader(skeletontopbannerImage());
-                } else {
-                  return topbannerImage();
-                }
-              },
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            topHeader("New Launch"),
-            FutureBuilder(
-              future: getNewLaunchedProduct(),
-              builder: (context, snapshot) {
-                if (_listNewLaunched.isEmpty) {
-                  return loadSkeletonLoader(skeletonbuildNewLaunch());
-                } else {
-                  return buildNewLaunch();
-                }
-              },
-            ),
-            topHeader("Trending"),
-            FutureBuilder(
-              future: getNewLaunchedProduct(),
-              builder: (context, snapshot) {
-                if (_listNewLaunched.isEmpty) {
-                  return loadSkeletonLoader(skeletonbuildNewLaunch());
-                } else {
-                  return buildTranding();
-                }
-              },
-            )
-          ],
-        ),
-      )), onWillPop: onWillPop)
-     , // This trailing comma makes auto-formatting nicer for build methods.
+          )),
+          onWillPop:
+              onWillPop), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -455,19 +456,17 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           })
         });
   }
-  
+
   Future<bool> onWillPop() {
-    print("BackPress"+"Backpress");
+    print("BackPress" + "Backpress");
     DateTime now = DateTime.now();
-    if (currentBackPressTime == null || 
+    if (currentBackPressTime == null ||
         now.difference(currentBackPressTime) > Duration(seconds: 2)) {
-        currentBackPressTime = now;
+      currentBackPressTime = now;
       // showSnakeBar(context, "Please Press back!");
-       
+
       return Future.value(false);
     }
     return Future.value(true);
   }
-
-  
 }
