@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../uttils/constant.dart';
-
+import 'package:shimmer/shimmer.dart';
 
 InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
   return InputDecoration(
@@ -102,6 +102,26 @@ Text setPickupLocation(String title,double size){
       width: MediaQuery.of(context).size.width,
       color: Colors.black,
       height: 0.5,
+    );
+  }
+
+  Padding loadSkeletonLoaders(Widget box, Axis vertical) {
+    return Padding(
+      padding: const EdgeInsets.all(0.0),
+      child: ListView.builder(
+          itemCount: 20,
+          scrollDirection: vertical,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (BuildContext ctx, index) {
+            int timer = 2000;
+            return Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade300,
+              period: Duration(milliseconds: timer),
+              child: box,
+            );
+          }),
     );
   }
   

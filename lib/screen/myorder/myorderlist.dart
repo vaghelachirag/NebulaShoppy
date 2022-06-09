@@ -10,8 +10,10 @@ import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
+import 'package:nebulashoppy/uttils/skeletonloader.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import '../../model/getmyorderresponse/setmyorder.dart';
 import '../../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -67,11 +69,10 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                       padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    color: Colors.grey[300],
                     child:  FutureBuilder(
                   builder: (context, snapshot) {
                     if (_orderList.isEmpty) {
-                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                      return loadSkeletonLoaders(boxOrderList(),Axis.vertical);
                     } else {
                       return  ListView.builder(
             itemCount: _orderList.length,
