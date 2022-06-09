@@ -116,7 +116,7 @@ class _CategoryListState extends State<CategoryList>
           FutureBuilder(
             builder: (context, snapshot) {
               if (_listproductList.isEmpty) {
-                return setSkeletonCategoryList();
+                return loadSkeletonLoadersGrid(boxProductCatWise(context),Axis.horizontal,context);
               } else {
                 return setCategoryList(false);
                 //  return setCategoryList(false);

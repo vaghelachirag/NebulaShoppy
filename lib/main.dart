@@ -52,7 +52,7 @@ class _MyHomePageNewState extends State<MyHomePage> {
 
   final List _screensWithLogin = [
     {"screen": Home(), "title": "Screen A Title"},
-    {"screen": MyOrderList(), "title": "Screen B Title"},
+    {"screen": Test(), "title": "Screen B Title"},
     {"screen": Account(), "title": "Screen B Title"}
   ];
 

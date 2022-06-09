@@ -136,6 +136,34 @@ Text setPickupLocation(String title,double size){
     );
   }
   
+  Padding loadSkeletonLoadersGrid(Widget box, Axis vertical, BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child:  Container(
+       width: MediaQuery.of(context).size.width -100,
+      child: Flexible(
+          child: GridView.builder(
+          itemCount: 20,
+          itemBuilder: (BuildContext ctx, index) {
+            int timer = 2000;
+            return Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade300,
+              period: Duration(milliseconds: timer),
+              child: boxProductCatWise(context),
+            );
+          },
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 1,
+          childAspectRatio: 8.0 / 12.0,
+        )),
+      ),
+     
+    ));
+  }
+  
 
 ButtonStyle buttonShapeOrderDetail() {
   return ButtonStyle(

@@ -286,3 +286,66 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
       ),
     );
   }
+
+   Widget boxProductCatWise(BuildContext context){
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15)
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Colors.grey
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(5),
+                    width: 100,
+                    height: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                   Container(
+            margin: EdgeInsets.all(3),
+                    width: 80,
+                    height: 8,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.grey),
+                  ),
+                   Container(
+                     padding: EdgeInsets.fromLTRB(15, 2, 15, 0),
+                     child: Row(                      
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                       Container(
+                       padding: EdgeInsets.all(5),
+                       width: 30,
+                       height: 30,
+                decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey
+                  )) ,
+                    Container(
+                      padding: EdgeInsets.all(5),
+                       width: 30,
+                       height: 30,
+                decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey
+                  ))  
+                       ],
+                     ),
+                   ),
+                  
+                  
+        ],
+      ),
+    );
+  }
