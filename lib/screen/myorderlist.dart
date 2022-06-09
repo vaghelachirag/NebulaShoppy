@@ -12,6 +12,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -19,6 +20,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../uttils/skeletonloader.dart';
 import '../widget/LoginDialoug.dart';
 import '../widget/myorderwidget.dart';
 import '../widget/searchitem.dart';
@@ -67,91 +69,19 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                       padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    color: Colors.grey[300],
                     child:  FutureBuilder(
                   builder: (context, snapshot) {
                     if (_orderList.isEmpty) {
-                      return loadSkeletonLoader(skeletonbuildNewLaunch());
+                      return loadSkeletonLoaders(boxseach(),Axis.vertical);
                     } else {
-                      return  ListView.builder(
-            itemCount: _orderList.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                
-                },
-                child: 
-                 FutureBuilder(
-                   future: getformatedDate(_orderList[index].orderDate),
-                   builder: (context, snapshot) {
-                    return   MyOrderWiget(
-                  product: SetMyOrder(
-                        id: 1,
-                        date: _orderDate[index],
-                        ordernumber: _orderList[index].orderNumber),
-                  gradientColors: [Colors.white, Colors.white],
-                );
-                 },)
-                ,
-              );
-              ;
-            },
-          );
+                          return loadSkeletonLoaders(boxseach(),Axis.vertical);
+                      
                     }
                   },
                 )),
        // This trailing comma makes auto-formatting nicer for build methods.
     );
          
-  }
-
-  
-    Shimmer loadSkeletonLoader(Column skeletonbuildNewLaunch) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.white,
-      period: Duration(milliseconds: 2000),
-      child: skeletonbuildNewLaunch,
-    );
-  }
-
-   Column skeletonbuildNewLaunch() {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: MediaQuery.of(context).size.height,
-          child: ListView.builder(
-            itemCount: 10,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  showSnakeBar(context, "Click");
-                },
-                child: SearchItem(
-                  product: Product(
-                      id: 1,
-                      productid: 1,
-                      catid: 1,
-                      company: "Test",
-                      name: "Test",
-                      icon: "Test",
-                      rating: 5,
-                      remainingQuantity: 5,
-                      price: "Test",
-                      mrp: "Test"),
-                  gradientColors: [Colors.white, Colors.white],
-                ),
-              );
-              ;
-            },
-          ),
-        )
-      ],
-    );
   }
 
   void getMyOrderList() async {
@@ -177,12 +107,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
     print("OrderDare"+dates.toString());
   setState(() {
       string_Date = formatter.format(date);
-      _orderDate.add(string_Date);
-       
+      _orderDate.add(string_Date);  
   });
-
-
   }
-
-  
 }

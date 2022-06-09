@@ -26,6 +26,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../widget/common_widget.dart';
 import '../widget/soldoutdialoug.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
@@ -1001,7 +1002,7 @@ class _ProductDetailState extends State<ProductDetail> {
             future: getNewLaunchedProduct(),
             builder: (context, snapshot) {
               if (_listNewLaunched.isEmpty) {
-                return loadSkeletonLoader(skeletonbuildNewLaunch());
+                return loadNewLaunchSkeleton();
               } else {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
