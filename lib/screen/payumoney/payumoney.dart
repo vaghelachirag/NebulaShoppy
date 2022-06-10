@@ -2,24 +2,8 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
-import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
-import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
-import 'package:nebulashoppy/model/setmyAccount/setmyAccount.dart';
-import 'package:nebulashoppy/network/service.dart';
-import 'package:nebulashoppy/screen/categorylist.dart';
-import 'package:nebulashoppy/screen/productdetail.dart';
-import 'package:nebulashoppy/screen/search.dart';
-import 'package:nebulashoppy/screen/webview.dart';
-import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/SearchWidget.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:nebulashoppy/widget/paymentcancelledwidget.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:intl/intl.dart';
 import  'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
 
 class PayUMoney extends StatefulWidget {
@@ -68,16 +52,13 @@ class _PayUMoneyState extends State<PayUMoney> with WidgetsBindingObserver {
     );
   }
 
-handlePaymentSuccess(){
+   handlePaymentSuccess(){
+   //Implement Your Success Logic
+    print("Payment"+"Sucess");
+   }
 
-//Implement Your Success Logic
- print("Payment"+"Sucess");
-}
-
-
-
-handlePaymentFailure(String errorMessage){
- print("Payment"+"Fail" + errorMessage);
+  handlePaymentFailure(String errorMessage){
+  print("Payment"+"Fail" + errorMessage);
   showDialog(
         barrierColor: Colors.black26,
         context: context,
@@ -92,51 +73,31 @@ handlePaymentFailure(String errorMessage){
           );
         },
       );
-//Implement Your Failed Payment Logi
-}
-  Future<void> initializePayments() async {
-    
-final response= await  PayumoneyProUnofficial.payUParams(
+   }
+  Future<void> initializePayments() async { 
+   final response= await  PayumoneyProUnofficial.payUParams(
+    email: 'vaghelacd99@gmail.com',
+    firstName: 'chirag vaghela', 
+    merchantName: 'chirag',
+    isProduction: true,
+    merchantKey: '0w2qzK',
+    merchantSalt: 'Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU',
+    amount: '1.00',
+    hashUrl:'<Checksum URL to generate dynamic hashes>', //nodejs code is included. Host the code and update its url here.
+    productInfo: '<Product Name>',
+    transactionId: '<Unique ID>',
+    showExitConfirmation:true,
+    showLogs:false, // true for debugging, false for production
+    userCredentials:'<Merchant Key>:' + '<Customer Email or User ID>',
+    userPhoneNumber: phone);
 
-email: 'vaghelacd99@gmail.com',
-
-firstName: 'chirag vaghela',
-
-merchantName: 'chirag',
-
-isProduction: true,
-
-merchantKey: '0w2qzK',
-
-merchantSalt: 'Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU',
-
-amount: '1.00',
-
-hashUrl:'<Checksum URL to generate dynamic hashes>', //nodejs code is included. Host the code and update its url here.
-
-productInfo: '<Product Name>',
-
-transactionId: '<Unique ID>',
-
-showExitConfirmation:true,
-
-showLogs:false, // true for debugging, false for production
-
-userCredentials:'<Merchant Key>:' + '<Customer Email or User ID>',
-
-userPhoneNumber: phone
-
-);
-
-  if(response['status'] == PayUParams.success){
+   if(response['status'] == PayUParams.success){
     handlePaymentSuccess();
+   }
 
-  }
+   if (response['status'] == PayUParams.failed)
+    handlePaymentFailure(response['message']);
+   }
 
-if (response['status'] == PayUParams.failed)
-
-handlePaymentFailure(response['message']);
-
-}
   }
 

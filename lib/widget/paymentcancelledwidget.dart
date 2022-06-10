@@ -75,6 +75,7 @@ class _PaymentCancelledWidgetState extends State<PaymentCancelledWidget> {
           ),
           SizedBox(height: 20),
           Container(
+            margin: EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: InkWell(
