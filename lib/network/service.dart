@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:nebulashoppy/model/generateorderresponse/generateorderResponse.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:nebulashoppy/model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getMyAddressResponse.dart';
@@ -514,6 +515,48 @@ class Service {
     print("object"+json.toString());
     return getstateResponseFromJson(json);
   }
+
+   Future<GetGenerateOrderResponse> getGenerateOrderResponse(
+      String _IboId, String _totalAmount,  String _paymentid, String _signature,String _addresstype,String _shippingaddress,String _billingaddress,String _pickuppoint,String _paymentmode,String _IsWaiveOff,String _UserPaymentType,String _ewalletamt) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        WS_GET_GENERATE_ORDER +
+        "?" +
+        "IBOKeyId=" +
+        _IboId +
+        "&" +
+         "TotalAmount=" +
+         _totalAmount + "&" +
+        "paymentid=" +
+        _paymentid + "&" +
+        "signature=" +
+        _signature+ "&" +
+        "addresstype=" +
+        _addresstype+ "&" +
+        "shippingaddress=" +
+        _shippingaddress+ "&" +
+        "billingaddress=" +
+        _billingaddress+ "&" +
+        "pickuppoint=" +
+        _pickuppoint+ "&" +
+        "paymentmode=" +
+        _paymentmode+ "&" +
+        "IsWaiveOff=" +
+        _IsWaiveOff 
+        + "&" +
+        "UserPaymentType=" +
+        _UserPaymentType 
+        + "&" +
+        "ewalletamt=" +
+        _ewalletamt
+        );
+        print("Uri"+ uri.toString());
+      var response = await client.get(uri);
+       var jsons = response.body;
+  
+      return getGenerateOrderResponseFromJson(jsons);
+  }
+
 
 
 }

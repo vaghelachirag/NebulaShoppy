@@ -6,6 +6,9 @@ import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/paymentcancelledwidget.dart';
 import  'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
 
+import '../../network/service.dart';
+import '../../uttils/constant.dart';
+
 class PayUMoney extends StatefulWidget {
   @override
   State<PayUMoney> createState() => _PayUMoneyState();
@@ -22,10 +25,13 @@ class _PayUMoneyState extends State<PayUMoney> with WidgetsBindingObserver {
   String amount = "1.0";
 
 
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
   @override
   void initState() {
     super.initState();
-  initializePayments();
+    generateOrder();
+   //initializePayments();
   }
  @override
   Widget build(BuildContext context) {
@@ -98,6 +104,27 @@ class _PayUMoneyState extends State<PayUMoney> with WidgetsBindingObserver {
    if (response['status'] == PayUParams.failed)
     handlePaymentFailure(response['message']);
    }
+
+  void generateOrder() {
+  showLoadingDialog(
+                                context, _dialogKey, "Please Wait..");
+    Service().getGenerateOrderResponse("8bb7fb09-269f-4912-81a1-30c70252e069","4727","","","PickUp","1","","","Online%20Payment","true","UPI","0").then((value) => {
+          if (this.mounted)
+            {
+              setState((() {
+               if (value.statusCode == 1) {
+                   txnID = value.data!.orderId.toString();
+                   Navigator.pop(_dialogKey.currentContext!);
+                   print("TransectionId"+ txnID);
+                   initializePayments();
+                } else {
+                  showSnakeBar(context, somethingWrong);
+                  print("Categorylist" + "Opps Something Wrong!");
+                }
+              }))
+            }
+        });
+  }
 
   }
 
