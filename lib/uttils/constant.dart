@@ -44,7 +44,6 @@ const WS_GET_DELETE_ADDRESS = '/API/ECom/DeleteAddress';
 const WS_GET_STATE_LIST = '/API/Config/StateInfo';
 const WS_GET_GENERATE_ORDER = '/API/Ecom/GenerateOrderPaytm';
 
-
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
 const Flag_Plus = 'plus';
@@ -73,8 +72,6 @@ String str_IsLogin = "IsLogin";
 bool is_Login = false;
 String str_AuthId = "";
 String str_UserId = "";
-
-
 
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
 const YELLOW_THEME_COLOR = Color(0xFFF5EE88);
@@ -115,12 +112,11 @@ const PRODUCT_OLD_PRICE = Color(0xFF898989);
 const white = Color(0xFFffffff);
 const THEME_COLOR = Colors.cyan;
 
+const kPurpleColor = Color(0xFFB97DFE);
+const kRedColor = Color(0xFFFE4067);
+const kGreenColor = Color(0xFFADE9E3);
 
-  const kPurpleColor = Color(0xFFB97DFE);
-   const kRedColor = Color(0xFFFE4067);
-   const kGreenColor = Color(0xFFADE9E3);
-
-     DateTime currentBackPressTime = DateTime.now();
+DateTime currentBackPressTime = DateTime.now();
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -131,9 +127,7 @@ showSnakeBar(BuildContext context, String msg) {
   );
 }
 
-gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail){
- 
-}
+gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail) {}
 
 checkUserLoginOrNot() async {
   is_Login = await SharedPref.readBool(str_IsLogin);
@@ -153,7 +147,6 @@ getUserId() async {
   str_UserId = await SharedPref.readString(str_IBO_Id);
   print("Auth" + str_UserId.toString());
 }
-
 
 Future<void> showLoadingDialog(
     BuildContext context, GlobalKey _key, String message) async {
@@ -208,26 +201,23 @@ String getDeviceHeight(BuildContext context) {
 }
 
 Future<bool> willPopCallback() async {
-   // await showDialog or Show add banners or whatever
-   // then
-   return Future.value(true);
+  // await showDialog or Show add banners or whatever
+  // then
+  return Future.value(true);
 }
 
-
-
-  showBackPressAlert(BuildContext context) {
- 
+showBackPressAlert(BuildContext context) {
   // set up the buttons
   Widget cancelButton = TextButton(
     child: Text("No"),
-    onPressed:  () {
-       Navigator.pop(context);
+    onPressed: () {
+      Navigator.pop(context);
     },
   );
   Widget continueButton = TextButton(
     child: Text("Yes"),
-    onPressed:  () {
-     exit(0);
+    onPressed: () {
+      exit(0);
     },
   );
 
@@ -248,23 +238,21 @@ Future<bool> willPopCallback() async {
       return alert;
     },
   );
-  }
+}
 
-
-
-  showLogoutDialoug(BuildContext context) {
+showLogoutDialoug(BuildContext context) {
   // set up the buttons
   Widget cancelButton = TextButton(
     child: Text("No"),
-    onPressed:  () {
-       Navigator.pop(context);
+    onPressed: () {
+      Navigator.pop(context);
     },
   );
   Widget continueButton = TextButton(
     child: Text("Yes"),
-    onPressed:  () {
-     SharedPref.resetData();
-     Navigator.pop(context);
+    onPressed: () {
+      SharedPref.resetData();
+      Navigator.pop(context);
       runApp(MyApp());
     },
   );
@@ -286,5 +274,4 @@ Future<bool> willPopCallback() async {
       return alert;
     },
   );
-  }
-  
+}

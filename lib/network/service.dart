@@ -248,33 +248,61 @@ class Service {
         "&" +
         "pickupid=" +
         _pickupid);
-      var response = await client.get(uri);
-      var jsons = response.body;
+    var response = await client.get(uri);
+    var jsons = response.body;
 
-        final jsonBody = json.decode(response.body);
-        print("MyJson"+ jsonBody["Data"].toString());
+    final jsonBody = json.decode(response.body);
+    print("MyJson" + jsonBody["Data"].toString());
 
-    if (response.statusCode == 200) { 
-        if(jsonBody["Data"] == 0){
-           return str_NoDataMsg;
-        }
-        else{
+    if (response.statusCode == 200) {
+      if (jsonBody["Data"] == 0) {
+        return str_NoDataMsg;
+      } else {
         return getCartlistItemFromJson(jsons);
-        }
-     
+      }
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-       return str_ErrorMsg;
+      return str_ErrorMsg;
     }
   }
 
-   Future<GetAddToCartResponse> getCartRemoveItemWithoutLogin(
-       String _deviceid, String productid) async {
-    var queryparams = {
-      'deviceid': _deviceid,
-      'productid': productid
-    };
+  Future<dynamic> getCartItemWithLogin(
+      String _deviceid, String _pickupid, String _userid) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        WS_GET_CART_ITEM +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+        "pickupid=" +
+        _pickupid +
+        "&" +
+        "userid=" +
+        _userid);
+    var response = await client.get(uri);
+    var jsons = response.body;
+
+    final jsonBody = json.decode(response.body);
+    print("MyJson" + uri.toString());
+
+    if (response.statusCode == 200) {
+      if (jsonBody["Data"] == 0) {
+        return str_NoDataMsg;
+      } else {
+        return getCartlistItemFromJson(jsons);
+      }
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      return str_ErrorMsg;
+    }
+  }
+
+  Future<GetAddToCartResponse> getCartRemoveItemWithoutLogin(
+      String _deviceid, String productid) async {
+    var queryparams = {'deviceid': _deviceid, 'productid': productid};
 
     Uri httpsUri = Uri(
         scheme: 'https',
@@ -298,88 +326,83 @@ class Service {
     }
   }
 
-   Future<dynamic> getGenerateTokenResponse(String str_username, String str_password, String str_type) async {
-   Map<String, dynamic> body = {'username': str_username, 'password': str_password,'grant_type': str_type};
+  Future<dynamic> getGenerateTokenResponse(
+      String str_username, String str_password, String str_type) async {
+    Map<String, dynamic> body = {
+      'username': str_username,
+      'password': str_password,
+      'grant_type': str_type
+    };
 
-   final response = await http.post(Uri.parse(BASE_URL +
-        WS_GENERATE_TOKEN ),
-       //body: body,
-       body: body,
-       headers: {
-         "Accept": "application/json",
-         "Content-Type": "application/x-www-form-urlencoded"
-       },
-       encoding: Encoding.getByName("utf-8")
-   );
+    final response = await http.post(Uri.parse(BASE_URL + WS_GENERATE_TOKEN),
+        //body: body,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        encoding: Encoding.getByName("utf-8"));
 
-    print("Response"+ response.statusCode.toString());
+    print("Response" + response.statusCode.toString());
     if (response.statusCode == 200) {
       return GetGenerateTokenresponse.fromJson(jsonDecode(response.body));
     } else {
-     return str_ErrorMsg; 
+      return str_ErrorMsg;
     }
   }
 
-
- Future<dynamic> getLoginResponse(
-      String _ibokey) async {
+  Future<dynamic> getLoginResponse(String _ibokey) async {
     var client = http.Client();
-    Uri uri = Uri.parse(BASE_URL +
-        WS_LOGIN_VALIDATE_KEY +
-        "?" +
-        "IBOKeyID=" +
-        _ibokey);
+    Uri uri = Uri.parse(
+        BASE_URL + WS_LOGIN_VALIDATE_KEY + "?" + "IBOKeyID=" + _ibokey);
 
-   var response = await client.get(uri);
-   var json = response.body;
+    var response = await client.get(uri);
+    var json = response.body;
 
-     print("Response"+ response.statusCode.toString());
+    print("Response" + response.statusCode.toString());
 
-     if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return GetLoginResponse.fromJson(jsonDecode(response.body));
     } else {
-     return str_ErrorMsg;   
+      return str_ErrorMsg;
     }
   }
 
   Future<dynamic> getMyOrderList() async {
-     requestHeaders = {
-        'Authorization': '${str_AuthId}',
-      };
+    requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
     var client = http.Client();
-    Uri uri = Uri.parse(BASE_URL +WS_GET_MY_ORDER_LIST );
+    Uri uri = Uri.parse(BASE_URL + WS_GET_MY_ORDER_LIST);
 
-   var response = await client.get(uri,headers: requestHeaders);
-     if (response.statusCode == 200) {
+    var response = await client.get(uri, headers: requestHeaders);
+    if (response.statusCode == 200) {
       var json = response.body;
-     print("Response"+ response.body.toString());
-    return getMyOrderResponseFromJson(json);
+      print("Response" + response.body.toString());
+      return getMyOrderResponseFromJson(json);
     } else {
-     return str_ErrorMsg;   
+      return str_ErrorMsg;
     }
   }
 
-  
   Future<dynamic> getMyProfile() async {
-     requestHeaders = {
-        'Authorization': '${str_AuthId}',
-      };
+    requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
     var client = http.Client();
-    Uri uri = Uri.parse(BASE_URL +WS_GET_MY_PROFILE );
+    Uri uri = Uri.parse(BASE_URL + WS_GET_MY_PROFILE);
 
-   var response = await client.get(uri,headers: requestHeaders);
-     if (response.statusCode == 200) {
+    var response = await client.get(uri, headers: requestHeaders);
+    if (response.statusCode == 200) {
       var json = response.body;
-     print("Response"+ response.body.toString());
-    return getMyProfileResponseFromJson(json);
+      print("Response" + response.body.toString());
+      return getMyProfileResponseFromJson(json);
     } else {
-     return str_ErrorMsg;   
+      return str_ErrorMsg;
     }
   }
 
-  
-  Future<dynamic> getMyWalletResponse(
-      String _ibokey) async {
+  Future<dynamic> getMyWalletResponse(String _ibokey) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
         "API/EComCouponCode/GetIBOWalletBalance" +
@@ -387,42 +410,38 @@ class Service {
         "IBOKeyID=" +
         _ibokey);
 
-   var response = await client.get(uri);
-   var json = response.body;
+    var response = await client.get(uri);
+    var json = response.body;
 
-     if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return GetMyWalletResponse.fromJson(jsonDecode(response.body));
     } else {
-     return str_ErrorMsg;   
+      return str_ErrorMsg;
     }
   }
 
-
-
-  Future<dynamic> getMyWalletHistoryResponse(
-      String _ibokey) async {
+  Future<dynamic> getMyWalletHistoryResponse(String _ibokey) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
-        "API/EComCouponCode/GetIBOWalletList"+
+        "API/EComCouponCode/GetIBOWalletList" +
         "?" +
         "IBOKeyID=" +
         _ibokey);
 
-   var response = await client.get(uri);
-   var json = response.body;
+    var response = await client.get(uri);
+    var json = response.body;
 
-    print("Response"+ response.body.toString());
+    print("Response" + response.body.toString());
 
-     if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return getMyEwalletHistoryResponseFromJson(json);
     } else {
-     return str_ErrorMsg;   
+      return str_ErrorMsg;
     }
   }
 
-
- Future<dynamic> getOrderSummery(
-      String _deviceid, String userid,  String _pickupid) async {
+  Future<dynamic> getOrderSummery(
+      String _deviceid, String userid, String _pickupid) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
         WS_GET_CART_ITEM_WITH_LOGIN +
@@ -430,59 +449,52 @@ class Service {
         "deviceid=" +
         _deviceid +
         "&" +
-         "userid=" +
-         userid +
+        "userid=" +
+        userid +
         "pickupid=" +
         _pickupid);
-      var response = await client.get(uri);
-      var jsons = response.body;
+    var response = await client.get(uri);
+    var jsons = response.body;
 
-        final jsonBody = json.decode(response.body);
-        print("MyJson"+ uri.toString());
+    final jsonBody = json.decode(response.body);
+    print("MyJson" + uri.toString());
 
-    if (response.statusCode == 200) { 
-        if(jsonBody["Data"] == 0){
-           return str_NoDataMsg;
-        }
-        else{
+    if (response.statusCode == 200) {
+      if (jsonBody["Data"] == 0) {
+        return str_NoDataMsg;
+      } else {
         return getCartlistItemFromJson(jsons);
-        }
-     
+      }
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-       return str_ErrorMsg;
+      return str_ErrorMsg;
     }
   }
 
-   Future<dynamic> getMyAddress() async {
-  
-     requestHeaders = {
-        'Authorization': '${str_AuthId}',
-      };
-    var client = http.Client();
-    Uri uri = Uri.parse(BASE_URL + WS_GET_MY_ADDRESS );
-
-   var response = await client.get(uri,headers: requestHeaders);
-     if (response.statusCode == 200) {
-      var json = response.body;
-     print("Response"+ response.body.toString());
-    return getMyAddressResponseFromJson(json);
-    } else {
-     return str_ErrorMsg;   
-    }
-  }
-
-   Future<dynamic> getDeletMyAddressResponse(
-      String id) async {
-
-          requestHeaders = {
-        'Authorization': '${str_AuthId}',
-      };
-
-    var queryparams = {
-      'id': id
+  Future<dynamic> getMyAddress() async {
+    requestHeaders = {
+      'Authorization': '${str_AuthId}',
     };
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL + WS_GET_MY_ADDRESS);
+
+    var response = await client.get(uri, headers: requestHeaders);
+    if (response.statusCode == 200) {
+      var json = response.body;
+      print("Response" + response.body.toString());
+      return getMyAddressResponseFromJson(json);
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+  Future<dynamic> getDeletMyAddressResponse(String id) async {
+    requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
+
+    var queryparams = {'id': id};
 
     Uri httpsUri = Uri(
         scheme: 'https',
@@ -490,9 +502,9 @@ class Service {
         path: WS_GET_DELETE_ADDRESS,
         queryParameters: queryparams);
 
-    final response = await http.post(httpsUri,headers: requestHeaders);
-     print("Response"+ response.body.toString());
-     var json = response.body;
+    final response = await http.post(httpsUri, headers: requestHeaders);
+    print("Response" + response.body.toString());
+    var json = response.body;
 
     if (response.statusCode == 200) {
       // If the server did return a 201 CREATED response,
@@ -507,17 +519,28 @@ class Service {
 
   Future<GetstateResponse> getStateList() async {
     var client = http.Client();
-    var response = await client.get(Uri.parse(BASE_URL + WS_GET_STATE_LIST+ "?" +
-        "CountryName=" +
-        "India" ),
+    var response = await client.get(
+        Uri.parse(
+            BASE_URL + WS_GET_STATE_LIST + "?" + "CountryName=" + "India"),
         headers: requestHeaders);
     var json = response.body;
-    print("object"+json.toString());
+    print("object" + json.toString());
     return getstateResponseFromJson(json);
   }
 
-   Future<GetGenerateOrderResponse> getGenerateOrderResponse(
-      String _IboId, String _totalAmount,  String _paymentid, String _signature,String _addresstype,String _shippingaddress,String _billingaddress,String _pickuppoint,String _paymentmode,String _IsWaiveOff,String _UserPaymentType,String _ewalletamt) async {
+  Future<GetGenerateOrderResponse> getGenerateOrderResponse(
+      String _IboId,
+      String _totalAmount,
+      String _paymentid,
+      String _signature,
+      String _addresstype,
+      String _shippingaddress,
+      String _billingaddress,
+      String _pickuppoint,
+      String _paymentmode,
+      String _IsWaiveOff,
+      String _UserPaymentType,
+      String _ewalletamt) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
         WS_GET_GENERATE_ORDER +
@@ -525,38 +548,42 @@ class Service {
         "IBOKeyId=" +
         _IboId +
         "&" +
-         "TotalAmount=" +
-         _totalAmount + "&" +
+        "TotalAmount=" +
+        _totalAmount +
+        "&" +
         "paymentid=" +
-        _paymentid + "&" +
+        _paymentid +
+        "&" +
         "signature=" +
-        _signature+ "&" +
+        _signature +
+        "&" +
         "addresstype=" +
-        _addresstype+ "&" +
+        _addresstype +
+        "&" +
         "shippingaddress=" +
-        _shippingaddress+ "&" +
+        _shippingaddress +
+        "&" +
         "billingaddress=" +
-        _billingaddress+ "&" +
+        _billingaddress +
+        "&" +
         "pickuppoint=" +
-        _pickuppoint+ "&" +
+        _pickuppoint +
+        "&" +
         "paymentmode=" +
-        _paymentmode+ "&" +
+        _paymentmode +
+        "&" +
         "IsWaiveOff=" +
-        _IsWaiveOff 
-        + "&" +
+        _IsWaiveOff +
+        "&" +
         "UserPaymentType=" +
-        _UserPaymentType 
-        + "&" +
+        _UserPaymentType +
+        "&" +
         "ewalletamt=" +
-        _ewalletamt
-        );
-        print("Uri"+ uri.toString());
-      var response = await client.get(uri);
-       var jsons = response.body;
-  
-      return getGenerateOrderResponseFromJson(jsons);
+        _ewalletamt);
+    print("Uri" + uri.toString());
+    var response = await client.get(uri);
+    var jsons = response.body;
+
+    return getGenerateOrderResponseFromJson(jsons);
   }
-
-
-
 }

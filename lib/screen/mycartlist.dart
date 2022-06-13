@@ -46,7 +46,7 @@ class _MyCartListState extends State<MyCartList> {
   String str_GrandTotal = "";
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
-  String str_UserId = "";
+  String str_UserIds = "";
 
   @override
   void initState() {
@@ -55,8 +55,9 @@ class _MyCartListState extends State<MyCartList> {
       widget.device_Id = DeviceId.toString();
       bl_ShowCart = false;
     });
-    getCartItemList();
+
     checkUserLoginOrNot();
+    getMyCartList();
   }
 
   final GlobalKey<_MyCartListState> _myWidgetState =
@@ -276,7 +277,46 @@ class _MyCartListState extends State<MyCartList> {
     );
   }
 
-  void getCartItemList() {
+  void getCartItemListwithoutLogin() {
+    is_ShowBottomBar = false;
+
+    Service().getCartItemWithoutLogin(widget.device_Id, "0").then((value) => {
+          print("CartList" + value.toString()),
+          if (value.toString() == str_NoDataMsg)
+            {
+              setState((() {
+                is_ShowNoData = true;
+              }))
+            },
+          if (value.toString() != str_ErrorMsg &&
+              value.toString() != str_NoDataMsg)
+            {
+              if (value.toString() != str_NoDataMsg)
+                {
+                  setState((() {
+                    print("CartList" + value.toString());
+                    if (value.statusCode == 1) {
+                      _listCartItem = value.data.cart;
+                      getCartItemData = value.data;
+                      setState(() {
+                        str_GrandTotal = value.data.grandTotal.toString();
+                      });
+
+                      is_ShowBottomBar = true;
+                      print("Categorylist" + _listCartItem.length.toString());
+                    } else {
+                      showSnakeBar(context, somethingWrong);
+                      print("Categorylist" + "Opps Something Wrong!");
+                    }
+                  }))
+                }
+              else
+                {showSnakeBar(context, somethingWrong)}
+            }
+        });
+  }
+
+  void getCartItemListwithLogin() {
     is_ShowBottomBar = false;
     Service().getCartItemWithoutLogin(widget.device_Id, "0").then((value) => {
           print("CartList" + value.toString()),
@@ -487,7 +527,7 @@ class _MyCartListState extends State<MyCartList> {
                     showSnakeBar(context, "Item Removed From Cart!");
                     setState(() {
                       _listCartItem.clear();
-                      getCartItemList();
+                      getMyCartList();
                     });
                   } else {
                     showSnakeBar(context, "Opps! Something Wrong");
@@ -511,13 +551,13 @@ class _MyCartListState extends State<MyCartList> {
                       showSnakeBar(context, "Item Added to Cart!");
                       setState(() {
                         _listCartItem.clear();
-                        getCartItemList();
+                        getMyCartList();
                       });
                     } else {
                       showSnakeBar(context, "Item Removed from Cart!");
                       setState(() {
                         _listCartItem.clear();
-                        getCartItemList();
+                        getMyCartList();
                       });
                     }
                   } else {
@@ -653,5 +693,63 @@ class _MyCartListState extends State<MyCartList> {
             child: PayUMoney(),
           ));
     }
+  }
+
+  void getCartItemWithLogin() {
+    is_ShowBottomBar = false;
+
+    Service()
+        .getCartItemWithLogin(widget.device_Id, "0", str_UserId)
+        .then((value) => {
+              print("CartList" + value.toString()),
+              if (value.toString() == str_NoDataMsg)
+                {
+                  setState((() {
+                    is_ShowNoData = true;
+                  }))
+                },
+              if (value.toString() != str_ErrorMsg &&
+                  value.toString() != str_NoDataMsg)
+                {
+                  if (value.toString() != str_NoDataMsg)
+                    {
+                      setState((() {
+                        print("CartList" + value.toString());
+                        if (value.statusCode == 1) {
+                          _listCartItem = value.data.cart;
+                          getCartItemData = value.data;
+                          setState(() {
+                            str_GrandTotal = value.data.grandTotal.toString();
+                          });
+
+                          is_ShowBottomBar = true;
+                          print(
+                              "Categorylist" + _listCartItem.length.toString());
+                        } else {
+                          showSnakeBar(context, somethingWrong);
+                          print("Categorylist" + "Opps Something Wrong!");
+                        }
+                      }))
+                    }
+                  else
+                    {showSnakeBar(context, somethingWrong)}
+                }
+            });
+  }
+
+  void getMyCartList() {
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_Login) {
+        getCartItemListwithoutLogin();
+      } else {
+        getUserId();
+      }
+    });
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + str_UserId.toString());
+      getCartItemWithLogin();
+    });
   }
 }
