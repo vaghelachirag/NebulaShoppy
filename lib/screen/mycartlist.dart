@@ -30,7 +30,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 
 class MyCartList extends StatefulWidget {
   String device_Id = "";
-  
+
   @override
   State<MyCartList> createState() => _MyCartListState();
 
@@ -57,7 +57,6 @@ class _MyCartListState extends State<MyCartList> {
     });
     getCartItemList();
     checkUserLoginOrNot();
-   
   }
 
   final GlobalKey<_MyCartListState> _myWidgetState =
@@ -95,106 +94,103 @@ class _MyCartListState extends State<MyCartList> {
         )));
   }
 
-  Column getMyCartData() {
-   return  Column(
-      children: [
-        locationHeader(),
-        
-        SingleChildScrollView(
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+  CustomScrollView getMyCartData() {
+    return CustomScrollView(shrinkWrap: true, slivers: <Widget>[
+      SliverPadding(
+        padding: const EdgeInsets.all(0.0),
+        sliver: SliverList(
+          delegate: SliverChildListDelegate(
+            <Widget>[
+              locationHeader(),
               FutureBuilder(
                 builder: (context, snapshot) {
                   if (_listCartItem.isEmpty) {
-                    return    Container(
-                    width: MediaQuery.of(context).size.width,child: loadSkeletonLoaders(boxMyCartList(),Axis.vertical));
-                  
+                    return Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: loadSkeletonLoaders(
+                            boxMyCartList(), Axis.vertical));
                   } else {
-                    return  setCategoryList(false);
-                     
+                    return setCategoryList(false);
+
                     //  return setCategoryList(false);
+                  }
+                },
+              ),
+              FutureBuilder(builder: (context, snapshot) {
+                if (_listCartItem.isEmpty) {
+                  return Text("");
+                } else {
+                  return Card(
+                    margin: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            "Order Detail",
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                          ),
+                        ),
+                        divider(context),
+                        getMycartDetail(
+                            "MRP", getCartItemData?.calculatedMrp.toString()),
+                        getMycartDetail("Your Retail Price",
+                            getCartItemData?.retailProfit.toString()),
+                        getMycartDetail(
+                            "SubTotal", getCartItemData?.subTotal.toString()),
+                        getMycartDetail("Shipping Charges",
+                            getCartItemData?.shippingCharge.toString()),
+                        divider(context),
+                        getMycartDetail("Grand Total",
+                            getCartItemData?.grandTotal.toString()),
+                      ],
+                    ),
+                  );
+                }
+              }),
+              FutureBuilder(
+                builder: (context, snapshot) {
+                  if (_listCartItem.isEmpty) {
+                    return Text("");
+                  } else {
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        side: new BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                      margin: EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              "Pv and NV generated on this order",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                          ),
+                          divider(context),
+                          getPVNVDetail(
+                              "PV", getCartItemData?.totalNv.toString()),
+                          Container(
+                              color: Colors.grey[300],
+                              child: getPVNVDetail(
+                                  "NV", getCartItemData?.totalBv.toString()))
+                        ],
+                      ),
+                    );
                   }
                 },
               )
             ],
           ),
-          FutureBuilder(builder: (context, snapshot) {
-            if (_listCartItem.isEmpty) {
-              return Text("");
-            } else {
-              return Card(
-                margin: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        "Order Detail",
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
-                      ),
-                    ),
-                    divider(context),
-                    getMycartDetail(
-                        "MRP", getCartItemData?.calculatedMrp.toString()),
-                    getMycartDetail("Your Retail Price",
-                        getCartItemData?.retailProfit.toString()),
-                    getMycartDetail(
-                        "SubTotal", getCartItemData?.subTotal.toString()),
-                    getMycartDetail("Shipping Charges",
-                        getCartItemData?.shippingCharge.toString()),
-                    divider(context),
-                    getMycartDetail(
-                        "Grand Total", getCartItemData?.grandTotal.toString()),
-                  ],
-                ),
-              );
-            }
-          }),
-          FutureBuilder(
-            builder: (context, snapshot) {
-              if (_listCartItem.isEmpty) {
-                return Text("");
-              } else {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    side: new BorderSide(color: Colors.black, width: 0.5),
-                  ),
-                  margin: EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          "Pv and NV generated on this order",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
-                        ),
-                      ),
-                      divider(context),
-                      getPVNVDetail("PV", getCartItemData?.totalNv.toString()),
-                      Container(
-                          color: Colors.grey[300],
-                          child: getPVNVDetail(
-                              "NV", getCartItemData?.totalBv.toString()))
-                    ],
-                  ),
-                );
-              }
-            },
-          )
-        ],
+        ),
       ),
-    )
-      ],
-    );
-    ;
+    ]);
   }
 
-  Container locationHeader (){
+  Container locationHeader() {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 40,
@@ -203,20 +199,26 @@ class _MyCartListState extends State<MyCartList> {
         alignment: Alignment.centerLeft,
         child: Row(
           children: [
-            IconButton(onPressed: () {
-              
-            }, icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),  color: Colors.black),
-            Text("Deliver to",style: TextStyle(color: Colors.black,fontSize: 16),),
-            IconButton(onPressed: () {
-              onLocationPressed();
-            }, icon: Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),  color: Colors.black)
+            IconButton(
+                onPressed: () {},
+                icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
+                color: Colors.black),
+            Text(
+              "Deliver to",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            IconButton(
+                onPressed: () {
+                  onLocationPressed();
+                },
+                icon:
+                    Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
+                color: Colors.black)
           ],
         ),
       ),
     );
   }
-
- 
 
   Container getMycartDetail(String title, String? detail) {
     return Container(
@@ -380,18 +382,24 @@ class _MyCartListState extends State<MyCartList> {
                   },
                   onCountChanges: (int) {},
                   onCartAddClick: () {
-                    print("Cart"+ "Add Add");
-                     showLoadingDialog(
-                                context, _dialogKey, "Please Wait..");
-                          addToCart(widget.device_Id, str_UserId,
-                                 _listCartItem[index].productId.toString(), 1, Flag_Plus);
+                    print("Cart" + "Add Add");
+                    showLoadingDialog(context, _dialogKey, "Please Wait..");
+                    addToCart(
+                        widget.device_Id,
+                        str_UserId,
+                        _listCartItem[index].productId.toString(),
+                        1,
+                        Flag_Plus);
                   },
                   onCartRemovedClick: () {
-                         print("Cart"+ "Add Minus");
-                         showLoadingDialog(
-                                context, _dialogKey, "Please Wait..");
-                          addToCart(widget.device_Id, str_UserId,
-                                 _listCartItem[index].productId.toString(), 1, Flag_Minus);
+                    print("Cart" + "Add Minus");
+                    showLoadingDialog(context, _dialogKey, "Please Wait..");
+                    addToCart(
+                        widget.device_Id,
+                        str_UserId,
+                        _listCartItem[index].productId.toString(),
+                        1,
+                        Flag_Minus);
                   },
                 );
               },
@@ -489,8 +497,7 @@ class _MyCartListState extends State<MyCartList> {
             });
   }
 
-
-   void addToCart(String deviceId, String str_userId, String productId,
+  void addToCart(String deviceId, String str_userId, String productId,
       int quntity, String flag) {
     Service()
         .getAddToCartResponse(
@@ -501,12 +508,12 @@ class _MyCartListState extends State<MyCartList> {
                   Navigator.pop(_dialogKey.currentContext!);
                   if (value.statusCode == 1) {
                     if (flag == Flag_Plus) {
-                      showSnakeBar(context, "Item Added to Cart!");     
-                        setState(() {
+                      showSnakeBar(context, "Item Added to Cart!");
+                      setState(() {
                         _listCartItem.clear();
                         getCartItemList();
-                      });            
-                    } else {             
+                      });
+                    } else {
                       showSnakeBar(context, "Item Removed from Cart!");
                       setState(() {
                         _listCartItem.clear();
@@ -522,82 +529,111 @@ class _MyCartListState extends State<MyCartList> {
   }
 
   void onLocationPressed() {
-       showModalBottomSheet(
-            context: context,
-            builder: (builder){
-              return new Container(
-                height: MediaQuery.of(context).size.height/3,
-                color: Colors.transparent, //could change this to Color(0xFF737373), 
-                           //so you don't have to change MaterialApp canvasColor
-                child: new Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: new BorderRadius.only(
-                            topLeft: const Radius.circular(10.0),
-                            topRight: const Radius.circular(10.0))),
-                    child:
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child:GETMYADDRESSDIALOUG() ,
-                    )
-                     ,
-                    ),
-              );
-            }
-        );
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return new Container(
+            height: MediaQuery.of(context).size.height / 3,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+            //so you don't have to change MaterialApp canvasColor
+            child: new Container(
+              decoration: new BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(10.0),
+                      topRight: const Radius.circular(10.0))),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: GETMYADDRESSDIALOUG(),
+              ),
+            ),
+          );
+        });
   }
 
-  Column locationaddressData(){
+  Column locationaddressData() {
     return Column(
-        children: [
-          Padding(padding: EdgeInsets.all(10), child:
-          Text("Choose Your Location",style: TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold),)),
-           Padding(padding: EdgeInsets.all(10), child:
-          Text("Select a delivery location to see product availability and delivery options",style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.normal),)),
-          Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),child:
-          GestureDetector(
-            onTap: () {
-              print("Tap"+ "Dorr Click");
-            },
-            child:  Card(
-  elevation: 5,
-  child: Row(
-    children: [
-        IconButton(onPressed: () {
-              }, icon: Icon(CommunityMaterialIcons.dump_truck),  color: Colors.cyan),
-              Text("Door step delivery (shipping charges applicable).",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)
-    ],
-  ),
-) ,
-          )
-         
+      children: [
+        Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              "Choose Your Location",
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            )),
+        Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              "Select a delivery location to see product availability and delivery options",
+              style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal),
+            )),
+        Padding(
+            padding: EdgeInsets.fromLTRB(10, 2, 10, 0),
+            child: GestureDetector(
+              onTap: () {
+                print("Tap" + "Dorr Click");
+              },
+              child: Card(
+                elevation: 5,
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(CommunityMaterialIcons.dump_truck),
+                        color: Colors.cyan),
+                    Text(
+                      "Door step delivery (shipping charges applicable).",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700),
+                    )
+                  ],
+                ),
+              ),
+            )),
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: Text(
+            "OR",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           ),
-           Padding(padding: EdgeInsets.all(5),child:  Text("OR",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),),
-           Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),child:
-           GestureDetector(
-             onTap: () {
-               
-             },
-             child:  Card(
-  elevation: 5,
-  child: Row(
-    children: [
-        IconButton(onPressed: () {
-              }, icon: Icon(CommunityMaterialIcons.map_marker_circle),  color: Colors.cyan),
-              Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)
-    ],
-  ),
-),
-           )
-         
-          )
-        ],
+        ),
+        Padding(
+            padding: EdgeInsets.fromLTRB(10, 2, 10, 0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Card(
+                elevation: 5,
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(CommunityMaterialIcons.map_marker_circle),
+                        color: Colors.cyan),
+                    Text(
+                      "Select a pickup point.",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700),
+                    )
+                  ],
+                ),
+              ),
+            ))
+      ],
     );
   }
 
   void openCheckoutDialoug() {
-    if(!is_Login){
-    showDialog(
+    if (!is_Login) {
+      showDialog(
         barrierColor: Colors.black26,
         context: context,
         builder: (context) {
@@ -609,14 +645,13 @@ class _MyCartListState extends State<MyCartList> {
           );
         },
       );
+    } else {
+      Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: PayUMoney(),
+          ));
     }
-    else{
-     Navigator.push(context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child: PayUMoney(),
-                        ));
   }
-    }
-
 }
