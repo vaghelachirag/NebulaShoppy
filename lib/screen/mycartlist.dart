@@ -692,6 +692,9 @@ class _MyCartListState extends State<MyCartList> {
             type: PageTransitionType.fade,
             child: OrderSummery(
               str_Title: "Order Summery",
+              int_SubTotal: getCartItemData?.subTotal,
+              int_GrandTotal: getCartItemData?.grandTotal,
+              int_ShippingCharge: getCartItemData?.shippingCharge,
             ),
           ));
     }

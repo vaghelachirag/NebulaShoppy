@@ -41,7 +41,15 @@ class OrderSummery extends StatefulWidget {
   String device_Id = "";
   String str_UserId = "";
 
-  OrderSummery({required this.str_Title});
+  int? int_SubTotal = 0;
+  int? int_ShippingCharge = 0;
+  int? int_GrandTotal = 0;
+
+  OrderSummery(
+      {required this.str_Title,
+      required this.int_SubTotal,
+      required this.int_ShippingCharge,
+      required this.int_GrandTotal});
 
   @override
   State<OrderSummery> createState() => _OrderSummeryState();
@@ -149,13 +157,19 @@ class _OrderSummeryState extends State<OrderSummery>
                 },
               ),
               divider(context),
-              orderSummeryTitle(
-                  "Sub Total", int_TotalItemCount.toString(), false, "Gray"),
-              orderSummeryTitle("Shipping Charge", "0", false, "Gray"),
-              orderSummeryTitle(
-                  "Sub Total", int_TotalItemCount.toString(), false, "Gray"),
-              orderSummeryTitle("Grand Total", "0", true, "Black"),
-              setPickupAdd
+              Card(
+                child: Column(
+                  children: [
+                    orderSummeryTitle("Sub Total",
+                        widget.int_SubTotal.toString(), true, "Gray"),
+                    orderSummeryTitle("Shipping Charge",
+                        widget.int_ShippingCharge.toString(), true, "Gray"),
+                    orderSummeryTitle("Grand Total",
+                        widget.int_GrandTotal.toString(), true, "Black"),
+                  ],
+                ),
+              ),
+              setPickupAddress(),
             ],
           ),
         ),
@@ -220,6 +234,44 @@ class _OrderSummeryState extends State<OrderSummery>
           ),
         ],
       ),
+    );
+  }
+
+  Column setPickupAddress() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Pickup Point",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Card(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Nebula Ahmedabad,705,Shivalik Abaise,Prahladnagar,Ahmedabad - 380015, Gujarat (Ph: 7227904590)",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
