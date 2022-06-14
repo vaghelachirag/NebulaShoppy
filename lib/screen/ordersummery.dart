@@ -35,15 +35,11 @@ import 'package:intl/intl.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OrderSummery extends StatefulWidget {
-   String str_Url = "";
-   String str_Title = "";
-    String device_Id = "";
-   String str_UserId = "";
+  String str_Title = "";
+  String device_Id = "";
+  String str_UserId = "";
 
-
-  OrderSummery(
-      {Key? key, required this.str_Url, required this.str_Title})
-      : super(key: key);
+  OrderSummery({required this.str_Title});
 
   @override
   State<OrderSummery> createState() => _OrderSummeryState();
@@ -51,7 +47,6 @@ class OrderSummery extends StatefulWidget {
 
 class _OrderSummeryState extends State<OrderSummery>
     with WidgetsBindingObserver {
-
   List<ItemCart> _listCartItem = [];
   bool is_ShowBottomBar = false;
   bool is_ShowNoData = false;
@@ -61,13 +56,11 @@ class _OrderSummeryState extends State<OrderSummery>
   @override
   void initState() {
     super.initState();
-     setState(() {
+    setState(() {
       widget.device_Id = DeviceId.toString();
       checkUserLoginOrNot();
       getUserId();
-     
     });
-  
   }
 
   @override
@@ -83,60 +76,59 @@ class _OrderSummeryState extends State<OrderSummery>
     double multiplier = 25;
 
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, widget.str_Title, false)),
-      body:  FutureBuilder(
-     future:getUserId() ,
-     builder: (context, snapshot) {
-       if(str_UserId  != null || !str_UserId.isEmpty){
-       //  getOrderSummery() ;
-         return Text("data");
-       }
-       else{
-         return Text("data");
-       }
-     },)); 
-      
-      // This trailing comma makes auto-formatting nicer for build methods
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: appBarWidget(context, 3, widget.str_Title, false)),
+        body: FutureBuilder(
+          future: getUserId(),
+          builder: (context, snapshot) {
+            if (str_UserId != null || !str_UserId.isEmpty) {
+              //  getOrderSummery() ;
+              return Text("data");
+            } else {
+              return Text("data");
+            }
+          },
+        ));
+
+    // This trailing comma makes auto-formatting nicer for build methods
   }
 
-getUserId() async {
-  str_UserId = await SharedPref.readString(str_IBO_Id);
-  print("UserID"+str_UserId);
-}
-  void getOrderSummery() {
-     Service().getOrderSummery(widget.device_Id,widget.str_UserId,"1").then((value) => {
-          if (value.toString() == str_NoDataMsg)
-            {
-              setState((() {
-               
-              }))
-            },
-          if (value.toString() != str_ErrorMsg &&
-              value.toString() != str_NoDataMsg)
-            {
-              if (value.toString() != str_NoDataMsg)
-                {
-                  setState((() {
-                    if (value.statusCode == 1) {
-                      _listCartItem = value.data.cart;
-                      getCartItemData = value.data;
-                      setState(() {
-                        str_GrandTotal = value.data.grandTotalWithEwallet.toString();
-                      });
+  getUserId() async {
+    str_UserId = await SharedPref.readString(str_IBO_Id);
+    print("UserID" + str_UserId);
+  }
 
-                      is_ShowBottomBar = true;
-                      print("Categorylist" + str_GrandTotal);
-                    } else {
-                      showSnakeBar(context, somethingWrong);
-                      print("Categorylist" + "Opps Something Wrong!");
+  void getOrderSummery() {
+    Service()
+        .getOrderSummery(widget.device_Id, widget.str_UserId, "1")
+        .then((value) => {
+              if (value.toString() == str_NoDataMsg) {setState((() {}))},
+              if (value.toString() != str_ErrorMsg &&
+                  value.toString() != str_NoDataMsg)
+                {
+                  if (value.toString() != str_NoDataMsg)
+                    {
+                      setState((() {
+                        if (value.statusCode == 1) {
+                          _listCartItem = value.data.cart;
+                          getCartItemData = value.data;
+                          setState(() {
+                            str_GrandTotal =
+                                value.data.grandTotalWithEwallet.toString();
+                          });
+
+                          is_ShowBottomBar = true;
+                          print("Categorylist" + str_GrandTotal);
+                        } else {
+                          showSnakeBar(context, somethingWrong);
+                          print("Categorylist" + "Opps Something Wrong!");
+                        }
+                      }))
                     }
-                  }))
+                  else
+                    {showSnakeBar(context, somethingWrong)}
                 }
-              else
-                {showSnakeBar(context, somethingWrong)}
-            }
-        });
+            });
   }
 }

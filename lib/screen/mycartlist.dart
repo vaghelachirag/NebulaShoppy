@@ -690,7 +690,9 @@ class _MyCartListState extends State<MyCartList> {
           context,
           PageTransition(
             type: PageTransitionType.fade,
-            child: PayUMoney(),
+            child: OrderSummery(
+              str_Title: "Order Summery",
+            ),
           ));
     }
   }

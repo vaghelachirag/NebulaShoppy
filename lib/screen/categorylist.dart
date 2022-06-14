@@ -38,7 +38,6 @@ class _CategoryListState extends State<CategoryList>
   var selectedId = 0;
   String device_Id = "";
 
-  
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   @override
   void initState() {
@@ -103,12 +102,12 @@ class _CategoryListState extends State<CategoryList>
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           //homeCategory(),
-           FutureBuilder(
+          FutureBuilder(
             builder: (context, snapshot) {
               if (_listHomeCategory.isEmpty) {
                 return loadhomeCategorySkeleton();
               } else {
-                return  homeCategory();  
+                return homeCategory();
                 //  return setCategoryList(false);
               }
             },
@@ -116,7 +115,8 @@ class _CategoryListState extends State<CategoryList>
           FutureBuilder(
             builder: (context, snapshot) {
               if (_listproductList.isEmpty) {
-                return loadSkeletonLoadersGrid(boxProductCatWise(context),Axis.horizontal,context);
+                return loadSkeletonLoadersGrid(
+                    boxProductCatWise(context), Axis.horizontal, context);
               } else {
                 return setCategoryList(false);
                 //  return setCategoryList(false);
@@ -257,11 +257,13 @@ class _CategoryListState extends State<CategoryList>
                     mrp: rupees_Sybol +
                         " " +
                         _listproductList[index].mrp.toString()),
-                gradientColors: [Colors.white, Colors.white], onCartAddClick: () { 
-                    showLoadingDialog(
-                                  context, _dialogKey, "Please Wait..");
-                  print("AddClick"+"AddClick");
-                   }, onCartRemovedClick: () {  }, onCountChanges: (int ) {  },
+                gradientColors: [Colors.white, Colors.white],
+                onCartAddClick: () {
+                  showLoadingDialog(context, _dialogKey, "Please Wait..");
+                  print("AddClick" + "AddClick");
+                },
+                onCartRemovedClick: () {},
+                onCountChanges: (int) {},
               );
             },
           ),
@@ -311,7 +313,10 @@ class _CategoryListState extends State<CategoryList>
                           remainingQuantity: 5,
                           price: '\$' + "Test",
                           mrp: '\$' + "Test"),
-                      gradientColors: [Colors.white, Colors.white], onCartAddClick: () {  }, onCartRemovedClick: () {  }, onCountChanges: (int ) {  },
+                      gradientColors: [Colors.white, Colors.white],
+                      onCartAddClick: () {},
+                      onCartRemovedClick: () {},
+                      onCountChanges: (int) {},
                     ),
                   )));
         },
@@ -348,9 +353,10 @@ class _CategoryListState extends State<CategoryList>
                   remainingQuantity: 5,
                   price: _listproductList[index].salePrice.toString(),
                   mrp: _listproductList[index].mrp.toString()),
-              gradientColors: [Colors.white, Colors.white], onCartAddClick: () { 
-                
-               }, onCartRemovedClick: () {  }, onCountChanges: (int ) {  },
+              gradientColors: [Colors.white, Colors.white],
+              onCartAddClick: () {},
+              onCartRemovedClick: () {},
+              onCountChanges: (int) {},
             ),
           ));
         },
@@ -385,11 +391,11 @@ class _CategoryListState extends State<CategoryList>
         });
   }
 
-  Container loadhomeCategorySkeleton(){
+  Container loadhomeCategorySkeleton() {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width / 4,
-      child:  loadSkeletonLoaders(boxVerticalCategory(),Axis.vertical));
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width / 4,
+        child: loadSkeletonLoaders(boxVerticalCategory(), Axis.vertical));
   }
 
   void showSnakeBar(BuildContext context, somethingWrong) {}
