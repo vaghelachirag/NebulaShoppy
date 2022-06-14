@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
 import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
@@ -13,6 +14,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/getCartItemResponse/getCarItemResponse.dart';
 import '../model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
@@ -52,7 +54,8 @@ class _OrderSummeryState extends State<OrderSummery>
   bool is_ShowNoData = false;
   GetCartItemData? getCartItemData;
   String str_GrandTotal = "";
-
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
+  int? int_TotalItemCount = 0;
   @override
   void initState() {
     super.initState();
@@ -60,6 +63,11 @@ class _OrderSummeryState extends State<OrderSummery>
       widget.device_Id = DeviceId.toString();
       checkUserLoginOrNot();
       getUserId();
+      getDeviceId();
+      Future.delayed(Duration(seconds: 0), () {
+        print("DeviceId" + DeviceId);
+        getTotalCountResponse();
+      });
     });
   }
 
@@ -79,17 +87,7 @@ class _OrderSummeryState extends State<OrderSummery>
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: appBarWidget(context, 3, widget.str_Title, false)),
-        body: FutureBuilder(
-          future: getUserId(),
-          builder: (context, snapshot) {
-            if (str_UserId != null || !str_UserId.isEmpty) {
-              //  getOrderSummery() ;
-              return Text("data");
-            } else {
-              return Text("data");
-            }
-          },
-        ));
+        body: getOrderSummeryData());
 
     // This trailing comma makes auto-formatting nicer for build methods
   }
@@ -130,5 +128,98 @@ class _OrderSummeryState extends State<OrderSummery>
                     {showSnakeBar(context, somethingWrong)}
                 }
             });
+  }
+
+  CustomScrollView getOrderSummeryData() {
+    return CustomScrollView(shrinkWrap: true, slivers: <Widget>[
+      SliverPadding(
+        padding: const EdgeInsets.all(0.0),
+        sliver: SliverList(
+          delegate: SliverChildListDelegate(
+            <Widget>[
+              FutureBuilder(
+                builder: (context, snapshot) {
+                  if (int_TotalItemCount != 0) {
+                    return orderSummeryTitle("Total Items",
+                        int_TotalItemCount.toString(), false, "Black");
+                  } else {
+                    return orderSummeryTitle(
+                        "Total Items", "0", false, "Black");
+                  }
+                },
+              ),
+              divider(context),
+              orderSummeryTitle(
+                  "Sub Total", int_TotalItemCount.toString(), false, "Gray"),
+              orderSummeryTitle("Shipping Charge", "0", false, "Gray"),
+              orderSummeryTitle(
+                  "Sub Total", int_TotalItemCount.toString(), false, "Gray"),
+              orderSummeryTitle("Grand Total", "0", true, "Black"),
+              setPickupAdd
+            ],
+          ),
+        ),
+      ),
+    ]);
+  }
+
+  getTotalCountResponse() {
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Service().getCartTotal(DeviceId, str_UserId).then((value) => {
+          setState((() {
+            Navigator.pop(_dialogKey.currentContext!);
+            if (value.statusCode == 1) {
+              int_TotalItemCount = value.data?.sumOfQty;
+            } else {
+              showSnakeBar(context, "Opps! Something Wrong");
+            }
+          }))
+        });
+  }
+
+  Container orderSummeryTitle(
+    String title,
+    String? detail,
+    bool showRuppes,
+    String str_color,
+  ) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              title,
+              style: TextStyle(
+                  color: str_color == "Black" ? Colors.black : Colors.grey,
+                  fontWeight: str_color == "Black"
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                  fontSize: 14),
+            ),
+          ),
+          Row(
+            children: [
+              Visibility(
+                child: Text(rupees_Sybol),
+                visible: showRuppes,
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  detail.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                      color: Colors.red),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

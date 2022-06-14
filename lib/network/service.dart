@@ -7,6 +7,7 @@ import 'package:nebulashoppy/model/getMyAddressResponse/getMyAddressResponse.dar
 import 'package:nebulashoppy/model/getMyAddressResponse/getdeleteAddressResponse.dart';
 import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
+import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
@@ -199,6 +200,23 @@ class Service {
 
     print("ProductVarint " + json.toString());
     return getCartCountResponseFromJson(json);
+  }
+
+  Future<GetCartTotalResponse> getCartTotal(
+      String _deviceid, String _userid) async {
+    var client = http.Client();
+    var response = await client.get(Uri.parse(BASE_URL +
+        WS_GET_CART_COUNT +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+        "userid=" +
+        _userid));
+    var json = response.body;
+
+    print("ProductVarint " + json.toString());
+    return getCartTotalResponseFromJson(json);
   }
 
   Future<GetAddToCartResponse> getAddToCartResponse(
