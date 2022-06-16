@@ -6,6 +6,7 @@ import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/paymentSucessWidget.dart';
 import '../model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -401,7 +402,8 @@ class _OrderSummeryState extends State<OrderSummery>
 
   handlePaymentFailure(String errorMessage){
     if(errorMessage == 'Payment canceled'){
-      showAlertDialoug( "Payment Cancelled.","If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");   
+      showSucessDialoug( "Payment Successful.","");   
+     // showAlertDialoug( "Payment Cancelled.","If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");   
     }
     else{
        showAlertDialoug( "Payment Cancelled.",errorMessage);   
@@ -414,6 +416,23 @@ class _OrderSummeryState extends State<OrderSummery>
         context: context,
         builder: (context) {
           return PaymentCancelledWidget(
+            title:str_Title,
+            description:
+             str_Message, onClickClicked: () { 
+                  print("OnClick"+"onClick");
+                    Navigator.pop(context);
+                 },
+          );
+        },
+      );
+  }
+
+  void showSucessDialoug(String str_Title, String str_Message) {
+     showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return PaymentSucessWidget(
             title:str_Title,
             description:
              str_Message, onClickClicked: () { 
