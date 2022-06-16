@@ -2,39 +2,15 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
-import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
-import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
-import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
-import 'package:nebulashoppy/model/setmyAccount/setmyAccount.dart';
 import 'package:nebulashoppy/network/service.dart';
-import 'package:nebulashoppy/screen/categorylist.dart';
-import 'package:nebulashoppy/screen/productdetail.dart';
-import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/getCartItemResponse/getCarItemResponse.dart';
-import '../model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
-import '../model/getmyorderresponse/setmyorder.dart';
-import '../model/homescreen/itembannerimage.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:shimmer/shimmer.dart';
-
-import '../model/product.dart';
-import '../uttils/sharedpref.dart';
-import '../widget/Accountwidget.dart';
-import '../widget/LoginDialoug.dart';
-import '../widget/myorderwidget.dart';
-import '../widget/searchitem.dart';
-import '../widget/star_rating.dart';
-import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:intl/intl.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+
+import '../uttils/sharedpref.dart';
+import 'package:flutter_svg/svg.dart';
 
 class OrderSummery extends StatefulWidget {
   String str_Title = "";
@@ -64,6 +40,10 @@ class _OrderSummeryState extends State<OrderSummery>
   String str_GrandTotal = "";
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   int? int_TotalItemCount = 0;
+  
+  // Selected Position selection
+  bool selectedPosition = false;
+
   @override
   void initState() {
     super.initState();
@@ -95,6 +75,8 @@ class _OrderSummeryState extends State<OrderSummery>
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: appBarWidget(context, 3, widget.str_Title, false)),
+               bottomNavigationBar:
+          Visibility(visible: true, child: bottomBar()),
         body: getOrderSummeryData());
 
     // This trailing comma makes auto-formatting nicer for build methods
@@ -270,8 +252,81 @@ class _OrderSummeryState extends State<OrderSummery>
               ),
             ),
           ),
-        )
+        ),
+        Padding(
+        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.grey[300],
+          margin: EdgeInsets.all(10),
+          child: 
+          Padding(padding: EdgeInsets.all(10),child:Text("SELECT PAYMENT METHOD",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),) ,)
+          ,
+        ),),
+        GestureDetector(
+          onTap: () => {
+           setState(() {
+                  this.selectedPosition = true;
+                })
+          },
+          child:  Padding(
+          padding: EdgeInsets.all(10),child: 
+          Card(         
+         shape: RoundedRectangleBorder(
+         side: BorderSide(color: selectedPosition == true ? Colors.blue : Colors.white , width: 1),
+         borderRadius: BorderRadius.circular(1.0),
+         ),
+            child: Row(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child:   Image.asset(
+                 'assets/images/upi.png',
+                 height: 50,
+                width: 50,
+              ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: Text("UPI",style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold),),
+              )
+            ],
+          ) ,
+          ),),
+        )  
       ],
+    );
+  }
+
+  Container bottomBar() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      color: Colors.white,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 11,
+      child: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width - 20,
+            child:OutlinedButton(
+      style: OutlinedButton.styleFrom(
+       backgroundColor: Colors.orangeAccent,
+      ),
+    onPressed: () {
+      if(!selectedPosition){
+        showSnakeBar(context, "Please Select Payment Method!");
+      }
+      print("confirm"+"Confirm");
+    },
+    child: const Text(
+    'Confirm Order',
+    style: TextStyle(fontSize: 14,color: Colors.white),
+     ),
+     ),
+          )
+      
+        ],
+      ),
     );
   }
 }
