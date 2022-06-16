@@ -12,6 +12,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../uttils/sharedpref.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../widget/paymentcancelledwidget.dart';
+import  'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
+
+
 class OrderSummery extends StatefulWidget {
   String str_Title = "";
   String device_Id = "";
@@ -20,6 +24,11 @@ class OrderSummery extends StatefulWidget {
   int? int_SubTotal = 0;
   int? int_ShippingCharge = 0;
   int? int_GrandTotal = 0;
+  String txnID = "213428847124";
+  String firstname = "";
+  String phone = "";
+  String email = "";
+  String productInfo = "";
 
   OrderSummery(
       {required this.str_Title,
@@ -281,7 +290,7 @@ class _OrderSummeryState extends State<OrderSummery>
               Align(
                 alignment: Alignment.topLeft,
                 child:   Image.asset(
-                 'assets/images/upi.png',
+                 'assets/images/upi.webp',
                  height: 50,
                 width: 50,
               ),
@@ -316,7 +325,9 @@ class _OrderSummeryState extends State<OrderSummery>
       if(!selectedPosition){
         showSnakeBar(context, "Please Select Payment Method!");
       }
-      print("confirm"+"Confirm");
+      else{
+      callOrderApi();   
+      }    
     },
     child: const Text(
     'Confirm Order',
@@ -329,4 +340,89 @@ class _OrderSummeryState extends State<OrderSummery>
       ),
     );
   }
+
+  void callOrderApi() {
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+
+        Service().getGenerateOrderPayUResponse(str_UserId,widget.int_GrandTotal.toString(),"","","PickUp","1","","","Online%20Payment","true","UPI","0").then((value) => {
+          if (this.mounted)
+            {
+              setState((() {
+               Navigator.pop(_dialogKey.currentContext!);
+               if (value.statusCode == 1) {
+                   widget.txnID = value.data!.orderId.toString(); 
+                   widget.firstname = value.data!.firstname.toString();       
+                   widget.productInfo = value.data!.productinfo.toString();   
+                   widget.email = value.data!.email.toString();      
+                   widget.phone = value.data!.phone.toString();         
+                   print("TransectionId"+  widget.txnID);
+                  initializePayments();
+                } else {
+                  showSnakeBar(context, somethingWrong);
+                  print("Categorylist" + "Opps Something Wrong!");
+                }
+              }))
+            }
+        });
+  }
+
+  Future<void> initializePayments() async { 
+   final response= await  PayumoneyProUnofficial.payUParams(
+    email: widget.email,
+    firstName: widget.firstname, 
+    merchantName: 'Nebula',
+    isProduction: true,
+    merchantKey: MerchantKey,
+    merchantSalt: MerchantSalt,
+    amount: widget.int_GrandTotal.toString(),
+    hashUrl:'<Checksum URL to generate dynamic hashes>',
+    productInfo: widget.productInfo,
+    transactionId: widget.txnID,
+    showExitConfirmation:true,
+    showLogs:false, // true for debugging, false for production
+    userCredentials: MerchantKey +":" + widget.email,
+    userPhoneNumber: widget.phone);
+
+   if(response['status'] == PayUParams.success){
+    handlePaymentSuccess();
+   }
+
+   if (response['status'] == PayUParams.failed){
+    handlePaymentFailure(response['message']);
+   }
+  
+   }
+
+
+   handlePaymentSuccess(){
+   //Implement Your Success Logic
+    print("Payment"+"Sucess");
+   }
+
+  handlePaymentFailure(String errorMessage){
+    if(errorMessage == 'Payment canceled'){
+      showAlertDialoug( "Payment Cancelled.","If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");   
+    }
+    else{
+       showAlertDialoug( "Payment Cancelled.",errorMessage);   
+    } 
+   }
+
+  void showAlertDialoug(String str_Title, String str_Message) {
+   showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return PaymentCancelledWidget(
+            title:str_Title,
+            description:
+             str_Message, onClickClicked: () { 
+                  print("OnClick"+"onClick");
+                    Navigator.pop(context);
+                 },
+          );
+        },
+      );
+  }
+   
 }

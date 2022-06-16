@@ -9,6 +9,7 @@ import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
+import 'package:nebulashoppy/model/getgeneratepayumoneyresponse/getgeneatepaymoneyresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
 import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
@@ -603,5 +604,64 @@ class Service {
     var jsons = response.body;
 
     return getGenerateOrderResponseFromJson(jsons);
+  }
+
+  Future<GenerateOrderPayUMoney> getGenerateOrderPayUResponse(
+      String _IboId,
+      String _totalAmount,
+      String _paymentid,
+      String _signature,
+      String _addresstype,
+      String _shippingaddress,
+      String _billingaddress,
+      String _pickuppoint,
+      String _paymentmode,
+      String _IsWaiveOff,
+      String _UserPaymentType,
+      String _ewalletamt) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        WS_GET_GENERATE_ORDER_PAYUMONEY +
+        "?" +
+        "IBOKeyId=" +
+        _IboId +
+        "&" +
+        "TotalAmount=" +
+        _totalAmount +
+        "&" +
+        "paymentid=" +
+        _paymentid +
+        "&" +
+        "signature=" +
+        _signature +
+        "&" +
+        "addresstype=" +
+        _addresstype +
+        "&" +
+        "shippingaddress=" +
+        _shippingaddress +
+        "&" +
+        "billingaddress=" +
+        _billingaddress +
+        "&" +
+        "pickuppoint=" +
+        _pickuppoint +
+        "&" +
+        "paymentmode=" +
+        _paymentmode +
+        "&" +
+        "IsWaiveOff=" +
+        _IsWaiveOff +
+        "&" +
+        "UserPaymentType=" +
+        _UserPaymentType +
+        "&" +
+        "ewalletamt=" +
+        _ewalletamt);
+    print("Uri" + uri.toString());
+    var response = await client.get(uri);
+    var jsons = response.body;
+
+    return generateOrderPayUMoneyFromJson(jsons);
   }
 }

@@ -43,6 +43,11 @@ const WS_GET_MY_ADDRESS = '/API/ECom/GetAddresses';
 const WS_GET_DELETE_ADDRESS = '/API/ECom/DeleteAddress';
 const WS_GET_STATE_LIST = '/API/Config/StateInfo';
 const WS_GET_GENERATE_ORDER = '/API/Ecom/GenerateOrderPaytm';
+const WS_GET_GENERATE_ORDER_PAYUMONEY = '/API/Ecom/GenerateOrderPayUMoney';
+
+const MerchantKey = "0w2qzK";
+const MerchantSalt = "Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU";
+
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';
