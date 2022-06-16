@@ -186,8 +186,7 @@ class Service {
     return itemProductVariantFromJson(json);
   }
 
-  Future<GetCartCountResponse> getCartCount(
-      String _deviceid, String _userid) async {
+  Future<GetCartCountResponse> getCartCount(String _deviceid, String _userid) async {
     var client = http.Client();
     var response = await client.get(Uri.parse(BASE_URL +
         WS_GET_CART_COUNT +
@@ -196,10 +195,10 @@ class Service {
         _deviceid +
         "&" +
         "userid=" +
-        _userid));
+        str_UserId));
     var json = response.body;
 
-    print("ProductVarint " + json.toString());
+    print("ProductVarint " + str_UserId);
     return getCartCountResponseFromJson(json);
   }
 
@@ -260,7 +259,7 @@ class Service {
       String _deviceid, String _pickupid) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
-        WS_GET_CART_ITEM +
+        WS_GET_CART_WITHOUT_LOGIN_ITEM +
         "?" +
         "deviceid=" +
         _deviceid +
@@ -290,7 +289,7 @@ class Service {
       String _deviceid, String _pickupid, String _userid) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
-        WS_GET_CART_ITEM +
+        WS_GET_CART_WITH_LOGIN_ITEM +
         "?" +
         "deviceid=" +
         _deviceid +

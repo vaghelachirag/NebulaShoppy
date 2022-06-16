@@ -219,8 +219,8 @@ class _SearchState extends State<Search> {
                       icon: _listSearch[index].mainImage.toString(),
                       rating: 5,
                       remainingQuantity: 5,
-                      price: _listSearch[index].salePrice.toString(),
-                      mrp: _listSearch[index].mrp.toString()),
+                      price: rupees_Sybol+  _listSearch[index].salePrice.toString(),
+                      mrp: rupees_Sybol+ _listSearch[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );

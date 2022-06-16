@@ -283,7 +283,7 @@ class _OrderSummeryState extends State<OrderSummery>
           padding: EdgeInsets.all(10),child: 
           Card(         
          shape: RoundedRectangleBorder(
-         side: BorderSide(color: selectedPosition == true ? Colors.blue : Colors.white , width: 1),
+         side: BorderSide(color: selectedPosition == true ? Colors.black38 : Colors.white , width: 1),
          borderRadius: BorderRadius.circular(1.0),
          ),
             child: Row(
@@ -311,7 +311,6 @@ class _OrderSummeryState extends State<OrderSummery>
   Container bottomBar() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      color: Colors.white,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 11,
       child: Row(
@@ -320,7 +319,7 @@ class _OrderSummeryState extends State<OrderSummery>
             width: MediaQuery.of(context).size.width - 20,
             child:OutlinedButton(
       style: OutlinedButton.styleFrom(
-       backgroundColor: Colors.orangeAccent,
+       backgroundColor: THEME_COLOR,
       ),
     onPressed: () {
       if(!selectedPosition){
@@ -396,14 +395,13 @@ class _OrderSummeryState extends State<OrderSummery>
 
 
    handlePaymentSuccess(){
-   //Implement Your Success Logic
-    print("Payment"+"Sucess");
+    showSucessDialoug( "Payment Successful.","");   
    }
 
   handlePaymentFailure(String errorMessage){
     if(errorMessage == 'Payment canceled'){
-      showSucessDialoug( "Payment Successful.","");   
-     // showAlertDialoug( "Payment Cancelled.","If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");   
+     
+      showAlertDialoug( "Payment Cancelled.","If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");   
     }
     else{
        showAlertDialoug( "Payment Cancelled.",errorMessage);   

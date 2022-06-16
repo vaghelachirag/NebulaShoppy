@@ -29,7 +29,7 @@ class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
       color: Colors.black.withOpacity(0.5),
       child:  Dialog(
       elevation: 0,
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: Colors.grey[100],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -53,21 +53,6 @@ class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
                 ),
             ),
           ),
-           Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            padding:  EdgeInsets.fromLTRB(10, 5, 10, 0),
-            width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Text(
-                   "${widget.description}",
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-            ),
-          ),
-          SizedBox(height: 20),
           Container(
             margin: EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width,

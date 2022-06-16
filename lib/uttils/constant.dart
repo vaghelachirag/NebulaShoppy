@@ -30,7 +30,8 @@ const WS_GET_PRODUCT_VARINT_DATA =
     '/API/EcomAttribute/GetEcomAttributeValuesList';
 const WS_GET_CART_COUNT = '/API/ECom/GetCartSumOfQty';
 const WS_ADD_TO_CART = '/API/ECom/AddToCart';
-const WS_GET_CART_ITEM = '/API/ECom/GetCartItemsListWithoutUser';
+const WS_GET_CART_WITHOUT_LOGIN_ITEM = '/API/ECom/GetCartItemsListWithoutUser';
+const WS_GET_CART_WITH_LOGIN_ITEM = '/API/ECom/GetCartItemsList';
 const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
 const WS_GENERATE_TOKEN = '/API/Token';
 const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
