@@ -50,7 +50,8 @@ class CategoryProductWidget extends StatelessWidget {
                         ],
                       ),
                       _productImage(context),
-                      _productDetails()
+                      _productDetails(),
+                      addtoCart(onCartAddClick())
                     ],
                   ),
                 ),
@@ -134,21 +135,35 @@ class CategoryProductWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: AddToCart(
-                count: 1,
-                onItemAdd: () {
-                  print("CartWidget"+ "Add");
-                  onCartAddClick();
-                },
-                onItemRemoved: () {},
-                onCountChanged: (int) {},
-              ),
-            )
+          
           ]),
     );
   }
+}
+
+Container addtoCart(void param0) {
+  return Container(
+    child:   Padding(
+              padding: EdgeInsets.all(0),
+              child: OutlinedButton(
+              child: Text('ADD',style: TextStyle(color: Colors.white),),
+              style: OutlinedButton.styleFrom(
+                primary: Colors.black,
+                shadowColor: Colors.black,
+                backgroundColor: THEME_COLOR,
+                textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                //openCheckoutDialoug();
+                param0;
+              },
+            ),
+            ),
+  );
 }
 
 @override
