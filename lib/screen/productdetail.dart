@@ -20,6 +20,7 @@ import 'package:nebulashoppy/uttils/sliderShowFullmageswidget.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/dotted_slider.dart';
+import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:page_transition/page_transition.dart';
@@ -363,24 +364,26 @@ class _ProductDetailState extends State<ProductDetail> {
                 borderRadius: BorderRadius.circular(16),
                 color: Colors.white,
               ),
-              child: 
-              InkWell(
-                onTap: (){
-                   print("Test"+"Test");
-                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SliderShowFullmages(listBannerImage: _listBannerImage,current: 0,)));
+              child: InkWell(
+                onTap: () {
+                  print("Test" + "Test");
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SliderShowFullmages(
+                            listBannerImage: _listBannerImage,
+                            current: 0,
+                          )));
                 },
-                child:   Container(
-                width: MediaQuery.of(context).size.width,
-                height: 280,
-                child: Center(
-                  child: FadeInImage.assetNetwork(
-                      placeholder: placeholder_path,
-                      image: _listBannerImage[index].imageFile,
-                      fit: BoxFit.fill),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 280,
+                  child: Center(
+                    child: FadeInImage.assetNetwork(
+                        placeholder: placeholder_path,
+                        image: _listBannerImage[index].imageFile,
+                        fit: BoxFit.fill),
+                  ),
                 ),
               ),
-              )
-            ,
             ));
 
     return Container(
@@ -1099,7 +1102,7 @@ class _ProductDetailState extends State<ProductDetail> {
         });
   }
 
-  setProductData(itemProdctDetailData data) {
+  setProductData(itemProdctDetailData data) async {
     str_Mrp = data.mrp.toString();
     str_saleprice = data.salePrice.toString();
     str_BV = data.bv.toString();
@@ -1123,9 +1126,11 @@ class _ProductDetailState extends State<ProductDetail> {
     } else {
       is_ShowDescription = true;
     }
+
     getProductVarinatData();
     getProductDetailImage();
     getCartItemList();
+    await addItemInDatabase();
   }
 
   dialogContent(BuildContext context) {
@@ -1470,6 +1475,27 @@ class _ProductDetailState extends State<ProductDetail> {
           break;
         }
       }
+    }
+  }
+
+  addItemInDatabase() async {
+    Future<void> _addItem() async {
+      // await SQLHelper.createItem(
+      //     data.name,
+      //     data.salePrice.toString(),
+      //     _listBannerImage[0].imageFile,
+      //     data.productId.toString(),
+      //     data.quantity.toString(),
+      //     data.categoryId.toString());
+      //  _refreshJournals();
+
+      await SQLHelper.createItem(
+          "Test",
+          "22.00",
+          "http://image10.bizrate-images.com/resize?sq=60&uid=2216744464",
+          "12",
+          "30",
+          "50");
     }
   }
 }

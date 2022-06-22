@@ -12,6 +12,7 @@ import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:page_transition/page_transition.dart';
@@ -51,6 +52,29 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     setState(() {
       bl_ShowCart = true;
     });
+    addItemInDatabase();
+    //  getRecentItems();
+  }
+
+  void addItemInDatabase() {
+    Future<void> _addItem() async {
+      // await SQLHelper.createItem(
+      //     data.name,
+      //     data.salePrice.toString(),
+      //     _listBannerImage[0].imageFile,
+      //     data.productId.toString(),
+      //     data.quantity.toString(),
+      //     data.categoryId.toString());
+      //  _refreshJournals();
+
+      await SQLHelper.createItem(
+          "Test",
+          "22.00",
+          "http://image10.bizrate-images.com/resize?sq=60&uid=2216744464",
+          "12",
+          "30",
+          "50");
+    }
   }
 
   @override
@@ -87,16 +111,17 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   },
                   child: SearchWidget(),
                 ),
-                
-                 FutureBuilder(
+                FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listBannerImage.isEmpty) {
-                      return
-                      Container(
-                     margin: EdgeInsets.only(top: 6),
-                    height: ScreenUtil().setHeight(80),child:   loadSkeletonLoaders(boxVerticalCategory(),Axis.horizontal),);
+                      return Container(
+                        margin: EdgeInsets.only(top: 6),
+                        height: ScreenUtil().setHeight(80),
+                        child: loadSkeletonLoaders(
+                            boxVerticalCategory(), Axis.horizontal),
+                      );
                     } else {
-                    return  homeCategory();
+                      return homeCategory();
                     }
                   },
                 ),
@@ -128,7 +153,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   future: getNewLaunchedProduct(),
                   builder: (context, snapshot) {
                     if (_listNewLaunched.isEmpty) {
-                     return loadNewLaunchSkeleton();
+                      return loadNewLaunchSkeleton();
                     } else {
                       return buildTranding();
                     }
@@ -482,5 +507,14 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       return Future.value(false);
     }
     return Future.value(true);
+  }
+
+  void getRecentItems() async {
+    final data = await SQLHelper.getItems();
+    setState(() {
+      for (var i = 0; i < data.length; i++) {
+        print("DabaseLength" + data[i].toString());
+      }
+    });
   }
 }

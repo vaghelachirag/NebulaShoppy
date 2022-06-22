@@ -48,6 +48,7 @@ class SQLHelper {
     };
     final id = await db.insert('recentItem', data,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    print("DatabaseId" + id.toString());
     return id;
   }
 
