@@ -18,8 +18,6 @@ class CategoryProductWidget extends StatelessWidget {
   final VoidCallback onCartAddClick;
   final Function(int) onCountChanges;
 
-
-  
   CategoryProductWidget({
     required this.product,
     required this.gradientColors,
@@ -27,7 +25,6 @@ class CategoryProductWidget extends StatelessWidget {
     required this.onCartAddClick,
     required this.onCountChanges,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,13 +118,13 @@ class CategoryProductWidget extends StatelessWidget {
             setTextData(product.name, 12),
             Row(
               children: <Widget>[
-                Text( rupees_Sybol+ product.price,
+                Text(rupees_Sybol + product.price,
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.red)),
                 Text(
-                  rupees_Sybol+ product.mrp,
+                  rupees_Sybol + product.mrp,
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
@@ -135,7 +132,6 @@ class CategoryProductWidget extends StatelessWidget {
                 ),
               ],
             ),
-          
           ]),
     );
   }
@@ -143,26 +139,29 @@ class CategoryProductWidget extends StatelessWidget {
 
 Container addtoCart(void param0) {
   return Container(
-    child:   Padding(
-              padding: EdgeInsets.all(0),
-              child: OutlinedButton(
-              child: Text('ADD',style: TextStyle(color: Colors.white),),
-              style: OutlinedButton.styleFrom(
-                primary: Colors.black,
-                shadowColor: Colors.black,
-                backgroundColor: THEME_COLOR,
-                textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                //openCheckoutDialoug();
-                param0;
-              },
-            ),
-            ),
+    child: Padding(
+      padding: EdgeInsets.all(0),
+      child: OutlinedButton(
+        child: Text(
+          'ADD',
+          style: TextStyle(color: Colors.white),
+        ),
+        style: OutlinedButton.styleFrom(
+          primary: Colors.black,
+          shadowColor: Colors.black,
+          backgroundColor: THEME_COLOR,
+          textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold),
+        ),
+        onPressed: () {
+          //openCheckoutDialoug();
+          param0;
+        },
+      ),
+    ),
   );
 }
 

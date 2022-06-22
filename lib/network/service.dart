@@ -186,7 +186,8 @@ class Service {
     return itemProductVariantFromJson(json);
   }
 
-  Future<GetCartCountResponse> getCartCount(String _deviceid, String _userid) async {
+  Future<GetCartCountResponse> getCartCount(
+      String _deviceid, String _userid) async {
     var client = http.Client();
     var response = await client.get(Uri.parse(BASE_URL +
         WS_GET_CART_COUNT +
