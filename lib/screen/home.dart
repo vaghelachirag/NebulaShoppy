@@ -322,7 +322,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       id: _listRecentView[index].id,
                       productid: 1,
                       catid: 1,
-                      company: _listRecentView[index].s.toString(),
+                      company: _listRecentView[index].shortdesc.toString(),
                       name: _listRecentView[index].productName.toString(),
                       icon: _listRecentView[index].productImage.toString(),
                       rating: 5,
@@ -332,7 +332,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           _listRecentView[index].categorySaleprice.toString(),
                       mrp: rupees_Sybol +
                           " " +
-                          _listRecentView[index].categorySaleprice.toString()),
+                          _listRecentView[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );

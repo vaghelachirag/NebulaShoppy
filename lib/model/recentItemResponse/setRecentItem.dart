@@ -15,6 +15,8 @@ class SetRecentItemResponse {
     required this.productId,
     required this.quantity,
     required this.ecbId,
+    required this.mrp,
+    required this.shortdesc,
   });
 
   int id;
@@ -24,6 +26,8 @@ class SetRecentItemResponse {
   String productId;
   String quantity;
   String ecbId;
+  String mrp;
+  String shortdesc;
 
   factory SetRecentItemResponse.fromJson(Map<String, dynamic> json) =>
       SetRecentItemResponse(
@@ -34,6 +38,8 @@ class SetRecentItemResponse {
         productId: json["productId"],
         quantity: json["quantity"],
         ecbId: json["ecbId"],
+        mrp: json["mrp"],
+        shortdesc: json["shortdesc"],
       );
 
   Map<String, dynamic> toJson() => {

@@ -7,6 +7,8 @@ class SQLHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         productName TEXT,
         categorySaleprice TEXT,
+        mrp TEXT,
+        shortdesc TEXT,
         productImage TEXT,
          productId TEXT,
         quantity TEXT,
@@ -35,12 +37,16 @@ class SQLHelper {
       String? productImage,
       String? productId,
       String? quantity,
-      String? ecbId) async {
+      String? ecbId,
+      String? mrp,
+      String? shortdesc) async {
     final db = await SQLHelper.db();
 
     final data = {
       'productName': productName,
       'categorySaleprice': categorySaleprice,
+      'mrp': mrp,
+      'shortdesc': shortdesc,
       'productImage': productImage,
       'productId': productId,
       'quantity': quantity,

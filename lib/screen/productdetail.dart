@@ -1485,7 +1485,9 @@ class _ProductDetailState extends State<ProductDetail> {
         _listBannerImage[0].imageFile,
         data.productId.toString(),
         data.quantity.toString(),
-        data.projectId.toString());
+        data.projectId.toString(),
+        data.mrp.toString(),
+        data.shortDescription.toString());
     print("fdf" + "fdf");
   }
 }
