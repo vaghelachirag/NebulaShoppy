@@ -1130,7 +1130,7 @@ class _ProductDetailState extends State<ProductDetail> {
     getProductVarinatData();
     getProductDetailImage();
     getCartItemList();
-    await addItemInDatabase();
+    await addItemInDatabase(data);
   }
 
   dialogContent(BuildContext context) {
@@ -1478,24 +1478,14 @@ class _ProductDetailState extends State<ProductDetail> {
     }
   }
 
-  addItemInDatabase() async {
-    Future<void> _addItem() async {
-      // await SQLHelper.createItem(
-      //     data.name,
-      //     data.salePrice.toString(),
-      //     _listBannerImage[0].imageFile,
-      //     data.productId.toString(),
-      //     data.quantity.toString(),
-      //     data.categoryId.toString());
-      //  _refreshJournals();
-
-      await SQLHelper.createItem(
-          "Test",
-          "22.00",
-          "http://image10.bizrate-images.com/resize?sq=60&uid=2216744464",
-          "12",
-          "30",
-          "50");
-    }
+  addItemInDatabase(itemProdctDetailData data) async {
+    await SQLHelper.createItem(
+        data.name,
+        data.salePrice.toString(),
+        _listBannerImage[0].imageFile,
+        data.productId.toString(),
+        data.quantity.toString(),
+        data.projectId.toString());
+    print("fdf" + "fdf");
   }
 }

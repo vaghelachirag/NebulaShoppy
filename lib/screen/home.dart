@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
+import 'package:nebulashoppy/model/recentItemResponse/setRecentItem.dart';
 import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
@@ -34,6 +36,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   List<ItembannerimageData> _listBannerImage = [];
   List<HomeCategoryData> _listHomeCategory = [];
   List<itemNewLaunchedProduct> _listNewLaunched = [];
+  List<SetRecentItemResponse> _listRecentView = [];
 
   bool bl_IsNewLaunched = false;
   String categoryName = "";
@@ -52,29 +55,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     setState(() {
       bl_ShowCart = true;
     });
-    addItemInDatabase();
-    //  getRecentItems();
-  }
-
-  void addItemInDatabase() {
-    Future<void> _addItem() async {
-      // await SQLHelper.createItem(
-      //     data.name,
-      //     data.salePrice.toString(),
-      //     _listBannerImage[0].imageFile,
-      //     data.productId.toString(),
-      //     data.quantity.toString(),
-      //     data.categoryId.toString());
-      //  _refreshJournals();
-
-      await SQLHelper.createItem(
-          "Test",
-          "22.00",
-          "http://image10.bizrate-images.com/resize?sq=60&uid=2216744464",
-          "12",
-          "30",
-          "50");
-    }
+    _refreshRecentData();
   }
 
   @override
@@ -156,6 +137,19 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       return loadNewLaunchSkeleton();
                     } else {
                       return buildTranding();
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                topHeader("Recent View"),
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_listRecentView.isEmpty) {
+                      return Text("");
+                    } else {
+                      return buildRecentView();
                     }
                   },
                 )
@@ -297,6 +291,48 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       mrp: rupees_Sybol +
                           " " +
                           _listNewLaunched[index].mrp.toString()),
+                  gradientColors: [Colors.white, Colors.white],
+                ),
+              );
+              ;
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  Column buildRecentView() {
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.all(5),
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          height: ScreenUtil().setHeight(200),
+          child: ListView.builder(
+            itemCount: _listRecentView.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  showSnakeBar(context, "Click");
+                },
+                child: TrendingItem(
+                  product: Product(
+                      id: _listRecentView[index].id,
+                      productid: 1,
+                      catid: 1,
+                      company: _listRecentView[index].s.toString(),
+                      name: _listRecentView[index].productName.toString(),
+                      icon: _listRecentView[index].productImage.toString(),
+                      rating: 5,
+                      remainingQuantity: 5,
+                      price: rupees_Sybol +
+                          " " +
+                          _listRecentView[index].categorySaleprice.toString(),
+                      mrp: rupees_Sybol +
+                          " " +
+                          _listRecentView[index].categorySaleprice.toString()),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );
@@ -509,11 +545,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return Future.value(true);
   }
 
-  void getRecentItems() async {
+  void _refreshRecentData() async {
     final data = await SQLHelper.getItems();
     setState(() {
-      for (var i = 0; i < data.length; i++) {
-        print("DabaseLength" + data[i].toString());
+      for (int i = 0; i < data.length; i++) {
+        String jsonString = data[i].toString();
+        SetRecentItemResponse recentItem =
+            new SetRecentItemResponse.fromJson(data[i]);
+        _listRecentView.add(recentItem);
+        print("RecentItems" + recentItem.id.toString());
       }
     });
   }

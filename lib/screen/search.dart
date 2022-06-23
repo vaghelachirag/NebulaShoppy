@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,6 +18,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
 import '../model/product.dart';
+import '../model/recentItemResponse/setRecentItem.dart';
 import '../uttils/skeletonloader.dart';
 import '../widget/AppBarWidget.dart';
 import '../widget/common_widget.dart';
@@ -42,6 +45,7 @@ class _SearchState extends State<Search> {
   void initState() {
     super.initState();
     getseachProduct();
+    _refreshRecentData();
   }
 
   getseachProduct() async {
@@ -135,7 +139,7 @@ class _SearchState extends State<Search> {
                 child: FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listSearch.isEmpty) {
-                      return loadSkeletonLoaders(boxseach(),Axis.vertical);
+                      return loadSkeletonLoaders(boxseach(), Axis.vertical);
                     } else {
                       return buildSearchProduct();
                     }
@@ -219,8 +223,9 @@ class _SearchState extends State<Search> {
                       icon: _listSearch[index].mainImage.toString(),
                       rating: 5,
                       remainingQuantity: 5,
-                      price: rupees_Sybol+  _listSearch[index].salePrice.toString(),
-                      mrp: rupees_Sybol+ _listSearch[index].mrp.toString()),
+                      price: rupees_Sybol +
+                          _listSearch[index].salePrice.toString(),
+                      mrp: rupees_Sybol + _listSearch[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );
@@ -266,7 +271,17 @@ class _SearchState extends State<Search> {
     }
   }
 
- 
-
- 
+  void _refreshRecentData() async {
+    final data = await SQLHelper.getItems();
+    setState(() {
+      for (int i = 0; i < data.length; i++) {
+        String jsonString = data[i].toString();
+        //   final jsonResponse = json.decode(jsonString);
+        SetRecentItemResponse recentItem =
+            new SetRecentItemResponse.fromJson(data[i]);
+        // _listRecentView.add(recentItem);
+        print("RecentItems" + recentItem.id.toString());
+      }
+    });
+  }
 }
