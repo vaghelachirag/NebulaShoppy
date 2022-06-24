@@ -319,9 +319,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 },
                 child: TrendingItem(
                   product: Product(
-                      id: _listRecentView[index].id,
-                      productid: 1,
-                      catid: 1,
+                      id: int.parse(_listRecentView[index].pId.toString()),
+                      productid: int.parse(_listRecentView[index].productId),
+                      catid: int.parse(_listRecentView[index].ecbId),
                       company: _listRecentView[index].shortdesc.toString(),
                       name: _listRecentView[index].productName.toString(),
                       icon: _listRecentView[index].productImage.toString(),

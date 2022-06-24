@@ -15,6 +15,7 @@ class SetRecentItemResponse {
     required this.productId,
     required this.quantity,
     required this.ecbId,
+    required this.pId,
     required this.mrp,
     required this.shortdesc,
   });
@@ -26,6 +27,7 @@ class SetRecentItemResponse {
   String productId;
   String quantity;
   String ecbId;
+  String pId;
   String mrp;
   String shortdesc;
 
@@ -38,6 +40,7 @@ class SetRecentItemResponse {
         productId: json["productId"],
         quantity: json["quantity"],
         ecbId: json["ecbId"],
+        pId: json["pId"],
         mrp: json["mrp"],
         shortdesc: json["shortdesc"],
       );

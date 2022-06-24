@@ -1130,7 +1130,15 @@ class _ProductDetailState extends State<ProductDetail> {
     getProductVarinatData();
     getProductDetailImage();
     getCartItemList();
+
     await addItemInDatabase(data);
+
+    print("Trith" +
+        widget.id.toString() +
+        " " +
+        widget.productid.toString() +
+        " " +
+        widget.categoryid.toString());
   }
 
   dialogContent(BuildContext context) {
@@ -1479,15 +1487,20 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   addItemInDatabase(itemProdctDetailData data) async {
-    await SQLHelper.createItem(
-        data.name,
-        data.salePrice.toString(),
-        _listBannerImage[0].imageFile,
-        data.productId.toString(),
-        data.quantity.toString(),
-        data.projectId.toString(),
-        data.mrp.toString(),
-        data.shortDescription.toString());
-    print("fdf" + "fdf");
+    final dataitems = await SQLHelper.getItem(data.productId);
+    if (dataitems.length > 0) {
+    } else {
+      await SQLHelper.createItem(
+          data.name,
+          data.salePrice.toString(),
+          _listBannerImage[0].imageFile,
+          data.productId.toString(),
+          data.quantity.toString(),
+          data.categoryId.toString(),
+          data.id.toString(),
+          data.mrp.toString(),
+          data.shortDescription.toString());
+      print("fdf" + "fdf");
+    }
   }
 }

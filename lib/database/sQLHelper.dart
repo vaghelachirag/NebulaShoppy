@@ -11,6 +11,7 @@ class SQLHelper {
         shortdesc TEXT,
         productImage TEXT,
          productId TEXT,
+          pId TEXT,
         quantity TEXT,
         ecbId TEXT
       )
@@ -38,6 +39,7 @@ class SQLHelper {
       String? productId,
       String? quantity,
       String? ecbId,
+      String? pId,
       String? mrp,
       String? shortdesc) async {
     final db = await SQLHelper.db();
@@ -50,7 +52,8 @@ class SQLHelper {
       'productImage': productImage,
       'productId': productId,
       'quantity': quantity,
-      'ecbId': ecbId
+      'ecbId': ecbId,
+      'pId': pId
     };
     final id = await db.insert('recentItem', data,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
@@ -68,7 +71,8 @@ class SQLHelper {
   // The app doesn't use this method but I put here in case you want to see it
   static Future<List<Map<String, dynamic>>> getItem(int id) async {
     final db = await SQLHelper.db();
-    return db.query('items', where: "id = ?", whereArgs: [id], limit: 1);
+    return db.query('recentItem',
+        where: "productId = ?", whereArgs: [id], limit: 1);
   }
 
   // Update an item by id
