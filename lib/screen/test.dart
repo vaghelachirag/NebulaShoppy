@@ -5,6 +5,7 @@ import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../database/sQLHelper.dart';
 import '../model/homescreen/itemNewLaunched.dart';
 import '../model/homescreen/itemhomecategory.dart';
 import '../model/product.dart';
@@ -39,92 +40,39 @@ class Test extends StatefulWidget {
   State<Test> createState() => _TestState();
 }
 
-class _TestState extends State<Test> {
+class _TestState extends State<Test> with WidgetsBindingObserver {
   final controller = PageController(viewportFraction: 1, keepPage: true);
   @override
   void initState() {
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
+  }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("OnResume" + "OnResume");
+    if (state == AppLifecycleState.resumed) {
+      print("OnResume" + "OnResume");
+      //do your stuff
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Skeleton Loading with shimmer", style: TextStyle(color: Colors.black),),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child:  Container(
-       width: MediaQuery.of(context).size.width/2,
-      child: Flexible(
-          child: GridView.builder(
-          itemCount: 20,
-          itemBuilder: (BuildContext ctx, index) {
-            int timer = 2000;
-            return Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade300,
-              period: Duration(milliseconds: timer),
-              child: boxProductCatWise(context),
-            );
-          },
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 1,
-          childAspectRatio: 8.0 / 12.0,
-        )),
-      ),
-     
-    )));
-  }
-
-
-  Widget box(){
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15)
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.grey
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(5),
-                    width: 100,
-                    height: 10,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey),
-                  ),
-                   Container(
-            margin: EdgeInsets.all(5),
-                    width: 80,
-                    height: 8,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey),
-                  ),
-                   Container(
-            margin: EdgeInsets.all(5),
-                    width: 60,
-                    height: 5,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey),
-                  )
-                  
-        ],
+        title: Text(
+          "Skeleton Loading with shimmer",
+          style: TextStyle(color: Colors.black),
+        ),
       ),
     );
   }
