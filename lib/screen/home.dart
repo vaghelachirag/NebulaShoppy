@@ -49,6 +49,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     getBannerImage();
     getDeviceId();
     getCartCount();
@@ -56,6 +57,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       bl_ShowCart = true;
     });
     _refreshRecentData();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -545,7 +552,43 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return Future.value(true);
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("APP_STATE: $state");
+
+    if (state == AppLifecycleState.resumed) {
+      // user returned to our app
+      // _showPasswordDialog();
+      _refreshRecentData();
+    } else if (state == AppLifecycleState.inactive) {
+      // app is inactive
+    } else if (state == AppLifecycleState.paused) {
+      // user quit our app temporally
+      _refreshRecentData();
+    }
+  }
+
+  _showPasswordDialog() {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text("Please enter your Password"),
+            content: Container(
+              child: TextField(),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("OK"),
+                onPressed: () {},
+              )
+            ],
+          );
+        });
+  }
+
   void _refreshRecentData() async {
+    _listRecentView.clear();
     final data = await SQLHelper.getItems();
     setState(() {
       for (int i = 0; i < data.length; i++) {
@@ -553,7 +596,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         SetRecentItemResponse recentItem =
             new SetRecentItemResponse.fromJson(data[i]);
         _listRecentView.add(recentItem);
-        print("RecentItems" + recentItem.id.toString());
       }
     });
   }
