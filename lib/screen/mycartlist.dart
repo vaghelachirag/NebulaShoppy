@@ -526,7 +526,7 @@ class _MyCartListState extends State<MyCartList> {
                   if (value.statusCode == 1) {
                     showSnakeBar(context, "Item Removed From Cart!");
                     setState(() {
-                      _listCartItem.clear();
+                      //  _listCartItem.clear();
                       getMyCartList();
                     });
                   } else {
@@ -550,13 +550,13 @@ class _MyCartListState extends State<MyCartList> {
                     if (flag == Flag_Plus) {
                       showSnakeBar(context, "Item Added to Cart!");
                       setState(() {
-                        _listCartItem.clear();
+                        // _listCartItem.clear();
                         getMyCartList();
                       });
                     } else {
                       showSnakeBar(context, "Item Removed from Cart!");
                       setState(() {
-                        _listCartItem.clear();
+                        //  _listCartItem.clear();
                         getMyCartList();
                       });
                     }
