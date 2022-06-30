@@ -157,8 +157,11 @@ Container addtoCart(void param0) {
               fontWeight: FontWeight.bold),
         ),
         onPressed: () {
-          //openCheckoutDialoug();
-          param0;
+          if (!is_Login) {
+            print("Login" + "IsLoginNotLogin");
+          } else {
+            print("Login" + "IsLoginLogin");
+          }
         },
       ),
     ),

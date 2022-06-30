@@ -48,6 +48,7 @@ class _CategoryListState extends State<CategoryList>
     getDeviceId();
     getCartCount();
     getHomeCategory();
+    checkUserLoginOrNot();
   }
 
   @override
