@@ -55,7 +55,6 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  String str_UserId = "";
   bool isClicked = false;
   List<ProductBannerData> _listBannerImage = [];
   List<dynamic> _listProductImageDetail = [];
@@ -1399,41 +1398,86 @@ class _ProductDetailState extends State<ProductDetail> {
 
   void addToCart(String deviceId, String str_userId, String productId,
       int quntity, String flag) {
-    Service()
-        .getAddToCartResponse(
-            deviceId, str_userId, productId, quntity.toString(), flag)
-        .then((value) => {
-              setState((() {
-                if (_dialogKey.currentContext != null) {
-                  Navigator.pop(_dialogKey.currentContext!);
-                  if (value.statusCode == 1) {
-                    if (flag == Flag_Plus) {
-                      showSnakeBar(context, "Item Added to Cart!");
-                      setState(() {
-                        int_CartCounters = int_CartCounters + 1;
-                        int_CartQuantity = int_CartQuantity! + 1;
-                        int_CartCounter = int_CartCounter! + 1;
-                        QTYCount = int_CartCounter.toString();
-                        setState(() {});
-                      });
-                    } else {
-                      setState(() {
-                        if (int_CartQuantity! > 0) {
-                          int_CartCounters = int_CartCounters - 1;
-                          int_CartQuantity = int_CartQuantity! - 1;
-                          int_CartCounter = int_CartCounter! - 1;
-                          QTYCount = int_CartCounter.toString();
-                          setState(() {});
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_Login) {
+        Service()
+            .getAddToCartResponse(
+                deviceId, str_userId, productId, quntity.toString(), flag)
+            .then((value) => {
+                  setState((() {
+                    if (_dialogKey.currentContext != null) {
+                      Navigator.pop(_dialogKey.currentContext!);
+                      if (value.statusCode == 1) {
+                        if (flag == Flag_Plus) {
+                          showSnakeBar(context, "Item Added to Cart!");
+                          setState(() {
+                            int_CartCounters = int_CartCounters + 1;
+                            int_CartQuantity = int_CartQuantity! + 1;
+                            int_CartCounter = int_CartCounter! + 1;
+                            QTYCount = int_CartCounter.toString();
+                            setState(() {});
+                          });
+                        } else {
+                          setState(() {
+                            if (int_CartQuantity! > 0) {
+                              int_CartCounters = int_CartCounters - 1;
+                              int_CartQuantity = int_CartQuantity! - 1;
+                              int_CartCounter = int_CartCounter! - 1;
+                              QTYCount = int_CartCounter.toString();
+                              setState(() {});
+                            }
+                          });
+                          showSnakeBar(context, "Item Removed from Cart!");
                         }
-                      });
-                      showSnakeBar(context, "Item Removed from Cart!");
+                      } else {
+                        showSnakeBar(context, "Opps! Something Wrong");
+                      }
                     }
-                  } else {
-                    showSnakeBar(context, "Opps! Something Wrong");
-                  }
-                }
-              }))
-            });
+                  }))
+                });
+      } else {
+        getUserId();
+        Future.delayed(Duration(seconds: 0), () {
+          print("IsLogin" + str_UserId.toString());
+          Service()
+              .getAddToCartResponse(
+                  deviceId, str_userId, productId, quntity.toString(), flag)
+              .then((value) => {
+                    setState((() {
+                      if (_dialogKey.currentContext != null) {
+                        Navigator.pop(_dialogKey.currentContext!);
+                        if (value.statusCode == 1) {
+                          if (flag == Flag_Plus) {
+                            showSnakeBar(context, "Item Added to Cart!");
+                            setState(() {
+                              int_CartCounters = int_CartCounters + 1;
+                              int_CartQuantity = int_CartQuantity! + 1;
+                              int_CartCounter = int_CartCounter! + 1;
+                              QTYCount = int_CartCounter.toString();
+                              setState(() {});
+                            });
+                          } else {
+                            setState(() {
+                              if (int_CartQuantity! > 0) {
+                                int_CartCounters = int_CartCounters - 1;
+                                int_CartQuantity = int_CartQuantity! - 1;
+                                int_CartCounter = int_CartCounter! - 1;
+                                QTYCount = int_CartCounter.toString();
+                                setState(() {});
+                              }
+                            });
+                            showSnakeBar(context, "Item Removed from Cart!");
+                          }
+                        } else {
+                          showSnakeBar(context, "Opps! Something Wrong");
+                        }
+                      }
+                    }))
+                  });
+        });
+      }
+    });
   }
 
   void setDeviceId() async {
