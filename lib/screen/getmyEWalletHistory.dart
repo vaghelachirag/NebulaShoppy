@@ -53,6 +53,12 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
 
   List<GetEWalletHistoryData> _GetMyEWalletHistory = [];
 
+  final List<Map<String, String>> listOfColumns = [
+    {"Name": "AAAAAA", "Number": "1", "State": "Yes"},
+    {"Name": "BBBBBB", "Number": "2", "State": "no"},
+    {"Name": "CCCCCC", "Number": "3", "State": "Yes"}
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -72,76 +78,59 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
     double multiplier = 25;
 
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, widget.str_Title, false)),
-      body: Column(
-        children: <Widget>[
-          Container(
-              height: 40.0,
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: appBarWidget(context, 3, widget.str_Title, false)),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: DataTable(
+            columns: [
+              DataColumn(label: Text('Amount')),
+              DataColumn(label: Text('Transaction')),
+              DataColumn(label: Text('Date')),
+              DataColumn(label: Text('Remarks'))
+            ],
+            rows:
+                _GetMyEWalletHistory // Loops through dataColumnText, each iteration assigning the value to element
+                    .map(
+              ((element) => DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text(element.amount
+                          .toString())), //Extracting from Map element the value
+                      DataCell(Text(element.transactiontype.toString())),
+                      DataCell(Text(element.createdOn.toString())),
+                      DataCell(Text(element.remark.toString()))
+                    ],
+                  )),
+            ).toList(),
+          ),
+          // This trailing comma makes auto-formatting nicer for build methods.
+        ));
+  }
+
+  Container getTable() {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(20.0),
+      child: Table(
+        border: TableBorder.all(width: 1.0, color: Colors.black),
+        children: _GetMyEWalletHistory.map((video) {
+          return TableRow(children: [
+            TableCell(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                   Container(
-                      padding: EdgeInsets.all(4.0),
-                      width: 100.0,
-                      child: Text(
-                        "Amount",
-                        style: TextStyle(fontSize: 18),
-                      )),
-                        Container(
-                      padding: EdgeInsets.all(4.0),
-                      width: 100.0,
-                      child: Text(
-                        "Transaction",
-                        style: TextStyle(fontSize: 18),
-                      )),
-                        Container(
-                      padding: EdgeInsets.all(4.0),
-                      width: 100.0,
-                      child: Text(
-                        "Date",
-                        style: TextStyle(fontSize: 18),
-                      )),
-                        Container(
-                      padding: EdgeInsets.all(4.0),
-                      width: 100.0,
-                      child: Text(
-                        "Remarks",
-                        style: TextStyle(fontSize: 18),
-                      )),
+                  new Text('VideoId'),
+                  new Text(video.amount.toString()),
                 ],
               ),
-          ),
-          getTable()
-        ],
-      )
-      // This trailing comma makes auto-formatting nicer for build methods.
+            )
+          ]);
+        }).toList(),
+      ),
     );
   }
 
-Container getTable(){
-  return   Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(20.0),
-        child: Table(
-  border: TableBorder.all(width: 1.0, color: Colors.black),
-  children: _GetMyEWalletHistory.map((video){
-    return TableRow(children: [
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            new Text('VideoId'),
-            new Text(video.amount.toString()),
-          ],
-        ),
-      )
-    ]);
-  }).toList(),
-),
-);
-}
-  
   void getMyEWalletHistory() {
     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
           setState((() {

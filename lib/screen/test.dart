@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
+import 'package:nebulashoppy/uttils/helper.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../database/sQLHelper.dart';
@@ -40,27 +41,35 @@ class Test extends StatefulWidget {
   State<Test> createState() => _TestState();
 }
 
-class _TestState extends State<Test> with WidgetsBindingObserver {
+class _TestState extends State<Test> with RouteAware {
   final controller = PageController(viewportFraction: 1, keepPage: true);
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
     super.initState();
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
-    super.dispose();
+  void didPush() {
+    print('HomePage: Called didPush');
+    super.didPush();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("OnResume" + "OnResume");
-    if (state == AppLifecycleState.resumed) {
-      print("OnResume" + "OnResume");
-      //do your stuff
-    }
+  void didPop() {
+    print('HomePage: Called didPop');
+    super.didPop();
+  }
+
+  @override
+  void didPopNext() {
+    print('HomePage: Called didPopNext');
+    super.didPopNext();
+  }
+
+  @override
+  void didPushNext() {
+    print('HomePage: Called didPushNext');
+    super.didPushNext();
   }
 
   @override
