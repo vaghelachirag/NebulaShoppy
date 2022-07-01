@@ -312,7 +312,18 @@ class Service {
     var jsons = response.body;
 
     final jsonBody = json.decode(response.body);
-    print("MyJson" + jsonBody["Message"].toString());
+    print("MyJson" +
+        BASE_URL +
+        WS_GET_CART_WITH_LOGIN_ITEM +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+        "pickupid=" +
+        _pickupid +
+        "&" +
+        "userid=" +
+        _userid);
 
     if (response.statusCode == 200) {
       if (jsonBody["Message"] == 'No records found!') {

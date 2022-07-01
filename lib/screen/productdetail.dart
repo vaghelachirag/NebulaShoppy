@@ -1487,18 +1487,39 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   void getCartItemList() {
-    Service().getCartItemWithoutLogin(widget.device_Id, "0").then((value) => {
-          setState((() {
-            print("CartList" + value.statusCode.toString());
-            if (value.statusCode == 1) {
-              _listCartItem = value.data.cart;
-              compareproductquntity(_listCartItem);
-            } else {
-              showSnakeBar(context, somethingWrong);
-              print("Categorylist" + "Opps Something Wrong!");
-            }
-          }))
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_Login) {
+        Service()
+            .getCartItemWithoutLogin(widget.device_Id, "0")
+            .then((value) => {
+                  setState((() {
+                    print("CartList" + value.statusCode.toString());
+                    if (value.statusCode == 1) {
+                      _listCartItem = value.data.cart;
+                      compareproductquntity(_listCartItem);
+                    } else {
+                      showSnakeBar(context, somethingWrong);
+                      print("Categorylist" + "Opps Something Wrong!");
+                    }
+                  }))
+                });
+      } else {
+        getUserId();
+        Future.delayed(Duration(seconds: 0), () {
+          print("IsLogin" + str_UserId.toString());
+          Service()
+              .getCartItemWithLogin(widget.device_Id, "0", str_UserId)
+              .then((value) => {
+                    setState(() {
+                      print("Cart" + value.data.cart.toString());
+                      // int_CartCounters = value.data!.sumOfQty;
+                      // QTYCount = value.data!.sumOfQty.toString();
+                    })
+                  });
         });
+      }
+    });
   }
 
   void getCartCounter() {
