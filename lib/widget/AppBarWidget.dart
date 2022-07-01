@@ -65,6 +65,7 @@ class _QTYCounterState extends State<QTYCounter> {
     // TODO: implement initState
     super.initState();
     getDeviceId();
+    checkUserLoginOrNot();
     getCartCounter();
   }
 
@@ -133,12 +134,31 @@ class _QTYCounterState extends State<QTYCounter> {
     setState(() {
       device_Id = DeviceId.toString();
     });
-    Service().getCartCount(DeviceId.toString(), "").then((value) => {
-          setState(() {
-            QTYCount = value.data!.sumOfQty.toString();
-            setState(() {});
-            print("TestCounter" + value.data!.sumOfQty.toString());
-          })
-        });
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_Login) {
+        Service().getCartCount(DeviceId.toString(), "").then((value) => {
+              setState(() {
+                int_CartCounters = value.data!.sumOfQty;
+                QTYCount = value.data!.sumOfQty.toString();
+              })
+            });
+      } else {
+        getUserId();
+      }
+    });
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + str_UserId.toString());
+      Service()
+          .getCartCount(DeviceId.toString(), str_UserId.toString())
+          .then((value) => {
+                setState(() {
+                  int_CartCounters = value.data!.sumOfQty;
+                  QTYCount = value.data!.sumOfQty.toString();
+                })
+              });
+    });
   }
 }

@@ -52,6 +52,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     WidgetsBinding.instance?.addObserver(this);
     getBannerImage();
     getDeviceId();
+    checkUserLoginOrNot();
     getCartCount();
     setState(() {
       bl_ShowCart = true;
@@ -531,12 +532,32 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     setState(() {
       device_Id = DeviceId.toString();
     });
-    Service().getCartCount(DeviceId.toString(), "").then((value) => {
-          setState(() {
-            int_CartCounters = value.data!.sumOfQty;
-            QTYCount = value.data!.sumOfQty.toString();
-          })
-        });
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_Login) {
+        Service().getCartCount(DeviceId.toString(), "").then((value) => {
+              setState(() {
+                int_CartCounters = value.data!.sumOfQty;
+                QTYCount = value.data!.sumOfQty.toString();
+              })
+            });
+      } else {
+        getUserId();
+      }
+    });
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + str_UserId.toString());
+      Service()
+          .getCartCount(DeviceId.toString(), str_UserId.toString())
+          .then((value) => {
+                setState(() {
+                  int_CartCounters = value.data!.sumOfQty;
+                  QTYCount = value.data!.sumOfQty.toString();
+                })
+              });
+    });
   }
 
   Future<bool> onWillPop() {

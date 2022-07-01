@@ -199,7 +199,15 @@ class Service {
         str_UserId));
     var json = response.body;
 
-    print("ProductVarint " + str_UserId);
+    print("ProductVarint " +
+        BASE_URL +
+        WS_GET_CART_COUNT +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+        "userid=" +
+        str_UserId);
     return getCartCountResponseFromJson(json);
   }
 
@@ -304,10 +312,10 @@ class Service {
     var jsons = response.body;
 
     final jsonBody = json.decode(response.body);
-    print("MyJson" + uri.toString());
+    print("MyJson" + jsonBody["Message"].toString());
 
     if (response.statusCode == 200) {
-      if (jsonBody["Data"] == 0) {
+      if (jsonBody["Message"] == 'No records found!') {
         return str_NoDataMsg;
       } else {
         return getCartlistItemFromJson(jsons);
