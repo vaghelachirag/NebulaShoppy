@@ -517,24 +517,50 @@ class _MyCartListState extends State<MyCartList> {
   }
 
   void callMethodRemoveItemFromCart(int productId) {
-    Service()
-        .getCartRemoveItemWithoutLogin(DeviceId, productId.toString())
-        .then((value) => {
-              setState((() {
-                if (_dialogKey.currentContext != null) {
-                  Navigator.pop(_dialogKey.currentContext!);
-                  if (value.statusCode == 1) {
-                    showSnakeBar(context, "Item Removed From Cart!");
-                    setState(() {
-                      //  _listCartItem.clear();
-                      getMyCartList();
-                    });
-                  } else {
-                    showSnakeBar(context, "Opps! Something Wrong");
+    if (!is_Login) {
+      Service()
+          .getCartRemoveItemWithoutLogin(DeviceId, productId.toString())
+          .then((value) => {
+                setState((() {
+                  if (_dialogKey.currentContext != null) {
+                    Navigator.pop(_dialogKey.currentContext!);
+                    if (value.statusCode == 1) {
+                      showSnakeBar(context, "Item Removed From Cart!");
+                      setState(() {
+                        //  _listCartItem.clear();
+                        getMyCartList();
+                      });
+                    } else {
+                      showSnakeBar(context, "Opps! Something Wrong");
+                    }
                   }
-                }
-              }))
-            });
+                }))
+              });
+    } else {
+      getUserId();
+      Future.delayed(Duration(seconds: 0), () {
+        print("IsLogin" + str_UserId.toString());
+        Service()
+            .getCartRemoveItemWithLogin(
+                DeviceId, productId.toString(), str_UserId)
+            .then((value) => {
+                  setState((() {
+                    if (_dialogKey.currentContext != null) {
+                      Navigator.pop(_dialogKey.currentContext!);
+                      if (value.statusCode == 1) {
+                        showSnakeBar(context, "Item Removed From Cart!");
+                        setState(() {
+                          //  _listCartItem.clear();
+                          getMyCartList();
+                        });
+                      } else {
+                        showSnakeBar(context, "Opps! Something Wrong");
+                      }
+                    }
+                  }))
+                });
+      });
+    }
   }
 
   void addToCart(String deviceId, String str_userId, String productId,

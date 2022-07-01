@@ -33,6 +33,7 @@ const WS_ADD_TO_CART = '/API/ECom/AddToCart';
 const WS_GET_CART_WITHOUT_LOGIN_ITEM = '/API/ECom/GetCartItemsListWithoutUser';
 const WS_GET_CART_WITH_LOGIN_ITEM = '/API/ECom/GetCartItemsList';
 const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
+const WS_REMOVE_CART = '/API/ECom/RemoveFromCart';
 const WS_GENERATE_TOKEN = '/API/Token';
 const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
 const WS_GET_MY_ORDER_LIST = '/API/ECom/GetOrderList';
@@ -48,7 +49,6 @@ const WS_GET_GENERATE_ORDER_PAYUMONEY = '/API/Ecom/GenerateOrderPayUMoney';
 
 const MerchantKey = "0w2qzK";
 const MerchantSalt = "Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU";
-
 
 const placeholder_path = 'assets/images/placeholder.jpg';
 const rupees_Sybol = '\u{20B9}';

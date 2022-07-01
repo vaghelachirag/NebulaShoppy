@@ -353,6 +353,36 @@ class Service {
     }
   }
 
+  Future<GetAddToCartResponse> getCartRemoveItemWithLogin(
+      String _deviceid, String productid, String userId) async {
+    var queryparams = {
+      'deviceid': _deviceid,
+      'productid': productid,
+      'userid': userId
+    };
+
+    Uri httpsUri = Uri(
+        scheme: 'https',
+        host: 'nebulacompanies.net',
+        path: WS_REMOVE_CART,
+        queryParameters: queryparams);
+
+    final response = await http.post(httpsUri);
+
+    print("ResponseCode" + queryparams.toString());
+    print("AddToCart" + response.body.toString());
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return GetAddToCartResponse.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
+  }
+
   Future<dynamic> getGenerateTokenResponse(
       String str_username, String str_password, String str_type) async {
     Map<String, dynamic> body = {
