@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -53,5 +54,14 @@ class SharedPref {
   static resetData() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+ static  clearData() {
+    SharedPref.saveString(str_Token, "");
+    SharedPref.saveString(str_RefreshToken, "");
+    SharedPref.saveString(str_Role, "");
+    SharedPref.saveString(str_DisplayName, "");
+    SharedPref.saveString(str_IBO_Id, "");
+    SharedPref.saveString(str_Refrence_Id, "");
+    SharedPref.saveBoolean(str_IsLogin, false);
   }
 }

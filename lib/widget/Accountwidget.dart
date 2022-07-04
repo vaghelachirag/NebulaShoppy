@@ -11,6 +11,7 @@ import '../model/setmyAccount/setmyAccount.dart';
 import '../network/service.dart';
 import '../screen/webview.dart';
 import '../uttils/constant.dart';
+import 'LoginDialoug.dart';
 import 'clip_shadow_path.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -81,7 +82,25 @@ class AccountWiget extends StatelessWidget {
 
   void openAccountData(int index, BuildContext context) {
     print("OnTap" + "Test" + index.toString());
-    if (index == 0) {
+    checkUserLoginOrNot();
+     Future.delayed(Duration(seconds:  0), () {
+      print("IsLogin"+ is_Login.toString());
+      if (!is_Login) {
+        showDialog(
+          barrierColor: Colors.black26,
+           barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return LoginDialoug(
+              context,
+              title: "SoldOut",
+              description:
+                  "This product may not be available at the selected address.",
+            );
+          },
+        );
+      }else{
+ if (index == 0) {
       Navigator.push(
         context,
         PageTransition(
@@ -116,6 +135,9 @@ class AccountWiget extends StatelessWidget {
      if (index == 8) {
       showLogoutDialoug(context);
     }
+    }
+    });
+   
   }
 
   void openWebview(BuildContext context, String about, String title) {

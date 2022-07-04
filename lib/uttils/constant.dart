@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/myorder/myorderdetail.dart';
+import 'package:nebulashoppy/screen/splash.dart';
+import 'package:nebulashoppy/screen/tabscreen.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -262,7 +264,8 @@ showLogoutDialoug(BuildContext context) {
     onPressed: () {
       SharedPref.resetData();
       Navigator.pop(context);
-      runApp(MyApp());
+      SharedPref.clearData();
+      refreshApp(context);
     },
   );
 
@@ -275,7 +278,14 @@ showLogoutDialoug(BuildContext context) {
       continueButton,
     ],
   );
-
+   void clearSession() async {
+     await SharedPref.resetData();
+    runApp(
+    RestartWidget(
+      child: MaterialApp(),
+    ),
+  );
+  }
   // show the dialog
   showDialog(
     context: context,
@@ -283,4 +293,14 @@ showLogoutDialoug(BuildContext context) {
       return alert;
     },
   );
+
+ 
 }
+ refreshApp(BuildContext context){
+     Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: TabScreen(),
+          ));
+  }

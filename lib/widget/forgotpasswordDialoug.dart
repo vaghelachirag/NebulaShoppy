@@ -190,8 +190,8 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
 
   Container sendPasswordOption(String email){
     return Container(
-                margin: EdgeInsets.fromLTRB(10, 5, 0, 0),
-                padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,

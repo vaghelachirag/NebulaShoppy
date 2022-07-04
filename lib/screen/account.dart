@@ -58,6 +58,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
       if (!is_Login) {
         showDialog(
           barrierColor: Colors.black26,
+           barrierDismissible: false,
           context: context,
           builder: (context) {
             return LoginDialoug(
@@ -134,8 +135,11 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
         SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(
         SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false,is_ShowLine: true));
-          _accountList.add(
+      if(is_Login){
+      _accountList.add(
         SetMyAccount(postition: 8, Title: "Logout", is_Ewallet: false,is_ShowLine: true));
+      }   
+       
   }
 
   void getMyProfile() async {

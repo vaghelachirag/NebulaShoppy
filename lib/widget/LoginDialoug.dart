@@ -51,20 +51,25 @@ class _LoginDialougState extends State<LoginDialoug> {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: IconButton(
+                child: 
+                Visibility(
+                  visible: false,
+                  child:  IconButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     icon: Icon(CommunityMaterialIcons.close_box),
-                    color: Colors.cyan),
+                    color: Colors.cyan))
+               ,
               ),
-              Text(
+              Padding(padding: EdgeInsets.all(10),child:Text(
                 "Associate / IBO Login",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
-              ),
+              ) ,)
+              ,
               SizedBox(height: 15),
               Container(
                 margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -299,7 +304,8 @@ class _LoginDialougState extends State<LoginDialoug> {
             {
               Navigator.pop(context),
               showSnakeBar(context, "Login Successfully!"),
-              setLoginData(value)
+              setLoginData(value),
+              refreshApp(context)
             }
         });
   }
@@ -320,4 +326,5 @@ class _LoginDialougState extends State<LoginDialoug> {
     SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
     SharedPref.saveBoolean(str_IsLogin, true);
   }
+  
 }
