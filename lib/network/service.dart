@@ -250,7 +250,7 @@ class Service {
 
     final response = await http.post(httpsUri);
 
-    print("ResponseCode" + queryparams.toString());
+    print("ResponseCode" + response.statusCode.toString());
     print("AddToCart" + httpsUri.toString());
 
     if (response.statusCode == 200) {

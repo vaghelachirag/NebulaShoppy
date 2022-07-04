@@ -46,9 +46,19 @@ class CategoryProductWidget extends StatelessWidget {
                           if (product.remainingQuantity != null) Spacer()
                         ],
                       ),
+                     
                       _productImage(context),
                       _productDetails(),
-                      addtoCart(onCartAddClick())
+                       Container(
+                        padding: EdgeInsets.all(5),
+                        child: GestureDetector(
+                          child: addtoCart(),
+                          onTap: (){
+                            onCartAddClick();
+                          },
+                        ),
+                      ),
+                      
                     ],
                   ),
                 ),
@@ -137,33 +147,19 @@ class CategoryProductWidget extends StatelessWidget {
   }
 }
 
-Container addtoCart(void param0) {
+Container addtoCart() {
   return Container(
-    child: Padding(
-      padding: EdgeInsets.all(0),
-      child: OutlinedButton(
+    child:  Container(
+        color: THEME_COLOR,
+        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Text(
           'ADD',
-          style: TextStyle(color: Colors.white),
-        ),
-        style: OutlinedButton.styleFrom(
-          primary: Colors.black,
-          shadowColor: Colors.black,
-          backgroundColor: THEME_COLOR,
-          textStyle: TextStyle(
+           style: TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold),
         ),
-        onPressed: () {
-          if (!is_Login) {
-            print("Login" + "IsLoginNotLogin");
-          } else {
-            print("Login" + "IsLoginLogin");
-          }
-        },
-      ),
     ),
   );
 }

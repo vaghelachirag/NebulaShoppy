@@ -151,7 +151,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 SizedBox(
                   height: 5.0,
                 ),
-                topHeader("Recent View"),
+               
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listRecentView.isEmpty) {
@@ -313,6 +313,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Column buildRecentView() {
     return Column(
       children: <Widget>[
+        topHeader("Recent View"),
         Container(
           margin: EdgeInsets.all(5),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -323,7 +324,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  showSnakeBar(context, "Click");
+                 // showSnakeBar(context, "Click");
                 },
                 child: TrendingItem(
                   product: Product(
