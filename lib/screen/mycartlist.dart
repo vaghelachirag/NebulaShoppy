@@ -173,11 +173,11 @@ class _MyCartListState extends State<MyCartList> {
                           ),
                           divider(context),
                           getPVNVDetail(
-                              "PV", getCartItemData?.totalNv.toString()),
+                              "PV", getCartItemData?.totalPv.toString()),
                           Container(
                               color: Colors.grey[300],
                               child: getPVNVDetail(
-                                  "NV", getCartItemData?.totalBv.toString()))
+                                  "NV", getCartItemData?.totalNv.toString()))
                         ],
                       ),
                     );

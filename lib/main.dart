@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:nebulashoppy/screen/ShoppingCart.dart';
 import 'package:nebulashoppy/screen/account.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/home.dart';

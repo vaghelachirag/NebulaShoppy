@@ -53,12 +53,8 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
 
   List<GetEWalletHistoryData> _GetMyEWalletHistory = [];
 
-  final List<Map<String, String>> listOfColumns = [
-    {"Name": "AAAAAA", "Number": "1", "State": "Yes"},
-    {"Name": "BBBBBB", "Number": "2", "State": "no"},
-    {"Name": "CCCCCC", "Number": "3", "State": "Yes"}
-  ];
-
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
+  
   @override
   void initState() {
     super.initState();
@@ -95,8 +91,8 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
                     .map(
               ((element) => DataRow(
                     cells: <DataCell>[
-                      DataCell(Text(element.amount
-                          .toString())), //Extracting from Map element the value
+                      DataCell( Text(element.amount
+                          .toString(),style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),)), //Extracting from Map element the value
                       DataCell(Text(element.transactiontype.toString())),
                       DataCell(Text(element.createdOn.toString())),
                       DataCell(Text(element.remark.toString()))
@@ -132,8 +128,12 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
   }
 
   void getMyEWalletHistory() {
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
           setState((() {
+             if (_dialogKey.currentContext != null) {
+                      Navigator.pop(_dialogKey.currentContext!);
+                }
             if (value.statusCode == 1) {
               _GetMyEWalletHistory = value.data;
             } else {

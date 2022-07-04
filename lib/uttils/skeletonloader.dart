@@ -301,26 +301,15 @@ Widget boxProductCatWise(BuildContext context) {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50), color: Colors.grey),
         ),
-        Container(
-          padding: EdgeInsets.fromLTRB(15, 2, 15, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  padding: EdgeInsets.all(5),
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.grey)),
-              Container(
-                  padding: EdgeInsets.all(5),
-                  width: 30,
-                  height: 30,
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: Colors.grey))
-            ],
+        Center(
+          child: Container(
+            width: 60,
+            height: 30,
+             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2), color: Colors.white)
           ),
-        ),
+        )
+        ,
       ],
     ),
   );
