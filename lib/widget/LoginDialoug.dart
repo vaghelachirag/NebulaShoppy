@@ -5,9 +5,13 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/services.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/forgotpasswordDialoug.dart';
 
 import '../model/getcartCountResponse/getAddToCartResponse.dart';
 import '../network/service.dart';
+import '../screen/webview.dart';
+import '../uttils/constant.dart';
+import 'package:page_transition/page_transition.dart';
 import '../uttils/constant.dart';
 
 class LoginDialoug extends StatefulWidget {
@@ -132,13 +136,33 @@ class _LoginDialougState extends State<LoginDialoug> {
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Text(
+                    child: 
+                    GestureDetector(
+                      child:   Text(
                       "Forgot Password",
                       style: TextStyle(
                           color: Colors.red[300],
                           fontSize: 14,
                           fontWeight: FontWeight.bold),
                     ),
+                    onTap: (){
+                        print("Forgot"+ "ForgotPassword");
+                      Navigator.pop(context);
+                       showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (context) {
+            return forgotpasswordDialoug(
+              context,
+              title: "SoldOut",
+              description:
+                  "This product may not be available at the selected address.",
+            );
+          },
+        );
+                    },
+                    )
+                  
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
@@ -153,6 +177,15 @@ class _LoginDialougState extends State<LoginDialoug> {
                     ) ,
                     onTap: (){
                       print("Register"+"Register");
+                         Navigator.push(
+        context,
+             PageTransition(
+          type: PageTransitionType.fade,
+          child: Webview(
+            str_Title: "Register",
+            str_Url: register,
+          ),
+        ));
                     },
                     )
                    ,

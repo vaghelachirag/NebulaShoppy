@@ -134,6 +134,8 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
         SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(
         SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false,is_ShowLine: true));
+          _accountList.add(
+        SetMyAccount(postition: 8, Title: "Logout", is_Ewallet: false,is_ShowLine: true));
   }
 
   void getMyProfile() async {

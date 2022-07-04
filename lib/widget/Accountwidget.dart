@@ -25,6 +25,7 @@ class AccountWiget extends StatelessWidget {
   String shipping = 'https://shop.nebulacare.in/Home/ShippingPolicy';
   String privacy = 'https://shop.nebulacare.in/Home/PrivacyPolicy';
   String contactus = 'https://shop.nebulacare.in/Home/Contact';
+  
 
   final SetMyAccount product;
   final List<Color> gradientColors;

@@ -6,6 +6,7 @@ import 'package:nebulashoppy/model/getEwallethistory/GetMyEwalletHistoryResponse
 import 'package:nebulashoppy/model/getMyAddressResponse/getMyAddressResponse.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getdeleteAddressResponse.dart';
 import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
+import 'package:nebulashoppy/model/getSendPasswordOptionResponse/getSendPasswordOptionResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
@@ -435,6 +436,24 @@ class Service {
       return str_ErrorMsg;
     }
   }
+
+
+Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(
+        BASE_URL + WS_FORGOT_PASSWORD_OPTION + "?" + "IBOID=" + _ibokey);
+
+    var response = await client.get(uri);
+    var json = response.body;
+
+    if (response.statusCode == 200) {
+      return GetSendPasswordOptionResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+
 
   Future<dynamic> getMyOrderList() async {
     requestHeaders = {

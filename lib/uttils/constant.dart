@@ -36,6 +36,7 @@ const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
 const WS_REMOVE_CART = '/API/ECom/RemoveFromCart';
 const WS_GENERATE_TOKEN = '/API/Token';
 const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
+const WS_FORGOT_PASSWORD_OPTION = '/Api/ForgotPassword/CheckUserDetails';
 const WS_GET_MY_ORDER_LIST = '/API/ECom/GetOrderList';
 const WS_GET_MY_PROFILE = '/API/ECom/Me';
 const WS_GET_E_WALLET = 'API/EComCouponCode/GetIBOWalletBalance';
@@ -123,6 +124,8 @@ const kRedColor = Color(0xFFFE4067);
 const kGreenColor = Color(0xFFADE9E3);
 
 DateTime currentBackPressTime = DateTime.now();
+
+ String register = 'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
