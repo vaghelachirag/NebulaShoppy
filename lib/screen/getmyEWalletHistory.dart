@@ -81,7 +81,8 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
           scrollDirection: Axis.horizontal,
           child: DataTable(
             columns: [
-              DataColumn(label: Text('Amount')),
+              DataColumn(label:
+               Text('Amount')),
               DataColumn(label: Text('Transaction')),
               DataColumn(label: Text('Date')),
               DataColumn(label: Text('Remarks'))
@@ -91,9 +92,11 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
                     .map(
               ((element) => DataRow(
                     cells: <DataCell>[
-                      DataCell( Text(element.amount
+                      DataCell( Text( rupees_Sybol+ " "+ element.amount
                           .toString(),style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),)), //Extracting from Map element the value
-                      DataCell(Text(element.transactiontype.toString())),
+                      DataCell(Text(element.transactiontype.toString(),style: TextStyle(  color: element.transactiontype.toString() == "CR"
+                              ? Colors.green
+                              : Colors.red),)),
                       DataCell(Text(element.createdOn.toString())),
                       DataCell(Text(element.remark.toString()))
                     ],

@@ -13,6 +13,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../main.dart';
+import '../network/service.dart';
 import '../screen/address/editmyAddress.dart';
 import '../widget/restartWidget.dart';
 
@@ -299,4 +300,30 @@ showLogoutDialoug(BuildContext context) {
       SharedPref.clearData();
       str_UserId = "";
       refreshApp(context);
+  }
+
+  
+  void getCartCount() async {
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_Login) {
+        Service().getCartCount(DeviceId.toString(), "").then((value) => {
+                int_CartCounters = value.data!.sumOfQty,
+                QTYCount = value.data!.sumOfQty.toString()
+            });
+      } else {
+        getUserId();
+      }
+    });
+
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + str_UserId.toString());
+      Service()
+          .getCartCount(DeviceId.toString(), str_UserId.toString())
+          .then((value) => {
+                 int_CartCounters = value.data!.sumOfQty,
+                 QTYCount = value.data!.sumOfQty.toString()
+              });
+    });
   }

@@ -30,6 +30,11 @@ import 'package:device_info_plus/device_info_plus.dart';
 class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
+
+  static void updateCount(){
+     print("Update"+"HomeUpdate");
+  }
+   
 }
 
 class _HomeState extends State<Home> with WidgetsBindingObserver {
@@ -529,38 +534,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     );
   }
 
-  void getCartCount() async {
-    setState(() {
-      device_Id = DeviceId.toString();
-    });
-
-    Future.delayed(Duration(seconds: 0), () {
-      print("IsLogin" + is_Login.toString());
-      if (!is_Login) {
-        Service().getCartCount(DeviceId.toString(), "").then((value) => {
-              setState(() {
-                int_CartCounters = value.data!.sumOfQty;
-                QTYCount = value.data!.sumOfQty.toString();
-              })
-            });
-      } else {
-        getUserId();
-      }
-    });
-
-    Future.delayed(Duration(seconds: 0), () {
-      print("IsLogin" + str_UserId.toString());
-      Service()
-          .getCartCount(DeviceId.toString(), str_UserId.toString())
-          .then((value) => {
-                setState(() {
-                  int_CartCounters = value.data!.sumOfQty;
-                  QTYCount = value.data!.sumOfQty.toString();
-                })
-              });
-    });
-  }
-
   Future<bool> onWillPop() {
     print("BackPress" + "Backpress");
     DateTime now = DateTime.now();
@@ -573,11 +546,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     }
     return Future.value(true);
   }
+   @override
+    void didChangeDependencies() {
+        // TODO: implement didChangeDependencies
+        super.didChangeDependencies();
+        print("didChangeDependencies");
+    }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("APP_STATE: $state");
-
     if (state == AppLifecycleState.resumed) {
       // user returned to our app
       // _showPasswordDialog();
@@ -586,7 +564,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       // app is inactive
     } else if (state == AppLifecycleState.paused) {
       // user quit our app temporally
-      _refreshRecentData();
+    }
+    else if (state == AppLifecycleState.detached) {
+      // user quit our app temporally
     }
   }
 
@@ -609,6 +589,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         });
   }
 
+ 
+
   void _refreshRecentData() async {
     _listRecentView.clear();
     final data = await SQLHelper.getItems();
@@ -621,4 +603,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       }
     });
   }
+
+
 }
