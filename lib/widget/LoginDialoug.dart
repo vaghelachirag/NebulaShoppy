@@ -142,13 +142,20 @@ class _LoginDialougState extends State<LoginDialoug> {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Text(
+                    child: 
+                    GestureDetector(
+                      child: Text(
                       "Register Here",
                       style: TextStyle(
                           color: Colors.black54,
                           fontSize: 14,
                           fontWeight: FontWeight.bold),
-                    ),
+                    ) ,
+                    onTap: (){
+                      print("Register"+"Register");
+                    },
+                    )
+                   ,
                   )
                 ],
               )

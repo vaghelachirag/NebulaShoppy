@@ -109,8 +109,8 @@ class AccountWiget extends StatelessWidget {
       openWebview(context, privacy, "Privacy Policy");
     }
     if (index == 7) {
-      showLogoutDialoug(context);
-      //openWebview(context, contactus, "Contact Us");
+    //  showLogoutDialoug(context);
+      openWebview(context, contactus, "Contact Us");
     }
      if (index == 8) {
       showLogoutDialoug(context);
