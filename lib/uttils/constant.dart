@@ -262,10 +262,7 @@ showLogoutDialoug(BuildContext context) {
   Widget continueButton = TextButton(
     child: Text("Yes"),
     onPressed: () {
-      SharedPref.resetData();
-      Navigator.pop(context);
-      SharedPref.clearData();
-      refreshApp(context);
+      clearSession(context);
     },
   );
 
@@ -278,14 +275,7 @@ showLogoutDialoug(BuildContext context) {
       continueButton,
     ],
   );
-   void clearSession() async {
-     await SharedPref.resetData();
-    runApp(
-    RestartWidget(
-      child: MaterialApp(),
-    ),
-  );
-  }
+  
   // show the dialog
   showDialog(
     context: context,
@@ -293,8 +283,6 @@ showLogoutDialoug(BuildContext context) {
       return alert;
     },
   );
-
- 
 }
  refreshApp(BuildContext context){
      Navigator.push(
@@ -303,4 +291,12 @@ showLogoutDialoug(BuildContext context) {
             type: PageTransitionType.fade,
             child: TabScreen(),
           ));
+  }
+
+   void clearSession(BuildContext context) async {
+    await SharedPref.resetData();  
+      Navigator.pop(context);
+      SharedPref.clearData();
+      str_UserId = "";
+      refreshApp(context);
   }
