@@ -22,7 +22,6 @@ class forgotpasswordDialoug extends StatefulWidget {
   }) : super(key: key);
 
   final String title, description;
-
   @override
   _forgotpasswordDialougState createState() => _forgotpasswordDialougState();
 }
@@ -35,6 +34,9 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
 
   bool _showNextStep = false;
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+  String email = "";
+  String password = "";
+  String sendOption = "";
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -100,39 +102,10 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
               ),
               Visibility(
                 visible: _showNextStep,
-                child: Container(
-                margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: TextFormField(
-                    controller: _usernameController,
-                    obscureText: false,
-                    enabled: true,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.number,
-                    // inputFormatters: [
-                    //   LengthLimitingTextInputFormatter(10),
-                    // ],
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                      LengthLimitingTextInputFormatter(10),
-                    ],
-                    decoration: inputDecorationWithBorderAndIconEmail(
-                        'Associate / IBO Login'),
-                    validator: (email) {
-                      if (email!.isEmpty) {
-                        return 'Please enter Login Id';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (text) {
-                      setState(() {});
-                    },
-                  ),
-                ),
-              )),
+                child: sendPasswordOption(email)),
+                   Visibility(
+                visible: _showNextStep,
+                child: sendPasswordOption(password)),
               SizedBox(height: 20),
               ElevatedButton(
                 // style: elevatedButtonStyle(),
@@ -169,9 +142,11 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
                 }
               else
                 {  
-                  Navigator.pop(_dialogKey.currentContext!),               
+                  Navigator.pop(_dialogKey.currentContext!),
                   print("Value"+value.data.email),
                   setState(() {
+                   email =  value.data.email;
+                   password = value.data.mobile;
                     _showNextStep = true;
                   })
                   
@@ -211,5 +186,29 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
             );
           },
         );
+  }
+
+  Container sendPasswordOption(String email){
+    return Container(
+                margin: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                     Radio(
+                  value: email,
+                  onChanged: (value) {
+                    setState(() {
+                    sendOption = email;
+                    });
+                  },
+                  activeColor: THEME_COLOR, groupValue: '',
+                ),
+                 Text(email,style: TextStyle(color: Colors.black,fontSize: 14),),
+                  ],
+                )
+                
+              );
   }
 }
