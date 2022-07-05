@@ -36,8 +36,8 @@ class _EditMyAddressState extends State<EditMyAddress>
     List<GetMyAddressData> _listMyAddress = [];
       List<GetstateData> _listState = [];
     bool bl_ShowAddress = false;
-  int _value = 1;
-  
+  late GetstateData _getSelectedState;
+  String str_SelectedState = "";
   @override
   void initState() {
     super.initState();
@@ -45,7 +45,7 @@ class _EditMyAddressState extends State<EditMyAddress>
    
   }
 
-
+ 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -81,44 +81,7 @@ class _EditMyAddressState extends State<EditMyAddress>
       ,child:getAddressText("Area, Colony, Street,Sector,Village"),),
           Padding(padding: EdgeInsets.all(10)
       ,child:getAddressText("Landmark e.g. near Apollo Hospital"),),
-      FutureBuilder(
-        future: getStateList(),
-        builder: (context, snapshot) {
-           if(_listState.isEmpty){
-             return Text("");
-           }
-           else{
-              return Text("");
-        //      return    Container(
-        //   padding: EdgeInsets.all(20),
-        //   child :DropdownButton(
-        //     value: _value,   
-        //     items: list_items.map((int item) {
-        //       return DropdownMenuItem<int>(
-        //         child: Text('Log $item'),
-        //         value: item,
-        //       );
-        //     }).toList(),
-            
-        //     onChanged:(value) {
-        //       setState(() {
-        //         _value = value as int;
-        //       });
-        //     },
-        //     hint:Text("Select item"),
-        //     disabledHint:Text("Disabled"),
-        //     elevation: 8,
-        //     style:TextStyle(color:Colors.black, fontSize: 16),
-        //     icon: Icon(Icons.arrow_drop_down_circle),
-        //     iconDisabledColor: Colors.white,
-        //     iconEnabledColor: Colors.grey,
-        //     isExpanded: true,
-        //     dropdownColor: Colors.white,
-        //     )
-        // );
-           }
-      },)
-          
+       Padding(padding: EdgeInsets.all(10) ,child: stateListDropDown()), 
         ],
       ) ,)
    
@@ -402,6 +365,7 @@ class _EditMyAddressState extends State<EditMyAddress>
                 if (value.statusCode == 1) {
                   //  print("Categorylist" + value.message);
                   _listState = value.data!;
+                   _getSelectedState = _listState[0];
                 } else {
                   showSnakeBar(context, somethingWrong);
                   print("Categorylist" + "Opps Something Wrong!");
@@ -409,5 +373,50 @@ class _EditMyAddressState extends State<EditMyAddress>
               }))
             }
         });
+  }
+
+  InputDecorator stateListDropDown(){
+    return  InputDecorator(decoration:  addressText("State"),
+       child:  DropdownButtonHideUnderline(
+                      child: DropdownButton<GetstateData>(
+
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          fontFamily: "verdana_regular",
+                        ),
+                        hint: Text(
+                          "Select Bank",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontFamily: "verdana_regular",
+                          ),
+                        ),
+                        items: _listState
+                            .map<DropdownMenuItem<GetstateData>>((GetstateData value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [                            
+                                  Text(value.stateName),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+
+                        isExpanded: true,
+                        isDense: true,
+                        onChanged: (dynamic value){
+                          print("Value"+ value.stateName);
+                          setState(() {
+                             _getSelectedState = value;
+                          });
+                         
+                        },
+                        value: _getSelectedState,
+                      ),
+                    ),);
   }
 }

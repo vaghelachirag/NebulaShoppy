@@ -798,9 +798,6 @@ class _ProductDetailState extends State<ProductDetail> {
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
                     Visibility(
                         visible: is_ShowDescription,
                         child: Expanded(child: Html(data: str_Description))),

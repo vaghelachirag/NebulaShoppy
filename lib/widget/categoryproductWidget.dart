@@ -106,7 +106,7 @@ class CategoryProductWidget extends StatelessWidget {
             },
             child: Container(
               width: 100,
-              height: 80,
+              height: 60,
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
                   image: product.icon,

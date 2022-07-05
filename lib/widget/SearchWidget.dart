@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/screen/test.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:nebulashoppy/screen/search.dart';
 
@@ -14,7 +15,7 @@ class SearchWidget extends StatelessWidget {
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
-                  child: Search(),
+                  child: Test(),
                 ),
               );
             },
