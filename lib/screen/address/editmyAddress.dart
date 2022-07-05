@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
+import 'package:nebulashoppy/model/getCityByStateResponse/getCityByStateResponse.dart';
 import 'package:nebulashoppy/model/getstateResponse.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
@@ -36,8 +37,16 @@ class _EditMyAddressState extends State<EditMyAddress>
     List<GetMyAddressData> _listMyAddress = [];
       List<GetstateData> _listState = [];
     bool bl_ShowAddress = false;
+
+  // For State Selection   
   late GetstateData _getSelectedState;
   String str_SelectedState = "";
+  int int_SelectedState = 0;
+
+  List<getCityByStateData> _listCity = [];
+  late getCityByStateData _getSelectedCity;
+  String str_SelectedCity = "";
+  int int_SelectedCity = 0;
   @override
   void initState() {
     super.initState();
@@ -69,19 +78,29 @@ class _EditMyAddressState extends State<EditMyAddress>
         alignment:  Alignment.topLeft,
         child: Text("Personal Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),
       ) ,),
-      Padding(padding: EdgeInsets.all(10)
+      Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0)
       ,child:getAddressText("Full Name"),),
-        Padding(padding: EdgeInsets.all(10)
+        Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0)
       ,child:getAddressText("Mobile Number"),),
-      Padding(padding: EdgeInsets.all(10)
+      Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0)
       ,child:getAddressText("Pincode"),),
-       Padding(padding: EdgeInsets.all(10)
+       Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0)
       ,child:getAddressText("Flat,House no.. Building, Company,Apartment"),),
-         Padding(padding: EdgeInsets.all(10)
+         Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0)
       ,child:getAddressText("Area, Colony, Street,Sector,Village"),),
-          Padding(padding: EdgeInsets.all(10)
+          Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0)
       ,child:getAddressText("Landmark e.g. near Apollo Hospital"),),
-       Padding(padding: EdgeInsets.all(10) ,child: stateListDropDown()), 
+       Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0) ,child: stateListDropDown()), 
+       FutureBuilder(
+        builder: (context, snapshot){
+           if(_listCity.isEmpty){
+             return Text("");
+            }
+            else{
+          return Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 0) ,child: stateCityDropDown());
+            }
+       }),
+        
         ],
       ) ,)
    
@@ -91,12 +110,10 @@ class _EditMyAddressState extends State<EditMyAddress>
 
   TextField getAddressText(String hint){
     return  TextField(
-            
             decoration: addressText(hint),
             onChanged: (value) {
               // do something
-            },
-);
+            },);
   }
 
   TextField getDropDownn(String hint){
@@ -111,7 +128,7 @@ class _EditMyAddressState extends State<EditMyAddress>
 
    getMyAddress() {
      if(_listMyAddress.isEmpty){
- showLoadingDialog(context, _dialogKey, "Please Wait..");
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
        Service().getMyAddress().then((value) => {
           Navigator.pop(_dialogKey.currentContext!),
           if (value.toString() == str_ErrorMsg)
@@ -157,8 +174,7 @@ class _EditMyAddressState extends State<EditMyAddress>
             Align(
               alignment: Alignment.topLeft,
               child: Row(
-                children: [
-                 
+                children: [            
                   IconButton(
                       onPressed: () {
                         // openAccountData(product.postition,context);
@@ -198,7 +214,7 @@ class _EditMyAddressState extends State<EditMyAddress>
   shape: RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(10),
   ),
-  child: 
+       child: 
               Container(
                 margin: EdgeInsets.all(5),
                 padding: EdgeInsets.all(5),
@@ -357,7 +373,6 @@ class _EditMyAddressState extends State<EditMyAddress>
      }
 
    getStateList() {
-
       Service().getStateList().then((value) => {
           if (this.mounted)
             {
@@ -412,11 +427,76 @@ class _EditMyAddressState extends State<EditMyAddress>
                           print("Value"+ value.stateName);
                           setState(() {
                              _getSelectedState = value;
+                             int_SelectedState = value.stateId;
+                            getCityByState(int_SelectedState);
                           });
                          
                         },
                         value: _getSelectedState,
                       ),
                     ),);
+  }
+  InputDecorator stateCityDropDown(){
+    return  InputDecorator(decoration:  addressText("City"),
+       child:  DropdownButtonHideUnderline(
+                      child: DropdownButton<getCityByStateData>(
+
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 10, 8, 8),
+                          fontFamily: "verdana_regular",
+                        ),
+                        hint: Text(
+                          "Select Bank",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontFamily: "verdana_regular",
+                          ),
+                        ),
+                        items: _listCity
+                            .map<DropdownMenuItem<getCityByStateData>>((getCityByStateData value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [                            
+                                  Text(value.cityName),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+
+                        isExpanded: true,
+                        isDense: true,
+                        onChanged: (dynamic value){
+                          print("Value"+ value.cityName);
+                          setState(() {
+                             _getSelectedCity = value;
+                             int_SelectedCity = value.stateId;
+                          });
+                        },
+                        value: _getSelectedCity,
+                      ),
+                    ),);
+  }
+
+   getCityByState(int int_selectedState) {
+    print("SelectedId"+ int_selectedState.toString());
+      Service().getCityByState(int_selectedState.toString()).then((value) => {
+          if (this.mounted)
+            {
+              setState((() {
+                if (value.statusCode == 1) {
+                 print("Categorylist" + value.message);    
+                 _listCity = value.data;  
+                 _getSelectedCity = _listCity[0];          
+                } else {
+                  showSnakeBar(context, somethingWrong);
+                  print("Categorylist" + "Opps Something Wrong!");
+                }
+              }))
+            }
+        });
   }
 }

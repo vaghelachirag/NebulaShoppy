@@ -49,6 +49,7 @@ const WS_GET_MY_ADDRESS = '/API/ECom/GetAddresses';
 const WS_GET_DELETE_ADDRESS = '/API/ECom/DeleteAddress';
 const WS_GET_STATE_LIST = '/API/Config/StateInfo';
 const WS_GET_ADDRESS_BY_CITY = '/API/ECom/GetPickUpAddressByCitys';
+const WS_GET_CITYLIST_BY_STATE = '/API/Config/CityInfo';
 const WS_GET_GENERATE_ORDER = '/API/Ecom/GenerateOrderPaytm';
 const WS_GET_GENERATE_ORDER_PAYUMONEY = '/API/Ecom/GenerateOrderPayUMoney';
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:nebulashoppy/model/generateorderresponse/generateorderResponse.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
+import 'package:nebulashoppy/model/getCityByStateResponse/getCityByStateResponse.dart';
 import 'package:nebulashoppy/model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getAddressByCityResponse.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getMyAddressResponse.dart';
@@ -598,7 +599,21 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     }
   }
 
+ Future<dynamic> getCityByState(String stateId) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL + WS_GET_CITYLIST_BY_STATE + "?" +"StateId=" +stateId);
 
+    var response = await client.get(uri);
+    var json = response.body;
+
+    print("Response" + response.body.toString());
+
+    if (response.statusCode == 200) {
+      return getCityByStateResponseFromJson(json);
+    } else {
+      return str_ErrorMsg;
+    }
+  }
   Future<dynamic> getDeletMyAddressResponse(String id) async {
     requestHeaders = {
       'Authorization': '${str_AuthId}',
