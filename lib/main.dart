@@ -6,6 +6,7 @@ import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
 import 'package:nebulashoppy/screen/myorder/myorderlist.dart';
 import 'package:nebulashoppy/screen/search.dart';
+import 'package:nebulashoppy/screen/splash.dart';
 import 'package:nebulashoppy/screen/tabscreen.dart';
 import 'package:nebulashoppy/screen/test.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     checkUserLoginOrNot();
     return MaterialApp(
-      home: TabScreen(),
+      home: Splash(),
       theme: ThemeData(
           fontFamily: 'Roboto',
           primaryColor: Colors.white,

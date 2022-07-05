@@ -6,11 +6,13 @@ class GETMYADDRESSDIALOUG extends StatefulWidget {
   _GETMYADDRESSDIALOUGState createState() => _GETMYADDRESSDIALOUGState();
 }
 class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
+  bool bl_IsPickup = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: Column(
+      body: SingleChildScrollView(
+        child:  Column(
         children: [
           Padding(padding: EdgeInsets.all(10), child:
           Text("Choose Your Location",style: TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold),)),
@@ -27,34 +29,71 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
     children: [
         IconButton(onPressed: () {
               }, icon: Icon(CommunityMaterialIcons.dump_truck),  color: Colors.cyan),
-              Text("Door step delivery (shipping charges applicable).",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)
-    ],
-  ),
-) ,
-          )
+              Text("Door step delivery (shipping charges applicable).",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),))
          
           ),
            Padding(padding: EdgeInsets.all(5),child:  Text("OR",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),),
            Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),child:
            GestureDetector(
              onTap: () {
-               
+                print("Tap"+ "Pickup");
+                setState(() {
+                  bl_IsPickup = true;
+                });
              },
              child:  Card(
+             elevation: 5,
+             child: Row(
+             children: [
+             IconButton(onPressed: () {}, icon: Icon(CommunityMaterialIcons.map_marker_circle),  color: Colors.cyan),
+            Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),
+         
+            
+    ],
+  ),
+),)),
+             Visibility(
+              visible: bl_IsPickup,
+              child:  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0),child: cityList(),))
+            ,
+        ],
+    ),
+      )
+     ,
+    );
+  }
+  Column cityList(){
+    return 
+    Column(
+      children: [
+        GestureDetector(
+          onTap: () => () {
+            print("City"+"Ahmedabad");
+          },
+          child:  Card(
+          elevation: 5,
+          child: Row(
+          children: [
+            IconButton(onPressed: () {
+              }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
+              Text("Ahmedabad",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
+        )
+         ,
+               Card(
   elevation: 5,
   child: Row(
     children: [
         IconButton(onPressed: () {
-              }, icon: Icon(CommunityMaterialIcons.map_marker_circle),  color: Colors.cyan),
-              Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)
-    ],
-  ),
-),
-           )
-         
-          )
-        ],
-    ),
+              }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
+              Text("Hyderabad",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
+                Card(
+  elevation: 5,
+  child: Row(
+    children: [
+        IconButton(onPressed: () {
+              }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
+              Text("Chennai",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),)
+      ],
     );
   }
 }

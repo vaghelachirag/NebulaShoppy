@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nebulashoppy/screen/tabscreen.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -31,6 +33,12 @@ class _SplashState extends State<Splash> {
   }
 
   void goToHomeScreen() async{
-    Navigator.pushNamed(context, '/home');
+     Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: TabScreen(),
+                      ),
+                    );
   }
 }

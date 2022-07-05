@@ -598,9 +598,10 @@ class _MyCartListState extends State<MyCartList> {
   void onLocationPressed() {
     showModalBottomSheet(
         context: context,
+         isScrollControlled: true,
         builder: (builder) {
           return new Container(
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height/2,
             color: Colors.transparent, //could change this to Color(0xFF737373),
             //so you don't have to change MaterialApp canvasColor
             child: new Container(
