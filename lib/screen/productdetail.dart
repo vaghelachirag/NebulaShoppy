@@ -70,6 +70,7 @@ class _ProductDetailState extends State<ProductDetail> {
   String str_NV = "";
   String str_SKU = "";
   String str_Description = "";
+   String str_ShortDescription = "";
   String str_highlightsIds = "";
 
   int? int_ProductQuantity = 0;
@@ -228,14 +229,43 @@ class _ProductDetailState extends State<ProductDetail> {
             _buildInfo(context),
             // _getproductVariant(context),
             //Product Info
-            // _buildExtra(context),
-            _buildDescription(context),
+            // _buildExtra(context),    
+            //_buildDescription(context),
             //  _buildComments(context),
+            setDescription(),
             _buildProductImageData(context),
             _buildProducts(context),
           ],
         ),
       ),
+    );
+  }
+
+  Column setDescription(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+           padding:EdgeInsets.fromLTRB(16, 5, 0, 0),
+           child:  Text("Description",
+                      maxLines: 5,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black45,
+                        fontSize: 18,
+                      ),
+        ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                    padding:EdgeInsets.fromLTRB(16, 0, 0, 0),
+                    child:  Html(data: str_Description),
+                    )
+        ,
+      ],
     );
   }
 
@@ -418,7 +448,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              _listBannerImage[0].description,
+                              str_ShortDescription,
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
@@ -751,7 +781,7 @@ class _ProductDetailState extends State<ProductDetail> {
       visible: is_ShowDescription,
       child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 3.8,
+          height: MediaQuery.of(context).size.height / 2,
           child: Container(
               padding: EdgeInsets.all(16.0),
               child: Expanded(
@@ -777,20 +807,20 @@ class _ProductDetailState extends State<ProductDetail> {
                     SizedBox(
                       height: 8,
                     ),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          _settingModalBottomSheet(context, str_Description);
-                        },
-                        child: Text(
-                          "View More",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueGrey,
-                              fontSize: 16),
-                        ),
-                      ),
-                    )
+                    // Center(
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       _settingModalBottomSheet(context, str_Description);
+                    //     },
+                    //     child: Text(
+                    //       "View More",
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.blueGrey,
+                    //           fontSize: 16),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ))),
@@ -1108,6 +1138,7 @@ class _ProductDetailState extends State<ProductDetail> {
     str_PV = data.pv.toString();
     str_NV = data.nv.toString();
     str_SKU = data.sku.toString();
+    str_ShortDescription = data.shortDescription.toString();
     str_Description = data.description.toString();
     str_highlightsIds = data.highlightsIds.toString();
     int_ProductQuantity = data.quantity;
