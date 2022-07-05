@@ -51,25 +51,25 @@ class _LoginDialougState extends State<LoginDialoug> {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: 
-                Visibility(
-                  visible: false,
-                  child:  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(CommunityMaterialIcons.close_box),
-                    color: Colors.cyan))
-               ,
+                child: Visibility(
+                    visible: false,
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(CommunityMaterialIcons.close_box),
+                        color: Colors.cyan)),
               ),
-              Padding(padding: EdgeInsets.all(10),child:Text(
-                "Associate / IBO Login",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ) ,)
-              ,
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "Associate / IBO Login",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
               SizedBox(height: 15),
               Container(
                 margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -140,60 +140,55 @@ class _LoginDialougState extends State<LoginDialoug> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: 
-                    GestureDetector(
-                      child:   Text(
-                      "Forgot Password",
-                      style: TextStyle(
-                          color: Colors.red[300],
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onTap: (){
-                        print("Forgot"+ "ForgotPassword");
-                      Navigator.pop(context);
-                       showDialog(
-          barrierColor: Colors.black26,
-          context: context,
-          builder: (context) {
-            return forgotpasswordDialoug(
-              context,
-              title: "SoldOut",
-              description:
-                  "This product may not be available at the selected address.",
-            );
-          },
-        );
-                    },
-                    )
-                  
-                  ),
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                      child: GestureDetector(
+                        child: Text(
+                          "Forgot Password",
+                          style: TextStyle(
+                              color: Colors.red[300],
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onTap: () {
+                          print("Forgot" + "ForgotPassword");
+                          Navigator.pop(context);
+                          showDialog(
+                            barrierColor: Colors.black26,
+                            context: context,
+                            builder: (context) {
+                              return forgotpasswordDialoug(
+                                context,
+                                title: "SoldOut",
+                                description:
+                                    "This product may not be available at the selected address.",
+                              );
+                            },
+                          );
+                        },
+                      )),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: 
-                    GestureDetector(
+                    child: GestureDetector(
                       child: Text(
-                      "Register Here",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ) ,
-                    onTap: (){
-                      print("Register"+"Register");
-                         Navigator.push(
-        context,
-             PageTransition(
-          type: PageTransitionType.fade,
-          child: Webview(
-            str_Title: "Register",
-            str_Url: register,
-          ),
-        ));
-                    },
-                    )
-                   ,
+                        "Register Here",
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onTap: () {
+                        print("Register" + "Register");
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              child: Webview(
+                                str_Title: "Register",
+                                str_Url: register,
+                              ),
+                            ));
+                      },
+                    ),
                   )
                 ],
               )
@@ -326,5 +321,4 @@ class _LoginDialougState extends State<LoginDialoug> {
     SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
     SharedPref.saveBoolean(str_IsLogin, true);
   }
-  
 }
