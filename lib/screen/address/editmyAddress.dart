@@ -97,17 +97,26 @@ class _EditMyAddressState extends State<EditMyAddress>
              return Text("");
             }
             else{
-          return Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 0) ,child: stateCityDropDown());
+           return Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 0) ,child: stateCityDropDown());
             }
-       }),
-        
+       }),  
+        addDeliveryInstruction(),     
         ],
       ) ,)
    
       ,
     );
   }
+  Column addDeliveryInstruction(){
+    return Column(children: [
+      Align(
+        alignment: Alignment.topLeft,
+        child:  Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0),child: Text ("Add delivery instructions",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),),
+      ),
+      Padding(padding:  EdgeInsets.fromLTRB(10, 8, 10, 0),child:  Text("Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w400),),),
 
+    ],);
+  }
   TextField getAddressText(String hint){
     return  TextField(
             decoration: addressText(hint),
