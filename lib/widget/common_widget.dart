@@ -69,8 +69,7 @@ ButtonStyle buttonShapeStle() {
 InputDecoration addressText(String hint){
   return InputDecoration(
                 hintText: hint,
-                 
-                contentPadding: const EdgeInsets.all(15),
+                contentPadding: const EdgeInsets.all(10),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10)));
 }
