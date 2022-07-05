@@ -576,6 +576,28 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     }
   }
 
+  
+  Future<dynamic> getStateListResponse(String country) async {
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +
+        "API/EComCouponCode/GetIBOWalletList" +
+        "?" +
+        "IBOKeyID=" +
+        country);
+
+    var response = await client.get(uri);
+    var json = response.body;
+
+    print("Response" + response.body.toString());
+
+    if (response.statusCode == 200) {
+      return getMyEwalletHistoryResponseFromJson(json);
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+
   Future<dynamic> getDeletMyAddressResponse(String id) async {
     requestHeaders = {
       'Authorization': '${str_AuthId}',

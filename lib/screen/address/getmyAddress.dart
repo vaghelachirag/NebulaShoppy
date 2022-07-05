@@ -117,7 +117,7 @@ class _GetMyAddressState extends State<GetMyAddress>
 
    getMyAddress() {
      if(_listMyAddress.isEmpty){
- showLoadingDialog(context, _dialogKey, "Please Wait..");
+      showLoadingDialog(context, _dialogKey, "Please Wait..");
        Service().getMyAddress().then((value) => {
           Navigator.pop(_dialogKey.currentContext!),
           if (value.toString() == str_ErrorMsg)
@@ -145,20 +145,20 @@ class _GetMyAddressState extends State<GetMyAddress>
 
  addnewAddress(BuildContext context) {
     return  Card(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.fromLTRB(10, 5, 20, 0),
   elevation: 5,
   shape: RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(10),
   ),
   child:  Padding(
-        padding: EdgeInsets.fromLTRB(10,5,5,10),
+        padding: EdgeInsets.fromLTRB(10,0,0,0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
              "Add new Address",
               maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -190,7 +190,7 @@ class _GetMyAddressState extends State<GetMyAddress>
    return Container(
      width: MediaQuery.of(context).size.width,
   child:  Padding(
-        padding: EdgeInsets.fromLTRB(10,5,5,10),
+        padding: EdgeInsets.fromLTRB(10,0,5,10),
         child: Column(
           children: [
              FutureBuilder(

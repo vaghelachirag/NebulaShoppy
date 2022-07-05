@@ -60,7 +60,7 @@ class _EditMyAddressState extends State<EditMyAddress>
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "EditAddress", false)),
+          child: appBarWidget(context, 3, "Edit Address", false)),
       body:  SingleChildScrollView(child:   Column(
         children:  <Widget>[
   Padding(padding: EdgeInsets.all(0),
@@ -81,7 +81,6 @@ class _EditMyAddressState extends State<EditMyAddress>
       ,child:getAddressText("Area, Colony, Street,Sector,Village"),),
           Padding(padding: EdgeInsets.all(10)
       ,child:getAddressText("Landmark e.g. near Apollo Hospital"),),
-
       FutureBuilder(
         future: getStateList(),
         builder: (context, snapshot) {

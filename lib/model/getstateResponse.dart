@@ -30,14 +30,14 @@ class GetstateResponse {
 
 class GetstateData {
     GetstateData({
-        this.countryId,
-        this.stateId,
-        this.stateName,
+        required this.countryId,
+        required this.stateId,
+        required this.stateName,
     });
 
-    int ?countryId;
-    int ?stateId;
-    String ?stateName;
+    int countryId;
+    int stateId;
+    String stateName;
 
     factory GetstateData.fromJson(Map<String, dynamic> json) => GetstateData(
         countryId: json["CountryId"],
