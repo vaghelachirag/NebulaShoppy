@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/model/getCityByStateResponse/getCityByStateResponse.dart';
 import 'package:nebulashoppy/model/getstateResponse.dart';
@@ -112,37 +113,39 @@ class _EditMyAddressState extends State<EditMyAddress>
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-              child: getAddressText(
-                  "Full Name", _fullNameController, "Please Enter Full Name"),
+              child: getAddressText("Full Name", _fullNameController,
+                  "Please Enter Full Name", 100),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText("Mobile Number", _mobileNumberController,
-                  "Please Enter Mobile Number"),
+                  "Please Enter Mobile Number", 11),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText(
-                  "Pincode", _pinCodeController, "Please Enter PinCode"),
+                  "Pincode", _pinCodeController, "Please Enter PinCode", 5),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText(
                   "Flat,House no.. Building, Company,Apartment",
                   _flatNumberController,
-                  "Please Enter Flat,House"),
+                  "Please Enter Flat,House",
+                  100),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText(
                   "Area, Colony, Street,Sector,Village",
                   _areaController,
-                  "Please Enter Area, Colony, Street,Sector,Village"),
+                  "Please Enter Area, Colony, Street,Sector,Village",
+                  100),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText("Landmark e.g. near Apollo Hospital",
-                  _landmarkController, "Please Enter Landmark"),
+                  _landmarkController, "Please Enter Landmark", 100),
             ),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
@@ -224,14 +227,19 @@ class _EditMyAddressState extends State<EditMyAddress>
     );
   }
 
-  TextFormField getAddressText(
-      String hint, TextEditingController fullNameController, String str_Error) {
+  TextFormField getAddressText(String hint,
+      TextEditingController fullNameController, String str_Error, int i) {
     return TextFormField(
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          //FilteringTextInputFormatter.allow(filterPattern)
+        ],
         controller: fullNameController,
         decoration: addressText(hint),
         onChanged: (value) {
           // do something
         },
+        maxLength: i,
         validator: (email) {
           if (email!.isEmpty) {
             return str_Error;
@@ -244,6 +252,7 @@ class _EditMyAddressState extends State<EditMyAddress>
   TextField getDropDownn(String hint) {
     return TextField(
       enabled: false,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: inputwithdropdown(hint),
       onChanged: (value) {
         // do something
