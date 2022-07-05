@@ -114,17 +114,17 @@ class _EditMyAddressState extends State<EditMyAddress>
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText("Full Name", _fullNameController,
-                  "Please Enter Full Name", 100),
+                  "Please Enter Full Name", 100, TextInputType.name),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText("Mobile Number", _mobileNumberController,
-                  "Please Enter Mobile Number", 11),
+                  "Please Enter Mobile Number", 11, TextInputType.number),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-              child: getAddressText(
-                  "Pincode", _pinCodeController, "Please Enter PinCode", 5),
+              child: getAddressText("Pincode", _pinCodeController,
+                  "Please Enter PinCode", 5, TextInputType.number),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
@@ -132,7 +132,8 @@ class _EditMyAddressState extends State<EditMyAddress>
                   "Flat,House no.. Building, Company,Apartment",
                   _flatNumberController,
                   "Please Enter Flat,House",
-                  100),
+                  100,
+                  TextInputType.multiline),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
@@ -140,12 +141,17 @@ class _EditMyAddressState extends State<EditMyAddress>
                   "Area, Colony, Street,Sector,Village",
                   _areaController,
                   "Please Enter Area, Colony, Street,Sector,Village",
-                  100),
+                  100,
+                  TextInputType.multiline),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-              child: getAddressText("Landmark e.g. near Apollo Hospital",
-                  _landmarkController, "Please Enter Landmark", 100),
+              child: getAddressText(
+                  "Landmark e.g. near Apollo Hospital",
+                  _landmarkController,
+                  "Please Enter Landmark",
+                  100,
+                  TextInputType.multiline),
             ),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
@@ -227,13 +233,14 @@ class _EditMyAddressState extends State<EditMyAddress>
     );
   }
 
-  TextFormField getAddressText(String hint,
-      TextEditingController fullNameController, String str_Error, int i) {
+  TextFormField getAddressText(
+      String hint,
+      TextEditingController fullNameController,
+      String str_Error,
+      int i,
+      TextInputType name) {
     return TextFormField(
-        keyboardType: TextInputType.number,
-        inputFormatters: <TextInputFormatter>[
-          //FilteringTextInputFormatter.allow(filterPattern)
-        ],
+        keyboardType: name,
         controller: fullNameController,
         decoration: addressText(hint),
         onChanged: (value) {
