@@ -26,19 +26,17 @@ class _SplashState extends State<Splash> {
          height: MediaQuery.of(context).size.height,
          color: Colors.grey[100],
          child:   
-         Image.asset('assets/images/nebula_logo_news.gif',fit: BoxFit.contain,),
+         Image.asset('assets/images/nebula_logo_news.gif',fit: BoxFit.fill,),
         
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
   void goToHomeScreen() async{
-     Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: TabScreen(),
-                      ),
-                    );
+     Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (dialogContex) => TabScreen()),
+              ModalRoute.withName("/tabscreen"));
+    
   }
 }

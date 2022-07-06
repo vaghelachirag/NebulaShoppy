@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/model/getCityByStateResponse/getCityByStateResponse.dart';
 import 'package:nebulashoppy/model/getstateResponse.dart';
+import 'package:nebulashoppy/screen/address/getmyAddress.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
@@ -76,6 +77,7 @@ class _EditMyAddressState extends State<EditMyAddress>
     super.initState();
      _listStatefilter.add("Select State");
     _listCityfilter.add("City");
+    getDeviceId();
     getStateList();
   }
 
@@ -128,7 +130,7 @@ class _EditMyAddressState extends State<EditMyAddress>
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
               child: getAddressText("Pincode", _pinCodeController,
-                  "Please Enter PinCode", 5, TextInputType.number),
+                  "Please Enter PinCode", 6, TextInputType.number),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
@@ -814,16 +816,21 @@ DropdownButtonHideUnderline addressStateDropDown() {
 
   void getAddAddressResponse() {
       showLoadingDialog(context, _dialogKey, "Please Wait..");
-      Service().getAddNewAddressResponse(_mobileNumberController.text,_fullNameController.text,_addressTypeController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,"0")
+      Service().getAddNewAddressResponse(_mobileNumberController.text,_fullNameController.text,_flatNumberController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,DeviceId.toString())
         .then((value) => {
               if (value.toString() == str_ErrorMsg)
                 {
-                  
+                 showSnakeBar(context, str_ErrorMsg),
                 }
               else
                 {
-                  Navigator.pop(_dialogKey.currentContext!),
-                
+                Navigator.pop(_dialogKey.currentContext!),
+                showSnakeBar(context, "Your Address Added Successfully"),
+                Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (dialogContex) => GetMyAddress()),
+              ModalRoute.withName("/getmyaddress"))
+          
                 }
             });
   }
