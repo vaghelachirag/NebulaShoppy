@@ -67,6 +67,7 @@ var DeviceId = '';
 int int_CartCounters = 0;
 String QTYCount = "0";
 bool bl_ShowCart = true;
+const double int_AppBarWidth = 50;
 
 String str_ErrorMsg = "Opps! Something Wrong...";
 String str_NoDataMsg = "No Data Found!";

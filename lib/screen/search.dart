@@ -81,7 +81,7 @@ class _SearchState extends State<Search> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Search", false)),
       body: SingleChildScrollView(
           child: ConstrainedBox(

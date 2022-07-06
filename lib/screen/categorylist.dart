@@ -98,7 +98,7 @@ class _CategoryListState extends State<CategoryList>
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Product List", true)),
       body: Row(
         mainAxisSize: MainAxisSize.min,

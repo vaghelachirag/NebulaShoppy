@@ -77,7 +77,7 @@ class _MyCartListState extends State<MyCartList> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "My Cart", false)),
       bottomNavigationBar:
           Visibility(visible: is_ShowBottomBar, child: bottomBar()),

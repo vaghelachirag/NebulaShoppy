@@ -87,8 +87,8 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Order List", false)),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
+          child: appBarWidget(context, 3, "Account", false)),
       body: Container(
         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: ListView.builder(

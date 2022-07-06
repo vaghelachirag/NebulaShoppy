@@ -63,7 +63,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
 
   return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Order List", false)),
              body:  Container(
                       padding: EdgeInsets.all(10),

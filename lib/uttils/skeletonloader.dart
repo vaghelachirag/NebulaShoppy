@@ -119,15 +119,15 @@ Widget boxVerticalCategory() {
       child: Column(
         children: [
           Container(
-            width: ScreenUtil().setSp(50),
-            height: ScreenUtil().setSp(50),
+            width: ScreenUtil().setSp(60),
+            height: ScreenUtil().setSp(60),
             decoration:
                 BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
           ),
           SizedBox(height: 5),
           Container(
             width: 50,
-            height: 5,
+            height: 0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50), color: Colors.grey),
           ),
@@ -245,31 +245,31 @@ Widget boxNewLaunch() {
       children: [
         Container(
           width: 100,
-          height: 100,
+          height: 150,
           decoration:
               BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
         ),
         Container(
           margin: EdgeInsets.all(5),
           width: 100,
-          height: 10,
+          height: 0,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50), color: Colors.grey),
         ),
-        Container(
-          margin: EdgeInsets.all(3),
-          width: 80,
-          height: 8,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), color: Colors.grey),
-        ),
-        Container(
-          margin: EdgeInsets.all(3),
-          width: 60,
-          height: 5,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), color: Colors.grey),
-        )
+        // Container(
+        //   margin: EdgeInsets.all(3),
+        //   width: 80,
+        //   height: 8,
+        //   decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(50), color: Colors.grey),
+        // ),
+        // Container(
+        //   margin: EdgeInsets.all(3),
+        //   width: 60,
+        //   height: 5,
+        //   decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(50), color: Colors.grey),
+        // )
       ],
     ),
   );

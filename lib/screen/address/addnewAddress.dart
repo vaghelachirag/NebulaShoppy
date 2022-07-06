@@ -177,8 +177,7 @@ class _AddNewAddressState extends State<AddNewAddress>
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                     child: addressCityDropDown());
               }
-            }),
-           
+            }),         
             addDeliveryInstruction(),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -233,7 +232,7 @@ class _AddNewAddressState extends State<AddNewAddress>
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Text("Add delivery instructions",
                 style: TextStyle(
                     color: Colors.black,

@@ -109,7 +109,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Product detail", true)),
       bottomNavigationBar: Visibility(
         visible: is_ShowCart,

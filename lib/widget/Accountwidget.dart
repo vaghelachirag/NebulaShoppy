@@ -58,7 +58,7 @@ class AccountWiget extends StatelessWidget {
             padding: const EdgeInsets.all(0.5),
             decoration:
                 BoxDecoration(
-                  border: Border.all(color: Colors.black45)),
+                  border: Border.all(color: Colors.black12)),
             child: _productDetails(context),
           )),
             Visibility(
@@ -69,7 +69,7 @@ class AccountWiget extends StatelessWidget {
             padding: const EdgeInsets.all(0.1),
             decoration:
                 BoxDecoration(
-                  border: Border.all(color: Colors.grey)),
+                  border: Border.all(color: Colors.black12)),
             child: _productDetails(context),
           ))
         ],

@@ -86,7 +86,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Home", true)),
       body: WillPopScope(
           child: SingleChildScrollView(

@@ -46,7 +46,7 @@ class Service {
         Uri.parse(BASE_URL + WS_ADVERTISEMENT_IMAGES_ECOM),
         headers: requestHeaders);
     var json = response.body;
-    // print("Response"+ json.toString());
+     print("Response"+ json.toString());
     return itembannerimageFromJson(json);
   }
 

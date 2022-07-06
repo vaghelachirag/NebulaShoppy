@@ -43,6 +43,10 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> with RouteAware {
   final controller = PageController(viewportFraction: 1, keepPage: true);
+    bool isReadmore= false;
+
+     var scrollController = ScrollController();
+     
   @override
   void initState() {
     super.initState();
@@ -71,18 +75,60 @@ class _TestState extends State<Test> with RouteAware {
     print('HomePage: Called didPushNext');
     super.didPushNext();
   }
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          "Skeleton Loading with shimmer",
-          style: TextStyle(color: Colors.black),
-        ),
+        title: Text('Read More'),
+        centerTitle: true,
       ),
+      body:   GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1,
+          ),
+          children: List.generate(
+            20,
+            (index) => Container(
+              color: Colors.white,
+              child: CategoryProductWidget(
+                      product: Product(
+                          id: 1,
+                          productid: 1,
+                          catid: 1,
+                          company: "Test",
+                          name: "Test",
+                          icon: "https://nebulacompanies.net/Content/Images/EComEBCImages/RootImage/2001210552257116-EBC3.jpg",
+                          rating: 5,
+                          remainingQuantity: 5,
+                          price: '\$' + "Test",
+                          mrp: '\$' + "Test"),
+                      gradientColors: [Colors.white, Colors.white],
+                      onCartAddClick: () {},
+                      onCartRemovedClick: () {},
+                      onCountChanges: (int) {},
+                    ),
+            ),
+          ),
+        )
     );
   }
+
+  
+  Widget buildText(String text){
+    
+    // if read more is false then show only 3 lines from text
+    // else show full text
+    final lines = isReadmore ? null : 3;
+    return Text(
+      text,
+      style: TextStyle(fontSize: 25),
+      maxLines: lines,
+      // overflow properties is used to show 3 dot in text widget
+      // so that user can understand there are few more line to read.
+      overflow: isReadmore ? TextOverflow.visible: TextOverflow.ellipsis,
+    );
+  }
+
 }
