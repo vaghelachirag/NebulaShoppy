@@ -26,7 +26,7 @@ class _SplashState extends State<Splash> {
          height: MediaQuery.of(context).size.height,
          color: Colors.grey[100],
          child:   
-         Image.asset('assets/images/nebula_logo_news.gif',fit: BoxFit.contain,),
+         Image.asset('assets/images/nebula_logo_news.gif',fit: BoxFit.cover,),
         
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -37,6 +37,6 @@ class _SplashState extends State<Splash> {
               context,
               MaterialPageRoute(builder: (dialogContex) => TabScreen()),
               ModalRoute.withName("/tabscreen"));
-    
+     
   }
 }

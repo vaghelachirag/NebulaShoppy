@@ -168,13 +168,9 @@ class _GetMyAddressState extends State<GetMyAddress>
                   IconButton(
                       onPressed: () {
                         // openAccountData(product.postition,context);
-                Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  child: AddNewAddress(),
-                ),
-              );
+
+                navigateToAddNewScreen();
+                
                       },
                       icon: Icon(CommunityMaterialIcons.arrow_right))
                 ],
@@ -373,4 +369,14 @@ class _GetMyAddressState extends State<GetMyAddress>
             }
         });
      }
+
+   navigateToAddNewScreen() async{
+     var push_AddNewAddress = await Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>AddNewAddress()));
+   
+                if(push_AddNewAddress != null || push_AddNewAddress == true){
+                  // perform your function
+                  print("Addnew"+"AddNews");
+                 }
+   }
 }
