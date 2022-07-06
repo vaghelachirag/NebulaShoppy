@@ -428,6 +428,7 @@ class _CategoryListState extends State<CategoryList>
                         if (value.statusCode == 1) {
                           print("Value"+ value.statusCode.toString());
                          showSnakeBar(context, "Item Added to Cart!");
+                         getCartCount();
                         } else {
                           showSnakeBar(context, "Opps! Something Wrong");
                         }
