@@ -695,6 +695,40 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     }
   }
 
+   Future<dynamic> getEditAddressResponse(String _mobile, String _fullName,String _addressLine1,String _addressLine2,String _landmark,String _city,String _state,String _pinCode,String _addressType,String _id) async {
+    requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
+    var queryparams = {
+      'mobile': _mobile,
+      'fullName': _fullName,
+      'addressLine1': _addressLine1,
+      'addressLine2': _addressLine2,
+      'landmark': _landmark,
+       'city': _city,
+        'state': _state,
+        'pinCode': _pinCode,
+        'addressType': _addressType,
+        'id': _id
+    };
+
+    Uri httpsUri = Uri(
+        scheme: 'https',
+        host: Host,
+        path: WS_GET_EDIT_ADDRESS,
+        queryParameters: queryparams);
+
+    final response = await http.post(httpsUri, headers: requestHeaders);
+    print("Response" + response.body.toString() + " "+queryparams.toString());
+    var json = response.body;
+
+    if (response.statusCode == 200) {
+      return getAddToCartResponseFromJson(json);
+    } else {
+      throw Exception('Failed to create album.');
+    }
+  }
+
   Future<GetGenerateOrderResponse> getGenerateOrderResponse(
       String _IboId,
       String _totalAmount,

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
+import 'package:nebulashoppy/screen/address/addnewAddress.dart';
 import 'package:nebulashoppy/screen/address/editmyAddress.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
@@ -164,15 +165,14 @@ class _GetMyAddressState extends State<GetMyAddress>
               alignment: Alignment.topLeft,
               child: Row(
                 children: [
-                 
                   IconButton(
                       onPressed: () {
                         // openAccountData(product.postition,context);
-                           Navigator.push(
+                Navigator.push(
                 context,
                 PageTransition(
                   type: PageTransitionType.fade,
-                  child: EditMyAddress(),
+                  child: AddNewAddress(),
                 ),
               );
                       },
@@ -280,7 +280,13 @@ class _GetMyAddressState extends State<GetMyAddress>
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () {
-               
+               Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  child: EditMyAddress(strFullName: listMyAddres.fullName.toString(), strAddressLine1: listMyAddres.addressLine1.toString(),strAddressLine2: listMyAddres.addressLine2.toString(),strCity: listMyAddres.city.toString(),strState: listMyAddres.state.toString(),strMobileNo: listMyAddres.mobileNo.toString(), strPinCode: listMyAddres.pinCode.toString(), strLandmark: listMyAddres.landmark.toString(), strId: listMyAddres.id.toString()),
+                ),
+              );
               },
             ),
           ),

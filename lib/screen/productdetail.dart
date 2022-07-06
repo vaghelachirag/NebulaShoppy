@@ -41,7 +41,6 @@ class ProductDetail extends StatefulWidget {
   int id;
   int productid;
   int categoryid;
-
   String device_Id = "";
 
   ProductDetail(
@@ -86,7 +85,6 @@ class _ProductDetailState extends State<ProductDetail> {
     super.initState();
     setDeviceId();
     getCartCounter();
-
     getProductBanner(widget.productid.toString());
 
     Dialog(
@@ -847,11 +845,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       fontWeight: FontWeight.w500,
                       color: Colors.black54),
                 ),
-                Text(
-                  "View All",
-                  style: TextStyle(fontSize: 18.0, color: Colors.blue),
-                  textAlign: TextAlign.end,
-                ),
               ],
             ),
             SizedBox(height: 12),
@@ -1008,7 +1001,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     print("Clicked");
                   },
                   child: Text(
-                    "View All",
+                    "",
                     style: TextStyle(fontSize: 18.0, color: Colors.blue),
                     textAlign: TextAlign.end,
                   ),

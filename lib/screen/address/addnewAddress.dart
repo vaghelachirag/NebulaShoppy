@@ -24,36 +24,14 @@ import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
-class EditMyAddress extends StatefulWidget {
-  String strId = "";
-  String strFullName = "";
-  String strAddressLine1 = "";
-  String strAddressLine2 = "";
-  String strCity = "";
-  String strState = "";
-  String strMobileNo = "";
-  String strLandmark = "";
-  String strPinCode = "";
-
-   EditMyAddress(
-      {Key? key,
-      required this.strFullName,
-      required this.strAddressLine1,
-      required this.strAddressLine2,
-      required this.strCity,
-      required this.strState,
-      required this.strMobileNo,
-      required this.strPinCode,
-      required this.strLandmark,
-      required this.strId,
-      })
-      : super(key: key);
-
+class AddNewAddress extends StatefulWidget {
+  AddNewAddress({Key? key}) : super(key: key);
   @override
-  State<EditMyAddress> createState() => _EditMyAddressState();
+  State<AddNewAddress> createState() => _AddNewAddressState();
 }
 
-class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserver {
+class _AddNewAddressState extends State<AddNewAddress>
+    with WidgetsBindingObserver {
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   List<GetMyAddressData> _listMyAddress = [];
   List<GetstateData> _listState = [];
@@ -100,7 +78,6 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
      _listStatefilter.add("Select State");
     _listCityfilter.add("City");
     getDeviceId();
-    setEditData();
     getStateList();
   }
 
@@ -118,7 +95,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBarWidget(context, 3, "Edit Address", false)),
+          child: appBarWidget(context, 3, "Add Address", false)),
       body: SingleChildScrollView(
           child: Form(
         key: _formKey,
@@ -210,7 +187,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(10),
               child: OutlinedButton(
-                child: Text('Edit Address'),
+                child: Text('Add Address'),
                 style: OutlinedButton.styleFrom(
                   primary: Colors.white,
                   shadowColor: Colors.white,
@@ -237,8 +214,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                     }
                     else{
                        getAddAddressResponse();
-                    }
-                   
+                    }              
                   }
                 },
               ),
@@ -656,10 +632,10 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
           isExpanded: true,
           isDense: true,
           onChanged: (dynamic value) {
+            print("Value" + value.stateName);
             setState(() {
               _getSelectedState = value;
               int_SelectedState = value.stateId;
-              print("State" + value.stateName);
               getCityByState(int_SelectedState);
             });
           },
@@ -842,15 +818,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
     for(int i=0; i<_listState.length; i++){
       _listStatefilter.add(_listState[i].stateName);   
     }
-     str_State = widget.strState;
-    for(int i=0; i<_listState.length; i++){
-                if(_listState[i].stateName == str_State){
-                     int_SelectedState = _listState[i].stateId;
-                    getCityByState(int_SelectedState);
-                    str_City = widget.strCity;
-                    break;
-                }
-            }
+     print("Filter"+_listStatefilter.toString());
   }
 
   void filterCity() {
@@ -861,7 +829,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
 
   void getAddAddressResponse() {
       showLoadingDialog(context, _dialogKey, "Please Wait..");
-      Service().getEditAddressResponse(_mobileNumberController.text,_fullNameController.text,_flatNumberController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,widget.strId.toString())
+      Service().getAddNewAddressResponse(_mobileNumberController.text,_fullNameController.text,_flatNumberController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,DeviceId.toString())
         .then((value) => {
               if (value.toString() == str_ErrorMsg)
                 {
@@ -870,7 +838,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
               else
                 {
                 Navigator.pop(_dialogKey.currentContext!),
-                showSnakeBar(context, "Your Address Updated Successfully"),
+                showSnakeBar(context, "Your Address Added Successfully"),
                 Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (dialogContex) => GetMyAddress()),
@@ -880,16 +848,5 @@ DropdownButtonHideUnderline addressStateDropDown() {
             });
   }
 
-  void setEditData() {
-    setState(() {
-      _fullNameController.text = widget.strFullName;
-    _mobileNumberController.text = widget.strMobileNo;
-    _pinCodeController.text = widget.strPinCode;
-    _flatNumberController.text = widget.strAddressLine1;
-    _areaController.text = widget.strAddressLine2;
-    _landmarkController.text = widget.strLandmark;
-     str_City = widget.strCity;
-    });
-    
-  }
+
 }
