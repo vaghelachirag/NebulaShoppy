@@ -837,12 +837,8 @@ DropdownButtonHideUnderline addressStateDropDown() {
               else
                 {
                 Navigator.pop(_dialogKey.currentContext!),
-                showSnakeBar(context, "Your Address Added Successfully"),
-                Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (dialogContex) => GetMyAddress()),
-              ModalRoute.withName("/getmyaddress"))
-          
+                showSnakeBar(context, "Your Address Added Successfully"),    
+                Navigator.pop(context, true)
                 }
             });
   }
