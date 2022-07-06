@@ -24,7 +24,7 @@ class _SplashState extends State<Splash> {
       body: Container(
          width: MediaQuery.of(context).size.width,
          height: MediaQuery.of(context).size.height,
-         color: Colors.white,
+         color: Colors.grey[100],
          child:   
          Image.asset('assets/images/nebula_logo_news.gif',fit: BoxFit.contain,),
         

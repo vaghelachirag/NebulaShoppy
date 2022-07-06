@@ -51,6 +51,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   DateTime currentBackPressTime = DateTime.now();
 
+
   @override
   void initState() {
     super.initState();
@@ -93,18 +94,18 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             constraints: BoxConstraints(),
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: Search(),
-                      ),
-                    );
-                  },
-                  child: SearchWidget(),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       PageTransition(
+                //         type: PageTransitionType.fade,
+                //         child: Search(),
+                //       ),
+                //     );
+                //   },
+                //   child: SearchWidget(),
+                // ),
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listBannerImage.isEmpty) {
@@ -131,7 +132,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 SizedBox(
                   height: 5.0,
                 ),
-                topHeader("New Launch"),
+                topHeader("Newly launched"),
                 FutureBuilder(
                   future: getNewLaunchedProduct(),
                   builder: (context, snapshot) {
@@ -318,7 +319,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Column buildRecentView() {
     return Column(
       children: <Widget>[
-        topHeader("Recent View"),
+        topHeader("Recently Viewed"),
         Container(
           margin: EdgeInsets.all(5),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),

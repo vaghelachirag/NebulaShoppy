@@ -43,7 +43,8 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
               ),
               color: Colors.white,
             )),
-        Visibility(visible: isshowCart, child: QTYCounter(isshowCart))
+        Visibility(visible: isshowCart, child: QTYCounter(isshowCart),
+        )
       ]);
 }
 
