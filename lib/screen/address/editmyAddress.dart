@@ -46,17 +46,6 @@ class _EditMyAddressState extends State<EditMyAddress>
   String str_SelectedCity = "";
   int int_SelectedCity = 0;
 
-  // List of items in our dropdown menu
-  var _list_AddressType = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
-  // Initial Selected Value
-  String dropdownvalue = 'Select an Address Type';
-
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _mobileNumberController = TextEditingController();
   TextEditingController _pinCodeController = TextEditingController();
@@ -68,6 +57,15 @@ class _EditMyAddressState extends State<EditMyAddress>
   TextEditingController _addressTypeController = TextEditingController();
 
   static final _formKey = GlobalKey<FormState>();
+
+  final dropdownState = GlobalKey<FormFieldState>();
+
+  String str_AddressType = 'Select an Address Type*';
+  var _listAddressType = [
+    'Select an Address Type*',
+    'Home (7 am - 9pm delivery)',
+    'Office/Commercial (10am - 6am delivery)'
+  ];
 
   @override
   void initState() {
@@ -166,6 +164,9 @@ class _EditMyAddressState extends State<EditMyAddress>
               }
             }),
             addDeliveryInstruction(),
+            Padding(
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                child: addressTypeDropDown()),
             Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(10),
@@ -188,7 +189,8 @@ class _EditMyAddressState extends State<EditMyAddress>
                   }
                 },
               ),
-            )
+            ),
+
             //  setAddressType()
           ],
         ),
@@ -664,17 +666,37 @@ class _EditMyAddressState extends State<EditMyAddress>
     );
   }
 
-  DropdownButton setAddressType() {
-    return DropdownButton(
-      items: <DropdownMenuItem>[
-        DropdownMenuItem(
-          child: Text("Category I"),
+  InputDecorator addressTypeDropDown() {
+    return InputDecorator(
+      decoration: addressText("City"),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButtonFormField(
+          style: TextStyle(
+            fontSize: 16,
+            color: Color.fromARGB(255, 10, 8, 8),
+            fontFamily: "verdana_regular",
+          ),
+          hint: Text(
+            "Select Bank",
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+              fontFamily: "verdana_regular",
+            ),
+          ),
+          items: _listAddressType.map((String items) {
+            return DropdownMenuItem(value: items, child: Text(items));
+          }).toList(),
+          onChanged: (dynamic newValue) {
+            setState(() {
+              str_AddressType = newValue.toString();
+            });
+          },
+          isExpanded: true,
+          isDense: true,
+          value: str_AddressType,
         ),
-        DropdownMenuItem(
-          child: Text("Category II"),
-        ),
-      ],
-      onChanged: (value) {},
+      ),
     );
   }
 
