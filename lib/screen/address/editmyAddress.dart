@@ -34,14 +34,18 @@ class _EditMyAddressState extends State<EditMyAddress>
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   List<GetMyAddressData> _listMyAddress = [];
   List<GetstateData> _listState = [];
+   List<String> _listStatefilter = [];
   bool bl_ShowAddress = false;
 
   // For State Selection
   late GetstateData _getSelectedState;
   String str_SelectedState = "";
   int int_SelectedState = 0;
+  String str_State = 'Select State';
+  String str_City = 'City';
 
   List<getCityByStateData> _listCity = [];
+  List<String> _listCityfilter = [];
   late getCityByStateData _getSelectedCity;
   String str_SelectedCity = "";
   int int_SelectedCity = 0;
@@ -70,6 +74,8 @@ class _EditMyAddressState extends State<EditMyAddress>
   @override
   void initState() {
     super.initState();
+     _listStatefilter.add("Select State");
+    _listCityfilter.add("City");
     getStateList();
   }
 
@@ -151,18 +157,26 @@ class _EditMyAddressState extends State<EditMyAddress>
                   100,
                   TextInputType.multiline),
             ),
-            Padding(
-                padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-                child: stateListDropDown()),
+           // Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0),child: stateListDropDown()),
+              FutureBuilder(builder: (context, snapshot) {
+              if (_listStatefilter.isEmpty) {
+                return Text("");
+              } else {
+                return Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    child: addressStateDropDown());
+              }
+            }),
             FutureBuilder(builder: (context, snapshot) {
               if (_listCity.isEmpty) {
                 return Text("");
               } else {
                 return Padding(
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                    child: stateCityDropDown());
+                    child: addressCityDropDown());
               }
             }),
+           
             addDeliveryInstruction(),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -235,12 +249,7 @@ class _EditMyAddressState extends State<EditMyAddress>
     );
   }
 
-  TextFormField getAddressText(
-      String hint,
-      TextEditingController fullNameController,
-      String str_Error,
-      int i,
-      TextInputType name) {
+  TextFormField getAddressText( String hint,TextEditingController fullNameController, String str_Error,int i,TextInputType name) {
     return TextFormField(
         keyboardType: name,
         controller: fullNameController,
@@ -321,7 +330,6 @@ class _EditMyAddressState extends State<EditMyAddress>
             ],
           )),
     );
-    ;
   }
 
   myAdrresList() {
@@ -566,6 +574,7 @@ class _EditMyAddressState extends State<EditMyAddress>
                   //  print("Categorylist" + value.message);
                   _listState = value.data!;
                   _getSelectedState = _listState[0];
+                  filterStateList();
                 } else {
                   showSnakeBar(context, somethingWrong);
                   print("Categorylist" + "Opps Something Wrong!");
@@ -666,6 +675,78 @@ class _EditMyAddressState extends State<EditMyAddress>
     );
   }
 
+DropdownButtonHideUnderline addressStateDropDown() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButtonFormField(
+        decoration: addressText("City"),
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 10, 8, 8),
+          fontFamily: "verdana_regular",
+        ),
+        hint: Text(
+          "Select Bank",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+            fontFamily: "verdana_regular",
+          ),
+        ),
+        items: _listStatefilter.map((String items) {
+          return DropdownMenuItem(value: items, child: Text(items));
+        }).toList(),
+        onChanged: (dynamic newValue) {
+          setState(() {
+            str_State = newValue.toString();
+            for(int i=0; i<_listState.length; i++){
+                if(_listState[i].stateName == str_State){
+                     int_SelectedState = _listState[i].stateId;
+                    getCityByState(int_SelectedState);
+                    str_City = "City";
+                    break;
+                }
+            }
+          });
+        },
+        isExpanded: true,
+        isDense: true,
+        value: str_State,
+      ),
+    );
+  }
+
+   DropdownButtonHideUnderline addressCityDropDown() {
+     return DropdownButtonHideUnderline(
+      child: DropdownButtonFormField(
+        decoration: addressText("City"),
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 10, 8, 8),
+          fontFamily: "verdana_regular",
+        ),
+        hint: Text(
+          "Select Bank",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+            fontFamily: "verdana_regular",
+          ),
+        ),
+        items: _listCityfilter.map((String items) {
+          return DropdownMenuItem(value: items, child: Text(items));
+        }).toList(),
+        onChanged: (dynamic newValue) {
+          setState(() {
+            str_City = newValue.toString();
+          });
+        },
+        isExpanded: true,
+        isDense: true,
+        value: str_City,
+      ),
+    );
+   }
+
   DropdownButtonHideUnderline addressTypeDropDown() {
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField(
@@ -707,6 +788,7 @@ class _EditMyAddressState extends State<EditMyAddress>
                 if (value.statusCode == 1) {
                   print("Categorylist" + value.message);
                   _listCity = value.data;
+                   filterCity();
                   _getSelectedCity = _listCity[0];
                 } else {
                   showSnakeBar(context, somethingWrong);
@@ -716,4 +798,19 @@ class _EditMyAddressState extends State<EditMyAddress>
             }
         });
   }
+
+  void filterStateList() {
+    for(int i=0; i<_listState.length; i++){
+      _listStatefilter.add(_listState[i].stateName);   
+    }
+     print("Filter"+_listStatefilter.toString());
+  }
+
+  void filterCity() {
+    for(int i=0; i<_listCity.length; i++){
+      _listCityfilter.add(_listCity[i].cityName);
+    }
+  }
+
+
 }
