@@ -618,9 +618,7 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     requestHeaders = {
       'Authorization': '${str_AuthId}',
     };
-
     var queryparams = {'id': id};
-
     Uri httpsUri = Uri(
         scheme: 'https',
         host: 'nebulacompanies.net',
@@ -660,6 +658,45 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     var json = response.body;
     print("object" + json.toString());
     return getAddressByCityResponseFromJson(json);
+  }
+
+
+  Future<dynamic> getAddNewAddressResponse(String _mobile, String _fullName,String _addressLine1,String _addressLine2,String _landmark,String _city,String _state,String _pinCode,String _addressType,String _deviceid) async {
+    requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
+    var queryparams = {
+      'mobile': _mobile,
+      'fullName': _fullName,
+      'addressLine1': _addressLine1,
+      'addressLine2': _addressLine2,
+      'landmark': _landmark,
+       'city': _city,
+        'state': _state,
+        'pinCode': _pinCode,
+        'addressType': _addressType,
+        'deviceid': _deviceid
+    };
+
+    Uri httpsUri = Uri(
+        scheme: 'https',
+        host: Host,
+        path: WS_GET_ADD_ADDRESS,
+        queryParameters: queryparams);
+
+    final response = await http.post(httpsUri, headers: requestHeaders);
+    print("Response" + response.body.toString());
+    var json = response.body;
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return getdeleteaddressResponseFromJson(json);
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
   }
 
   Future<GetGenerateOrderResponse> getGenerateOrderResponse(

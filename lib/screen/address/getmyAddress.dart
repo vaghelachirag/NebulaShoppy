@@ -189,10 +189,10 @@ class _GetMyAddressState extends State<GetMyAddress>
   myAdrresList(){
    return Container(
      width: MediaQuery.of(context).size.width,
-  child:  Padding(
-        padding: EdgeInsets.fromLTRB(10,0,5,10),
-        child: Column(
-          children: [
+     child:  Padding(
+     padding: EdgeInsets.fromLTRB(10,0,5,10),
+     child: Column(
+     children: [
              FutureBuilder(
                future:  getMyAddress(),
                builder: (context, snapshot) {
@@ -207,11 +207,10 @@ class _GetMyAddressState extends State<GetMyAddress>
             itemBuilder: (context, index) {
               return   Card(
       margin: EdgeInsets.all(5),
-  elevation: 5,
-  shape: RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular(10),
-  ),
-  child: 
+     elevation: 5,
+     shape: RoundedRectangleBorder(
+     borderRadius: BorderRadius.circular(10),),
+     child: 
               Container(
                 margin: EdgeInsets.all(5),
                 padding: EdgeInsets.all(5),
@@ -228,22 +227,22 @@ class _GetMyAddressState extends State<GetMyAddress>
                       alignment: Alignment.topLeft,
                       child:  Text(_listMyAddress[index].addressLine1.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
-                     Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                     Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
                       child:  Text(_listMyAddress[index].addressLine2.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
-                     Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                     Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
                       child:  Text(_listMyAddress[index].city.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
-                     Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                     Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
                       child:  Text(_listMyAddress[index].state.toString() + " "+ _listMyAddress[index].pinCode.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
-                      Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
                       child:  Text("Mobile:" + " "+ _listMyAddress[index].mobileNo.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),

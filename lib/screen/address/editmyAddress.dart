@@ -199,7 +199,7 @@ class _EditMyAddressState extends State<EditMyAddress>
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     print("Valid" + "Valid");
-                    //getLoginResponse();
+                    getAddAddressResponse();
                   }
                 },
               ),
@@ -810,6 +810,22 @@ DropdownButtonHideUnderline addressStateDropDown() {
     for(int i=0; i<_listCity.length; i++){
       _listCityfilter.add(_listCity[i].cityName);
     }
+  }
+
+  void getAddAddressResponse() {
+      showLoadingDialog(context, _dialogKey, "Please Wait..");
+      Service().getAddNewAddressResponse(_mobileNumberController.text,_fullNameController.text,_addressTypeController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,"0")
+        .then((value) => {
+              if (value.toString() == str_ErrorMsg)
+                {
+                  
+                }
+              else
+                {
+                  Navigator.pop(_dialogKey.currentContext!),
+                
+                }
+            });
   }
 
 
