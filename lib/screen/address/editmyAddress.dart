@@ -666,36 +666,34 @@ class _EditMyAddressState extends State<EditMyAddress>
     );
   }
 
-  InputDecorator addressTypeDropDown() {
-    return InputDecorator(
-      decoration: addressText("City"),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButtonFormField(
+  DropdownButtonHideUnderline addressTypeDropDown() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButtonFormField(
+        decoration: addressText("City"),
+        style: TextStyle(
+          fontSize: 16,
+          color: Color.fromARGB(255, 10, 8, 8),
+          fontFamily: "verdana_regular",
+        ),
+        hint: Text(
+          "Select Bank",
           style: TextStyle(
+            color: Colors.grey,
             fontSize: 16,
-            color: Color.fromARGB(255, 10, 8, 8),
             fontFamily: "verdana_regular",
           ),
-          hint: Text(
-            "Select Bank",
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
-              fontFamily: "verdana_regular",
-            ),
-          ),
-          items: _listAddressType.map((String items) {
-            return DropdownMenuItem(value: items, child: Text(items));
-          }).toList(),
-          onChanged: (dynamic newValue) {
-            setState(() {
-              str_AddressType = newValue.toString();
-            });
-          },
-          isExpanded: true,
-          isDense: true,
-          value: str_AddressType,
         ),
+        items: _listAddressType.map((String items) {
+          return DropdownMenuItem(value: items, child: Text(items));
+        }).toList(),
+        onChanged: (dynamic newValue) {
+          setState(() {
+            str_AddressType = newValue.toString();
+          });
+        },
+        isExpanded: true,
+        isDense: true,
+        value: str_AddressType,
       ),
     );
   }
