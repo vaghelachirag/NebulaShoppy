@@ -16,6 +16,7 @@ import '../main.dart';
 import '../network/service.dart';
 import '../screen/address/editmyAddress.dart';
 import '../widget/restartWidget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const HOME_SCREEN = 'home_screen';
 
@@ -140,6 +141,14 @@ const kPurpleColor = Color(0xFFB97DFE);
 const kRedColor = Color(0xFFFE4067);
 const kGreenColor = Color(0xFFADE9E3);
 
+ // Font Family
+ const String Montserrat = "Montserrat";
+ const String Ember = "Ember";
+ const String EmberBold = "Ember-Bold";
+ const String EmberItalic = "Ember-Italic";
+
+
+
 DateTime currentBackPressTime = DateTime.now();
 
  String register = 'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
@@ -175,6 +184,40 @@ checkUserLoginOrNot() async {
   }
 
   print("IsLogin" + is_Login.toString());
+}
+
+Text setRegularText(String text,int size, Color black, FontWeight normal){
+  return  Text(
+          text,
+          style: TextStyle(
+              fontFamily: Ember,
+              fontSize: ScreenUtil().setSp(size), fontWeight: normal,
+              color: black),
+          textAlign: TextAlign.start,
+        );
+}
+
+Text setBoldText(String text,int size, Color black){
+  return  Text(
+          text,
+          maxLines: 1,
+          style: TextStyle(
+              fontFamily: EmberBold,
+              fontSize: ScreenUtil().setSp(size),
+              color: black),
+          textAlign: TextAlign.start,
+        );
+}
+
+Text setItalicText(String text,int size, Color black){
+  return  Text(
+          text,
+          style: TextStyle(
+              fontFamily: EmberItalic,
+              fontSize: ScreenUtil().setSp(size),
+              color: black),
+          textAlign: TextAlign.start,
+        );
 }
 
 getAuthId() async {

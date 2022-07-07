@@ -364,12 +364,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       padding: EdgeInsets.all(5),
       child: Align(
         alignment: Alignment.topLeft,
-        child: Text(
-          str_Title,
-          style: TextStyle(
-              fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
-          textAlign: TextAlign.start,
-        ),
+        child:  setBoldText(str_Title,20,Colors.black)
+        
+        // Text(
+        //   str_Title,
+        //   style: TextStyle(
+        //       fontFamily: 'Ember',
+        //       fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
+        //   textAlign: TextAlign.start,
+        // ),
       ),
     );
   }
@@ -413,14 +416,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(0.0),
-                    child: Text(
-                      _listHomeCategory[index].name.toString(),
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                        color: Colors.black,
-                      ),
-                    ),
+                    child:  
+                    setItalicText(_listHomeCategory[index].name.toString(),14,Colors.black)
                   )
                 ],
               ),
