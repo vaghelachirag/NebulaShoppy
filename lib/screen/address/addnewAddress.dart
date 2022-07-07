@@ -107,13 +107,15 @@ class _AddNewAddressState extends State<AddNewAddress>
                 padding: EdgeInsets.all(10),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                    "Personal Addresses",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  child: 
+                  setBoldText("Personal Addresses", 20, Colors.black)
+                  // Text(
+                  //   "Personal Addresses",
+                  //   style: TextStyle(
+                  //       fontSize: 20,
+                  //       color: Colors.black,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
                 ),
               ),
             ),
@@ -233,30 +235,23 @@ class _AddNewAddressState extends State<AddNewAddress>
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Text("Add delivery instructions",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            child: setBoldText("Add delivery instructions", 16, Colors.black)
+           ,
           ),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-          child: Text(
-            "Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.",
-            style: TextStyle(
-                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
-          ),
+          child:
+          setRegularText("Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.", 14, Colors.black)
+           ,
         ),
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-            child: Text("Address Types",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            child: 
+            setBoldText("Address Types", 16, Colors.black)
+           ,
           ),
         ),
       ],
@@ -606,14 +601,14 @@ class _AddNewAddressState extends State<AddNewAddress>
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey,
-            fontFamily: "verdana_regular",
+            fontFamily: Ember,
           ),
           hint: Text(
             "Select Bank",
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16,
-              fontFamily: "verdana_regular",
+              fontFamily: Ember,
             ),
           ),
           items: _listState
@@ -652,14 +647,14 @@ class _AddNewAddressState extends State<AddNewAddress>
           style: TextStyle(
             fontSize: 16,
             color: Color.fromARGB(255, 10, 8, 8),
-            fontFamily: "verdana_regular",
+            fontFamily: Ember,
           ),
           hint: Text(
             "Select Bank",
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16,
-              fontFamily: "verdana_regular",
+              fontFamily:Ember,
             ),
           ),
           items: _listCity.map<DropdownMenuItem<getCityByStateData>>(
@@ -696,14 +691,14 @@ DropdownButtonHideUnderline addressStateDropDown() {
         style: TextStyle(
           fontSize: 16,
           color: Color.fromARGB(255, 10, 8, 8),
-          fontFamily: "verdana_regular",
+          fontFamily:  Ember,
         ),
         hint: Text(
           "Select Bank",
           style: TextStyle(
             color: Colors.grey,
             fontSize: 16,
-            fontFamily: "verdana_regular",
+            fontFamily: Ember,
           ),
         ),
         items: _listStatefilter.map((String items) {
@@ -736,14 +731,14 @@ DropdownButtonHideUnderline addressStateDropDown() {
         style: TextStyle(
           fontSize: 16,
           color: Color.fromARGB(255, 10, 8, 8),
-          fontFamily: "verdana_regular",
+          fontFamily: Ember,
         ),
         hint: Text(
           "Select Bank",
           style: TextStyle(
             color: Colors.grey,
             fontSize: 16,
-            fontFamily: "verdana_regular",
+            fontFamily: Ember,
           ),
         ),
         items: _listCityfilter.map((String items) {
@@ -768,14 +763,14 @@ DropdownButtonHideUnderline addressStateDropDown() {
         style: TextStyle(
           fontSize: 16,
           color: Color.fromARGB(255, 10, 8, 8),
-          fontFamily: "verdana_regular",
+          fontFamily: Ember,
         ),
         hint: Text(
           "Select Bank",
           style: TextStyle(
             color: Colors.grey,
             fontSize: 16,
-            fontFamily: "verdana_regular",
+            fontFamily: Ember,
           ),
         ),
         items: _listAddressType.map((String items) {

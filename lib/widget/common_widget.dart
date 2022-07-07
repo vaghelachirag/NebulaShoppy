@@ -73,6 +73,7 @@ InputDecoration addressText(String hint) {
       counter: Offstage(),
       hoverColor: Colors.black,
       fillColor: Colors.black,
+      hintStyle:  TextStyle(fontFamily: Ember),
        focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.black)),
