@@ -186,12 +186,12 @@ checkUserLoginOrNot() async {
   print("IsLogin" + is_Login.toString());
 }
 
-Text setRegularText(String text,int size, Color black, FontWeight normal){
+Text setRegularText(String text,int size, Color black){
   return  Text(
           text,
           style: TextStyle(
               fontFamily: Ember,
-              fontSize: ScreenUtil().setSp(size), fontWeight: normal,
+              fontSize: ScreenUtil().setSp(size),
               color: black),
           textAlign: TextAlign.start,
         );

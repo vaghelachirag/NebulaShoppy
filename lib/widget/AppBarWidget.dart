@@ -14,7 +14,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
       elevation: 0.0,
       title: Text(
         str_title,
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: EmberBold),
       ),
       actions: <Widget>[
         Visibility(

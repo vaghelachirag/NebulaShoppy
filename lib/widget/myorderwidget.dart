@@ -91,17 +91,18 @@ class MyOrderWiget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-           
-              product.ordernumber.toString(),
-              maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Text(
-        product.date.toString(),
-              maxLines: 1,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-            ), 
+            setBoldText(product.ordernumber.toString(), 16, Colors.black),
+            // Text(         
+            //   product.ordernumber.toString(),
+            //   maxLines: 1,
+            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            // ),
+            setRegularText( product.date.toString(), 12, Colors.black),
+        //     Text(
+        // product.date.toString(),
+        //       maxLines: 1,
+        //       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+        //     ), 
             Container(
               width: MediaQuery.of(context).size.width /2 ,
               child:  ElevatedButton(

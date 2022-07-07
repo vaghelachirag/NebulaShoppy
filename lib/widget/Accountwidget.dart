@@ -158,11 +158,12 @@ class AccountWiget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              product.Title,
-              maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            ),
+            setRegularText( product.Title, 16, Colors.black),
+            // Text(
+            //   product.Title,
+            //   maxLines: 1,
+            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            // ),
             Align(
               alignment: Alignment.topLeft,
               child: Row(
@@ -171,7 +172,7 @@ class AccountWiget extends StatelessWidget {
                       visible: product.is_Ewallet,
                       child: Text(
                         rupees_Sybol + "0.0",
-                        style: TextStyle(color: Colors.green, fontSize: 12),
+                        style: TextStyle(color: Colors.green, fontSize: 12,fontFamily: EmberBold),
                       )),
                   IconButton(
                       onPressed: () {

@@ -97,31 +97,36 @@ class SearchItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              product.company,
-              maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              product.name,
-              maxLines: 1,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-            ),
+            // Text(
+            //   product.company,
+            //   maxLines: 1,
+            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            // ),
+            setBoldText(product.company, 16, Colors.black),
+            setRegularText(product.name, 12, Colors.black),
+            // Text(
+            //   product.name,
+            //   maxLines: 1,
+            //   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+            // ),
             StarRating(rating: product.rating, size: 12),
             Row(
               children: <Widget>[
-                Text(product.price,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red)),
-                Text(
+                  setBoldText(product.price, 16, Colors.red),
+                // Text(product.price,
+                //     style: TextStyle(
+                //         fontSize: 16,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.red)),
+                Padding(padding: EdgeInsets.only(left: 3),child:
+                 Text(
                   product.mrp,
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
+                      fontFamily: Ember,
                       decoration: TextDecoration.lineThrough),
-                )
+                ))
               ],
             )
           ],
