@@ -417,7 +417,7 @@ Container EwalletOption(){
   void callOrderApi() {
     showLoadingDialog(context, _dialogKey, "Please Wait..");
 
-        Service().getGenerateOrderPayUResponse(str_UserId,widget.int_GrandTotal.toString(),"","","PickUp","1","","","Online%20Payment","true","UPI","0").then((value) => {
+        Service().getGenerateOrderPayUResponse(str_UserId,int_Total.toString(),"","","PickUp","1","","","Online%20Payment","true","UPI","0").then((value) => {
           if (this.mounted)
             {
               setState((() {
@@ -447,7 +447,7 @@ Container EwalletOption(){
     isProduction: true,
     merchantKey: MerchantKey,
     merchantSalt: MerchantSalt,
-    amount: widget.int_GrandTotal.toString(),
+    amount: int_Total.toString(),
     hashUrl:'<Checksum URL to generate dynamic hashes>',
     productInfo: widget.productInfo,
     transactionId: widget.txnID,

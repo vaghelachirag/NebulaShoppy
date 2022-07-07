@@ -19,8 +19,16 @@ import '../widget/restartWidget.dart';
 
 const HOME_SCREEN = 'home_screen';
 
-const BASE_URL = "https://nebulacompanies.net/"; // Live
-const Host = "nebulacompanies.net"; // Live
+// const BASE_URL = "https://nebulacompanies.net/"; // Live
+// const Scheme = "https"; 
+// const Host = "nebulacompanies.net"; // Live
+
+
+ var BASE_URL = "http://203.88.139.169:9064/";
+ var Scheme = "http"; // Live
+  var  Host = "203.88.139.169:9064"; // Live
+
+
 
 // Routes
 const WS_ADVERTISEMENT_IMAGES_ECOM = '/API/ECom/BannerImages';
@@ -143,6 +151,19 @@ showSnakeBar(BuildContext context, String msg) {
       behavior: SnackBarBehavior.floating,
     ),
   );
+}
+
+changeBaseURL(int int_BaseUrl){
+   if(int_BaseUrl  == 0){
+ BASE_URL = "http://203.88.139.169:9064/";
+ Scheme = "http"; // Testing
+ Host = "203.88.139.169:9064"; // Testing
+}
+else{
+ BASE_URL = "https://nebulacompanies.net/";
+ Scheme = "https"; // Live
+ Host = "nebulacompanies.net"; // Live
+}
 }
 
 gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail) {}

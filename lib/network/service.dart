@@ -246,8 +246,8 @@ class Service {
     };
 
     Uri httpsUri = Uri(
-        scheme: 'https',
-        host: 'nebulacompanies.net',
+        scheme: Scheme,
+        host: Host,
         path: WS_ADD_TO_CART,
         queryParameters: queryparams);
 
@@ -346,8 +346,8 @@ class Service {
     var queryparams = {'deviceid': _deviceid, 'productid': productid};
 
     Uri httpsUri = Uri(
-        scheme: 'https',
-        host: 'nebulacompanies.net',
+        scheme: Scheme,
+        host: Host,
         path: WS_REMOVE_CART_ITEM,
         queryParameters: queryparams);
 
@@ -376,8 +376,8 @@ class Service {
     };
 
     Uri httpsUri = Uri(
-        scheme: 'https',
-        host: 'nebulacompanies.net',
+        scheme: Scheme,
+        host: Host,
         path: WS_REMOVE_CART,
         queryParameters: queryparams);
 
@@ -620,8 +620,8 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     };
     var queryparams = {'id': id};
     Uri httpsUri = Uri(
-        scheme: 'https',
-        host: 'nebulacompanies.net',
+        scheme: Scheme,
+        host: Host,
         path: WS_GET_DELETE_ADDRESS,
         queryParameters: queryparams);
 
