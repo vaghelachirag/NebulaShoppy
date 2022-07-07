@@ -184,6 +184,7 @@ checkUserLoginOrNot() async {
 Text setRegularText(String text, int size, Color black) {
   return Text(
     text,
+    maxLines: 1,
     style: TextStyle(
         fontFamily: Ember, fontSize: ScreenUtil().setSp(size), color: black),
     textAlign: TextAlign.start,

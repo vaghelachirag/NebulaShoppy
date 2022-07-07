@@ -123,20 +123,22 @@ class TrendingItem extends StatelessWidget {
           product.name,
           maxLines: 1,
           style: TextStyle(
-              fontWeight: FontWeight.normal, fontSize: 12, fontFamily: Ember),
+              fontWeight: FontWeight.normal, fontSize: 10, fontFamily: Ember),
         ),
         StarRating(rating: product.rating, size: 12),
         Row(
           children: <Widget>[
             setBoldText(product.price, 12, Colors.red),
-            Text(
-              product.mrp,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                  fontFamily: EmberItalic,
-                  decoration: TextDecoration.lineThrough),
-            )
+            Padding(
+                padding: EdgeInsets.only(left: 3),
+                child: Text(
+                  product.mrp,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 10,
+                      fontFamily: EmberItalic,
+                      decoration: TextDecoration.lineThrough),
+                ))
           ],
         )
       ],

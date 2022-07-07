@@ -298,10 +298,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       rating: 5,
                       remainingQuantity: 5,
                       price: rupees_Sybol +
-                          " " +
+                          "" +
                           _listNewLaunched[index].salePrice.toString(),
                       mrp: rupees_Sybol +
-                          " " +
+                          "" +
                           _listNewLaunched[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
                 ),
@@ -341,10 +341,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       rating: 5,
                       remainingQuantity: 5,
                       price: rupees_Sybol +
-                          " " +
+                          "" +
                           _listRecentView[index].categorySaleprice.toString(),
                       mrp: rupees_Sybol +
-                          " " +
+                          "" +
                           _listRecentView[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
                 ),

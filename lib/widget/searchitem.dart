@@ -37,7 +37,7 @@ class SearchItem extends StatelessWidget {
                 elevation: 0,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(3.0),
                   child: Row(
                     children: <Widget>[_productImage(), _productDetails()],
                   ),
@@ -48,17 +48,17 @@ class SearchItem extends StatelessWidget {
         ],
       ),
       onTap: () {
-        print("Search"+ "SearchClick");
-          Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    child: ProductDetail(
-                      id: product.id,
-                      productid: product.productid,
-                      categoryid: product.catid,
-                    ),
-                  ));
+        print("Search" + "SearchClick");
+        Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              child: ProductDetail(
+                id: product.id,
+                productid: product.productid,
+                categoryid: product.catid,
+              ),
+            ));
       },
     );
   }
@@ -69,7 +69,6 @@ class SearchItem extends StatelessWidget {
         ClipPath(
           clipper: ProductImageContainerClipper(),
           child: Container(
-            width: 100,
             height: 70,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -80,7 +79,6 @@ class SearchItem extends StatelessWidget {
         ),
         Center(
             child: Container(
-          width: 100,
           height: 80,
           child: FadeInImage.assetNetwork(
               placeholder: placeholder_path,
@@ -93,7 +91,7 @@ class SearchItem extends StatelessWidget {
 
   _productDetails() {
     return Padding(
-        padding: EdgeInsets.only(left: 10),
+        padding: EdgeInsets.only(left: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -102,31 +100,32 @@ class SearchItem extends StatelessWidget {
             //   maxLines: 1,
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
-            setBoldText(product.company, 16, Colors.black),
-            setRegularText(product.name, 12, Colors.black),
+            setBoldText(product.company, 14, Colors.black),
+            setRegularText(product.name, 10, Colors.black),
             // Text(
             //   product.name,
             //   maxLines: 1,
             //   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
             // ),
-            StarRating(rating: product.rating, size: 12),
+            StarRating(rating: product.rating, size: 10),
             Row(
               children: <Widget>[
-                  setBoldText(product.price, 16, Colors.red),
+                setBoldText(product.price, 14, Colors.red),
                 // Text(product.price,
                 //     style: TextStyle(
                 //         fontSize: 16,
                 //         fontWeight: FontWeight.bold,
                 //         color: Colors.red)),
-                Padding(padding: EdgeInsets.only(left: 3),child:
-                 Text(
-                  product.mrp,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontFamily: Ember,
-                      decoration: TextDecoration.lineThrough),
-                ))
+                Padding(
+                    padding: EdgeInsets.only(left: 3),
+                    child: Text(
+                      product.mrp,
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 10,
+                          fontFamily: Ember,
+                          decoration: TextDecoration.lineThrough),
+                    ))
               ],
             )
           ],

@@ -22,7 +22,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 
 class CategoryList extends StatefulWidget {
   int position, id;
- String device_Id = "";
+  String device_Id = "";
   CategoryList({Key? key, required this.position, required this.id})
       : super(key: key);
   @override
@@ -37,7 +37,6 @@ class _CategoryListState extends State<CategoryList>
   get somethingWrong => null;
   var selectedPosition = 0;
   var selectedId = 0;
-
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   @override
@@ -357,8 +356,8 @@ class _CategoryListState extends State<CategoryList>
                   mrp: _listproductList[index].mrp.toString()),
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
-                print("CartAdd"+"This");
-                addToCart(widget.device_Id,_listproductList[index].productId);
+                print("CartAdd" + "This");
+                addToCart(widget.device_Id, _listproductList[index].productId);
               },
               onCartRemovedClick: () {},
               onCountChanges: (int) {},
@@ -369,7 +368,7 @@ class _CategoryListState extends State<CategoryList>
           crossAxisCount: 2,
           crossAxisSpacing: 0,
           mainAxisSpacing: 1,
-          childAspectRatio: 8.0 / 12.0,
+          childAspectRatio: 8.0 / 11.0,
         ),
       )),
     );
@@ -404,37 +403,38 @@ class _CategoryListState extends State<CategoryList>
   }
 
   void addToCart(String device_id, int productId) {
-     Future.delayed(Duration(seconds: 0), () {
-   
+    Future.delayed(Duration(seconds: 0), () {
       if (!is_Login) {
-          print("IsLogin" + "Not Login");
-          addProductInCart(productId.toString());
+        print("IsLogin" + "Not Login");
+        addProductInCart(productId.toString());
       } else {
-          print("IsLogin" + "Is Login");
-          getUserId();
-          addProductInCart(productId.toString());      
+        print("IsLogin" + "Is Login");
+        getUserId();
+        addProductInCart(productId.toString());
       }
     });
   }
 
   void addProductInCart(String productId) {
-     showLoadingDialog(context, _dialogKey, "Please Wait..");
-     Future.delayed(Duration(seconds: 0), () {
-          Service().getAddToCartResponse(DeviceId.toString(), str_UserId, productId.toString(), "1", Flag_Plus)
-              .then((value) => {
-                    setState((() {
-                      if (_dialogKey.currentContext != null) {
-                        Navigator.pop(_dialogKey.currentContext!);           
-                        if (value.statusCode == 1) {
-                          print("Value"+ value.statusCode.toString());
-                         showSnakeBar(context, "Item Added to Cart!");
-                         getCartCount();
-                        } else {
-                          showSnakeBar(context, "Opps! Something Wrong");
-                        }
-                      }
-                    }))
-                  });
-        });
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Future.delayed(Duration(seconds: 0), () {
+      Service()
+          .getAddToCartResponse(DeviceId.toString(), str_UserId,
+              productId.toString(), "1", Flag_Plus)
+          .then((value) => {
+                setState((() {
+                  if (_dialogKey.currentContext != null) {
+                    Navigator.pop(_dialogKey.currentContext!);
+                    if (value.statusCode == 1) {
+                      print("Value" + value.statusCode.toString());
+                      showSnakeBar(context, "Item Added to Cart!");
+                      getCartCount();
+                    } else {
+                      showSnakeBar(context, "Opps! Something Wrong");
+                    }
+                  }
+                }))
+              });
+    });
   }
 }
