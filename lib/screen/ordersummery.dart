@@ -25,17 +25,35 @@ class OrderSummery extends StatefulWidget {
   int? int_SubTotal = 0;
   int? int_ShippingCharge = 0;
   int? int_GrandTotal = 0;
+  int? int_GrandTotalWallet = 0;
+  int? int_ShippingChargeWallet = 0;
+  int? int_SubTotalWallet = 0;
+   
+   bool ? is_WalletFreez = false;
+   String is_EwalletOnOff = "0";
+   int? int_E_WalletAmount = 0;
+    int? int_SettleAmount = 0;
+   
   String txnID = "213428847124";
   String firstname = "";
   String phone = "";
   String email = "";
   String productInfo = "";
 
+
+
   OrderSummery(
       {required this.str_Title,
       required this.int_SubTotal,
       required this.int_ShippingCharge,
-      required this.int_GrandTotal});
+      required this.int_GrandTotal,
+      required this.int_GrandTotalWallet,
+      required this.int_ShippingChargeWallet,
+       required this.int_SubTotalWallet,
+       required this.is_WalletFreez,
+        required this.is_EwalletOnOff,
+         required this.int_E_WalletAmount,
+      });
 
   @override
   State<OrderSummery> createState() => _OrderSummeryState();
@@ -53,15 +71,25 @@ class _OrderSummeryState extends State<OrderSummery>
   
   // Selected Position selection
   bool selectedPosition = false;
+  bool isCheckedEWallet = false;
+  bool isShowCheckedEWallet = false;
+  
+  int? int_Total = 0;
+  int? int_SubTotal = 0;
+  int? int_ShippingCharge = 0;
 
   @override
   void initState() {
     super.initState();
     setState(() {
+      if(widget.is_EwalletOnOff == "1"){
+        isShowCheckedEWallet = true;
+      }
       widget.device_Id = DeviceId.toString();
       checkUserLoginOrNot();
       getUserId();
       getDeviceId();
+      setSummeryData();
       Future.delayed(Duration(seconds: 0), () {
         print("DeviceId" + DeviceId);
         getTotalCountResponse();
@@ -153,11 +181,12 @@ class _OrderSummeryState extends State<OrderSummery>
                 child: Column(
                   children: [
                     orderSummeryTitle("Sub Total",
-                        widget.int_SubTotal.toString(), true, "Gray"),
+                       int_SubTotal.toString(), true, "Gray"),
+                    Padding(padding: EdgeInsets.all(0),child: EwalletOption(),), 
                     orderSummeryTitle("Shipping Charge",
-                        widget.int_ShippingCharge.toString(), true, "Gray"),
+                        int_ShippingCharge.toString(), true, "Gray"),
                     orderSummeryTitle("Grand Total",
-                        widget.int_GrandTotal.toString(), true, "Black"),
+                        int_Total.toString(), true, "Black"),
                   ],
                 ),
               ),
@@ -169,6 +198,50 @@ class _OrderSummeryState extends State<OrderSummery>
     ]);
   }
 
+Container EwalletOption(){
+  return   Container(
+    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+     child: Visibility(
+      visible: isShowCheckedEWallet,
+      child:  Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                children: [
+                 Checkbox(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                 value: isCheckedEWallet,
+                 checkColor: Colors.white,
+                 onChanged: (value) {
+                setState(() {
+                  isCheckedEWallet = value!;
+                  print("Checked"+ isCheckedEWallet.toString());
+                  settleWithEWallet();
+                });
+              },
+              ),
+              Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0),child: 
+                    Text("Settle E-Wallet balance" + " "+ "("+ widget.int_E_WalletAmount.toString() +".0" + ")",style: TextStyle(
+                  color: Colors.grey,fontWeight: FontWeight.normal,
+                  fontSize: 12)),
+            )
+            ],),   Row(
+            children: [
+              Text("-"+rupees_Sybol),
+              Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                widget.int_SettleAmount.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                      color: Colors.green),
+                ),
+              )
+            ],
+          )],))
+  );
+}
   getTotalCountResponse() {
     showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getCartTotal(DeviceId, str_UserId).then((value) => {
@@ -440,6 +513,33 @@ class _OrderSummeryState extends State<OrderSummery>
           );
         },
       );
+  }
+
+  void settleWithEWallet() {
+    if(isCheckedEWallet){
+       setState(() {
+         int_Total = widget.int_GrandTotalWallet;
+         int_ShippingCharge = widget.int_ShippingChargeWallet;
+         int_SubTotal = widget.int_SubTotalWallet;
+         widget.int_SettleAmount = widget.int_E_WalletAmount;
+         print("Wallet"+ int_Total.toString());
+       });
+    }
+    else{
+        setState(() {
+         int_Total = widget.int_GrandTotal;
+         int_ShippingCharge = widget.int_ShippingCharge;
+         int_SubTotal = widget.int_SubTotal;
+         widget.int_SettleAmount = 0;
+         print("Wallet"+ int_Total.toString());
+       });
+    }
+  }
+
+  void setSummeryData() {
+    int_Total = widget.int_GrandTotal;
+    int_SubTotal = widget.int_SubTotal;
+    int_ShippingCharge = widget.int_ShippingCharge;
   }
    
 }

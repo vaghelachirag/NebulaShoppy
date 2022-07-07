@@ -723,6 +723,13 @@ class _MyCartListState extends State<MyCartList> {
               int_SubTotal: getCartItemData?.subTotal,
               int_GrandTotal: getCartItemData?.grandTotal,
               int_ShippingCharge: getCartItemData?.shippingCharge,
+              int_GrandTotalWallet: getCartItemData?.grandTotalWithEwallet,
+              int_ShippingChargeWallet: getCartItemData?.shippingWithEwallet,
+              int_SubTotalWallet: getCartItemData?.subTotalWithEwallet,
+              int_E_WalletAmount: getCartItemData?.ewalletAmount,
+              is_EwalletOnOff: getCartItemData?.isEwalletOnOff,
+              is_WalletFreez: getCartItemData?.isEwalletfreeze,
+              
             ),
           ));
     }
