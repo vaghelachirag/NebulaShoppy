@@ -108,12 +108,13 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                   children: [
                     Align(
                          alignment: Alignment.topLeft,
-                         child:   setHeaderText('Order ID',14)                           
+                         child:setBoldText('Order ID', 14, Colors.black)
+                                                    
                     ),
                    Align(
                          alignment: Alignment.topRight,
-                         child:    Text(widget.ordernumber.toString(),style: TextStyle(color: Colors.blue, fontWeight: FontWeight.normal,fontSize: 14))                     
-    
+                         child:    
+                         setRegularText(widget.ordernumber.toString(), 14, Colors.blue)
                     )
                   ],
                 ),)
@@ -125,11 +126,15 @@ class _MyOrderDetailState extends State<MyOrderDetail>
               dividerLine(),
               Padding(padding: EdgeInsets.all(10),child: Align(
                          alignment: Alignment.topLeft,
-                         child:   setHeaderText('Payment',14)                           
+                         child:  
+                         setBoldText('Payment', 14, Colors.black)
+                        //setHeaderText('Payment',14)                           
                     ),),
                  Padding(padding: EdgeInsets.fromLTRB(10,0,10,0),child: Align(
                          alignment: Alignment.topLeft,
-                         child:   Text("Transaction ID:" + " "+widget.ordernumber.toString(),style: TextStyle(color: Colors.grey,) )                        
+                         child:  
+                         setRegularText("Transaction ID:" + " "+widget.ordernumber.toString(), 12, Colors.grey)
+                         
                     ),),
                     dividerLine(),
                      FutureBuilder(
@@ -185,7 +190,9 @@ class _MyOrderDetailState extends State<MyOrderDetail>
        children: [
        Align(
          alignment: Alignment.topLeft,
-         child:  setHeaderText("Need help with this order?", 20) ,
+         child: 
+          setBoldText("Need help with this order?", 20, Colors.black)
+         // setHeaderText("Need help with this order?", 20) ,
        )  
  
        ],
@@ -198,9 +205,11 @@ class _MyOrderDetailState extends State<MyOrderDetail>
       Padding(padding: EdgeInsets.all(10),
                       child: Align(
                          alignment: Alignment.topLeft,
-                         child:   setHeaderText('Pickup Location',14)                     
+                         child:   
+                         setBoldText('Pickup Location', 14, Colors.black)
+                         //setHeaderText('Pickup Location',14)                     
                     ),),
-      setPickupLocationText(widget.billingAddressUser.toString()),
+       setPickupLocationText(widget.billingAddressUser.toString()),
        setPickupLocationText(widget.billingAddress.toString()),
         setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
       
@@ -229,7 +238,9 @@ class _MyOrderDetailState extends State<MyOrderDetail>
    return   Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                       child: Align(
                          alignment: Alignment.topLeft,
-                         child: Text(str_Data,style: TextStyle(fontSize: 14),)              
+                         child: 
+                         setRegularText(str_Data, 14, Colors.black45)
+                        // Text(str_Data,style: TextStyle(fontSize: 14),)              
                     ),);
  }
   
@@ -268,16 +279,20 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                   children: [
                     Align(
                          alignment: Alignment.topLeft,
-                         child:   setHeaderText(title,14)                           
+                         child:  setBoldText(title, 14, Colors.black)
+                                                   
                     ),
                    Align(
                          alignment: Alignment.topRight,
-                         child:    Text(subheader,style: TextStyle(color: Colors.black38, fontWeight: FontWeight.bold,fontSize: 14))                     
+                         child:  setRegularText(subheader, 14, Colors.grey)
+                          // Text(subheader,style: TextStyle(color: Colors.black38, fontWeight: FontWeight.bold,fontSize: 14))                     
     
                     ),
                        Align(
                          alignment: Alignment.topRight,
-                         child:    Text(str_data,style: TextStyle(color: Colors.red, fontWeight: FontWeight.normal,fontSize: 14))                     
+                         child:    
+                         setRegularText(str_data, 14, Colors.red)
+                       //  Text(str_data,style: TextStyle(color: Colors.red, fontWeight: FontWeight.normal,fontSize: 14))                     
     
                     )
                   ],
@@ -312,11 +327,12 @@ class _MyOrderDetailState extends State<MyOrderDetail>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-            "Raise an issue",
-              maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            ),
+            setRegularText("Raise an issue", 16, Colors.black54),
+            // Text(
+            // "Raise an issue",
+            //   maxLines: 1,
+            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            // ),
             Align(
               alignment: Alignment.topLeft,
               child: Row(

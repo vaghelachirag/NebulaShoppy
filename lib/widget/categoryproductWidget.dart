@@ -124,20 +124,24 @@ class CategoryProductWidget extends StatelessWidget {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            setTextData(product.company, 16),
-            setTextData(product.name, 12),
+            //setTextData(product.company, 16),
+            setBoldText(product.company, 16, Colors.black),
+            //setRegularText(product.name, 12, Colors.black),
+            setRegularText(product.name, 12,Colors.black),
             Row(
               children: <Widget>[
-                Text(rupees_Sybol + product.price,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red)),
+                setBoldText(rupees_Sybol + product.price, 16,Colors.red),
+                // Text(rupees_Sybol + product.price,
+                //     style: TextStyle(
+                //         fontSize: 16,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.red)),
                 Text(
                   rupees_Sybol + product.mrp,
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
+                      fontFamily: Ember,
                       decoration: TextDecoration.lineThrough),
                 ),
               ],
@@ -228,7 +232,9 @@ showAlertDialog(BuildContext context, String icon) {
 Container setTextData(String text, double i) {
   return Container(
       padding: EdgeInsets.only(left: 2),
-      child: Text(
+      child: 
+      
+      Text(
         text,
         maxLines: 1,
         style: TextStyle(fontSize: i, fontWeight: FontWeight.normal),

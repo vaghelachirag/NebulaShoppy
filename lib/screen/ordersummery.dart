@@ -269,15 +269,17 @@ Container EwalletOption(){
         children: [
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              title,
-              style: TextStyle(
-                  color: str_color == "Black" ? Colors.black : Colors.grey,
-                  fontWeight: str_color == "Black"
-                      ? FontWeight.bold
-                      : FontWeight.normal,
-                  fontSize: 14),
-            ),
+            child:
+            setRegularText(title, 14,str_color == "Black" ? Colors.black : Colors.grey) 
+            // Text(
+            //   title,
+            //   style: TextStyle(
+            //       color: str_color == "Black" ? Colors.black : Colors.grey,
+            //       fontWeight: str_color == "Black"
+            //           ? FontWeight.bold
+            //           : FontWeight.normal,
+            //       fontSize: 14),
+            // ),
           ),
           Row(
             children: [
@@ -288,13 +290,8 @@ Container EwalletOption(){
               Align(
                 alignment: Alignment.topRight,
                 child: 
-                Text(
-                  detail.toString(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      color: Colors.red),
-                ),
+                setBoldText( detail.toString(), 14, Colors.red)
+                ,
               )
             ],
           ),
@@ -326,13 +323,9 @@ Container EwalletOption(){
               padding: EdgeInsets.all(10),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  "Nebula Ahmedabad,705,Shivalik Abaise,Prahladnagar,Ahmedabad - 380015, Gujarat (Ph: 7227904590)",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12),
-                ),
+                child: 
+                setRegularText( "Nebula Ahmedabad,705,Shivalik Abaise,Prahladnagar,Ahmedabad - 380015, Gujarat (Ph: 7227904590)", 12, Colors.black)
+              ,
               ),
             ),
           ),

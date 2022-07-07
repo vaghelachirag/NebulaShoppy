@@ -140,10 +140,13 @@ class CartItemWidget extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    setTextData(product.name, 16),
+                    setBoldText(product.name, 16, Colors.black),
+                   // setTextData(product.name, 16),
                     Padding(
-                        padding: EdgeInsets.only(top: 5),
-                        child: setTextData(product.desc, 12)),
+                        padding: EdgeInsets.only(top: 5),                      
+                        child:
+                          setRegularText(product.desc, 12, Colors.black) 
+                      ),
                     Padding(
                         padding: EdgeInsets.only(top: 5),
                         child: setProductPrice(product)),
@@ -245,9 +248,7 @@ Container setTextData(String text, double i) {
 Row setProductPrice(SetCartItem product) {
   return Row(
     children: <Widget>[
-      Text(rupees_Sybol + " " + product.price,
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red))
+      setBoldText(rupees_Sybol + " " + product.price, 16, Colors.red) 
     ],
   );
 }
@@ -255,47 +256,40 @@ Row setProductPrice(SetCartItem product) {
 Row setPvNv(SetCartItem product) {
   return Row(
     children: <Widget>[
-      Text(
-        "PV",
-        style: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
+      setBoldText("PV", 14, Colors.black),
+      // Text(
+      //   "PV",
+      //   style: TextStyle(
+      //       fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+      // ),
       Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-        child: Text(
-          product.pv,
-          style: TextStyle(
-              fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
-        ),
+        child: 
+         setRegularText(product.pv, 12, Colors.black)
+        ,
       ),
-      Text(
-        "NV",
-        style: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
+      setBoldText("NV", 14, Colors.black),
+      // Text(
+      //   "NV",
+      //   style: TextStyle(
+      //       fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+      // ),
+     
       Padding(
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: Text(
-            product.nv,
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-                color: Colors.black),
-          )),
-      Text(
-        "BV",
-        style: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
+          child:  setRegularText(product.nv, 12, Colors.black),),
+          setBoldText("BV", 14, Colors.black),
       Padding(
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: Text(
-            product.bv + "%",
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-                color: Colors.black),
-          ))
+          child: 
+          setRegularText(product.bv + "%", 12, Colors.black))
+          // Text(
+          //   product.bv + "%",
+          //   style: TextStyle(
+          //       fontSize: 12,
+          //       fontWeight: FontWeight.normal,
+          //       color: Colors.black),
+          // ))
     ],
   );
 }

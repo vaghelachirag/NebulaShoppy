@@ -97,14 +97,16 @@ class _GetMyAddressState extends State<GetMyAddress>
       child: 
       Padding(padding: EdgeInsets.all(10),child:   Align(
         alignment:  Alignment.topLeft,
-        child: Text("Your Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),
-      ) ,),
+        child: 
+        setBoldText("Your Addresses", 20, Colors.black)
+  )) ,),
       addnewAddress(context),
        Visibility(
          visible: bl_ShowAddress,
          child: Padding(padding: EdgeInsets.all(10),child:  Align(
         alignment:  Alignment.topLeft,
-        child: Text("Personal Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),),),
+        child: setBoldText("Personal Addresses", 20, Colors.black)
+       ))),
         Visibility(
           visible: bl_ShowAddress,
           child:  myAdrresList())
@@ -156,11 +158,12 @@ class _GetMyAddressState extends State<GetMyAddress>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-             "Add new Address",
-              maxLines: 1,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-            ),
+            setRegularText( "Add new Address", 14, Colors.black54),
+            // Text(
+            //  "Add new Address",
+            //   maxLines: 1,
+            //   style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+            // ),
             Align(
               alignment: Alignment.topLeft,
               child: Row(
@@ -216,32 +219,38 @@ class _GetMyAddressState extends State<GetMyAddress>
                     Padding(padding: EdgeInsets.all(10),
                     child:     Align(
                       alignment: Alignment.topLeft,
-                      child:  Text(_listMyAddress[index].fullName.toString(),style:  TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                      child: 
+                      setBoldText(_listMyAddress[index].fullName.toString(), 16, Colors.black),
                     ),),
                     Padding(padding: EdgeInsets.fromLTRB(10, 3, 10, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
-                      child:  Text(_listMyAddress[index].addressLine1.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
+                      child:  setRegularText(_listMyAddress[index].addressLine1.toString(), 14, Colors.black)
+                      //Text(_listMyAddress[index].addressLine1.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
                      Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
-                      child:  Text(_listMyAddress[index].addressLine2.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
+                      child: setRegularText(_listMyAddress[index].addressLine2.toString(), 14, Colors.black)
+                      // Text(_listMyAddress[index].addressLine2.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
                      Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
-                      child:  Text(_listMyAddress[index].city.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
+                      child: setRegularText(_listMyAddress[index].city.toString(), 14, Colors.black),
+                     //  Text(_listMyAddress[index].city.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
                      Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
-                      child:  Text(_listMyAddress[index].state.toString() + " "+ _listMyAddress[index].pinCode.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
+                      child: setRegularText(_listMyAddress[index].state.toString(), 14, Colors.black),
+                    //  Text(_listMyAddress[index].state.toString() + " "+ _listMyAddress[index].pinCode.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
                       Padding(padding: EdgeInsets.fromLTRB(10, 5, 5, 0),
                     child:  Align(
                       alignment: Alignment.topLeft,
-                      child:  Text("Mobile:" + " "+ _listMyAddress[index].mobileNo.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
+                      child: setRegularText("Mobile:" + " "+ _listMyAddress[index].mobileNo.toString(), 14, Colors.black),
+                       //Text("Mobile:" + " "+ _listMyAddress[index].mobileNo.toString(),style:  TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                     ) ,),
                     Padding(padding: EdgeInsets.all(5),
                     child: bottomButton(_listMyAddress[index]) ,)

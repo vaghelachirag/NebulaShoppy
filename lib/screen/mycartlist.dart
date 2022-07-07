@@ -129,10 +129,12 @@ class _MyCartListState extends State<MyCartList> {
                         Container(
                           padding: EdgeInsets.all(10),
                           width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            "Order Detail",
-                            style: TextStyle(color: Colors.grey, fontSize: 16),
-                          ),
+                          child:
+                          setBoldText("Order Detail", 16, Colors.grey),
+                          //  Text(
+                          //   "Order Detail",
+                          //   style: TextStyle(color: Colors.grey, fontSize: 16),
+                          // ),
                         ),
                         divider(context),
                         getMycartDetail(
@@ -166,11 +168,13 @@ class _MyCartListState extends State<MyCartList> {
                           Container(
                             padding: EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width,
-                            child: Text(
-                              "Pv and NV generated on this order",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                            ),
+                            child: 
+                            setRegularText("Pv and NV generated on this order", 16, Colors.black)
+                            // Text(
+                            //   "Pv and NV generated on this order",
+                            //   style:
+                            //       TextStyle(color: Colors.black, fontSize: 16),
+                            // ),
                           ),
                           divider(context),
                           getPVNVDetail(
@@ -205,10 +209,7 @@ class _MyCartListState extends State<MyCartList> {
                 onPressed: () {},
                 icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
                 color: Colors.black),
-            Text(
-              "Deliver to",
-              style: TextStyle(color: Colors.black, fontSize: 16),
-            ),
+                setBoldText("Deliver to", 16, Colors.black),
             IconButton(
                 onPressed: () {
                   onLocationPressed();
@@ -230,20 +231,24 @@ class _MyCartListState extends State<MyCartList> {
         children: [
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            ),
+            child: 
+            setBoldText(title, 14, Colors.black)
+            // Text(
+            //   title,
+            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            // ),
           ),
           Align(
             alignment: Alignment.topRight,
-            child: Text(
-              rupees_Sybol + detail.toString(),
-              style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14,
-                  color: Colors.red),
-            ),
+            child: 
+            setRegularText( rupees_Sybol + detail.toString(), 14, Colors.red)
+            // Text(
+            //   rupees_Sybol + detail.toString(),
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.normal,
+            //       fontSize: 14,
+            //       color: Colors.red),
+            // ),
           )
         ],
       ),
@@ -258,20 +263,24 @@ class _MyCartListState extends State<MyCartList> {
         children: [
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            ),
+            child: 
+            setBoldText(title, 14, Colors.black)
+            // Text(
+            //   title,
+            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            // ),
           ),
           Align(
             alignment: Alignment.topRight,
-            child: Text(
-              detail!,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Colors.blue),
-            ),
+            child: 
+            setBoldText(detail!, 14, Colors.blue)
+            // Text(
+            //   detail!,
+            //   style: const TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 14,
+            //       color: Colors.blue),
+            // ),
           )
         ],
       ),
@@ -462,20 +471,16 @@ class _MyCartListState extends State<MyCartList> {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                Text(
-                  "Payable Amount:  ",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                ),
-                Text(
-                  rupees_Sybol + str_GrandTotal,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                )
+                setBoldText("Payable Amount:  ", 16, Colors.black),
+                // Text(
+                //   "Payable Amount:  ",
+                //   style: TextStyle(
+                //       color: Colors.black,
+                //       fontWeight: FontWeight.bold,
+                //       fontSize: 16),
+                // ),
+                setBoldText( rupees_Sybol + str_GrandTotal, 16, Colors.black)
+                
               ],
             ),
           ),

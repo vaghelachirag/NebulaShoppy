@@ -62,13 +62,15 @@ class _LoginDialougState extends State<LoginDialoug> {
               ),
               Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(
-                  "Associate / IBO Login",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
+                child: 
+                setBoldText("Associate / IBO Login", 16, Colors.black)
+                // Text(
+                //   "Associate / IBO Login",
+                //   style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 16,
+                //       fontWeight: FontWeight.w500),
+                // ),
               ),
               SizedBox(height: 15),
               Container(
@@ -77,6 +79,7 @@ class _LoginDialougState extends State<LoginDialoug> {
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: TextFormField(
+                    
                     controller: _usernameController,
                     obscureText: false,
                     enabled: true,
@@ -142,13 +145,8 @@ class _LoginDialougState extends State<LoginDialoug> {
                   Padding(
                       padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                       child: GestureDetector(
-                        child: Text(
-                          "Forgot Password",
-                          style: TextStyle(
-                              color: Colors.red[300],
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        child: 
+                        setRegularText("Forgot Password", 14, Colors.red),
                         onTap: () {
                           print("Forgot" + "ForgotPassword");
                           Navigator.pop(context);
@@ -169,13 +167,9 @@ class _LoginDialougState extends State<LoginDialoug> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                     child: GestureDetector(
-                      child: Text(
-                        "Register Here",
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      child: 
+                      setRegularText("Register Here", 14, Colors.black)
+                     ,
                       onTap: () {
                         print("Register" + "Register");
                         Navigator.push(

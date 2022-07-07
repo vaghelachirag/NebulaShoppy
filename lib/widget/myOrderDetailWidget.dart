@@ -71,24 +71,15 @@ class MyOrderDetailWidget extends StatelessWidget {
           child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              product.productname.toString(),
-              maxLines: 1,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
+            setBoldText(product.productname.toString(), 16, Colors.black),          
             Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-            child:  Text(
-              rupees_Sybol+  product.price.toString(),
-              maxLines: 1,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14,color: Colors.red),
-            ) ,)
+            child: 
+            setRegularText(rupees_Sybol+  product.price.toString(), 14, Colors.red) ,)
           ,
            Padding(padding: EdgeInsets.only(top: 10),
-            child:  Text(
-              "Quantity:" + " "+product.qunatity.toString(),
-              maxLines: 1,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14,color: Colors.black),
-            ) ,)
+            child: 
+            setRegularText("Quantity:" + " "+product.qunatity.toString(), 14, Colors.black)
+              ,)
           ,
           
           ],
@@ -100,11 +91,8 @@ class MyOrderDetailWidget extends StatelessWidget {
   cancelText() {
      return  Align(
               alignment: Alignment.topRight,
-              child: Text(
-              "Cancelled",
-              maxLines: 1,
-              style: TextStyle(fontSize: 16,color: Colors.red, fontWeight: FontWeight.bold),
-            )  ,
+              child: 
+              setBoldText("Cancelled", 16, Colors.red),
             );
   }
 }

@@ -12,6 +12,7 @@ InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
     labelStyle: const TextStyle(color: BLACK),
     hintText: getHint,
     filled: true,
+    
     alignLabelWithHint: true,
     prefixIcon: const Padding(
       padding: EdgeInsets.only(top: 0), // add padding to adjust icon
@@ -44,7 +45,7 @@ InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
     focusedErrorBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(width: 1, color: DARK_GRAY)),
-    hintStyle: const TextStyle(fontSize: 16, color: BLACK),
+    hintStyle: const TextStyle(fontSize: 16, color: BLACK,fontFamily: Ember),
   );
 }
 
@@ -94,7 +95,8 @@ InputDecoration inputwithdropdown(getHint) {
 }
 
 Text setHeaderText(String title, double size) {
-  return Text(title,
+  return
+   Text(title,
       style: TextStyle(
           color: Colors.black, fontWeight: FontWeight.bold, fontSize: size));
 }
