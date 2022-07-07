@@ -21,15 +21,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 const HOME_SCREEN = 'home_screen';
 
 // const BASE_URL = "https://nebulacompanies.net/"; // Live
-// const Scheme = "https"; 
+// const Scheme = "https";
 // const Host = "nebulacompanies.net"; // Live
 
-
- var BASE_URL = "http://203.88.139.169:9064/";
- var Scheme = "http"; // Live
-  var  Host = "203.88.139.169:9064"; // Live
-
-
+var BASE_URL = "http://203.88.139.169:9064/";
+var Scheme = "http"; // Live
+var Host = "203.88.139.169:9064"; // Live
 
 // Routes
 const WS_ADVERTISEMENT_IMAGES_ECOM = '/API/ECom/BannerImages';
@@ -141,17 +138,16 @@ const kPurpleColor = Color(0xFFB97DFE);
 const kRedColor = Color(0xFFFE4067);
 const kGreenColor = Color(0xFFADE9E3);
 
- // Font Family
- const String Montserrat = "Montserrat";
- const String Ember = "Ember";
- const String EmberBold = "Ember-Bold";
- const String EmberItalic = "Ember-Italic";
-
-
+// Font Family
+const String Montserrat = "Montserrat";
+const String Ember = "Ember";
+const String EmberBold = "Ember-Bold";
+const String EmberItalic = "Ember-Italic";
 
 DateTime currentBackPressTime = DateTime.now();
 
- String register = 'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
+String register =
+    'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -162,17 +158,16 @@ showSnakeBar(BuildContext context, String msg) {
   );
 }
 
-changeBaseURL(int int_BaseUrl){
-   if(int_BaseUrl  == 0){
- BASE_URL = "http://203.88.139.169:9064/";
- Scheme = "http"; // Testing
- Host = "203.88.139.169:9064"; // Testing
-}
-else{
- BASE_URL = "https://nebulacompanies.net/";
- Scheme = "https"; // Live
- Host = "nebulacompanies.net"; // Live
-}
+changeBaseURL(int int_BaseUrl) {
+  if (int_BaseUrl == 0) {
+    BASE_URL = "http://203.88.139.169:9064/";
+    Scheme = "http"; // Testing
+    Host = "203.88.139.169:9064"; // Testing
+  } else {
+    BASE_URL = "https://nebulacompanies.net/";
+    Scheme = "https"; // Live
+    Host = "nebulacompanies.net"; // Live
+  }
 }
 
 gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail) {}
@@ -186,38 +181,36 @@ checkUserLoginOrNot() async {
   print("IsLogin" + is_Login.toString());
 }
 
-Text setRegularText(String text,int size, Color black){
-  return  Text(
-          text,
-          style: TextStyle(
-              fontFamily: Ember,
-              fontSize: ScreenUtil().setSp(size),
-              color: black),
-          textAlign: TextAlign.start,
-        );
+Text setRegularText(String text, int size, Color black) {
+  return Text(
+    text,
+    style: TextStyle(
+        fontFamily: Ember, fontSize: ScreenUtil().setSp(size), color: black),
+    textAlign: TextAlign.start,
+  );
 }
 
-Text setBoldText(String text,int size, Color black){
-  return  Text(
-          text,
-          maxLines: 1,
-          style: TextStyle(
-              fontFamily: EmberBold,
-              fontSize: ScreenUtil().setSp(size),
-              color: black),
-          textAlign: TextAlign.start,
-        );
+Text setBoldText(String text, int size, Color black) {
+  return Text(
+    text,
+    maxLines: 1,
+    style: TextStyle(
+        fontFamily: EmberBold,
+        fontSize: ScreenUtil().setSp(size),
+        color: black),
+    textAlign: TextAlign.start,
+  );
 }
 
-Text setItalicText(String text,int size, Color black){
-  return  Text(
-          text,
-          style: TextStyle(
-              fontFamily: EmberItalic,
-              fontSize: ScreenUtil().setSp(size),
-              color: black),
-          textAlign: TextAlign.start,
-        );
+Text setItalicText(String text, int size, Color black) {
+  return Text(
+    text,
+    style: TextStyle(
+        fontFamily: EmberItalic,
+        fontSize: ScreenUtil().setSp(size),
+        color: black),
+    textAlign: TextAlign.start,
+  );
 }
 
 getAuthId() async {
@@ -346,7 +339,7 @@ showLogoutDialoug(BuildContext context) {
       continueButton,
     ],
   );
-  
+
   // show the dialog
   showDialog(
     context: context,
@@ -355,45 +348,44 @@ showLogoutDialoug(BuildContext context) {
     },
   );
 }
- refreshApp(BuildContext context){
-     Navigator.push(
-          context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: TabScreen(),
-          ));
-  }
 
-   void clearSession(BuildContext context) async {
-    await SharedPref.resetData();  
-      Navigator.pop(context);
-      SharedPref.clearData();
-      str_UserId = "";
-      refreshApp(context);
-  }
+refreshApp(BuildContext context) {
+  Navigator.push(
+      context,
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: TabScreen(),
+      ));
+}
 
-  
-  void getCartCount() async {
+void clearSession(BuildContext context) async {
+  await SharedPref.resetData();
+  Navigator.pop(context);
+  SharedPref.clearData();
+  str_UserId = "";
+  refreshApp(context);
+}
 
-    Future.delayed(Duration(seconds: 0), () {
-      print("IsLogin" + is_Login.toString());
-      if (!is_Login) {
-        Service().getCartCount(DeviceId.toString(), "").then((value) => {
-                int_CartCounters = value.data!.sumOfQty,
-                QTYCount = value.data!.sumOfQty.toString()
+void getCartCount() async {
+  Future.delayed(Duration(seconds: 0), () {
+    print("IsLogin" + is_Login.toString());
+    if (!is_Login) {
+      Service().getCartCount(DeviceId.toString(), "").then((value) => {
+            int_CartCounters = value.data!.sumOfQty,
+            QTYCount = value.data!.sumOfQty.toString()
+          });
+    } else {
+      getUserId();
+    }
+  });
+
+  Future.delayed(Duration(seconds: 0), () {
+    print("IsLogin" + str_UserId.toString());
+    Service()
+        .getCartCount(DeviceId.toString(), str_UserId.toString())
+        .then((value) => {
+              int_CartCounters = value.data!.sumOfQty,
+              QTYCount = value.data!.sumOfQty.toString()
             });
-      } else {
-        getUserId();
-      }
-    });
-
-    Future.delayed(Duration(seconds: 0), () {
-      print("IsLogin" + str_UserId.toString());
-      Service()
-          .getCartCount(DeviceId.toString(), str_UserId.toString())
-          .then((value) => {
-                 int_CartCounters = value.data!.sumOfQty,
-                 QTYCount = value.data!.sumOfQty.toString()
-              });
-    });
-  }
+  });
+}

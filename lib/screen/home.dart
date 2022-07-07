@@ -31,10 +31,9 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 
-  static void updateCount(){
-     print("Update"+"HomeUpdate");
+  static void updateCount() {
+    print("Update" + "HomeUpdate");
   }
-   
 }
 
 class _HomeState extends State<Home> with WidgetsBindingObserver {
@@ -50,7 +49,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   String device_Id = "";
 
   DateTime currentBackPressTime = DateTime.now();
-
 
   @override
   void initState() {
@@ -155,9 +153,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   },
                 ),
                 SizedBox(
-                  height: 5.0,
+                  height: 2.0,
                 ),
-               
+
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listRecentView.isEmpty) {
@@ -278,9 +276,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.all(0),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: ScreenUtil().setHeight(200),
+          height: MediaQuery.of(context).size.height / 4,
           child: ListView.builder(
             itemCount: _listNewLaunched.length,
             scrollDirection: Axis.horizontal,
@@ -321,16 +319,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       children: <Widget>[
         topHeader("Recently Viewed"),
         Container(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.all(0),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: ScreenUtil().setHeight(200),
+          height: MediaQuery.of(context).size.height / 4,
           child: ListView.builder(
             itemCount: _listRecentView.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                 // showSnakeBar(context, "Click");
+                  // showSnakeBar(context, "Click");
                 },
                 child: TrendingItem(
                   product: Product(
@@ -363,24 +361,24 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return Container(
       padding: EdgeInsets.all(5),
       child: Align(
-        alignment: Alignment.topLeft,
-        child:  setBoldText(str_Title,20,Colors.black)
-        
-        // Text(
-        //   str_Title,
-        //   style: TextStyle(
-        //       fontFamily: 'Ember',
-        //       fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
-        //   textAlign: TextAlign.start,
-        // ),
-      ),
+          alignment: Alignment.topLeft,
+          child: setBoldText(str_Title, 16, Colors.black)
+
+          // Text(
+          //   str_Title,
+          //   style: TextStyle(
+          //       fontFamily: 'Ember',
+          //       fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
+          //   textAlign: TextAlign.start,
+          // ),
+          ),
     );
   }
 
   Container homeCategory() {
     return Container(
       margin: EdgeInsets.only(top: 6),
-      height: ScreenUtil().setHeight(80),
+      height: MediaQuery.of(context).size.height / 11,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _listHomeCategory.length,
@@ -403,8 +401,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
-                    width: ScreenUtil().setSp(60),
-                    height: ScreenUtil().setSp(60),
+                    width: ScreenUtil().setSp(50),
+                    height: ScreenUtil().setSp(40),
                     child: Container(
                       width: ScreenUtil().setSp(50),
                       height: ScreenUtil().setSp(50),
@@ -415,10 +413,11 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child:  
-                    setRegularText(_listHomeCategory[index].name.toString(),14,Colors.black)
-                  )
+                      padding: const EdgeInsets.all(0.0),
+                      child: setRegularText(
+                          _listHomeCategory[index].name.toString(),
+                          12,
+                          Colors.black))
                 ],
               ),
             ),
@@ -491,9 +490,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.all(0),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          height: ScreenUtil().setHeight(200),
+          height: MediaQuery.of(context).size.height / 4,
           child: ListView.builder(
             itemCount: _listNewLaunched.length,
             scrollDirection: Axis.horizontal,
@@ -509,10 +508,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     rating: 5,
                     remainingQuantity: 5,
                     price: rupees_Sybol +
-                        " " +
+                        "" +
                         _listNewLaunched[index].salePrice.toString(),
                     mrp: rupees_Sybol +
-                        " " +
+                        "" +
                         _listNewLaunched[index].mrp.toString()),
                 gradientColors: [Colors.white, Colors.white],
               );
@@ -544,12 +543,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     }
     return Future.value(true);
   }
-   @override
-    void didChangeDependencies() {
-        // TODO: implement didChangeDependencies
-        super.didChangeDependencies();
-        print("didChangeDependencies");
-    }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    print("didChangeDependencies");
+  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -562,8 +562,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       // app is inactive
     } else if (state == AppLifecycleState.paused) {
       // user quit our app temporally
-    }
-    else if (state == AppLifecycleState.detached) {
+    } else if (state == AppLifecycleState.detached) {
       // user quit our app temporally
     }
   }
@@ -587,8 +586,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         });
   }
 
- 
-
   void _refreshRecentData() async {
     _listRecentView.clear();
     final data = await SQLHelper.getItems();
@@ -601,6 +598,4 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       }
     });
   }
-
-
 }

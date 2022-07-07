@@ -22,7 +22,7 @@ class TrendingItem extends StatelessWidget {
 
     double rectWidth = 95;
     double rectHeight = 26;
-    double trendCardWidth = ScreenUtil().setHeight(150);
+    double trendCardWidth = MediaQuery.of(context).size.width / 3;
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
@@ -32,8 +32,9 @@ class TrendingItem extends StatelessWidget {
         children: <Widget>[
           Container(
             width: trendCardWidth,
+            height: MediaQuery.of(context).size.height / 4,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
+              padding: const EdgeInsets.only(bottom: 2.0),
               child: GestureDetector(
                   onTap: () {
                     print("NewLaunch" + "New Launch");
@@ -116,17 +117,18 @@ class TrendingItem extends StatelessWidget {
         //   maxLines: 1,
         //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         // ),
-        setBoldText(product.company, 16, Colors.black),
-       // setRegularText( product.name, 12, Colors.black, FontWeight.normal),
+        setBoldText(product.company, 14, Colors.black),
+        // setRegularText( product.name, 12, Colors.black, FontWeight.normal),
         Text(
           product.name,
           maxLines: 1,
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12,fontFamily: Ember),
+          style: TextStyle(
+              fontWeight: FontWeight.normal, fontSize: 12, fontFamily: Ember),
         ),
         StarRating(rating: product.rating, size: 12),
         Row(
           children: <Widget>[
-            setBoldText(product.price, 16, Colors.red),
+            setBoldText(product.price, 12, Colors.red),
             Text(
               product.mrp,
               style: TextStyle(
