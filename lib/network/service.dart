@@ -245,24 +245,14 @@ class Service {
       'CartFlag': cartFlag
     };
 
-    Uri httpsUri = Uri(
-        scheme: Scheme,
-        host: Host,
-        path: WS_ADD_TO_CART,
-        queryParameters: queryparams);
-
+    Uri httpsUri = Uri( scheme: Scheme,host: Host,path: WS_ADD_TO_CART,queryParameters: queryparams);
     final response = await http.post(httpsUri);
-
     print("ResponseCode" + response.statusCode.toString());
     print("AddToCart" + httpsUri.toString());
 
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
       return GetAddToCartResponse.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
       throw Exception('Failed to create album.');
     }
   }

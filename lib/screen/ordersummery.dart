@@ -287,7 +287,8 @@ Container EwalletOption(){
               ),
               Align(
                 alignment: Alignment.topRight,
-                child: Text(
+                child: 
+                Text(
                   detail.toString(),
                   style: TextStyle(
                       fontWeight: FontWeight.normal,

@@ -146,10 +146,11 @@ class _ProductDetailState extends State<ProductDetail> {
                         )),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        "Add To Cart",
-                        style: TextStyle(fontSize: 20, color: Colors.black),
-                      ),
+                      child:  setRegularText( "Add To Cart", 20, Colors.black) 
+                      // Text(
+                      //   "Add To Cart",
+                      //   style: TextStyle(fontSize: 20, color: Colors.black),
+                      // ),
                     ),
                     Container(
                       child: GestureDetector(
@@ -167,25 +168,27 @@ class _ProductDetailState extends State<ProductDetail> {
                             child: CircleAvatar(
                               backgroundColor: Colors.cyan,
                               maxRadius: 25,
-                              child: Text(
-                                "-",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              child: setBoldText( "-", 20, Colors.white)
+                              // Text(
+                              //   "-",
+                              //   style: TextStyle(
+                              //       color: Colors.white,
+                              //       fontSize: 20,
+                              //       fontWeight: FontWeight.bold),
+                              // ),
                             ),
                           )),
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: Text(
-                        int_CartQuantity.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      child: setBoldText(int_CartQuantity.toString(), 20, Colors.black)
+                      // Text(
+                      //   int_CartQuantity.toString(),
+                      //   style: TextStyle(
+                      //       color: Colors.black,
+                      //       fontSize: 20,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
                     ),
                     Align(
                         alignment: Alignment.topRight,
@@ -207,13 +210,15 @@ class _ProductDetailState extends State<ProductDetail> {
                                 child: CircleAvatar(
                                   backgroundColor: Colors.cyan,
                                   maxRadius: 25,
-                                  child: Text(
-                                    "+",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.normal),
-                                  ),
+                                  child: 
+                                  setBoldText("+", 20, Colors.white)
+                                  // Text(
+                                  //   "+",
+                                  //   style: TextStyle(
+                                  //       color: Colors.white,
+                                  //       fontSize: 20,
+                                  //       fontWeight: FontWeight.normal),
+                                  // ),
                                 ),
                               ),
                             )))
@@ -246,14 +251,8 @@ class _ProductDetailState extends State<ProductDetail> {
       children: [
         Container(
            padding:EdgeInsets.fromLTRB(16, 5, 0, 0),
-           child:  Text("Description",
-                      maxLines: 5,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black45,
-                        fontSize: 18,
-                      ),
-        ),
+           child: setBoldText("Description", 18, Colors.black)
+            ,
                     ),
                     SizedBox(
                       height: 8,
@@ -430,13 +429,14 @@ class _ProductDetailState extends State<ProductDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                _listBannerImage[0].name,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.normal),
-                              ),
+                              setBoldText(_listBannerImage[0].name, 20, Colors.red),
+                              // Text(
+                              //   _listBannerImage[0].name,
+                              //   style: TextStyle(
+                              //       fontSize: 20,
+                              //       color: Colors.red,
+                              //       fontWeight: FontWeight.normal),
+                              // ),
                               Align(
                                 alignment: Alignment.topRight,
                                 child: StarRating(rating: 5, size: 16),
@@ -445,13 +445,15 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                           Align(
                             alignment: Alignment.topLeft,
-                            child: Text(
-                              str_ShortDescription,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.normal),
-                            ),
+                            child: 
+                            setItalicText(str_ShortDescription, 12, Colors.grey),
+                            // Text(
+                            //   str_ShortDescription,
+                            //   style: TextStyle(
+                            //       fontSize: 14,
+                            //       color: Colors.grey,
+                            //       fontWeight: FontWeight.normal),
+                            // ),
                           )
                         ],
                       )),
@@ -548,13 +550,14 @@ class _ProductDetailState extends State<ProductDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  '\u{20B9}${str_saleprice}',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                )
+                setBoldText( '\u{20B9}${str_saleprice}', 20, Colors.black)
+                // Text(
+                //   '\u{20B9}${str_saleprice}',
+                //   style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.bold),
+                // )
               ],
             ),
             SizedBox(
@@ -568,6 +571,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 14,
+                       fontFamily: Ember,
                       fontWeight: FontWeight.normal),
                 ),
                 Padding(
@@ -587,62 +591,72 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "PV:",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
+                    setBoldText( "PV:", 14, Colors.black),
+                    // Text(
+                    //   "PV:",
+                    //   style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //       fontWeight: FontWeight.bold),
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child:
+                      setBoldText(str_PV, 14, Colors.red),
+                      // Text(
+                      //   str_PV,
+                      //   style: TextStyle(
+                      //       color: Colors.red,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.normal),
+                      // ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        str_PV,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
-                      ),
+                      child:
+                        setBoldText("BV:", 14, Colors.black)
+                      //  Text(
+                      //   "BV:",
+                      //   style: TextStyle(
+                      //       color: Colors.black,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        "BV:",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      child: setBoldText(str_BV, 14, Colors.red)
+                      // Text(
+                      //   str_BV,
+                      //   style: TextStyle(
+                      //       color: Colors.red,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.normal),
+                      // ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        str_BV,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
-                      ),
+                      child: 
+                       setBoldText("NV:", 14, Colors.black)
+                      // Text(
+                      //   "NV:",
+                      //   style: TextStyle(
+                      //       color: Colors.black,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        "NV:",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        str_NV,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
-                      ),
+                      child: 
+                      setBoldText(str_NV, 14, Colors.red)
+                      // Text(
+                      //   str_NV,
+                      //   style: TextStyle(
+                      //       color: Colors.red,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.normal),
+                      // ),
                     )
                   ],
                 )),
@@ -651,22 +665,25 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "SKU:",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    setBoldText("SKU:", 14, Colors.black),
+                    // Text(
+                    //   "SKU:",
+                    //   style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //       fontWeight: FontWeight.bold),
+                    // ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        str_SKU,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
-                      ),
+                      child: 
+                        setBoldText(str_SKU, 14, Colors.red),
+                      //   Text(
+                      //   str_SKU,
+                      //   style: TextStyle(
+                      //       color: Colors.red,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.normal),
+                      // ),
                     )
                   ],
                 ))
@@ -787,6 +804,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    
                     Text(
                       "Description",
                       maxLines: 5,
@@ -986,14 +1004,16 @@ class _ProductDetailState extends State<ProductDetail> {
           child: Row(
             children: <Widget>[
               Expanded(
-                child: Text(
-                  "Similar Items",
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                  textAlign: TextAlign.start,
-                ),
+                child: 
+                setBoldText("Similar Items", 18, Colors.black)
+                // Text(
+                //   "Similar Items",
+                //   style: TextStyle(
+                //       fontSize: 18.0,
+                //       fontWeight: FontWeight.w600,
+                //       color: Colors.black54),
+                //   textAlign: TextAlign.start,
+                // ),
               ),
               Expanded(
                 child: GestureDetector(

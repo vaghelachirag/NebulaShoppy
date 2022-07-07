@@ -417,7 +417,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   Padding(
                     padding: const EdgeInsets.all(0.0),
                     child:  
-                    setItalicText(_listHomeCategory[index].name.toString(),14,Colors.black)
+                    setRegularText(_listHomeCategory[index].name.toString(),14,Colors.black)
                   )
                 ],
               ),
