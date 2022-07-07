@@ -105,13 +105,14 @@ class _SearchState extends State<Search> {
                                 BorderRadius.all(Radius.circular(5.0)),
                             borderSide: BorderSide(
                               width: 0,
+                              
                               style: BorderStyle.none,
                             ),
                           ),
                           filled: true,
                           prefixIcon: Icon(Icons.search),
                           fillColor: Color(0xFFF2F4F5),
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: new TextStyle(color: Colors.grey[600],fontFamily: Ember),
                           hintText: "Enter Text Here",
                         ),
                         autofocus: false,
