@@ -1030,7 +1030,7 @@ class _ProductDetailState extends State<ProductDetail> {
     return Column(
       children: <Widget>[
         Container(
-          height: 180,
+          height: 200,
           child: FutureBuilder(
             future: getNewLaunchedProduct(),
             builder: (context, snapshot) {
@@ -1054,10 +1054,10 @@ class _ProductDetailState extends State<ProductDetail> {
                           rating: 5,
                           remainingQuantity: 5,
                           price: rupees_Sybol +
-                              " " +
+                              "" +
                               _listNewLaunched[index].salePrice.toString(),
                           mrp: rupees_Sybol +
-                              " " +
+                              "" +
                               _listNewLaunched[index].mrp.toString()),
                       gradientColors: [Colors.white, Colors.white],
                     );
