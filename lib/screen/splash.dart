@@ -9,12 +9,14 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+
+  final color = const Color(0xfffcfcff);
   
   @override
   void initState() {
     super.initState();
      Future.delayed(const Duration(seconds: 5), () {
-      changeBaseURL(0);
+      changeBaseURL(1);
       goToHomeScreen();
     });
   }
@@ -25,7 +27,7 @@ class _SplashState extends State<Splash> {
       body: Container(
          width: MediaQuery.of(context).size.width,
          height: MediaQuery.of(context).size.height,
-         color: Colors.grey[100],
+         color: color,
          child:   
          Image.asset('assets/images/nebula_logo_news.gif',fit: BoxFit.contain,),
         

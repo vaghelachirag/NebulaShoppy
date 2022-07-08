@@ -162,13 +162,13 @@ class _CategoryListState extends State<CategoryList>
     return Container(
       color: Colors.blueGrey[50],
       height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width / 4,
+      width: MediaQuery.of(context).size.width / 4 ,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: _listHomeCategory.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: GestureDetector(
               onTap: () {
                 setState(() {

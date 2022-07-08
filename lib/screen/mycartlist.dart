@@ -145,9 +145,10 @@ class _MyCartListState extends State<MyCartList> {
                             "SubTotal", getCartItemData?.subTotal.toString()),
                         getMycartDetail("Shipping Charges",
                             getCartItemData?.shippingCharge.toString()),
-                        divider(context),
-                        getMycartDetail("Grand Total",
-                            getCartItemData?.grandTotal.toString()),
+                        Padding(padding: EdgeInsets.only(top: 10),child:divider(context),),
+                        Padding(padding: EdgeInsets.only(bottom: 10),child:  getMycartDetail("Grand Total",
+                            getCartItemData?.grandTotal.toString()),)
+                       ,
                       ],
                     ),
                   );
@@ -225,7 +226,7 @@ class _MyCartListState extends State<MyCartList> {
 
   Container getMycartDetail(String title, String? detail) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -42,6 +42,7 @@ class CartItemWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
+            width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 0.0),
@@ -117,7 +118,7 @@ class CartItemWidget extends StatelessWidget {
                   ));
             },
             child: Container(
-              width: 100,
+              color: Colors.black,
               height: 80,
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
@@ -134,7 +135,7 @@ class CartItemWidget extends StatelessWidget {
     return Container(
         width: MediaQuery.of(context).size.width - 200,
         child: Padding(
-            padding: EdgeInsets.only(left: 15),
+            padding: EdgeInsets.only(left: 5),
             child: Padding(
               padding: EdgeInsets.all(10),
               child: Column(

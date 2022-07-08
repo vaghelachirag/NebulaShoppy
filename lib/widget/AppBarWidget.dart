@@ -17,6 +17,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
         style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: EmberBold),
       ),
       actions: <Widget>[
+      //  Image.asset("assets/images/search_icon.png"),
         Visibility(
             visible: isshowCart,
             child: IconButton(
@@ -43,7 +44,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
               ),
               color: Colors.white,
             )),
-         Visibility(visible: isshowCart, child: QTYCounter(isshowCart),
+        Visibility(visible: isshowCart, child: QTYCounter(isshowCart),
         )
       ]);
 }
