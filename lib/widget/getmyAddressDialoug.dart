@@ -7,6 +7,14 @@ import '../network/service.dart';
 import '../uttils/constant.dart';
 
 class GETMYADDRESSDIALOUG extends StatefulWidget {
+
+  
+  final VoidCallback onAddressSelection;
+
+  GETMYADDRESSDIALOUG(
+  {required this.onAddressSelection});
+
+
   @override
   _GETMYADDRESSDIALOUGState createState() => _GETMYADDRESSDIALOUGState();
 }
@@ -215,8 +223,17 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 }
             });
   }
-    Container getCityAddress(){
-      return  Container(
+    GestureDetector getCityAddress(){
+      return GestureDetector(
+         onTap: () {
+          setState(() {
+              str_SelectedAddress =  _listAddressCityList[0].address.toString();
+              widget.onAddressSelection();
+                Navigator.pop(context);
+          });
+           print("SelectedAddresss"+"SelectedAddress");
+         },
+        child:  Container(
       width: 200,
       child: Padding(
           padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
@@ -240,8 +257,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                       child: Flexible(//newly added
                                   child: Container(
                                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                                  child: Text(
-                                  
+                                  child: Text(                  
                                  _listAddressCityList[0].address.toString(),
                                  style: TextStyle(
                                   fontFamily: EmberBold
@@ -257,6 +273,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                             ))
             ],
           )),
+    ),
     );
     }
 

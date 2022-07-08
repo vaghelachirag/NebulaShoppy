@@ -324,7 +324,8 @@ Container EwalletOption(){
               child: Align(
                 alignment: Alignment.topLeft,
                 child: 
-                setRegularText( "Nebula Ahmedabad,705,Shivalik Abaise,Prahladnagar,Ahmedabad - 380015, Gujarat (Ph: 7227904590)", 12, Colors.black)
+                 Text(str_SelectedAddress, style: TextStyle( fontSize: 12, fontFamily: Ember),softWrap: true)
+                //setRegularText( str_SelectedAddress, 12, Colors.black)
               ,
               ),
             ),

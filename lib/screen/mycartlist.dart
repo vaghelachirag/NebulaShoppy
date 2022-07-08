@@ -200,7 +200,6 @@ class _MyCartListState extends State<MyCartList> {
   Container locationHeader() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 40,
       color: Colors.cyan[500],
       child: Align(
         alignment: Alignment.centerLeft,
@@ -210,13 +209,16 @@ class _MyCartListState extends State<MyCartList> {
                 onPressed: () {},
                 icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
                 color: Colors.black),
-                setBoldText("Deliver to", 16, Colors.black),
-            IconButton(
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Text(str_SelectedAddress, maxLines: 2, style: TextStyle( fontSize: 12, fontFamily: Ember),softWrap: true),)
+                ,
+               //setBoldText(str_SelectedAddress, 12, Colors.black),
+               IconButton(
                 onPressed: () {
                   onLocationPressed();
                 },
-                icon:
-                    Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
+                icon:  Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
                 color: Colors.black)
           ],
         ),
@@ -618,7 +620,11 @@ class _MyCartListState extends State<MyCartList> {
                       topRight: const Radius.circular(10.0))),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: GETMYADDRESSDIALOUG(),
+                child: GETMYADDRESSDIALOUG(onAddressSelection: () {
+                  setState(() {
+                    str_SelectedAddress = str_SelectedAddress;
+                  });
+                },),
               ),
             ),
           );
