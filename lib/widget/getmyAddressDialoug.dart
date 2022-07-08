@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getAddressByCityResponse.dart';
 
+import '../model/getMyAddressResponse/getMyAddressResponse.dart';
 import '../network/service.dart';
 import '../uttils/constant.dart';
 
@@ -23,6 +24,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
    final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
   List<GetAddressByCityData> _listAddressCityList = [];
+  final List<GetMyAddressData> _listMyAddress = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  _listAddressCityList.clear();
                });
               print("Tap"+ "Dorr Click");
+              
             },
             child:  Card(
                 color: isDoorStepDelivery == true
@@ -54,11 +57,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                        elevation: 5,
               child: Row(
              children: [
-            IconButton(onPressed: () {
-              }, icon: Icon(CommunityMaterialIcons.dump_truck),  color: Colors.cyan),
-              Text("Door step delivery (shipping charges applicable).",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),))
-         
-          ),
+            IconButton(onPressed: () { }, icon: Icon(CommunityMaterialIcons.dump_truck),  color: Colors.cyan),
+              Text("Door step delivery (shipping charges applicable).",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),))  ),
            Padding(padding: EdgeInsets.all(5),child:  Text("OR",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),),
            Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),child:
            GestureDetector(
@@ -77,12 +77,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
              elevation: 5,
              child: Row(
              children: [
-             IconButton(onPressed: () {
-
-             }, icon: Icon(CommunityMaterialIcons.map_marker_circle),  color: Colors.cyan),
-            Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),         
-    ],
-  ),
+             IconButton(onPressed: () { }, icon: Icon(CommunityMaterialIcons.map_marker_circle),  color: Colors.cyan),
+            Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),],),
 ),)),
              Visibility(
               visible: bl_IsPickup && isSelectedPickup,
@@ -90,14 +86,16 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             ,
         ],
     ),
-      )
-     ,
+    ),
     );
   }
   Column cityList(){
     return 
     Column(
       children: [
+        Visibility(
+          visible: isAhmedabadClick  == false,
+         child: 
         InkWell(
           onTap: () {
               print("City"+"Ahmedabad");
@@ -118,7 +116,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             IconButton(onPressed: () {
               }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
               Text("Ahmedabad",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
-        ),
+        )),
         InkWell(
           onTap: () {
               print("City"+"Hyderabad");
@@ -221,8 +219,11 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                   child: Container(
                                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
                                   child: Text(
+                                  
                                  _listAddressCityList[0].address.toString(),
-                                 style: TextStyle(),
+                                 style: TextStyle(
+                                  fontFamily: EmberBold
+                                 ),
                                   softWrap: true
                                   ),
                                   )
