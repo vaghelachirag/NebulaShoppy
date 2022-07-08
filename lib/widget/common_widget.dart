@@ -165,9 +165,9 @@ Padding loadSkeletonLoadersGrid(
               },
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 5,
+                childAspectRatio: 0.8,
+                crossAxisSpacing: 1,
                 mainAxisSpacing: 1,
-                childAspectRatio: 8.0 / 12.0,
               )),
         ),
       ));

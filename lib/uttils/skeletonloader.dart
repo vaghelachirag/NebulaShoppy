@@ -279,36 +279,15 @@ Widget boxNewLaunch() {
 
 Widget boxProductCatWise(BuildContext context) {
   return Container(
-    margin: EdgeInsets.only(bottom: 20),
+    margin: EdgeInsets.only(bottom: 0),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
     child: Column(
       children: [
         Container(
-          width: 100,
-          height: 100,
+          width: 200,
+          height: 200,
           decoration:
               BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
-        ),
-        Container(
-          margin: EdgeInsets.all(5),
-          width: 100,
-          height: 10,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), color: Colors.grey),
-        ),
-        Container(
-          margin: EdgeInsets.all(3),
-          width: 80,
-          height: 8,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), color: Colors.grey),
-        ),
-        Center(
-          child: Container(
-              width: 60,
-              height: 30,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(2), color: Colors.white)),
         ),
       ],
     ),
