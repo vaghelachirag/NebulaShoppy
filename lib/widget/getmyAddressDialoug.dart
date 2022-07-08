@@ -11,14 +11,20 @@ class GETMYADDRESSDIALOUG extends StatefulWidget {
   _GETMYADDRESSDIALOUGState createState() => _GETMYADDRESSDIALOUGState();
 }
 class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
-    bool bl_IsPickup = false;
+  
+     bool bl_IsPickup = false;
      bool isSelectedPickup = false;
+     bool isShowCity = false;
      bool isDoorStepDelivery = false;
 
 
     bool isAhmedabadClick = false;
     bool isHyderabadClick = false;
     bool isChennaiClick = false;
+
+     bool isAhmedabadShow = true;
+    bool isHyderabadShow = true;
+    bool isChennaiShow = true;
 
    final colorBackground = const Color(0xF0F0F0);
    final GlobalKey<State> _dialogKey = GlobalKey<State>();
@@ -45,16 +51,13 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  isAhmedabadClick = false;
                  isHyderabadClick = false;
                  isChennaiClick = false;
+                 isShowCity = false;
                  _listAddressCityList.clear();
+                 setCityVisibity(3);
                });
-              print("Tap"+ "Dorr Click");
-              
+              print("Tap"+ "Dorr Click");       
             },
-            child:  Card(
-                color: isDoorStepDelivery == true
-                          ? colorBackground
-                          : Colors.white,
-                       elevation: 5,
+            child:  Card(color: isDoorStepDelivery == true? colorBackground: Colors.white,elevation: 5,
               child: Row(
              children: [
             IconButton(onPressed: () { }, icon: Icon(CommunityMaterialIcons.dump_truck),  color: Colors.cyan),
@@ -68,6 +71,15 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   bl_IsPickup = true;
                   isDoorStepDelivery = false;
                   isSelectedPickup = true;
+                  isShowCity = true;
+
+        
+                 isAhmedabadClick = false;
+                 isHyderabadClick = false;
+                 isChennaiClick = false;
+                 isShowCity = true;
+                 _listAddressCityList.clear();
+                 setCityVisibity(3);
                 });
              },
              child:  Card(
@@ -81,7 +93,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             Text("Select a pickup point.",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),),],),
 ),)),
              Visibility(
-              visible: bl_IsPickup && isSelectedPickup,
+              visible: bl_IsPickup && isShowCity,
               child:  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0),child: cityList(),))
             ,
         ],
@@ -94,7 +106,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
     Column(
       children: [
         Visibility(
-          visible: isAhmedabadClick  == false,
+          visible: isAhmedabadShow == true,
          child: 
         InkWell(
           onTap: () {
@@ -103,7 +115,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  isAhmedabadClick = true;
                  isHyderabadClick = false;
                  isChennaiClick = false;
-                 getAddressbyCityId("783");
+                 isSelectedPickup = false;
+                 getAddressbyCityId("783",0);
              });
           },
           child: Card(
@@ -117,6 +130,9 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
               }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
               Text("Ahmedabad",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
         )),
+        Visibility(
+           visible: isHyderabadShow == true,
+          child: 
         InkWell(
           onTap: () {
               print("City"+"Hyderabad");
@@ -124,7 +140,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   isAhmedabadClick = false;
                  isHyderabadClick = true;
                  isChennaiClick = false;
-                  getAddressbyCityId("4460");
+                  isSelectedPickup = false;
+                  getAddressbyCityId("4460",1);
              });
           },
           child: Card(
@@ -137,7 +154,10 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             IconButton(onPressed: () {
               }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
               Text("Hyderabad",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
-        ),
+        )),
+        Visibility(
+          visible: isChennaiShow == true,
+          child: 
         InkWell(
           onTap: () {
               print("City"+"Chennai");
@@ -145,7 +165,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  isAhmedabadClick = false;
                  isHyderabadClick = false;
                  isChennaiClick = true;
-                   getAddressbyCityId("3659");
+                  isSelectedPickup = false;
+                   getAddressbyCityId("3659",2);
              });
           },
           child: Card(
@@ -158,7 +179,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             IconButton(onPressed: () {
               }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
               Text("Chennai",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
-        ),
+        )),
            FutureBuilder(
                 builder: (context, snapshot) {
                   if (_listAddressCityList.isEmpty) {
@@ -176,7 +197,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
     );
   }
 
-  void getAddressbyCityId(String str_CityId) {
+  void getAddressbyCityId(String str_CityId, int int_Position) {
       showLoadingDialog(context, _dialogKey, "Please Wait..");
       Service().getAddressByCitySelection(str_CityId).then((value) => {
                  Navigator.pop(_dialogKey.currentContext!),
@@ -187,6 +208,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
               else
                 {
                   setState(() {
+                    setCityVisibity(int_Position);
                     _listAddressCityList.clear();
                     _listAddressCityList = value.data;
                   })
@@ -237,5 +259,28 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
           )),
     );
     }
+
+  void setCityVisibity(int int_position) {
+    if(int_position == 0){
+                      isAhmedabadShow = true;
+                      isHyderabadShow = false;
+                      isChennaiShow = false;
+    }
+     if(int_position == 1){
+                      isAhmedabadShow = false;
+                      isHyderabadShow = true;
+                      isChennaiShow = false;
+    }
+     if(int_position == 2){
+                      isAhmedabadShow = false;
+                      isHyderabadShow = false;
+                      isChennaiShow = true;
+    }
+     if(int_position == 3){
+                      isAhmedabadShow = true;
+                      isHyderabadShow = true;
+                      isChennaiShow = true;
+    }
+  }
    
 }
