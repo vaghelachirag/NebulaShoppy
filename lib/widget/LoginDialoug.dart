@@ -269,10 +269,7 @@ class _LoginDialougState extends State<LoginDialoug> {
 
   void getLoginResponse() {
     showLoadingDialog(context, _dialogKey, "Please Wait..");
-    Service()
-        .getGenerateTokenResponse(
-            _usernameController.text, _passwordController.text, 'password')
-        .then((value) => {
+    Service().getGenerateTokenResponse(_usernameController.text, _passwordController.text, 'password').then((value) => {
               if (value.toString() == str_ErrorMsg)
                 {
                   Navigator.pop(_dialogKey.currentContext!),

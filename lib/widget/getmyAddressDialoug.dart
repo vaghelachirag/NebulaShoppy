@@ -39,6 +39,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
 
   List<GetAddressByCityData> _listAddressCityList = [];
   final List<GetMyAddressData> _listMyAddress = [];
+    List<GetMyAddressData> _listMyAddressList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  isShowCity = false;
                  _listAddressCityList.clear();
                  setCityVisibity(3);
+                  getMyAddress();
                });
               print("Tap"+ "Dorr Click");       
             },
@@ -80,14 +82,13 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   isDoorStepDelivery = false;
                   isSelectedPickup = true;
                   isShowCity = true;
-
-        
-                 isAhmedabadClick = false;
+                  isAhmedabadClick = false;
                  isHyderabadClick = false;
                  isChennaiClick = false;
                  isShowCity = true;
                  _listAddressCityList.clear();
                  setCityVisibity(3);
+                
                 });
              },
              child:  Card(
@@ -104,6 +105,69 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
               visible: bl_IsPickup && isShowCity,
               child:  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0),child: cityList(),))
             ,
+    //         FutureBuilder(
+    //           builder: (context, snapshot) {
+    //            if(_listMyAddressList.isEmpty){
+    //             return Text("");
+    //            }
+    //            else{
+    //             return ListView.builder(
+                      
+    //                   shrinkWrap: true,
+    //                   physics: const NeverScrollableScrollPhysics(),
+    //                   itemCount: _listMyAddressList.length,
+    //                   itemBuilder: (context, index) {
+    //                     return GestureDetector(  onTap: () {
+    //       setState(() {   
+    //             Navigator.pop(context);
+    //       });
+    //      },
+    //     child:  Container(
+    //       color: Colors.black,
+    //       width: 200,
+    //      child: Padding(
+    //       padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
+    //       child: Column(
+    //         children: [
+    //          Card(margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+    //                         elevation: 5,
+    //                         shape: RoundedRectangleBorder(
+    //                           borderRadius: BorderRadius.circular(10),
+    //                         ),
+    //                         child: Container(
+    //                           margin: EdgeInsets.all(0),
+    //                           padding: EdgeInsets.all(0),
+    //                           child: Column(
+    //                             children: [
+    //                               Padding(
+    //                                 padding: EdgeInsets.all(10),
+    //                                 child: Align(
+    //                                   alignment: Alignment.topLeft,
+    //                                   child: Flexible(//newly added
+    //                               child: Container(
+    //                               padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+    //                               child: Text(                                                                        
+    //                              _listMyAddressList[index].fullName.toString(),
+    //                              style: TextStyle(
+    //                               fontFamily: EmberBold
+    //                              ),
+    //                               softWrap: true
+    //                               ),
+    //                               )
+    //                                ),
+    //                                 ),
+    //                               ),
+    //                             ],
+    //                           ),
+    //                         ))
+    //         ],
+    //       )),
+    // ));
+    
+    //                   },
+    //                 );
+    //            }
+    //         },)
         ],
     ),
     ),
@@ -223,6 +287,27 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 }
             });
   }
+
+   getMyAddress() {
+    if (_listMyAddress.isEmpty) {
+      showLoadingDialog(context, _dialogKey, "Please Wait..");
+      Service().getMyAddress().then((value) => {
+            Navigator.pop(_dialogKey.currentContext!),
+            if (value.toString() == str_ErrorMsg) {setState((() {}))},
+            if (value.toString() != str_ErrorMsg)
+              {
+                if (value.statusCode == 1)
+                  {
+                    setState((() {
+                      _listMyAddressList = value.data;
+                     // bl_ShowAddress = true;
+                    }))
+                  }
+              }
+          });
+    }
+  }
+
     GestureDetector getCityAddress(){
       return GestureDetector(
          onTap: () {
