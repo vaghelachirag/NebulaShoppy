@@ -118,7 +118,6 @@ class CartItemWidget extends StatelessWidget {
                   ));
             },
             child: Container(
-              color: Colors.black,
               height: 80,
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,

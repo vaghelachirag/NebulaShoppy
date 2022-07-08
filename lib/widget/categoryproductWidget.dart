@@ -32,13 +32,14 @@ class CategoryProductWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
+            color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 0.0),
               child: Card(
                 elevation: 0,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Column(
                     children: <Widget>[
                       Row(
@@ -46,18 +47,18 @@ class CategoryProductWidget extends StatelessWidget {
                           if (product.remainingQuantity != null) Spacer()
                         ],
                       ),
-                     
-                      _productImage(context),
+                      Padding(padding: EdgeInsets.all(5),child:  _productImage(context),),
                       _productDetails(),
-                       Container(
-                        padding: EdgeInsets.all(5),
-                        child: GestureDetector(
-                          child: addtoCart(),
-                          onTap: (){
-                            onCartAddClick();
-                          },
-                        ),
-                      ),
+                      setProductDetails()
+                      //  Container(
+                      //   padding: EdgeInsets.all(5),
+                      //   child: GestureDetector(
+                      //     child: addtoCart(),
+                      //     onTap: (){
+                      //       onCartAddClick();
+                      //     },
+                      //   ),
+                      // ),
                       
                     ],
                   ),
@@ -106,7 +107,7 @@ class CategoryProductWidget extends StatelessWidget {
             },
             child: Container(
               width: 100,
-              height: 60,
+              height: 80,
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
                   image: product.icon,
@@ -120,42 +121,93 @@ class CategoryProductWidget extends StatelessWidget {
 
   _productDetails() {
     return Padding(
-      padding: EdgeInsets.only(left: 15),
+      padding: EdgeInsets.only(left: 8,right: 8),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             //setTextData(product.company, 16),
             setBoldText(product.company, 16, Colors.black),
             //setRegularText(product.name, 12, Colors.black),
-            setRegularText(product.name, 12,Colors.black),
-            Row(
-              children: <Widget>[
-                setBoldText(rupees_Sybol + product.price, 16,Colors.red),
-                // Text(rupees_Sybol + product.price,
-                //     style: TextStyle(
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.bold,
-                //         color: Colors.red)),
-                Text(
-                  rupees_Sybol + product.mrp,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontFamily: Ember,
-                      decoration: TextDecoration.lineThrough),
-                ),
-              ],
-            ),
+            Padding(padding: EdgeInsets.only(top: 3),child:setRegularText(product.name, 12,Colors.black),),
+            // Row(
+            //   children: <Widget>[
+            //     setBoldText(rupees_Sybol + product.price, 16,Colors.red),
+            //     // Text(rupees_Sybol + product.price,
+            //     //     style: TextStyle(
+            //     //         fontSize: 16,
+            //     //         fontWeight: FontWeight.bold,
+            //     //         color: Colors.red)),
+            //     Text(
+            //       rupees_Sybol + product.mrp,
+            //       style: TextStyle(
+            //           color: Colors.grey,
+            //           fontSize: 12,
+            //           fontFamily: Ember,
+            //           decoration: TextDecoration.lineThrough),
+            //     ),
+            //   ],
+            // ),
           ]),
     );
   }
-}
 
+  setProductDetails() {
+    return Flexible(
+        flex: 1, child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child:  setProductPrice(product),
+                    )
+                   ,
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        child: GestureDetector(
+                           child: addtoCart(),
+                           onTap: (){
+                             onCartAddClick();
+                           },
+                         ),
+                       ),
+                  ],
+                ));
+  }
+}
+Column setProductPrice(Product product){
+  return Column(
+    children: [
+         Container(
+         padding: EdgeInsets.only(left: 8,top: 10,right: 8),
+                      child: Flexible(
+                      flex: 5,
+                      child: setBoldText(rupees_Sybol + product.price, 14,Colors.red),),),
+                      Flexible(
+                      flex: 5,
+                      child:  Text(
+                  rupees_Sybol + product.mrp,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 10,
+                      fontFamily: Ember,
+                      decoration: TextDecoration.lineThrough),
+                  ),)
+    ],
+  );
+}
 Container addtoCart() {
   return Container(
-    child:  Container(
-        color: THEME_COLOR,
-        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+    decoration:  BoxDecoration(
+    border: Border.all(
+      color: THEME_COLOR,
+    ),
+    color:  THEME_COLOR,
+    borderRadius: BorderRadius.all(Radius.circular(5))
+  ),
+    child:  
+     
+    Container(
+        padding: EdgeInsets.fromLTRB(10, 5, 8, 5),
         child: Text(
           'ADD',
            style: TextStyle(
