@@ -46,7 +46,7 @@ class Service {
         Uri.parse(BASE_URL + WS_ADVERTISEMENT_IMAGES_ECOM),
         headers: requestHeaders);
     var json = response.body;
-     print("Response"+ json.toString());
+    print("Response" + json.toString());
     return itembannerimageFromJson(json);
   }
 
@@ -245,9 +245,16 @@ class Service {
       'CartFlag': cartFlag
     };
 
-    Uri httpsUri = Uri( scheme: Scheme,host: Host,path: WS_ADD_TO_CART,queryParameters: queryparams);
+    // Uri httpsUri = Uri(
+    //     scheme: Scheme,
+    //     host: Host,
+    //     path: WS_ADD_TO_CART,
+    //     queryParameters: queryparams);
+
+    Uri httpsUri = Uri.https(Host, WS_ADD_TO_CART, queryparams);
+
     final response = await http.post(httpsUri);
-    print("ResponseCode" + response.statusCode.toString());
+    print("ResponseCode" + httpsUri.toString());
     print("AddToCart" + httpsUri.toString());
 
     if (response.statusCode == 200) {
@@ -429,8 +436,7 @@ class Service {
     }
   }
 
-
-Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
+  Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     var client = http.Client();
     Uri uri = Uri.parse(
         BASE_URL + WS_FORGOT_PASSWORD_OPTION + "?" + "IBOID=" + _ibokey);
@@ -444,8 +450,6 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
       return str_ErrorMsg;
     }
   }
-
-
 
   Future<dynamic> getMyOrderList() async {
     requestHeaders = {
@@ -568,7 +572,6 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     }
   }
 
-  
   Future<dynamic> getStateListResponse(String country) async {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL +
@@ -589,9 +592,10 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     }
   }
 
- Future<dynamic> getCityByState(String stateId) async {
+  Future<dynamic> getCityByState(String stateId) async {
     var client = http.Client();
-    Uri uri = Uri.parse(BASE_URL + WS_GET_CITYLIST_BY_STATE + "?" +"StateId=" +stateId);
+    Uri uri = Uri.parse(
+        BASE_URL + WS_GET_CITYLIST_BY_STATE + "?" + "StateId=" + stateId);
 
     var response = await client.get(uri);
     var json = response.body;
@@ -604,6 +608,7 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
       return str_ErrorMsg;
     }
   }
+
   Future<dynamic> getDeletMyAddressResponse(String id) async {
     requestHeaders = {
       'Authorization': '${str_AuthId}',
@@ -641,17 +646,28 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     return getstateResponseFromJson(json);
   }
 
-  Future<GetAddressByCityResponse> getAddressByCitySelection(String cityId) async {
+  Future<GetAddressByCityResponse> getAddressByCitySelection(
+      String cityId) async {
     var client = http.Client();
-    var response = await client.get(Uri.parse(BASE_URL + WS_GET_ADDRESS_BY_CITY + "?" + "cityId=" + cityId),
+    var response = await client.get(
+        Uri.parse(BASE_URL + WS_GET_ADDRESS_BY_CITY + "?" + "cityId=" + cityId),
         headers: requestHeaders);
     var json = response.body;
     print("object" + json.toString());
     return getAddressByCityResponseFromJson(json);
   }
 
-
-  Future<dynamic> getAddNewAddressResponse(String _mobile, String _fullName,String _addressLine1,String _addressLine2,String _landmark,String _city,String _state,String _pinCode,String _addressType,String _deviceid) async {
+  Future<dynamic> getAddNewAddressResponse(
+      String _mobile,
+      String _fullName,
+      String _addressLine1,
+      String _addressLine2,
+      String _landmark,
+      String _city,
+      String _state,
+      String _pinCode,
+      String _addressType,
+      String _deviceid) async {
     requestHeaders = {
       'Authorization': '${str_AuthId}',
     };
@@ -661,11 +677,11 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
       'addressLine1': _addressLine1,
       'addressLine2': _addressLine2,
       'landmark': _landmark,
-       'city': _city,
-        'state': _state,
-        'pinCode': _pinCode,
-        'addressType': _addressType,
-        'deviceid': _deviceid
+      'city': _city,
+      'state': _state,
+      'pinCode': _pinCode,
+      'addressType': _addressType,
+      'deviceid': _deviceid
     };
 
     Uri httpsUri = Uri(
@@ -675,7 +691,7 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
         queryParameters: queryparams);
 
     final response = await http.post(httpsUri, headers: requestHeaders);
-    print("Response" + response.body.toString() + " "+queryparams.toString());
+    print("Response" + response.body.toString() + " " + queryparams.toString());
     var json = response.body;
 
     if (response.statusCode == 200) {
@@ -685,7 +701,17 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
     }
   }
 
-   Future<dynamic> getEditAddressResponse(String _mobile, String _fullName,String _addressLine1,String _addressLine2,String _landmark,String _city,String _state,String _pinCode,String _addressType,String _id) async {
+  Future<dynamic> getEditAddressResponse(
+      String _mobile,
+      String _fullName,
+      String _addressLine1,
+      String _addressLine2,
+      String _landmark,
+      String _city,
+      String _state,
+      String _pinCode,
+      String _addressType,
+      String _id) async {
     requestHeaders = {
       'Authorization': '${str_AuthId}',
     };
@@ -695,11 +721,11 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
       'addressLine1': _addressLine1,
       'addressLine2': _addressLine2,
       'landmark': _landmark,
-       'city': _city,
-        'state': _state,
-        'pinCode': _pinCode,
-        'addressType': _addressType,
-        'id': _id
+      'city': _city,
+      'state': _state,
+      'pinCode': _pinCode,
+      'addressType': _addressType,
+      'id': _id
     };
 
     Uri httpsUri = Uri(
@@ -709,7 +735,7 @@ Future<dynamic> getSendPasswordOptionResponse(String _ibokey) async {
         queryParameters: queryparams);
 
     final response = await http.post(httpsUri, headers: requestHeaders);
-    print("Response" + response.body.toString() + " "+queryparams.toString());
+    print("Response" + response.body.toString() + " " + queryparams.toString());
     var json = response.body;
 
     if (response.statusCode == 200) {
