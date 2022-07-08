@@ -43,6 +43,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  isAhmedabadClick = false;
                  isHyderabadClick = false;
                  isChennaiClick = false;
+                 _listAddressCityList.clear();
                });
               print("Tap"+ "Dorr Click");
             },
@@ -125,6 +126,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   isAhmedabadClick = false;
                  isHyderabadClick = true;
                  isChennaiClick = false;
+                  getAddressbyCityId("4460");
              });
           },
           child: Card(
@@ -145,6 +147,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                  isAhmedabadClick = false;
                  isHyderabadClick = false;
                  isChennaiClick = true;
+                   getAddressbyCityId("3659");
              });
           },
           child: Card(
@@ -157,7 +160,20 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             IconButton(onPressed: () {
               }, icon: Icon(CommunityMaterialIcons.city),  color: Colors.cyan),
               Text("Chennai",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w700),)],),),
-        )
+        ),
+           FutureBuilder(
+                builder: (context, snapshot) {
+                  if (_listAddressCityList.isEmpty) {
+                    return Text("");
+                  } else {
+                    return 
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child:getCityAddress(),
+                    );
+                  }
+                },
+              )
       ],
     );
   }
@@ -172,10 +188,53 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 }
               else
                 {
-                _listAddressCityList.clear(),
-                _listAddressCityList = value.data,
-                print("Add"+_listAddressCityList.length.toString())
+                  setState(() {
+                    _listAddressCityList.clear();
+                    _listAddressCityList = value.data;
+                  })
                 }
             });
   }
+    Container getCityAddress(){
+      return  Container(
+      width: 200,
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
+          child: Column(
+            children: [
+             Card(margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.all(0),
+                              padding: EdgeInsets.all(0),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Flexible(//newly added
+                                  child: Container(
+                                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                                  child: Text(
+                                 _listAddressCityList[0].address.toString(),
+                                 style: TextStyle(),
+                                  softWrap: true
+                                  ),
+                                  )
+                                   ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ))
+            ],
+          )),
+    );
+    }
+   
 }
