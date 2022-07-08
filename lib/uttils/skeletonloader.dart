@@ -11,8 +11,10 @@ Widget boxseach() {
       child: Row(
         children: [
           Container(
-            width: 50,
-            height: 50,
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.only(left: 10),
+            width: ScreenUtil().setSp(80),
+            height: ScreenUtil().setSp(80),
             decoration:
                 BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
           ),
@@ -303,13 +305,11 @@ Widget boxProductCatWise(BuildContext context) {
         ),
         Center(
           child: Container(
-            width: 60,
-            height: 30,
-             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2), color: Colors.white)
-          ),
-        )
-        ,
+              width: 60,
+              height: 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(2), color: Colors.white)),
+        ),
       ],
     ),
   );

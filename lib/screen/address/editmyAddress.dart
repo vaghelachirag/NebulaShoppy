@@ -35,29 +35,29 @@ class EditMyAddress extends StatefulWidget {
   String strLandmark = "";
   String strPinCode = "";
 
-   EditMyAddress(
-      {Key? key,
-      required this.strFullName,
-      required this.strAddressLine1,
-      required this.strAddressLine2,
-      required this.strCity,
-      required this.strState,
-      required this.strMobileNo,
-      required this.strPinCode,
-      required this.strLandmark,
-      required this.strId,
-      })
-      : super(key: key);
+  EditMyAddress({
+    Key? key,
+    required this.strFullName,
+    required this.strAddressLine1,
+    required this.strAddressLine2,
+    required this.strCity,
+    required this.strState,
+    required this.strMobileNo,
+    required this.strPinCode,
+    required this.strLandmark,
+    required this.strId,
+  }) : super(key: key);
 
   @override
   State<EditMyAddress> createState() => _EditMyAddressState();
 }
 
-class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserver {
+class _EditMyAddressState extends State<EditMyAddress>
+    with WidgetsBindingObserver {
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   List<GetMyAddressData> _listMyAddress = [];
   List<GetstateData> _listState = [];
-   List<String> _listStatefilter = [];
+  List<String> _listStatefilter = [];
   bool bl_ShowAddress = false;
 
   // For State Selection
@@ -97,7 +97,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
   @override
   void initState() {
     super.initState();
-     _listStatefilter.add("Select State");
+    _listStatefilter.add("Select State");
     _listCityfilter.add("City");
     getDeviceId();
     setEditData();
@@ -127,7 +127,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: setBoldText("Personal Addresses", 20, Colors.black),
@@ -140,17 +140,17 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                   "Please Enter Full Name", 100, TextInputType.name),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText("Mobile Number", _mobileNumberController,
                   "Please Enter Mobile Number", 11, TextInputType.number),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText("Pincode", _pinCodeController,
                   "Please Enter PinCode", 6, TextInputType.number),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText(
                   "Flat,House no.. Building, Company,Apartment",
                   _flatNumberController,
@@ -159,7 +159,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                   TextInputType.multiline),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText(
                   "Area, Colony, Street,Sector,Village",
                   _areaController,
@@ -168,7 +168,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                   TextInputType.multiline),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText(
                   "Landmark e.g. near Apollo Hospital",
                   _landmarkController,
@@ -176,13 +176,13 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                   100,
                   TextInputType.multiline),
             ),
-           // Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0),child: stateListDropDown()),
-              FutureBuilder(builder: (context, snapshot) {
+            // Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0),child: stateListDropDown()),
+            FutureBuilder(builder: (context, snapshot) {
               if (_listStatefilter.isEmpty) {
                 return Text("");
               } else {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: addressStateDropDown());
               }
             }),
@@ -191,11 +191,11 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                 return Text("");
               } else {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: addressCityDropDown());
               }
             }),
-           
+
             addDeliveryInstruction(),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -218,21 +218,24 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     print("Valid" + "Valid");
-                    if(str_State == null || str_State == "" || str_State == "Select State"){
+                    if (str_State == null ||
+                        str_State == "" ||
+                        str_State == "Select State") {
                       showSnakeBar(context, "Please Select State");
                       return;
-                    }else if(str_City == null || str_City == "" || str_City == "City"){
-                     showSnakeBar(context, "Please Select City");
+                    } else if (str_City == null ||
+                        str_City == "" ||
+                        str_City == "City") {
+                      showSnakeBar(context, "Please Select City");
                       return;
-                    }
-                    else if(str_AddressType == null || str_AddressType == "" || str_AddressType == "Select an Address Type*"){
-                     showSnakeBar(context, "Please Select Address Type");
+                    } else if (str_AddressType == null ||
+                        str_AddressType == "" ||
+                        str_AddressType == "Select an Address Type*") {
+                      showSnakeBar(context, "Please Select Address Type");
                       return;
+                    } else {
+                      getAddAddressResponse();
                     }
-                    else{
-                       getAddAddressResponse();
-                    }
-                   
                   }
                 },
               ),
@@ -251,13 +254,16 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: setBoldText("Add delivery instructions", 16, Colors.black),
           ),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-          child: setRegularText("Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.", 14, Colors.black),
+          child: setRegularText(
+              "Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.",
+              14,
+              Colors.black),
         ),
         Align(
           alignment: Alignment.topLeft,
@@ -274,7 +280,12 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
     );
   }
 
-  TextFormField getAddressText( String hint,TextEditingController fullNameController, String str_Error,int i,TextInputType name) {
+  TextFormField getAddressText(
+      String hint,
+      TextEditingController fullNameController,
+      String str_Error,
+      int i,
+      TextInputType name) {
     return TextFormField(
         keyboardType: name,
         controller: fullNameController,
@@ -700,7 +711,7 @@ class _EditMyAddressState extends State<EditMyAddress> with WidgetsBindingObserv
     );
   }
 
-DropdownButtonHideUnderline addressStateDropDown() {
+  DropdownButtonHideUnderline addressStateDropDown() {
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField(
         decoration: addressText("City"),
@@ -723,13 +734,13 @@ DropdownButtonHideUnderline addressStateDropDown() {
         onChanged: (dynamic newValue) {
           setState(() {
             str_State = newValue.toString();
-            for(int i=0; i<_listState.length; i++){
-                if(_listState[i].stateName == str_State){
-                     int_SelectedState = _listState[i].stateId;
-                    getCityByState(int_SelectedState);
-                    str_City = "City";
-                    break;
-                }
+            for (int i = 0; i < _listState.length; i++) {
+              if (_listState[i].stateName == str_State) {
+                int_SelectedState = _listState[i].stateId;
+                getCityByState(int_SelectedState);
+                str_City = "City";
+                break;
+              }
             }
           });
         },
@@ -740,8 +751,8 @@ DropdownButtonHideUnderline addressStateDropDown() {
     );
   }
 
-   DropdownButtonHideUnderline addressCityDropDown() {
-     return DropdownButtonHideUnderline(
+  DropdownButtonHideUnderline addressCityDropDown() {
+    return DropdownButtonHideUnderline(
       child: DropdownButtonFormField(
         decoration: addressText("City"),
         style: TextStyle(
@@ -770,7 +781,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
         value: str_City,
       ),
     );
-   }
+  }
 
   DropdownButtonHideUnderline addressTypeDropDown() {
     return DropdownButtonHideUnderline(
@@ -813,7 +824,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
                 if (value.statusCode == 1) {
                   print("Categorylist" + value.message);
                   _listCity = value.data;
-                   filterCity();
+                  filterCity();
                   _getSelectedCity = _listCity[0];
                 } else {
                   showSnakeBar(context, somethingWrong);
@@ -825,43 +836,54 @@ DropdownButtonHideUnderline addressStateDropDown() {
   }
 
   void filterStateList() {
-    for(int i=0; i<_listState.length; i++){
-      _listStatefilter.add(_listState[i].stateName);   
+    for (int i = 0; i < _listState.length; i++) {
+      _listStatefilter.add(_listState[i].stateName);
     }
-     str_State = widget.strState;
-    for(int i=0; i<_listState.length; i++){
-                if(_listState[i].stateName == str_State){
-                     int_SelectedState = _listState[i].stateId;
-                    getCityByState(int_SelectedState);
-                    str_City = widget.strCity;
-                    break;
-                }
-            }
+    str_State = widget.strState;
+    for (int i = 0; i < _listState.length; i++) {
+      if (_listState[i].stateName == str_State) {
+        int_SelectedState = _listState[i].stateId;
+        getCityByState(int_SelectedState);
+        str_City = widget.strCity;
+        break;
+      }
+    }
   }
 
   void filterCity() {
-    for(int i=0; i<_listCity.length; i++){
+    for (int i = 0; i < _listCity.length; i++) {
       _listCityfilter.add(_listCity[i].cityName);
     }
   }
 
   void getAddAddressResponse() {
-      showLoadingDialog(context, _dialogKey, "Please Wait..");
-      Service().getEditAddressResponse(_mobileNumberController.text,_fullNameController.text,_flatNumberController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,widget.strId.toString())
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Service()
+        .getEditAddressResponse(
+            _mobileNumberController.text,
+            _fullNameController.text,
+            _flatNumberController.text,
+            _areaController.text,
+            _landmarkController.text,
+            str_City,
+            str_State,
+            _pinCodeController.text,
+            str_AddressType,
+            widget.strId.toString())
         .then((value) => {
               if (value.toString() == str_ErrorMsg)
                 {
-                 showSnakeBar(context, str_ErrorMsg),
+                  showSnakeBar(context, str_ErrorMsg),
                 }
               else
                 {
-                Navigator.pop(_dialogKey.currentContext!),
-                showSnakeBar(context, "Your Address Updated Successfully"),
-                Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (dialogContex) => GetMyAddress()),
-              ModalRoute.withName("/getmyaddress"))
-          
+                  Navigator.pop(_dialogKey.currentContext!),
+                  showSnakeBar(context, "Your Address Updated Successfully"),
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (dialogContex) => GetMyAddress()),
+                      ModalRoute.withName("/getmyaddress"))
                 }
             });
   }
@@ -869,13 +891,12 @@ DropdownButtonHideUnderline addressStateDropDown() {
   void setEditData() {
     setState(() {
       _fullNameController.text = widget.strFullName;
-    _mobileNumberController.text = widget.strMobileNo;
-    _pinCodeController.text = widget.strPinCode;
-    _flatNumberController.text = widget.strAddressLine1;
-    _areaController.text = widget.strAddressLine2;
-    _landmarkController.text = widget.strLandmark;
-     str_City = widget.strCity;
+      _mobileNumberController.text = widget.strMobileNo;
+      _pinCodeController.text = widget.strPinCode;
+      _flatNumberController.text = widget.strAddressLine1;
+      _areaController.text = widget.strAddressLine2;
+      _landmarkController.text = widget.strLandmark;
+      str_City = widget.strCity;
     });
-    
   }
 }

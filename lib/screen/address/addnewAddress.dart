@@ -35,7 +35,7 @@ class _AddNewAddressState extends State<AddNewAddress>
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   List<GetMyAddressData> _listMyAddress = [];
   List<GetstateData> _listState = [];
-   List<String> _listStatefilter = [];
+  List<String> _listStatefilter = [];
   bool bl_ShowAddress = false;
 
   // For State Selection
@@ -75,7 +75,7 @@ class _AddNewAddressState extends State<AddNewAddress>
   @override
   void initState() {
     super.initState();
-     _listStatefilter.add("Select State");
+    _listStatefilter.add("Select State");
     _listCityfilter.add("City");
     getDeviceId();
     getStateList();
@@ -104,19 +104,18 @@ class _AddNewAddressState extends State<AddNewAddress>
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: Align(
-                  alignment: Alignment.topLeft,
-                  child: 
-                  setBoldText("Personal Addresses", 20, Colors.black)
-                  // Text(
-                  //   "Personal Addresses",
-                  //   style: TextStyle(
-                  //       fontSize: 20,
-                  //       color: Colors.black,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                ),
+                    alignment: Alignment.topLeft,
+                    child: setBoldText("Personal Addresses", 20, Colors.black)
+                    // Text(
+                    //   "Personal Addresses",
+                    //   style: TextStyle(
+                    //       fontSize: 20,
+                    //       color: Colors.black,
+                    //       fontWeight: FontWeight.bold),
+                    // ),
+                    ),
               ),
             ),
             Padding(
@@ -125,17 +124,17 @@ class _AddNewAddressState extends State<AddNewAddress>
                   "Please Enter Full Name", 100, TextInputType.name),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText("Mobile Number", _mobileNumberController,
                   "Please Enter Mobile Number", 11, TextInputType.number),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText("Pincode", _pinCodeController,
                   "Please Enter PinCode", 6, TextInputType.number),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText(
                   "Flat,House no.. Building, Company,Apartment",
                   _flatNumberController,
@@ -144,7 +143,7 @@ class _AddNewAddressState extends State<AddNewAddress>
                   TextInputType.multiline),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText(
                   "Area, Colony, Street,Sector,Village",
                   _areaController,
@@ -153,7 +152,7 @@ class _AddNewAddressState extends State<AddNewAddress>
                   TextInputType.multiline),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: getAddressText(
                   "Landmark e.g. near Apollo Hospital",
                   _landmarkController,
@@ -161,13 +160,13 @@ class _AddNewAddressState extends State<AddNewAddress>
                   100,
                   TextInputType.multiline),
             ),
-           // Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0),child: stateListDropDown()),
-              FutureBuilder(builder: (context, snapshot) {
+            // Padding(padding: EdgeInsets.fromLTRB(10, 8, 10, 0),child: stateListDropDown()),
+            FutureBuilder(builder: (context, snapshot) {
               if (_listStatefilter.isEmpty) {
                 return Text("");
               } else {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: addressStateDropDown());
               }
             }),
@@ -176,10 +175,10 @@ class _AddNewAddressState extends State<AddNewAddress>
                 return Text("");
               } else {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: addressCityDropDown());
               }
-            }),         
+            }),
             addDeliveryInstruction(),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -202,20 +201,24 @@ class _AddNewAddressState extends State<AddNewAddress>
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     print("Valid" + "Valid");
-                    if(str_State == null || str_State == "" || str_State == "Select State"){
+                    if (str_State == null ||
+                        str_State == "" ||
+                        str_State == "Select State") {
                       showSnakeBar(context, "Please Select State");
                       return;
-                    }else if(str_City == null || str_City == "" || str_City == "City"){
-                     showSnakeBar(context, "Please Select City");
+                    } else if (str_City == null ||
+                        str_City == "" ||
+                        str_City == "City") {
+                      showSnakeBar(context, "Please Select City");
                       return;
-                    }
-                    else if(str_AddressType == null || str_AddressType == "" || str_AddressType == "Select an Address Type*"){
-                     showSnakeBar(context, "Please Select Address Type");
+                    } else if (str_AddressType == null ||
+                        str_AddressType == "" ||
+                        str_AddressType == "Select an Address Type*") {
+                      showSnakeBar(context, "Please Select Address Type");
                       return;
+                    } else {
+                      getAddAddressResponse();
                     }
-                    else{
-                       getAddAddressResponse();
-                    }              
                   }
                 },
               ),
@@ -235,30 +238,33 @@ class _AddNewAddressState extends State<AddNewAddress>
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: setBoldText("Add delivery instructions", 16, Colors.black)
-           ,
+            child: setBoldText("Add delivery instructions", 16, Colors.black),
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-          child:
-          setRegularText("Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.", 14, Colors.black)
-           ,
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+          child: setRegularText(
+              "Preferences are used to plan your delivery. However, shipments can somtimes arrive early or later than planned.",
+              14,
+              Colors.black),
         ),
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-            child: 
-            setBoldText("Address Types", 16, Colors.black)
-           ,
+            child: setBoldText("Address Types", 16, Colors.black),
           ),
         ),
       ],
     );
   }
 
-  TextFormField getAddressText( String hint,TextEditingController fullNameController, String str_Error,int i,TextInputType name) {
+  TextFormField getAddressText(
+      String hint,
+      TextEditingController fullNameController,
+      String str_Error,
+      int i,
+      TextInputType name) {
     return TextFormField(
         keyboardType: name,
         controller: fullNameController,
@@ -654,7 +660,7 @@ class _AddNewAddressState extends State<AddNewAddress>
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16,
-              fontFamily:Ember,
+              fontFamily: Ember,
             ),
           ),
           items: _listCity.map<DropdownMenuItem<getCityByStateData>>(
@@ -684,14 +690,14 @@ class _AddNewAddressState extends State<AddNewAddress>
     );
   }
 
-DropdownButtonHideUnderline addressStateDropDown() {
+  DropdownButtonHideUnderline addressStateDropDown() {
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField(
         decoration: addressText("City"),
         style: TextStyle(
           fontSize: 16,
           color: Color.fromARGB(255, 10, 8, 8),
-          fontFamily:  Ember,
+          fontFamily: Ember,
         ),
         hint: Text(
           "Select Bank",
@@ -707,13 +713,13 @@ DropdownButtonHideUnderline addressStateDropDown() {
         onChanged: (dynamic newValue) {
           setState(() {
             str_State = newValue.toString();
-            for(int i=0; i<_listState.length; i++){
-                if(_listState[i].stateName == str_State){
-                     int_SelectedState = _listState[i].stateId;
-                    getCityByState(int_SelectedState);
-                    str_City = "City";
-                    break;
-                }
+            for (int i = 0; i < _listState.length; i++) {
+              if (_listState[i].stateName == str_State) {
+                int_SelectedState = _listState[i].stateId;
+                getCityByState(int_SelectedState);
+                str_City = "City";
+                break;
+              }
             }
           });
         },
@@ -724,8 +730,8 @@ DropdownButtonHideUnderline addressStateDropDown() {
     );
   }
 
-   DropdownButtonHideUnderline addressCityDropDown() {
-     return DropdownButtonHideUnderline(
+  DropdownButtonHideUnderline addressCityDropDown() {
+    return DropdownButtonHideUnderline(
       child: DropdownButtonFormField(
         decoration: addressText("City"),
         style: TextStyle(
@@ -754,7 +760,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
         value: str_City,
       ),
     );
-   }
+  }
 
   DropdownButtonHideUnderline addressTypeDropDown() {
     return DropdownButtonHideUnderline(
@@ -797,7 +803,7 @@ DropdownButtonHideUnderline addressStateDropDown() {
                 if (value.statusCode == 1) {
                   print("Categorylist" + value.message);
                   _listCity = value.data;
-                   filterCity();
+                  filterCity();
                   _getSelectedCity = _listCity[0];
                 } else {
                   showSnakeBar(context, somethingWrong);
@@ -809,34 +815,43 @@ DropdownButtonHideUnderline addressStateDropDown() {
   }
 
   void filterStateList() {
-    for(int i=0; i<_listState.length; i++){
-      _listStatefilter.add(_listState[i].stateName);   
+    for (int i = 0; i < _listState.length; i++) {
+      _listStatefilter.add(_listState[i].stateName);
     }
-     print("Filter"+_listStatefilter.toString());
+    print("Filter" + _listStatefilter.toString());
   }
 
   void filterCity() {
-    for(int i=0; i<_listCity.length; i++){
+    for (int i = 0; i < _listCity.length; i++) {
       _listCityfilter.add(_listCity[i].cityName);
     }
   }
 
   void getAddAddressResponse() {
-      showLoadingDialog(context, _dialogKey, "Please Wait..");
-      Service().getAddNewAddressResponse(_mobileNumberController.text,_fullNameController.text,_flatNumberController.text,_areaController.text,_landmarkController.text,str_City,str_State,_pinCodeController.text, str_AddressType,DeviceId.toString())
+    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Service()
+        .getAddNewAddressResponse(
+            _mobileNumberController.text,
+            _fullNameController.text,
+            _flatNumberController.text,
+            _areaController.text,
+            _landmarkController.text,
+            str_City,
+            str_State,
+            _pinCodeController.text,
+            str_AddressType,
+            DeviceId.toString())
         .then((value) => {
               if (value.toString() == str_ErrorMsg)
                 {
-                 showSnakeBar(context, str_ErrorMsg),
+                  showSnakeBar(context, str_ErrorMsg),
                 }
               else
                 {
-                Navigator.pop(_dialogKey.currentContext!),
-                showSnakeBar(context, "Your Address Added Successfully"),    
-                Navigator.pop(context, true)
+                  Navigator.pop(_dialogKey.currentContext!),
+                  showSnakeBar(context, "Your Address Added Successfully"),
+                  Navigator.pop(context, true)
                 }
             });
   }
-
-
 }
