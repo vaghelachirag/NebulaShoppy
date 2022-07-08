@@ -340,6 +340,7 @@ class _CategoryListState extends State<CategoryList>
         itemBuilder: (context, index) {
           return Center(
               child: Container(
+             color: Colors.blueGrey,
             margin: EdgeInsets.all(0),
             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: CategoryProductWidget(
@@ -365,10 +366,10 @@ class _CategoryListState extends State<CategoryList>
           ));
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 1,
-          childAspectRatio: 8.0 / 11.0,
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
         ),
       )),
     );
