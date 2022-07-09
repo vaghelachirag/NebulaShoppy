@@ -50,11 +50,13 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
   bool isLoading = true;
   final _key = UniqueKey();
   String str_IboKey = "";
+  String string_Date = "";
+  List<String> _orderDate = [];
 
   List<GetEWalletHistoryData> _GetMyEWalletHistory = [];
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
-  
+
   @override
   void initState() {
     super.initState();
@@ -80,9 +82,9 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
         body: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
+            columnSpacing: 10,
             columns: [
-              DataColumn(label:
-               Text('Amount')),
+              DataColumn(label: Text('Amount')),
               DataColumn(label: Text('Transaction')),
               DataColumn(label: Text('Date')),
               DataColumn(label: Text('Remarks'))
@@ -92,12 +94,34 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
                     .map(
               ((element) => DataRow(
                     cells: <DataCell>[
-                      DataCell( Text( rupees_Sybol+ " "+ element.amount
-                          .toString(),style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),)), //Extracting from Map element the value
-                      DataCell(Text(element.transactiontype.toString(),style: TextStyle(  color: element.transactiontype.toString() == "CR"
-                              ? Colors.green
-                              : Colors.red),)),
-                      DataCell(Text(element.createdOn.toString())),
+                      DataCell(Text(
+                        rupees_Sybol + " " + element.amount.toString(),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      )), //Extracting from Map element the value
+                      DataCell(Center(
+                          child: Text(
+                        element.transactiontype.toString(),
+                        style: TextStyle(
+                            color: element.transactiontype.toString() == "CR"
+                                ? Colors.green
+                                : Colors.red,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ))),
+                      DataCell(FutureBuilder(
+                        future: convertDate(element.createdOn.toString()),
+                        builder: (context, snapshot) {
+                          if (_orderDate.isEmpty) {
+                            return Text("");
+                          } else {
+                            return Text(string_Date);
+                          }
+                          ;
+                        },
+                      )),
                       DataCell(Text(element.remark.toString()))
                     ],
                   )),
@@ -134,9 +158,9 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
     showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
           setState((() {
-             if (_dialogKey.currentContext != null) {
-                      Navigator.pop(_dialogKey.currentContext!);
-                }
+            if (_dialogKey.currentContext != null) {
+              Navigator.pop(_dialogKey.currentContext!);
+            }
             if (value.statusCode == 1) {
               _GetMyEWalletHistory = value.data;
             } else {
@@ -166,5 +190,26 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
     str_IboKey = await SharedPref.readString(str_IBO_Id);
     print("IboKeyId" + str_IboKey.toString());
     getMyEWalletHistory();
+  }
+
+  getformatedDate(int orderDate) async {
+    var date =
+        new DateTime.fromMillisecondsSinceEpoch(orderDate * 1000, isUtc: false);
+    var timezone = date.timeZoneName;
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    var dates = formatter.format(date.toUtc()) + "GMT-0";
+    print("OrderDare" + dates.toString());
+    setState(() {
+      string_Date = formatter.format(date);
+      _orderDate.add(string_Date);
+    });
+  }
+
+  convertDate(String str_Date) {
+    DateTime now = DateTime.parse(str_Date);
+    string_Date = DateFormat('dd-MM-yyyy').format(now);
+    setState(() {
+      _orderDate.add(string_Date);
+    });
   }
 }

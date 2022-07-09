@@ -121,8 +121,12 @@ class _AddNewAddressState extends State<AddNewAddress>
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
-              child: getAddressText("Full Name", _fullNameController,
-                  "Please Enter Full Name", 100, TextInputType.name),
+              child: SizedBox(
+                width: 500,
+                height: 45,
+                child: getAddressText("Full Name", _fullNameController,
+                    "Please Enter Full Name", 100, TextInputType.name),
+              ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -168,7 +172,10 @@ class _AddNewAddressState extends State<AddNewAddress>
               } else {
                 return Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: addressStateDropDown());
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: ScreenUtil().setSp(45),
+                        child: addressStateDropDown()));
               }
             }),
             FutureBuilder(builder: (context, snapshot) {
@@ -177,13 +184,19 @@ class _AddNewAddressState extends State<AddNewAddress>
               } else {
                 return Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: addressCityDropDown());
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: ScreenUtil().setSp(45),
+                        child: addressCityDropDown()));
               }
             }),
             addDeliveryInstruction(),
             Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: addressTypeDropDown()),
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: ScreenUtil().setSp(45),
+                    child: addressTypeDropDown())),
             Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(10),
@@ -288,27 +301,26 @@ class _AddNewAddressState extends State<AddNewAddress>
     );
   }
 
-  TextFormField getAddressText(
-      String hint,
-      TextEditingController fullNameController,
-      String str_Error,
-      int i,
-      TextInputType name) {
-    return TextFormField(
-        keyboardType: name,
-        controller: fullNameController,
-        decoration: addressText(hint),
-        onChanged: (value) {
-          // do something
-        },
-        maxLength: i,
-        validator: (email) {
-          if (email!.isEmpty) {
-            return str_Error;
-          } else {
-            return null;
-          }
-        });
+  SizedBox getAddressText(String hint, TextEditingController fullNameController,
+      String str_Error, int i, TextInputType name) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: ScreenUtil().setSp(45),
+        child: TextFormField(
+            keyboardType: name,
+            controller: fullNameController,
+            decoration: addressText(hint),
+            onChanged: (value) {
+              // do something
+            },
+            maxLength: i,
+            validator: (email) {
+              if (email!.isEmpty) {
+                return str_Error;
+              } else {
+                return null;
+              }
+            }));
   }
 
   TextField getDropDownn(String hint) {
