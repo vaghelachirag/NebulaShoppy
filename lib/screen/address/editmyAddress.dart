@@ -11,6 +11,7 @@ import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/mainButton.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../model/getMyAddressResponse/getMyAddressResponse.dart';
@@ -203,19 +204,9 @@ class _EditMyAddressState extends State<EditMyAddress>
             Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(10),
-              child: OutlinedButton(
-                child: Text('Edit Address'),
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.white,
-                  shadowColor: Colors.white,
-                  backgroundColor: Colors.cyan[300],
-                  textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
+              child: MainButtonWidget(
+                buttonText: "Edit Address",
+                onPress: () {
                   if (_formKey.currentState!.validate()) {
                     print("Valid" + "Valid");
                     if (str_State == null ||

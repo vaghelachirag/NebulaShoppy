@@ -135,7 +135,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             child: Padding(
                               padding: EdgeInsets.all(0),
                               child: CircleAvatar(
-                                  backgroundColor: Colors.cyan,
+                                  backgroundColor: buttonColor,
                                   maxRadius: 25,
                                   child: Icon(
                                     CommunityMaterialIcons.heart,
@@ -166,9 +166,9 @@ class _ProductDetailState extends State<ProductDetail> {
                           child: Padding(
                             padding: EdgeInsets.all(0),
                             child: CircleAvatar(
-                                backgroundColor: Colors.cyan,
+                                backgroundColor: buttonColor,
                                 maxRadius: 25,
-                                child: setBoldText("-", 20, Colors.white)
+                                child: setBoldText("-", 20, Colors.black)
                                 // Text(
                                 //   "-",
                                 //   style: TextStyle(
@@ -209,9 +209,9 @@ class _ProductDetailState extends State<ProductDetail> {
                               child: Padding(
                                 padding: EdgeInsets.all(0),
                                 child: CircleAvatar(
-                                    backgroundColor: Colors.cyan,
+                                    backgroundColor: buttonColor,
                                     maxRadius: 25,
-                                    child: setBoldText("+", 20, Colors.white)
+                                    child: setBoldText("+", 20, Colors.black)
                                     // Text(
                                     //   "+",
                                     //   style: TextStyle(

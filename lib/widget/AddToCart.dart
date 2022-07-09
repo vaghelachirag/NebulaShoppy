@@ -29,19 +29,19 @@ class AddToCart extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              print("Cart"+"Removed");
+              print("Cart" + "Removed");
               onItemRemoved();
             },
             child: Container(
               child: Padding(
                 padding: EdgeInsets.all(0),
                 child: CircleAvatar(
-                  backgroundColor: Colors.cyan,
+                  backgroundColor: buttonColor,
                   maxRadius: 15,
                   child: Text(
                     "-",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 10,
                         fontWeight: FontWeight.bold),
                   ),
@@ -72,12 +72,12 @@ class AddToCart extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(0),
                     child: CircleAvatar(
-                      backgroundColor: Colors.cyan,
+                      backgroundColor: buttonColor,
                       maxRadius: 15,
                       child: Text(
                         "+",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 10,
                             fontWeight: FontWeight.normal),
                       ),

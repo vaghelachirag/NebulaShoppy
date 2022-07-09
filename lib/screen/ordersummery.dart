@@ -6,6 +6,7 @@ import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/mainButton.dart';
 import 'package:nebulashoppy/widget/paymentSucessWidget.dart';
 import '../model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,8 +15,7 @@ import '../uttils/sharedpref.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../widget/paymentcancelledwidget.dart';
-import  'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
-
+import 'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
 
 class OrderSummery extends StatefulWidget {
   String str_Title = "";
@@ -28,32 +28,30 @@ class OrderSummery extends StatefulWidget {
   int? int_GrandTotalWallet = 0;
   int? int_ShippingChargeWallet = 0;
   int? int_SubTotalWallet = 0;
-   
-   bool ? is_WalletFreez = false;
-   String is_EwalletOnOff = "0";
-   int? int_E_WalletAmount = 0;
-    int? int_SettleAmount = 0;
-   
+
+  bool? is_WalletFreez = false;
+  String is_EwalletOnOff = "0";
+  int? int_E_WalletAmount = 0;
+  int? int_SettleAmount = 0;
+
   String txnID = "213428847124";
   String firstname = "";
   String phone = "";
   String email = "";
   String productInfo = "";
 
-
-
-  OrderSummery(
-      {required this.str_Title,
-      required this.int_SubTotal,
-      required this.int_ShippingCharge,
-      required this.int_GrandTotal,
-      required this.int_GrandTotalWallet,
-      required this.int_ShippingChargeWallet,
-       required this.int_SubTotalWallet,
-       required this.is_WalletFreez,
-        required this.is_EwalletOnOff,
-         required this.int_E_WalletAmount,
-      });
+  OrderSummery({
+    required this.str_Title,
+    required this.int_SubTotal,
+    required this.int_ShippingCharge,
+    required this.int_GrandTotal,
+    required this.int_GrandTotalWallet,
+    required this.int_ShippingChargeWallet,
+    required this.int_SubTotalWallet,
+    required this.is_WalletFreez,
+    required this.is_EwalletOnOff,
+    required this.int_E_WalletAmount,
+  });
 
   @override
   State<OrderSummery> createState() => _OrderSummeryState();
@@ -68,12 +66,12 @@ class _OrderSummeryState extends State<OrderSummery>
   String str_GrandTotal = "";
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   int? int_TotalItemCount = 0;
-  
+
   // Selected Position selection
   bool selectedPosition = false;
   bool isCheckedEWallet = false;
   bool isShowCheckedEWallet = false;
-  
+
   int? int_Total = 0;
   int? int_SubTotal = 0;
   int? int_ShippingCharge = 0;
@@ -82,7 +80,7 @@ class _OrderSummeryState extends State<OrderSummery>
   void initState() {
     super.initState();
     setState(() {
-      if(widget.is_EwalletOnOff == "1"){
+      if (widget.is_EwalletOnOff == "1") {
         isShowCheckedEWallet = true;
       }
       widget.device_Id = DeviceId.toString();
@@ -113,8 +111,7 @@ class _OrderSummeryState extends State<OrderSummery>
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: appBarWidget(context, 3, widget.str_Title, false)),
-               bottomNavigationBar:
-          Visibility(visible: true, child: bottomBar()),
+        bottomNavigationBar: Visibility(visible: true, child: bottomBar()),
         body: getOrderSummeryData());
 
     // This trailing comma makes auto-formatting nicer for build methods
@@ -180,13 +177,16 @@ class _OrderSummeryState extends State<OrderSummery>
               Card(
                 child: Column(
                   children: [
-                    orderSummeryTitle("Sub Total",
-                       int_SubTotal.toString(), true, "Gray"),
-                    Padding(padding: EdgeInsets.all(0),child: EwalletOption(),), 
+                    orderSummeryTitle(
+                        "Sub Total", int_SubTotal.toString(), true, "Gray"),
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: EwalletOption(),
+                    ),
                     orderSummeryTitle("Shipping Charge",
                         int_ShippingCharge.toString(), true, "Gray"),
-                    orderSummeryTitle("Grand Total",
-                        int_Total.toString(), true, "Black"),
+                    orderSummeryTitle(
+                        "Grand Total", int_Total.toString(), true, "Black"),
                   ],
                 ),
               ),
@@ -198,50 +198,63 @@ class _OrderSummeryState extends State<OrderSummery>
     ]);
   }
 
-Container EwalletOption(){
-  return   Container(
-    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-     child: Visibility(
-      visible: isShowCheckedEWallet,
-      child:  Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                children: [
-                 Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                 value: isCheckedEWallet,
-                 checkColor: Colors.white,
-                 onChanged: (value) {
-                setState(() {
-                  isCheckedEWallet = value!;
-                  print("Checked"+ isCheckedEWallet.toString());
-                  settleWithEWallet();
-                });
-              },
-              ),
-              Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0),child: 
-                    Text("Settle E-Wallet balance" + " "+ "("+ widget.int_E_WalletAmount.toString() +".0" + ")",style: TextStyle(
-                  color: Colors.grey,fontWeight: FontWeight.normal,
-                  fontSize: 12)),
-            )
-            ],),   Row(
-            children: [
-              Text("-"+rupees_Sybol),
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(
-                widget.int_SettleAmount.toString(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      color: Colors.green),
+  Container EwalletOption() {
+    return Container(
+        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+        child: Visibility(
+            visible: isShowCheckedEWallet,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      value: isCheckedEWallet,
+                      checkColor: Colors.white,
+                      onChanged: (value) {
+                        setState(() {
+                          isCheckedEWallet = value!;
+                          print("Checked" + isCheckedEWallet.toString());
+                          settleWithEWallet();
+                        });
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: Text(
+                          "Settle E-Wallet balance" +
+                              " " +
+                              "(" +
+                              widget.int_E_WalletAmount.toString() +
+                              ".0" +
+                              ")",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12)),
+                    )
+                  ],
                 ),
-              )
-            ],
-          )],))
-  );
-}
+                Row(
+                  children: [
+                    Text("-" + rupees_Sybol),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        widget.int_SettleAmount.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                            color: Colors.green),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            )));
+  }
+
   getTotalCountResponse() {
     showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getCartTotal(DeviceId, str_UserId).then((value) => {
@@ -268,19 +281,19 @@ Container EwalletOption(){
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Align(
-            alignment: Alignment.topLeft,
-            child:
-            setRegularText(title, 14,str_color == "Black" ? Colors.black : Colors.grey) 
-            // Text(
-            //   title,
-            //   style: TextStyle(
-            //       color: str_color == "Black" ? Colors.black : Colors.grey,
-            //       fontWeight: str_color == "Black"
-            //           ? FontWeight.bold
-            //           : FontWeight.normal,
-            //       fontSize: 14),
-            // ),
-          ),
+              alignment: Alignment.topLeft,
+              child: setRegularText(
+                  title, 14, str_color == "Black" ? Colors.black : Colors.grey)
+              // Text(
+              //   title,
+              //   style: TextStyle(
+              //       color: str_color == "Black" ? Colors.black : Colors.grey,
+              //       fontWeight: str_color == "Black"
+              //           ? FontWeight.bold
+              //           : FontWeight.normal,
+              //       fontSize: 14),
+              // ),
+              ),
           Row(
             children: [
               Visibility(
@@ -289,9 +302,7 @@ Container EwalletOption(){
               ),
               Align(
                 alignment: Alignment.topRight,
-                child: 
-                setBoldText( detail.toString(), 14, Colors.red)
-                ,
+                child: setBoldText(detail.toString(), 14, Colors.red),
               )
             ],
           ),
@@ -323,55 +334,75 @@ Container EwalletOption(){
               padding: EdgeInsets.all(10),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: 
-                 Text(str_SelectedAddress, style: TextStyle( fontSize: 12, fontFamily: Ember),softWrap: true)
+                child: Text(str_SelectedAddress,
+                    style: TextStyle(fontSize: 12, fontFamily: Ember),
+                    softWrap: true)
                 //setRegularText( str_SelectedAddress, 12, Colors.black)
-              ,
+                ,
               ),
             ),
           ),
         ),
         Padding(
-        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          color: Colors.grey[300],
-          margin: EdgeInsets.all(10),
-          child: 
-          Padding(padding: EdgeInsets.all(10),child:Text("SELECT PAYMENT METHOD",style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),) ,)
-          ,
-        ),),
+          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.grey[300],
+            margin: EdgeInsets.all(10),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                "SELECT PAYMENT METHOD",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
         GestureDetector(
           onTap: () => {
-           setState(() {
-                  this.selectedPosition = true;
-                })
+            setState(() {
+              this.selectedPosition = true;
+            })
           },
-          child:  Padding(
-          padding: EdgeInsets.all(10),child: 
-          Card(         
-         shape: RoundedRectangleBorder(
-         side: BorderSide(color: selectedPosition == true ? Colors.black38 : Colors.white , width: 1),
-         borderRadius: BorderRadius.circular(1.0),
-         ),
-            child: Row(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child:   Image.asset(
-                 'assets/images/upi.webp',
-                 height: 50,
-                width: 50,
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    color: selectedPosition == true
+                        ? Colors.black38
+                        : Colors.white,
+                    width: 1),
+                borderRadius: BorderRadius.circular(1.0),
               ),
+              child: Row(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Image.asset(
+                      'assets/images/upi.webp',
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Text(
+                      "UPI",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: Text("UPI",style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold),),
-              )
-            ],
-          ) ,
-          ),),
-        )  
+            ),
+          ),
+        )
       ],
     );
   }
@@ -380,30 +411,35 @@ Container EwalletOption(){
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 11,
+      height: MediaQuery.of(context).size.height / 10,
       child: Row(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width - 20,
-            child:OutlinedButton(
-      style: OutlinedButton.styleFrom(
-       backgroundColor: THEME_COLOR,
-      ),
-    onPressed: () {
-      if(!selectedPosition){
-        showSnakeBar(context, "Please Select Payment Method!");
-      }
-      else{
-      callOrderApi();   
-      }    
-    },
-    child: const Text(
-    'Confirm Order',
-    style: TextStyle(fontSize: 14,color: Colors.white),
-     ),
-     ),
-          )
-      
+              width: MediaQuery.of(context).size.width - 20,
+              child: MainButtonWidget(
+                buttonText: 'Confirm Order',
+                onPress: () {
+                  if (!selectedPosition) {
+                    showSnakeBar(context, "Please Select Payment Method!");
+                  } else {
+                    callOrderApi();
+                  }
+                },
+              )
+
+              //  OutlinedButton(
+              //   style: OutlinedButton.styleFrom(
+              //     backgroundColor: THEME_COLOR,
+              //   ),
+              //   onPressed: () {
+
+              //   },
+              //   child: const Text(
+              //     'Confirm Order',
+              //     style: TextStyle(fontSize: 14, color: Colors.white),
+              //   ),
+              // ),
+              )
         ],
       ),
     );
@@ -412,122 +448,121 @@ Container EwalletOption(){
   void callOrderApi() {
     showLoadingDialog(context, _dialogKey, "Please Wait..");
 
-        Service().getGenerateOrderPayUResponse(str_UserId,int_Total.toString(),"","","PickUp","1","","","Online%20Payment","true","UPI","0").then((value) => {
-          if (this.mounted)
-            {
-              setState((() {
-               Navigator.pop(_dialogKey.currentContext!);
-               if (value.statusCode == 1) {
-                   widget.txnID = value.data!.orderId.toString(); 
-                   widget.firstname = value.data!.firstname.toString();       
-                   widget.productInfo = value.data!.productinfo.toString();   
-                   widget.email = value.data!.email.toString();      
-                   widget.phone = value.data!.phone.toString();         
-                   print("TransectionId"+  widget.txnID);
-                  initializePayments();
-                } else {
-                  showSnakeBar(context, somethingWrong);
-                  print("Categorylist" + "Opps Something Wrong!");
+    Service()
+        .getGenerateOrderPayUResponse(str_UserId, int_Total.toString(), "", "",
+            "PickUp", "1", "", "", "Online%20Payment", "true", "UPI", "0")
+        .then((value) => {
+              if (this.mounted)
+                {
+                  setState((() {
+                    Navigator.pop(_dialogKey.currentContext!);
+                    if (value.statusCode == 1) {
+                      widget.txnID = value.data!.orderId.toString();
+                      widget.firstname = value.data!.firstname.toString();
+                      widget.productInfo = value.data!.productinfo.toString();
+                      widget.email = value.data!.email.toString();
+                      widget.phone = value.data!.phone.toString();
+                      print("TransectionId" + widget.txnID);
+                      initializePayments();
+                    } else {
+                      showSnakeBar(context, somethingWrong);
+                      print("Categorylist" + "Opps Something Wrong!");
+                    }
+                  }))
                 }
-              }))
-            }
-        });
+            });
   }
 
-  Future<void> initializePayments() async { 
-   final response= await  PayumoneyProUnofficial.payUParams(
-    email: widget.email,
-    firstName: widget.firstname, 
-    merchantName: 'Nebula',
-    isProduction: true,
-    merchantKey: MerchantKey,
-    merchantSalt: MerchantSalt,
-    amount: int_Total.toString(),
-    hashUrl:'<Checksum URL to generate dynamic hashes>',
-    productInfo: widget.productInfo,
-    transactionId: widget.txnID,
-    showExitConfirmation:true,
-    showLogs:false, // true for debugging, false for production
-    userCredentials: MerchantKey +":" + widget.email,
-    userPhoneNumber: widget.phone);
+  Future<void> initializePayments() async {
+    final response = await PayumoneyProUnofficial.payUParams(
+        email: widget.email,
+        firstName: widget.firstname,
+        merchantName: 'Nebula',
+        isProduction: true,
+        merchantKey: MerchantKey,
+        merchantSalt: MerchantSalt,
+        amount: int_Total.toString(),
+        hashUrl: '<Checksum URL to generate dynamic hashes>',
+        productInfo: widget.productInfo,
+        transactionId: widget.txnID,
+        showExitConfirmation: true,
+        showLogs: false, // true for debugging, false for production
+        userCredentials: MerchantKey + ":" + widget.email,
+        userPhoneNumber: widget.phone);
 
-   if(response['status'] == PayUParams.success){
-    handlePaymentSuccess();
-   }
-
-   if (response['status'] == PayUParams.failed){
-    handlePaymentFailure(response['message']);
-   }
-  
-   }
-
-
-   handlePaymentSuccess(){
-    showSucessDialoug( "Payment Successful.","");   
-   }
-
-  handlePaymentFailure(String errorMessage){
-    if(errorMessage == 'Payment canceled'){
-     
-      showAlertDialoug( "Payment Cancelled.","If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");   
+    if (response['status'] == PayUParams.success) {
+      handlePaymentSuccess();
     }
-    else{
-       showAlertDialoug( "Payment Cancelled.",errorMessage);   
-    } 
-   }
+
+    if (response['status'] == PayUParams.failed) {
+      handlePaymentFailure(response['message']);
+    }
+  }
+
+  handlePaymentSuccess() {
+    showSucessDialoug("Payment Successful.", "");
+  }
+
+  handlePaymentFailure(String errorMessage) {
+    if (errorMessage == 'Payment canceled') {
+      showAlertDialoug("Payment Cancelled.",
+          "If the amount was debited, kindly wait for 8 hours until we verify and update your payment.");
+    } else {
+      showAlertDialoug("Payment Cancelled.", errorMessage);
+    }
+  }
 
   void showAlertDialoug(String str_Title, String str_Message) {
-   showDialog(
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return PaymentCancelledWidget(
-            title:str_Title,
-            description:
-             str_Message, onClickClicked: () { 
-                  print("OnClick"+"onClick");
-                    Navigator.pop(context);
-                 },
-          );
-        },
-      );
+    showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return PaymentCancelledWidget(
+          title: str_Title,
+          description: str_Message,
+          onClickClicked: () {
+            print("OnClick" + "onClick");
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
   }
 
   void showSucessDialoug(String str_Title, String str_Message) {
-     showDialog(
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return PaymentSucessWidget(
-            title:str_Title,
-            description:
-             str_Message, onClickClicked: () { 
-                  print("OnClick"+"onClick");
-                    Navigator.pop(context);
-                 },
-          );
-        },
-      );
+    showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return PaymentSucessWidget(
+          title: str_Title,
+          description: str_Message,
+          onClickClicked: () {
+            print("OnClick" + "onClick");
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
   }
 
   void settleWithEWallet() {
-    if(isCheckedEWallet){
-       setState(() {
-         int_Total = widget.int_GrandTotalWallet;
-         int_ShippingCharge = widget.int_ShippingChargeWallet;
-         int_SubTotal = widget.int_SubTotalWallet;
-         widget.int_SettleAmount = widget.int_E_WalletAmount;
-         print("Wallet"+ int_Total.toString());
-       });
-    }
-    else{
-        setState(() {
-         int_Total = widget.int_GrandTotal;
-         int_ShippingCharge = widget.int_ShippingCharge;
-         int_SubTotal = widget.int_SubTotal;
-         widget.int_SettleAmount = 0;
-         print("Wallet"+ int_Total.toString());
-       });
+    if (isCheckedEWallet) {
+      setState(() {
+        int_Total = widget.int_GrandTotalWallet;
+        int_ShippingCharge = widget.int_ShippingChargeWallet;
+        int_SubTotal = widget.int_SubTotalWallet;
+        widget.int_SettleAmount = widget.int_E_WalletAmount;
+        print("Wallet" + int_Total.toString());
+      });
+    } else {
+      setState(() {
+        int_Total = widget.int_GrandTotal;
+        int_ShippingCharge = widget.int_ShippingCharge;
+        int_SubTotal = widget.int_SubTotal;
+        widget.int_SettleAmount = 0;
+        print("Wallet" + int_Total.toString());
+      });
     }
   }
 
@@ -536,5 +571,4 @@ Container EwalletOption(){
     int_SubTotal = widget.int_SubTotal;
     int_ShippingCharge = widget.int_ShippingCharge;
   }
-   
 }

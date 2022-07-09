@@ -31,16 +31,17 @@ class MainButtonWidget extends StatelessWidget {
         child: Text(
           buttonText,
           style: TextStyle(
-              fontSize: 14, fontFamily: EmberBold, color: Colors.white),
+              fontSize: 14, fontFamily: EmberBold, color: Colors.black),
         ),
         onPressed: () {
           onPress();
         },
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(0.0),
           ),
-          side: BorderSide(width: 3.0, color: Colors.white),
+          backgroundColor: buttonColor,
+          side: BorderSide(width: 1, color: buttonBorderCOlor),
         ));
   }
 }

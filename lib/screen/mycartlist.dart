@@ -24,6 +24,7 @@ import '../model/product.dart';
 import '../network/service.dart';
 import '../uttils/constant.dart';
 import '../widget/common_widget.dart';
+import '../widget/mainButton.dart';
 import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -129,8 +130,7 @@ class _MyCartListState extends State<MyCartList> {
                         Container(
                           padding: EdgeInsets.all(10),
                           width: MediaQuery.of(context).size.width,
-                          child:
-                          setBoldText("Order Detail", 16, Colors.grey),
+                          child: setBoldText("Order Detail", 16, Colors.grey),
                           //  Text(
                           //   "Order Detail",
                           //   style: TextStyle(color: Colors.grey, fontSize: 16),
@@ -145,10 +145,15 @@ class _MyCartListState extends State<MyCartList> {
                             "SubTotal", getCartItemData?.subTotal.toString()),
                         getMycartDetail("Shipping Charges",
                             getCartItemData?.shippingCharge.toString()),
-                        Padding(padding: EdgeInsets.only(top: 10),child:divider(context),),
-                        Padding(padding: EdgeInsets.only(bottom: 10),child:  getMycartDetail("Grand Total",
-                            getCartItemData?.grandTotal.toString()),)
-                       ,
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: divider(context),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: getMycartDetail("Grand Total",
+                              getCartItemData?.grandTotal.toString()),
+                        ),
                       ],
                     ),
                   );
@@ -167,16 +172,18 @@ class _MyCartListState extends State<MyCartList> {
                       child: Column(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width,
-                            child: 
-                            setRegularText("Pv and NV generated on this order", 16, Colors.black)
-                            // Text(
-                            //   "Pv and NV generated on this order",
-                            //   style:
-                            //       TextStyle(color: Colors.black, fontSize: 16),
-                            // ),
-                          ),
+                              padding: EdgeInsets.all(10),
+                              width: MediaQuery.of(context).size.width,
+                              child: setRegularText(
+                                  "Pv and NV generated on this order",
+                                  16,
+                                  Colors.black)
+                              // Text(
+                              //   "Pv and NV generated on this order",
+                              //   style:
+                              //       TextStyle(color: Colors.black, fontSize: 16),
+                              // ),
+                              ),
                           divider(context),
                           getPVNVDetail(
                               "PV", getCartItemData?.totalPv.toString()),
@@ -209,16 +216,20 @@ class _MyCartListState extends State<MyCartList> {
                 onPressed: () {},
                 icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
                 color: Colors.black),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 100,
-                  child: Text(str_SelectedAddress, maxLines: 2, style: TextStyle( fontSize: 12, fontFamily: Ember),softWrap: true),)
-                ,
-               //setBoldText(str_SelectedAddress, 12, Colors.black),
-               IconButton(
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 100,
+              child: Text(str_SelectedAddress,
+                  maxLines: 2,
+                  style: TextStyle(fontSize: 12, fontFamily: Ember),
+                  softWrap: true),
+            ),
+            //setBoldText(str_SelectedAddress, 12, Colors.black),
+            IconButton(
                 onPressed: () {
                   onLocationPressed();
                 },
-                icon:  Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
+                icon:
+                    Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
                 color: Colors.black)
           ],
         ),
@@ -233,26 +244,25 @@ class _MyCartListState extends State<MyCartList> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Align(
-            alignment: Alignment.topLeft,
-            child: 
-            setBoldText(title, 14, Colors.black)
-            // Text(
-            //   title,
-            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            // ),
-          ),
+              alignment: Alignment.topLeft,
+              child: setBoldText(title, 14, Colors.black)
+              // Text(
+              //   title,
+              //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              // ),
+              ),
           Align(
-            alignment: Alignment.topRight,
-            child: 
-            setRegularText( rupees_Sybol + detail.toString(), 14, Colors.red)
-            // Text(
-            //   rupees_Sybol + detail.toString(),
-            //   style: TextStyle(
-            //       fontWeight: FontWeight.normal,
-            //       fontSize: 14,
-            //       color: Colors.red),
-            // ),
-          )
+              alignment: Alignment.topRight,
+              child: setRegularText(
+                  rupees_Sybol + detail.toString(), 14, Colors.red)
+              // Text(
+              //   rupees_Sybol + detail.toString(),
+              //   style: TextStyle(
+              //       fontWeight: FontWeight.normal,
+              //       fontSize: 14,
+              //       color: Colors.red),
+              // ),
+              )
         ],
       ),
     );
@@ -265,26 +275,24 @@ class _MyCartListState extends State<MyCartList> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Align(
-            alignment: Alignment.topLeft,
-            child: 
-            setBoldText(title, 14, Colors.black)
-            // Text(
-            //   title,
-            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            // ),
-          ),
+              alignment: Alignment.topLeft,
+              child: setBoldText(title, 14, Colors.black)
+              // Text(
+              //   title,
+              //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              // ),
+              ),
           Align(
-            alignment: Alignment.topRight,
-            child: 
-            setBoldText(detail!, 14, Colors.blue)
-            // Text(
-            //   detail!,
-            //   style: const TextStyle(
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 14,
-            //       color: Colors.blue),
-            // ),
-          )
+              alignment: Alignment.topRight,
+              child: setBoldText(detail!, 14, Colors.blue)
+              // Text(
+              //   detail!,
+              //   style: const TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 14,
+              //       color: Colors.blue),
+              // ),
+              )
         ],
       ),
     );
@@ -482,29 +490,17 @@ class _MyCartListState extends State<MyCartList> {
                 //       fontWeight: FontWeight.bold,
                 //       fontSize: 16),
                 // ),
-                setBoldText( rupees_Sybol + str_GrandTotal, 16, Colors.black)
-                
+                setBoldText(rupees_Sybol + str_GrandTotal, 16, Colors.black)
               ],
             ),
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: OutlinedButton(
-              child: Text('Checkout'),
-              style: OutlinedButton.styleFrom(
-                primary: Colors.black,
-                shadowColor: Colors.black,
-                backgroundColor: Colors.yellow[200],
-                textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                openCheckoutDialoug();
-              },
-            ),
+            child: MainButtonWidget(
+                onPress: () {
+                  openCheckoutDialoug();
+                },
+                buttonText: "Checkout"),
           )
         ],
       ),
@@ -606,7 +602,7 @@ class _MyCartListState extends State<MyCartList> {
   void onLocationPressed() {
     showModalBottomSheet(
         context: context,
-         isScrollControlled: true,
+        isScrollControlled: true,
         builder: (builder) {
           return new Container(
             height: MediaQuery.of(context).size.height - 200,
@@ -620,11 +616,13 @@ class _MyCartListState extends State<MyCartList> {
                       topRight: const Radius.circular(10.0))),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: GETMYADDRESSDIALOUG(onAddressSelection: () {
-                  setState(() {
-                    str_SelectedAddress = str_SelectedAddress;
-                  });
-                },),
+                child: GETMYADDRESSDIALOUG(
+                  onAddressSelection: () {
+                    setState(() {
+                      str_SelectedAddress = str_SelectedAddress;
+                    });
+                  },
+                ),
               ),
             ),
           );
@@ -741,7 +739,6 @@ class _MyCartListState extends State<MyCartList> {
               int_E_WalletAmount: getCartItemData?.ewalletAmount,
               is_EwalletOnOff: getCartItemData?.isEwalletOnOff,
               is_WalletFreez: getCartItemData?.isEwalletfreeze,
-              
             ),
           ));
     }

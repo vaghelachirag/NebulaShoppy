@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/myorder/myorderdetail.dart';
+import 'package:nebulashoppy/widget/mainButton.dart';
 import 'package:nebulashoppy/widget/star_rating.dart';
 
 import '../model/getmyorderresponse/setmyorder.dart';
@@ -25,10 +26,8 @@ class MyOrderWiget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    
 
     double rectWidth = MediaQuery.of(context).size.width;
- 
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
     double multiplier = 25;
@@ -46,7 +45,13 @@ class MyOrderWiget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
-                    children: <Widget>[_productImage(), _productDetails(context)],
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child: _productImage(),
+                      ),
+                      _productDetails(context)
+                    ],
                   ),
                 ),
               ),
@@ -55,7 +60,7 @@ class MyOrderWiget extends StatelessWidget {
         ],
       ),
       onTap: () {
-        print("OnTap"+"OnTap" + product.data.orderDetails!.length.toString());
+        print("OnTap" + "OnTap" + product.data.orderDetails!.length.toString());
       },
     );
   }
@@ -66,67 +71,104 @@ class MyOrderWiget extends StatelessWidget {
         ClipPath(
           clipper: ProductImageContainerClipper(),
           child: Container(
-            width: 100,
+            width: 80,
             height: 70,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topCenter,
+                    begin: Alignment.topLeft,
                     end: Alignment.bottomCenter,
                     colors: gradientColors)),
           ),
         ),
-        Center(
-            child: Container(
-          width: 100,
+        Container(
+          width: 80,
           height: 80,
-          child:   Image.asset('assets/images/order_image.png',fit: BoxFit.contain,),
-        ))
+          child: Image.asset(
+            'assets/images/order_image.png',
+            fit: BoxFit.contain,
+          ),
+        )
       ],
     );
   }
 
   _productDetails(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 10),
+        padding: EdgeInsets.only(left: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            setBoldText(product.ordernumber.toString(), 16, Colors.black),
-            // Text(         
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child:
+                  setBoldText(product.ordernumber.toString(), 16, Colors.black),
+            ),
+            // Text(
             //   product.ordernumber.toString(),
             //   maxLines: 1,
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
-            setRegularText( product.date.toString(), 12, Colors.black),
-        //     Text(
-        // product.date.toString(),
-        //       maxLines: 1,
-        //       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
-        //     ), 
+            Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: setRegularText(product.date.toString(), 12, Colors.black),
+            ),
+            //     Text(
+            // product.date.toString(),
+            //       maxLines: 1,
+            //       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+            //     ),
             Container(
-              width: MediaQuery.of(context).size.width /2 ,
-              child:  ElevatedButton(
-                    // style: elevatedButtonStyle(),
-                    style: buttonShapeOrderDetail(),
-                    onPressed: () async {
-                       Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,  billingAddress: product.billingAddress, mobileNumber: product.mobileNumber, subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,billingAddressUser: product.orderbillingAddressUser,shippingAddressUser: product.ordershippingAddressUser,orderDetails: product.data.orderDetails,status: product.data.status.toString(), ),
-                ),
-              );
-                    },
-                    child: const Text(
-                      'View Order',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ) ,
-            )
-                     
+                padding: EdgeInsets.only(top: 5),
+                width: MediaQuery.of(context).size.width / 2,
+                child: MainButtonWidget(
+                  buttonText: "View Order",
+                  onPress: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            child: MyOrderDetail(
+                                ordernumber: product.ordernumber,
+                                shippingAddress: product.shippingAddress,
+                                billingAddress: product.billingAddress,
+                                mobileNumber: product.mobileNumber,
+                                subTotal: product.subTotal,
+                                shippingCharge:
+                                    product.shippingCharge.toString(),
+                                grandTotal: product.grandTotal.toString(),
+                                shippingTransectionId:
+                                    product.shippingTransectionId,
+                                isPickupPoint: product.isPickup,
+                                billingAddressUser:
+                                    product.orderbillingAddressUser,
+                                shippingAddressUser:
+                                    product.ordershippingAddressUser,
+                                orderDetails: product.data.orderDetails,
+                                status: product.data.status.toString())));
+                  },
+                )
+
+                //  ElevatedButton(
+                //       // style: elevatedButtonStyle(),
+                //       style: buttonShapeOrderDetail(),
+                //       onPressed: () async {
+                //          Navigator.push(
+                //   context,
+                //   PageTransition(
+                //     type: PageTransitionType.fade,
+                //     child: MyOrderDetail(ordernumber: product.ordernumber,shippingAddress: product.shippingAddress,  billingAddress: product.billingAddress, mobileNumber: product.mobileNumber, subTotal: product.subTotal,shippingCharge: product.shippingCharge.toString(),grandTotal:product.grandTotal.toString(),shippingTransectionId: product.shippingTransectionId,isPickupPoint: product.isPickup,billingAddressUser: product.orderbillingAddressUser,shippingAddressUser: product.ordershippingAddressUser,orderDetails: product.data.orderDetails,status: product.data.status.toString(), ),
+                //   ),
+                // );
+                //       },
+                //       child: const Text(
+                //         'View Order',
+                //         style: TextStyle(
+                //           fontSize: 18,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //     ) ,
+                )
           ],
         ));
   }

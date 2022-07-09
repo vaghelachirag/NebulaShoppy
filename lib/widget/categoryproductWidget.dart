@@ -47,7 +47,10 @@ class CategoryProductWidget extends StatelessWidget {
                           if (product.remainingQuantity != null) Spacer()
                         ],
                       ),
-                      Padding(padding: EdgeInsets.all(5),child:  _productImage(context),),
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child: _productImage(context),
+                      ),
                       _productDetails(),
                       setProductDetails()
                       //  Container(
@@ -59,7 +62,6 @@ class CategoryProductWidget extends StatelessWidget {
                       //     },
                       //   ),
                       // ),
-                      
                     ],
                   ),
                 ),
@@ -121,14 +123,17 @@ class CategoryProductWidget extends StatelessWidget {
 
   _productDetails() {
     return Padding(
-      padding: EdgeInsets.only(left: 8,right: 8),
+      padding: EdgeInsets.only(left: 8, right: 8),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             //setTextData(product.company, 16),
             setBoldText(product.company, 16, Colors.black),
             //setRegularText(product.name, 12, Colors.black),
-            Padding(padding: EdgeInsets.only(top: 3),child:setRegularText(product.name, 12,Colors.black),),
+            Padding(
+              padding: EdgeInsets.only(top: 3),
+              child: setRegularText(product.name, 12, Colors.black),
+            ),
             // Row(
             //   children: <Widget>[
             //     setBoldText(rupees_Sybol + product.price, 16,Colors.red),
@@ -153,69 +158,71 @@ class CategoryProductWidget extends StatelessWidget {
 
   setProductDetails() {
     return Flexible(
-        flex: 1, child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child:  setProductPrice(product),
-                    )
-                   ,
-                    Container(
-                        padding: EdgeInsets.all(5),
-                        child: GestureDetector(
-                           child: addtoCart(),
-                           onTap: (){
-                             onCartAddClick();
-                           },
-                         ),
-                       ),
-                  ],
-                ));
+        flex: 1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: setProductPrice(product),
+            ),
+            Container(
+              padding: EdgeInsets.all(5),
+              child: GestureDetector(
+                child: addtoCart(),
+                onTap: () {
+                  onCartAddClick();
+                },
+              ),
+            ),
+          ],
+        ));
   }
 }
-Column setProductPrice(Product product){
+
+Column setProductPrice(Product product) {
   return Column(
     children: [
-         Container(
-         padding: EdgeInsets.only(left: 8,top: 10,right: 8),
-                      child: Flexible(
-                      flex: 5,
-                      child: setBoldText(rupees_Sybol + product.price, 14,Colors.red),),),
-                      Flexible(
-                      flex: 5,
-                      child:  Text(
-                  rupees_Sybol + product.mrp,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 10,
-                      fontFamily: Ember,
-                      decoration: TextDecoration.lineThrough),
-                  ),)
+      Container(
+        padding: EdgeInsets.only(left: 8, top: 10, right: 8),
+        child: Flexible(
+          flex: 5,
+          child: setBoldText(rupees_Sybol + product.price, 14, Colors.red),
+        ),
+      ),
+      Flexible(
+        flex: 5,
+        child: Text(
+          rupees_Sybol + product.mrp,
+          style: TextStyle(
+              color: Colors.grey,
+              fontSize: 10,
+              fontFamily: Ember,
+              decoration: TextDecoration.lineThrough),
+        ),
+      )
     ],
   );
 }
+
 Container addtoCart() {
   return Container(
-    decoration:  BoxDecoration(
-    border: Border.all(
-      color: THEME_COLOR,
-    ),
-    color:  THEME_COLOR,
-    borderRadius: BorderRadius.all(Radius.circular(5))
-  ),
-    child:  
-     
-    Container(
-        padding: EdgeInsets.fromLTRB(10, 5, 8, 5),
-        child: Text(
-          'ADD',
-           style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.bold),
+    decoration: BoxDecoration(
+        border: Border.all(
+          color: buttonBorderCOlor,
         ),
+        color: buttonColor,
+        borderRadius: BorderRadius.all(Radius.circular(5))),
+    child: Container(
+      padding: EdgeInsets.fromLTRB(10, 5, 8, 5),
+      child: Text(
+        'ADD',
+        style: TextStyle(
+            color: Colors.black,
+            fontSize: 12,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold),
+      ),
     ),
   );
 }
@@ -284,9 +291,7 @@ showAlertDialog(BuildContext context, String icon) {
 Container setTextData(String text, double i) {
   return Container(
       padding: EdgeInsets.only(left: 2),
-      child: 
-      
-      Text(
+      child: Text(
         text,
         maxLines: 1,
         style: TextStyle(fontSize: i, fontWeight: FontWeight.normal),

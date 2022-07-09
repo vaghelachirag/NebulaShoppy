@@ -117,30 +117,37 @@ class TrendingItem extends StatelessWidget {
         //   maxLines: 1,
         //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         // ),
-        setBoldText(product.company, 14, Colors.black),
+        Padding(
+            padding: EdgeInsets.only(top: 3),
+            child: setBoldText(product.company, 14, Colors.black)),
         // setRegularText( product.name, 12, Colors.black, FontWeight.normal),
-        Text(
-          product.name,
-          maxLines: 1,
-          style: TextStyle(
-              fontWeight: FontWeight.normal, fontSize: 10, fontFamily: Ember),
+        Padding(
+          padding: EdgeInsets.only(top: 3),
+          child: Text(
+            product.name,
+            maxLines: 1,
+            style: TextStyle(
+                fontWeight: FontWeight.normal, fontSize: 10, fontFamily: Ember),
+          ),
         ),
-        StarRating(rating: product.rating, size: 12),
-        Row(
-          children: <Widget>[
-            setBoldText(product.price, 12, Colors.red),
-            Padding(
-                padding: EdgeInsets.only(left: 3),
-                child: Text(
-                  product.mrp,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 10,
-                      fontFamily: EmberItalic,
-                      decoration: TextDecoration.lineThrough),
-                ))
-          ],
-        )
+        // StarRating(rating: product.rating, size: 12),
+        Padding(
+            padding: EdgeInsets.only(top: 3),
+            child: Row(
+              children: <Widget>[
+                setBoldText(product.price, 12, Colors.red),
+                Padding(
+                    padding: EdgeInsets.only(left: 3),
+                    child: Text(
+                      product.mrp,
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 10,
+                          fontFamily: EmberItalic,
+                          decoration: TextDecoration.lineThrough),
+                    ))
+              ],
+            ))
       ],
     );
   }

@@ -140,7 +140,7 @@ const THEME_COLOR = Colors.cyan;
 const kPurpleColor = Color(0xFFB97DFE);
 const kRedColor = Color(0xFFFE4067);
 const kGreenColor = Color(0xFFADE9E3);
-const buttonColor = Color(0XFFf1c760);
+const buttonColor = Color(0XFFf0c350);
 const buttonBorderCOlor = Color(0XFF7e6a37);
 
 // Font Family
@@ -202,6 +202,7 @@ Text setBoldText(String text, int size, Color black) {
     maxLines: 1,
     style: TextStyle(
         fontFamily: EmberBold,
+        fontWeight: FontWeight.bold,
         fontSize: ScreenUtil().setSp(size),
         color: black),
     textAlign: TextAlign.start,
