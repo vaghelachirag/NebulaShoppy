@@ -66,7 +66,7 @@ class itemNewLaunchedProduct {
     this.sku,
     this.comboId,
     this.mrp,
-    this.salePrice,
+    required this.salePrice,
     this.distributorPrice,
     this.saving,
     this.savingString,
@@ -114,7 +114,7 @@ class itemNewLaunchedProduct {
   String? sku;
   int? comboId;
   double? mrp;
-  double? salePrice;
+  double salePrice;
   double? distributorPrice;
   double? saving;
   SavingString? savingString;

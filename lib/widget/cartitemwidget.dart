@@ -42,41 +42,61 @@ class CartItemWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
+            padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
-              child: Card(
+            child: Card(
                 elevation: 0,
                 color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          _productImage(context),
-                          _productDetails(context),
-                          Container(
-                            alignment: Alignment.topRight,
-                            width: MediaQuery.of(context).size.width / 6,
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                  onPressed: () {
-                                    print("Delete" + "Delete");
-                                    onItemRemovedClick(product.productid);
-                                  },
-                                  icon: Icon(CommunityMaterialIcons.delete)),
-                            ),
-                          )
-                        ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 0.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  _productImage(context),
+                                  _productDetails(context),
+                                  // Container(
+                                  //   alignment: Alignment.topRight,
+                                  //   width: MediaQuery.of(context).size.width / 6,
+                                  //   child: Align(
+                                  //     alignment: Alignment.topRight,
+                                  //     child: IconButton(
+                                  //         onPressed: () {
+                                  //           print("Delete" + "Delete");
+                                  //           onItemRemovedClick(product.productid);
+                                  //         },
+                                  //         icon: Icon(CommunityMaterialIcons.delete)),
+                                  //   ),
+                                  // )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                    ),
+                    Container(
+                      alignment: Alignment.topRight,
+                      width: MediaQuery.of(context).size.width / 6,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                            onPressed: () {
+                              print("Delete" + "Delete");
+                              onItemRemovedClick(product.productid);
+                            },
+                            icon: Icon(CommunityMaterialIcons.delete)),
+                      ),
+                    )
+                  ],
+                )),
           ),
         ],
       ),
@@ -141,12 +161,10 @@ class CartItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     setBoldText(product.name, 16, Colors.black),
-                   // setTextData(product.name, 16),
+                    // setTextData(product.name, 16),
                     Padding(
-                        padding: EdgeInsets.only(top: 5),                      
-                        child:
-                          setRegularText(product.desc, 12, Colors.black) 
-                      ),
+                        padding: EdgeInsets.only(top: 5),
+                        child: setRegularText(product.desc, 12, Colors.green)),
                     Padding(
                         padding: EdgeInsets.only(top: 5),
                         child: setProductPrice(product)),
@@ -163,7 +181,7 @@ class CartItemWidget extends StatelessWidget {
                               onCartAddClick();
                             },
                             onItemRemoved: () {
-                                print("Cart"+"Removed inner");
+                              print("Cart" + "Removed inner");
                               onCartRemovedClick();
                             },
                             onCountChanged: (int) {},
@@ -248,7 +266,7 @@ Container setTextData(String text, double i) {
 Row setProductPrice(SetCartItem product) {
   return Row(
     children: <Widget>[
-      setBoldText(rupees_Sybol + " " + product.price, 16, Colors.red) 
+      setBoldText(rupees_Sybol + " " + product.price, 16, Colors.red)
     ],
   );
 }
@@ -264,9 +282,7 @@ Row setPvNv(SetCartItem product) {
       // ),
       Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-        child: 
-         setRegularText(product.pv, 12, Colors.black)
-        ,
+        child: setRegularText(product.pv, 12, Colors.black),
       ),
       setBoldText("NV", 14, Colors.black),
       // Text(
@@ -274,22 +290,22 @@ Row setPvNv(SetCartItem product) {
       //   style: TextStyle(
       //       fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
       // ),
-     
+
+      Padding(
+        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: setRegularText(product.nv, 12, Colors.black),
+      ),
+      setBoldText("BV", 14, Colors.black),
       Padding(
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child:  setRegularText(product.nv, 12, Colors.black),),
-          setBoldText("BV", 14, Colors.black),
-      Padding(
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: 
-          setRegularText(product.bv + "%", 12, Colors.black))
-          // Text(
-          //   product.bv + "%",
-          //   style: TextStyle(
-          //       fontSize: 12,
-          //       fontWeight: FontWeight.normal,
-          //       color: Colors.black),
-          // ))
+          child: setRegularText(product.bv + "%", 12, Colors.black))
+      // Text(
+      //   product.bv + "%",
+      //   style: TextStyle(
+      //       fontSize: 12,
+      //       fontWeight: FontWeight.normal,
+      //       color: Colors.black),
+      // ))
     ],
   );
 }

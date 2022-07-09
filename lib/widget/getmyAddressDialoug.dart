@@ -150,69 +150,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: cityList(),
                 )),
-            //         FutureBuilder(
-            //           builder: (context, snapshot) {
-            //            if(_listMyAddressList.isEmpty){
-            //             return Text("");
-            //            }
-            //            else{
-            //             return ListView.builder(
-
-            //                   shrinkWrap: true,
-            //                   physics: const NeverScrollableScrollPhysics(),
-            //                   itemCount: _listMyAddressList.length,
-            //                   itemBuilder: (context, index) {
-            //                     return GestureDetector(  onTap: () {
-            //       setState(() {
-            //             Navigator.pop(context);
-            //       });
-            //      },
-            //     child:  Container(
-            //       color: Colors.black,
-            //       width: 200,
-            //      child: Padding(
-            //       padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
-            //       child: Column(
-            //         children: [
-            //          Card(margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-            //                         elevation: 5,
-            //                         shape: RoundedRectangleBorder(
-            //                           borderRadius: BorderRadius.circular(10),
-            //                         ),
-            //                         child: Container(
-            //                           margin: EdgeInsets.all(0),
-            //                           padding: EdgeInsets.all(0),
-            //                           child: Column(
-            //                             children: [
-            //                               Padding(
-            //                                 padding: EdgeInsets.all(10),
-            //                                 child: Align(
-            //                                   alignment: Alignment.topLeft,
-            //                                   child: Flexible(//newly added
-            //                               child: Container(
-            //                               padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-            //                               child: Text(
-            //                              _listMyAddressList[index].fullName.toString(),
-            //                              style: TextStyle(
-            //                               fontFamily: EmberBold
-            //                              ),
-            //                               softWrap: true
-            //                               ),
-            //                               )
-            //                                ),
-            //                                 ),
-            //                               ),
-            //                             ],
-            //                           ),
-            //                         ))
-            //         ],
-            //       )),
-            // ));
-
-            //                   },
-            //                 );
-            //            }
-            //         },)
+            getMyDeliveryAddress()
           ],
         ),
       ),
@@ -450,5 +388,90 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
       isHyderabadShow = true;
       isChennaiShow = true;
     }
+  }
+
+  FutureBuilder getMyDeliveryAddress() {
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listMyAddressList.isEmpty) {
+          return Text("");
+        } else {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _listMyAddressList.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Container(
+                    width: 150,
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                        child: Column(
+                          children: [
+                            Card(
+                                margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Container(
+                                  margin: EdgeInsets.all(0),
+                                  padding: EdgeInsets.all(0),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Flexible(
+                                              //newly added
+                                              child: Container(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0.0, 0.0, 0.0, 15.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(getPickupAddress(
+                                                    _listMyAddressList[index])),
+                                              ],
+                                            ),
+                                          )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        )),
+                  ));
+            },
+          );
+        }
+      },
+    );
+  }
+
+  String getPickupAddress(GetMyAddressData getMyAddressData) {
+    String str_Address = getMyAddressData.fullName.toString() +
+        "\n" +
+        getMyAddressData.addressLine1.toString() +
+        " , " +
+        getMyAddressData.addressLine2.toString() +
+        " , " +
+        getMyAddressData.city.toString() +
+        " , " +
+        getMyAddressData.state.toString() +
+        "," +
+        "(" +
+        getMyAddressData.mobileNo.toString() +
+        ")";
+    print("Address" + str_Address);
+    return str_Address;
   }
 }

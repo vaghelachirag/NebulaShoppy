@@ -150,6 +150,8 @@ class _CategoryListState extends State<CategoryList>
             if (value.statusCode == 1) {
               // print("Categorylist" + value.statusCode.toString());
               _listproductList = value.data.products;
+              filterList();
+              //print("Filter" + _listproductList.toString());
             } else {
               showSnakeBar(context, somethingWrong);
               //  print("Categorylist" + "Opps Something Wrong!");
@@ -162,7 +164,7 @@ class _CategoryListState extends State<CategoryList>
     return Container(
       color: Colors.blueGrey[50],
       height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width / 4 ,
+      width: MediaQuery.of(context).size.width / 4,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: _listHomeCategory.length,
@@ -279,6 +281,8 @@ class _CategoryListState extends State<CategoryList>
             if (value.statusCode == 1) {
               print("Categorylist" + value.message);
               _listproductList = value.data.products;
+              filterList();
+              print("Filter" + _listproductList.length.toString());
             } else {
               showSnakeBar(context, somethingWrong);
               print("Categorylist" + "Opps Something Wrong!");
@@ -340,7 +344,7 @@ class _CategoryListState extends State<CategoryList>
         itemBuilder: (context, index) {
           return Center(
               child: Container(
-             color: Colors.blueGrey,
+            color: Colors.blueGrey,
             margin: EdgeInsets.all(0),
             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: CategoryProductWidget(
@@ -366,10 +370,10 @@ class _CategoryListState extends State<CategoryList>
           ));
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                crossAxisSpacing: 2,
-                mainAxisSpacing: 2,
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
         ),
       )),
     );
@@ -436,6 +440,23 @@ class _CategoryListState extends State<CategoryList>
                   }
                 }))
               });
+    });
+  }
+
+  void filterList() {
+    // _listproductList.sort((a, b) {
+    //   return a.salePrice
+    //       .toString()
+    //       .toLowerCase()
+    //       .compareTo(b.name.toString().toLowerCase());
+    // });
+
+    // _listproductList.sort((a, b) {
+    //   return b.salePrice.compareTo(a.salePrice);
+    // });
+
+    _listproductList.sort((a, b) {
+      return a.salePrice.compareTo(b.salePrice);
     });
   }
 }

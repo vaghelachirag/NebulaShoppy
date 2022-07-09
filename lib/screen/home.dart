@@ -155,7 +155,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 SizedBox(
                   height: 2.0,
                 ),
-
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listRecentView.isEmpty) {
