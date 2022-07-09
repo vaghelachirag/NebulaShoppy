@@ -140,6 +140,8 @@ const THEME_COLOR = Colors.cyan;
 const kPurpleColor = Color(0xFFB97DFE);
 const kRedColor = Color(0xFFFE4067);
 const kGreenColor = Color(0xFFADE9E3);
+const buttonColor = Color(0XFFf1c760);
+const buttonBorderCOlor = Color(0XFF7e6a37);
 
 // Font Family
 const String Montserrat = "Montserrat";

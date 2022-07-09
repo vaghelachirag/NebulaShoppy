@@ -12,7 +12,6 @@ InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
     labelStyle: const TextStyle(color: BLACK),
     hintText: getHint,
     filled: true,
-    
     alignLabelWithHint: true,
     prefixIcon: const Padding(
       padding: EdgeInsets.only(top: 0), // add padding to adjust icon
@@ -45,7 +44,7 @@ InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
     focusedErrorBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(width: 1, color: DARK_GRAY)),
-    hintStyle: const TextStyle(fontSize: 16, color: BLACK,fontFamily: Ember),
+    hintStyle: const TextStyle(fontSize: 16, color: BLACK, fontFamily: Ember),
   );
 }
 
@@ -73,10 +72,10 @@ InputDecoration addressText(String hint) {
       counter: Offstage(),
       hoverColor: Colors.black,
       fillColor: Colors.black,
-      hintStyle:  TextStyle(fontFamily: Ember),
-       focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: Colors.black)),
+      hintStyle: TextStyle(fontFamily: Ember),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderSide: BorderSide(color: Colors.black)),
       contentPadding: const EdgeInsets.all(10),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)));
 }
@@ -96,8 +95,7 @@ InputDecoration inputwithdropdown(getHint) {
 }
 
 Text setHeaderText(String title, double size) {
-  return
-   Text(title,
+  return Text(title,
       style: TextStyle(
           color: Colors.black, fontWeight: FontWeight.bold, fontSize: size));
 }
@@ -171,6 +169,30 @@ Padding loadSkeletonLoadersGrid(
               )),
         ),
       ));
+}
+
+OutlinedButton setMainButton() {
+  return OutlinedButton(
+    child: Text('Add Address'),
+    onPressed: () {},
+    style: buttonShapeMain(),
+  );
+}
+
+ButtonStyle buttonShapeMain() {
+  return ButtonStyle(
+    shape: MaterialStateProperty.all(
+      RoundedRectangleBorder(
+        side: BorderSide(color: BLACK, width: 10),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(1),
+            bottomRight: Radius.circular(1),
+            bottomLeft: Radius.circular(1),
+            topRight: Radius.circular(1)),
+      ),
+    ),
+    backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
+  );
 }
 
 ButtonStyle buttonShapeOrderDetail() {

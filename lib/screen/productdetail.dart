@@ -436,10 +436,10 @@ class _ProductDetailState extends State<ProductDetail> {
                               //       color: Colors.red,
                               //       fontWeight: FontWeight.normal),
                               // ),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: StarRating(rating: 5, size: 16),
-                              ),
+                              // Align(
+                              //   alignment: Alignment.topRight,
+                              //   child: StarRating(rating: 5, size: 16),
+                              // ),
                             ],
                           ),
                           Align(

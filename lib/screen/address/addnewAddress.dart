@@ -11,6 +11,7 @@ import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/mainButton.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../model/getMyAddressResponse/getMyAddressResponse.dart';
@@ -184,45 +185,73 @@ class _AddNewAddressState extends State<AddNewAddress>
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: addressTypeDropDown()),
             Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(10),
-              child: OutlinedButton(
-                child: Text('Add Address'),
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.white,
-                  shadowColor: Colors.white,
-                  backgroundColor: Colors.cyan[300],
-                  textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    print("Valid" + "Valid");
-                    if (str_State == null ||
-                        str_State == "" ||
-                        str_State == "Select State") {
-                      showSnakeBar(context, "Please Select State");
-                      return;
-                    } else if (str_City == null ||
-                        str_City == "" ||
-                        str_City == "City") {
-                      showSnakeBar(context, "Please Select City");
-                      return;
-                    } else if (str_AddressType == null ||
-                        str_AddressType == "" ||
-                        str_AddressType == "Select an Address Type*") {
-                      showSnakeBar(context, "Please Select Address Type");
-                      return;
-                    } else {
-                      getAddAddressResponse();
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(10),
+                child: MainButtonWidget(
+                  buttonText: "Add Address",
+                  onPress: () {
+                    if (_formKey.currentState!.validate()) {
+                      print("Valid" + "Valid");
+                      if (str_State == null ||
+                          str_State == "" ||
+                          str_State == "Select State") {
+                        showSnakeBar(context, "Please Select State");
+                        return;
+                      } else if (str_City == null ||
+                          str_City == "" ||
+                          str_City == "City") {
+                        showSnakeBar(context, "Please Select City");
+                        return;
+                      } else if (str_AddressType == null ||
+                          str_AddressType == "" ||
+                          str_AddressType == "Select an Address Type*") {
+                        showSnakeBar(context, "Please Select Address Type");
+                        return;
+                      } else {
+                        getAddAddressResponse();
+                      }
                     }
-                  }
-                },
-              ),
-            ),
+                  },
+                )
+
+                // OutlinedButton(
+                //   child: Text('Add Address'),
+                //   style: buttonShapeMain(),
+                //   //  OutlinedButton.styleFrom(
+                //   //   primary: Colors.white,
+                //   //   shadowColor: Colors.white,
+                //   //   backgroundColor: Colors.cyan[300],
+                //   //   textStyle: TextStyle(
+                //   //       color: Colors.white,
+                //   //       fontSize: 12,
+                //   //       fontStyle: FontStyle.normal,
+                //   //       fontWeight: FontWeight.bold),
+                //   // ),
+                //   onPressed: () {
+                //     if (_formKey.currentState!.validate()) {
+                //       print("Valid" + "Valid");
+                //       if (str_State == null ||
+                //           str_State == "" ||
+                //           str_State == "Select State") {
+                //         showSnakeBar(context, "Please Select State");
+                //         return;
+                //       } else if (str_City == null ||
+                //           str_City == "" ||
+                //           str_City == "City") {
+                //         showSnakeBar(context, "Please Select City");
+                //         return;
+                //       } else if (str_AddressType == null ||
+                //           str_AddressType == "" ||
+                //           str_AddressType == "Select an Address Type*") {
+                //         showSnakeBar(context, "Please Select Address Type");
+                //         return;
+                //       } else {
+                //         getAddAddressResponse();
+                //       }
+                //     }
+                //   },
+                // ),
+                ),
 
             //  setAddressType()
           ],

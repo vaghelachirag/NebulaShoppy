@@ -46,19 +46,19 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   dynamic walletAmount = 0.0;
-  
+
   @override
   void initState() {
     super.initState();
     addAccountData();
     getIboKey();
     checkUserLoginOrNot();
-    Future.delayed(Duration(seconds:  0), () {
-      print("IsLogin"+ is_Login.toString());
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
       if (!is_Login) {
         showDialog(
           barrierColor: Colors.black26,
-           barrierDismissible: false,
+          barrierDismissible: false,
           context: context,
           builder: (context) {
             return LoginDialoug(
@@ -90,6 +90,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Account", false)),
       body: Container(
+        color: white,
         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: ListView.builder(
           itemCount: _accountList.length,
@@ -103,7 +104,9 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
                 product: SetMyAccount(
                     postition: _accountList[index].postition,
                     is_Ewallet: _accountList[index].is_Ewallet,
-                    Title: _accountList[index].Title,is_ShowLine: _accountList[index].is_ShowLine),
+                    Title: _accountList[index].Title,
+                    is_ShowLine: _accountList[index].is_ShowLine,
+                    is_Divider: _accountList[index].is_Divider),
                 gradientColors: [Colors.white, Colors.white],
                 onProfileClicked: () {
                   getMyProfile();
@@ -119,27 +122,62 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   }
 
   void addAccountData() {
-    _accountList.add(
-        SetMyAccount(postition: 0, Title: "My Address", is_Ewallet: false,is_ShowLine: true));
-    _accountList.add(
-        SetMyAccount(postition: 1, Title: "My Profile", is_Ewallet: false,is_ShowLine: false));
-    _accountList.add(
-        SetMyAccount(postition: 2, Title: "My E-wallet", is_Ewallet: true,is_ShowLine: false));
-    _accountList
-        .add(SetMyAccount(postition: 3, Title: "About Us", is_Ewallet: false,is_ShowLine: false));
-    _accountList.add(
-        SetMyAccount(postition: 4, Title: "Return Policy", is_Ewallet: false,is_ShowLine: false));
     _accountList.add(SetMyAccount(
-        postition: 5, Title: "Shipping Policy", is_Ewallet: false,is_ShowLine: false));
-    _accountList.add(
-        SetMyAccount(postition: 6, Title: "Privacy Policy", is_Ewallet: false,is_ShowLine: false));
-    _accountList.add(
-        SetMyAccount(postition: 7, Title: "Contact Us", is_Ewallet: false,is_ShowLine: true));
-      if(is_Login){
-      _accountList.add(
-        SetMyAccount(postition: 8, Title: "Logout", is_Ewallet: false,is_ShowLine: true));
-      }   
-       
+        postition: 0,
+        Title: "My Address",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 1,
+        Title: "My Profile",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 2,
+        Title: "My E-wallet",
+        is_Ewallet: true,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 3,
+        Title: "About Us",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 4,
+        Title: "Return Policy",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 5,
+        Title: "Shipping Policy",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 6,
+        Title: "Privacy Policy",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    _accountList.add(SetMyAccount(
+        postition: 7,
+        Title: "Contact Us",
+        is_Ewallet: false,
+        is_ShowLine: false,
+        is_Divider: false));
+    if (is_Login) {
+      _accountList.add(SetMyAccount(
+          postition: 8,
+          Title: "Logout",
+          is_Ewallet: false,
+          is_ShowLine: false,
+          is_Divider: false));
+    }
   }
 
   void getMyProfile() async {

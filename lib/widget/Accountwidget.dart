@@ -26,7 +26,6 @@ class AccountWiget extends StatelessWidget {
   String shipping = 'https://shop.nebulacare.in/Home/ShippingPolicy';
   String privacy = 'https://shop.nebulacare.in/Home/PrivacyPolicy';
   String contactus = 'https://shop.nebulacare.in/Home/Contact';
-  
 
   final SetMyAccount product;
   final List<Color> gradientColors;
@@ -51,27 +50,28 @@ class AccountWiget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Visibility(
-            visible: product.is_ShowLine,
-            child:
-          Container(
-            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            padding: const EdgeInsets.all(0.5),
-            decoration:
-                BoxDecoration(
-                  border: Border.all(color: Colors.black12)),
-            child: _productDetails(context),
-          )),
-            Visibility(
-            visible: !product.is_ShowLine,
-            child:
-          Container(
-            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            padding: const EdgeInsets.all(0.1),
-            decoration:
-                BoxDecoration(
-                  border: Border.all(color: Colors.black12)),
-            child: _productDetails(context),
-          ))
+              visible: product.is_ShowLine,
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: const EdgeInsets.all(0.5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    border: Border.all(
+                      color: Colors.black54,
+                    )),
+                child: _productDetails(context),
+              )),
+          Visibility(
+              visible: !product.is_ShowLine,
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: const EdgeInsets.all(0.1),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: product.is_Divider == true ? 1 : 0,
+                        color: Colors.black54)),
+                child: _productDetails(context),
+              ))
         ],
       ),
       onTap: () {
@@ -83,12 +83,12 @@ class AccountWiget extends StatelessWidget {
   void openAccountData(int index, BuildContext context) {
     print("OnTap" + "Test" + index.toString());
     checkUserLoginOrNot();
-     Future.delayed(Duration(seconds:  0), () {
-      print("IsLogin"+ is_Login.toString());
+    Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
       if (!is_Login) {
         showDialog(
           barrierColor: Colors.black26,
-           barrierDismissible: false,
+          barrierDismissible: false,
           context: context,
           builder: (context) {
             return LoginDialoug(
@@ -99,45 +99,44 @@ class AccountWiget extends StatelessWidget {
             );
           },
         );
-      }else{
- if (index == 0) {
-      Navigator.push(
-        context,
-        PageTransition(
-          type: PageTransitionType.fade,
-          child: GetMyAddress(),
-        ),
-      );
-    }
-    if (index == 1) {
-      onProfileClicked();
-    }
-    if (index == 2) {
-      onEWalletClick(context);
-    }
-    if (index == 3) {
-      openWebview(context, about, "About Us");
-    }
-    if (index == 4) {
-      openWebview(context, returnpolicy, "Return Policy");
-    }
+      } else {
+        if (index == 0) {
+          Navigator.push(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              child: GetMyAddress(),
+            ),
+          );
+        }
+        if (index == 1) {
+          onProfileClicked();
+        }
+        if (index == 2) {
+          onEWalletClick(context);
+        }
+        if (index == 3) {
+          openWebview(context, about, "About Us");
+        }
+        if (index == 4) {
+          openWebview(context, returnpolicy, "Return Policy");
+        }
 
-    if (index == 5) {
-      openWebview(context, shipping, "Shipping Policy");
-    }
-    if (index == 6) {
-      openWebview(context, privacy, "Privacy Policy");
-    }
-    if (index == 7) {
-    //  showLogoutDialoug(context);
-      openWebview(context, contactus, "Contact Us");
-    }
-     if (index == 8) {
-      showLogoutDialoug(context);
-    }
-    }
+        if (index == 5) {
+          openWebview(context, shipping, "Shipping Policy");
+        }
+        if (index == 6) {
+          openWebview(context, privacy, "Privacy Policy");
+        }
+        if (index == 7) {
+          //  showLogoutDialoug(context);
+          openWebview(context, contactus, "Contact Us");
+        }
+        if (index == 8) {
+          showLogoutDialoug(context);
+        }
+      }
     });
-   
   }
 
   void openWebview(BuildContext context, String about, String title) {
@@ -154,11 +153,11 @@ class AccountWiget extends StatelessWidget {
 
   _productDetails(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 5),
+        padding: EdgeInsets.fromLTRB(20, 3, 5, 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            setRegularText( product.Title, 16, Colors.black),
+            setBoldText(product.Title, 16, Colors.black),
             // Text(
             //   product.Title,
             //   maxLines: 1,
@@ -172,7 +171,10 @@ class AccountWiget extends StatelessWidget {
                       visible: product.is_Ewallet,
                       child: Text(
                         rupees_Sybol + "0.0",
-                        style: TextStyle(color: Colors.green, fontSize: 12,fontFamily: EmberBold),
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 16,
+                            fontFamily: EmberBold),
                       )),
                   IconButton(
                       onPressed: () {
