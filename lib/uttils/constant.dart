@@ -78,6 +78,8 @@ const double int_AppBarWidth = 50;
 String str_ErrorMsg = "Opps! Something Wrong...";
 String str_NoDataMsg = "No Data Found!";
 
+String str_DeliverTo = "Deliver To";
+
 // Message
 const somethingWrong = "Opps Something Wrong!";
 

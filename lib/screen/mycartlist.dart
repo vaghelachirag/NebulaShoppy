@@ -56,6 +56,9 @@ class _MyCartListState extends State<MyCartList> {
     setState(() {
       widget.device_Id = DeviceId.toString();
       bl_ShowCart = false;
+      if (str_SelectedAddress == null || str_SelectedAddress == "") {
+        str_SelectedAddress = str_DeliverTo;
+      }
     });
 
     checkUserLoginOrNot();
@@ -207,7 +210,7 @@ class _MyCartListState extends State<MyCartList> {
   Container locationHeader() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      color: Colors.cyan[500],
+      decoration: grandientBackgroundMyCart(),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Row(
@@ -220,7 +223,7 @@ class _MyCartListState extends State<MyCartList> {
               width: MediaQuery.of(context).size.width - 100,
               child: Text(str_SelectedAddress,
                   maxLines: 2,
-                  style: TextStyle(fontSize: 12, fontFamily: Ember),
+                  style: TextStyle(fontSize: 16, fontFamily: Ember),
                   softWrap: true),
             ),
             //setBoldText(str_SelectedAddress, 12, Colors.black),
@@ -472,7 +475,7 @@ class _MyCartListState extends State<MyCartList> {
   Container bottomBar() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      color: Colors.cyan,
+      decoration: grandientBackground(),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 11,
       child: Row(

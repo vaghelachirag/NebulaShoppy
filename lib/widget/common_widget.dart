@@ -65,6 +65,22 @@ ButtonStyle buttonShapeStle() {
   );
 }
 
+BoxDecoration grandientBackground() {
+  return BoxDecoration(
+      gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.topRight,
+          colors: [Color(0xff87dae0), Color(0xff9ce3d3)]));
+}
+
+BoxDecoration grandientBackgroundMyCart() {
+  return BoxDecoration(
+      gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.topRight,
+          colors: [Color(0xff87dae0), Color(0xff87dae0)]));
+}
+
 InputDecoration addressText(String hint) {
   return InputDecoration(
       hintText: hint,
