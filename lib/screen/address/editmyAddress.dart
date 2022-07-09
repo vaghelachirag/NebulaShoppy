@@ -118,7 +118,7 @@ class _EditMyAddressState extends State<EditMyAddress>
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Edit Address", false)),
       body: SingleChildScrollView(
           child: Form(

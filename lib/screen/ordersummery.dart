@@ -109,7 +109,7 @@ class _OrderSummeryState extends State<OrderSummery>
 
     return Scaffold(
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
+            preferredSize: const Size.fromHeight(50),
             child: appBarWidget(context, 3, widget.str_Title, false)),
         bottomNavigationBar: Visibility(visible: true, child: bottomBar()),
         body: getOrderSummeryData());

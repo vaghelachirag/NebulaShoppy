@@ -10,14 +10,22 @@ import '../screen/search.dart';
 
 Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
   return AppBar(
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                colors: [Color(0xff87dae0), Color(0xff9ce3d3)])),
+      ),
       backgroundColor: Colors.cyan[400],
       elevation: 0.0,
       title: Text(
         str_title,
-        style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: EmberBold),
+        style:
+            TextStyle(color: Colors.white, fontSize: 16, fontFamily: EmberBold),
       ),
       actions: <Widget>[
-      //  Image.asset("assets/images/search_icon.png"),
+        //  Image.asset("assets/images/search_icon.png"),
         Visibility(
             visible: isshowCart,
             child: IconButton(
@@ -44,7 +52,9 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
               ),
               color: Colors.white,
             )),
-        Visibility(visible: isshowCart, child: QTYCounter(isshowCart),
+        Visibility(
+          visible: isshowCart,
+          child: QTYCounter(isshowCart),
         )
       ]);
 }

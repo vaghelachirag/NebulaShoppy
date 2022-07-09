@@ -85,7 +85,7 @@ class _GetMyAddressState extends State<GetMyAddress>
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Address", false)),
       body: SingleChildScrollView(
         child: Column(
@@ -306,11 +306,11 @@ class _GetMyAddressState extends State<GetMyAddress>
           child: OutlinedButton(
             child: Text('Edit'),
             style: OutlinedButton.styleFrom(
-              primary: Colors.white,
-              shadowColor: Colors.white,
-              backgroundColor: Colors.cyan[300],
+              primary: Colors.black,
+              shadowColor: Colors.black,
+              backgroundColor: Colors.grey[200],
               textStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 12,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.bold),
@@ -340,9 +340,9 @@ class _GetMyAddressState extends State<GetMyAddress>
           child: OutlinedButton(
             child: Text('Remove'),
             style: OutlinedButton.styleFrom(
-              primary: Colors.white,
-              shadowColor: Colors.white,
-              backgroundColor: Colors.cyan[300],
+              primary: Colors.black,
+              shadowColor: Colors.black,
+              backgroundColor: Colors.grey[200],
               textStyle: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
