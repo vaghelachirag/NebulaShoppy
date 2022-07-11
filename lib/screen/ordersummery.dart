@@ -209,6 +209,7 @@ class _OrderSummeryState extends State<OrderSummery>
                 Row(
                   children: [
                     Checkbox(
+                      activeColor: buttonColor,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: isCheckedEWallet,
                       checkColor: Colors.white,
@@ -276,7 +277,7 @@ class _OrderSummeryState extends State<OrderSummery>
     String str_color,
   ) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -315,7 +316,7 @@ class _OrderSummeryState extends State<OrderSummery>
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
@@ -331,7 +332,7 @@ class _OrderSummeryState extends State<OrderSummery>
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
           child: Card(
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(str_SelectedAddress,
@@ -344,11 +345,11 @@ class _OrderSummeryState extends State<OrderSummery>
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
           child: Container(
             width: MediaQuery.of(context).size.width,
             color: Colors.grey[300],
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.all(0),
             child: Padding(
               padding: EdgeInsets.all(10),
               child: Text(
@@ -376,7 +377,7 @@ class _OrderSummeryState extends State<OrderSummery>
                         ? Colors.black38
                         : Colors.white,
                     width: 1),
-                borderRadius: BorderRadius.circular(1.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 children: [
@@ -553,7 +554,7 @@ class _OrderSummeryState extends State<OrderSummery>
         int_ShippingCharge = widget.int_ShippingChargeWallet;
         int_SubTotal = widget.int_SubTotalWallet;
         widget.int_SettleAmount = widget.int_E_WalletAmount;
-        print("Wallet" + int_Total.toString());
+        print("Wallet" + widget.int_SubTotalWallet.toString());
       });
     } else {
       setState(() {
