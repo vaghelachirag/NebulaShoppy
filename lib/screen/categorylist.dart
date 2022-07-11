@@ -35,10 +35,12 @@ class _CategoryListState extends State<CategoryList>
     with WidgetsBindingObserver {
   List<HomeCategoryData> _listHomeCategory = [];
   List<itemNewLaunchedProduct> _listproductList = [];
+  List<itemNewLaunchedProduct> _listDisplayproductList = [];
 
   get somethingWrong => null;
   var selectedPosition = 0;
   var selectedId = 0;
+  bool bl_IsFilterVisible = false;
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   @override
@@ -47,6 +49,7 @@ class _CategoryListState extends State<CategoryList>
     WidgetsBinding.instance!.addObserver(this);
     selectedPosition = widget.position;
     selectedId = widget.id;
+    int_SelectedFilterIndex = 0;
     getDeviceId();
     getCartCount();
     getHomeCategory();
@@ -99,33 +102,41 @@ class _CategoryListState extends State<CategoryList>
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        // isExtended: true,
-        child: Icon(
-          CommunityMaterialIcons.filter,
-          color: Colors.black,
-        ),
-        backgroundColor: Colors.white,
-        onPressed: () {
-          showDialog(
-            barrierColor: Colors.black26,
-            context: context,
-            builder: (context) {
-              return FilterWidget(
-                context,
-                title: "SoldOut",
-                description:
-                    "This product may not be available at the selected address.",
-                onFilterSelection: () {},
-                onIndexSelected: (int index) {
-                  filterList(index);
-                  print("Index" + index.toString());
+      floatingActionButton: Padding(
+          padding: EdgeInsets.all(10),
+          child: Visibility(
+              visible: bl_IsFilterVisible,
+              child: FloatingActionButton(
+                // isExtended: true,
+                child: Icon(
+                  CommunityMaterialIcons.filter,
+                  color: Colors.black,
+                ),
+                backgroundColor: Colors.white,
+                onPressed: () {
+                  showDialog(
+                    barrierColor: Colors.black26,
+                    context: context,
+                    builder: (context) {
+                      return FilterWidget(
+                        context,
+                        title: "SoldOut",
+                        description:
+                            "This product may not be available at the selected address.",
+                        onFilterSelection: () {},
+                        onIndexSelected: (int index) {
+                          int_SelectedFilterIndex = index;
+                          setState(() {
+                            filterList(index);
+                          });
+
+                          print("Index" + index.toString());
+                        },
+                      );
+                    },
+                  );
                 },
-              );
-            },
-          );
-        },
-      ),
+              ))),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Product List", true)),
@@ -174,21 +185,22 @@ class _CategoryListState extends State<CategoryList>
         });
   }
 
-  getNewLaunchedProduct() async {
-    Service().getNewLaunched("1", "0", 1, 50).then((value) => {
-          setState((() {
-            if (value.statusCode == 1) {
-              // print("Categorylist" + value.statusCode.toString());
-              _listproductList = value.data.products;
-              //   filterList(0);
-              //print("Filter" + _listproductList.toString());
-            } else {
-              showSnakeBar(context, somethingWrong);
-              //  print("Categorylist" + "Opps Something Wrong!");
-            }
-          }))
-        });
-  }
+  // getNewLaunchedProduct() async {
+  //   Service().getNewLaunched("1", "0", 1, 50).then((value) => {
+  //         setState((() {
+  //           if (value.statusCode == 1) {
+  //             // print("Categorylist" + value.statusCode.toString());
+  //             _listproductList = value.data.products;
+  //             _listDisplayproductList = _listproductList;
+  //             //filterList(0);
+  //             //print("Filter" + _listproductList.toString());
+  //           } else {
+  //             showSnakeBar(context, somethingWrong);
+  //             //  print("Categorylist" + "Opps Something Wrong!");
+  //           }
+  //         }))
+  //       });
+  // }
 
   Container homeCategory() {
     return Container(
@@ -207,6 +219,7 @@ class _CategoryListState extends State<CategoryList>
                   print(
                       "Home" + "home" + _listHomeCategory[index].id.toString());
                   _listproductList.clear();
+                  _listDisplayproductList.clear();
                   getProductListByCategory(
                       _listHomeCategory[index].id.toString());
                   selectedPosition = index;
@@ -306,14 +319,25 @@ class _CategoryListState extends State<CategoryList>
   }
 
   getProductListByCategory(String id) async {
+    setState(() {
+      int_SelectedFilterIndex = 0;
+      bl_IsFilterVisible = false;
+    });
     Service().getProductListByCategory(id, "0", 1, 50).then((value) => {
           setState((() {
             if (value.statusCode == 1) {
               print("Categorylist" + value.message);
               _listproductList = value.data.products;
+              _listDisplayproductList = value.data.products;
               //  filterList(0);
-              print("Filter" + _listproductList.length.toString());
+              print("Filter" + _listDisplayproductList.length.toString());
+              setState(() {
+                bl_IsFilterVisible = true;
+              });
             } else {
+              setState(() {
+                bl_IsFilterVisible = false;
+              });
               showSnakeBar(context, somethingWrong);
               print("Categorylist" + "Opps Something Wrong!");
             }
@@ -474,65 +498,39 @@ class _CategoryListState extends State<CategoryList>
   }
 
   void filterList(int index) {
-    // setState(() {
-    //   _listproductList.sort((a, b) {
-    //     return b.name
-    //         .toString()
-    //         .toLowerCase()
-    //         .compareTo(a.name.toString().toLowerCase());
+    // if (index.toString() == "0") {
+    //   setState(() {
+    //     //  _listproductList.clear();
+    //     for (int i = 0; i < _listDisplayproductList.length; i++) {
+    //       _listproductList.add(_listDisplayproductList[i]);
+    //     }
+    //     print("FliterZero" + _listDisplayproductList.length.toString());
     //   });
-    // });
+    // }
 
-    print("FilterList" + index.toString());
-    if (index.toString() == "0") {
-      print("FilterList" + "0");
-      setState(() {
-        _listproductList.sort((a, b) {
-          return a.name
-              .toString()
-              .toLowerCase()
-              .compareTo(a.name.toString().toLowerCase());
-        });
-      });
-    }
     if (index.toString() == "1") {
-      print("FilterList" + "1");
-      setState(() {
-        _listproductList.sort((a, b) {
-          return a.salePrice.compareTo(b.salePrice);
-        });
+      _listproductList.sort((a, b) {
+        return a.salePrice.compareTo(b.salePrice);
       });
     }
     if (index.toString() == "2") {
-      print("FilterList" + "2 Test");
-      setState(() {
-        _listproductList.sort((a, b) {
-          return b.salePrice.compareTo(a.salePrice);
-        });
+      print("Index" + "2");
+      _listproductList.sort((a, b) {
+        return b.salePrice.compareTo(a.salePrice);
       });
     }
     if (index.toString() == "3") {
-      setState(() {
-        _listproductList.sort((a, b) {
-          return a.name
-              .toString()
-              .toLowerCase()
-              .compareTo(b.name.toString().toLowerCase());
-        });
+      print("Index" + "2");
+      _listproductList.sort((a, b) {
+        return a.name
+            .toString()
+            .toLowerCase()
+            .compareTo(b.name.toString().toLowerCase());
       });
     }
+
     if (index.toString() == "4") {
-      setState(() {
-        _listproductList.sort((a, b) {
-          return b.name
-              .toString()
-              .toLowerCase()
-              .compareTo(a.name.toString().toLowerCase());
-        });
-        print("List" + _listproductList.length.toString());
-      });
-    }
-    if (index.toString() == "5") {
+      print("Index" + "2");
       _listproductList.sort((a, b) {
         return b.name
             .toString()
@@ -540,9 +538,51 @@ class _CategoryListState extends State<CategoryList>
             .compareTo(a.name.toString().toLowerCase());
       });
     }
-    if (index.toString() == "6") {}
-    _listproductList.sort((a, b) {
-      return a.salePrice.compareTo(b.salePrice);
-    });
+
+    print("FilterList" + index.toString());
+    // if (index.toString() == "0") {
+    //   print("FilterList" + "0");
+    //   _listproductList.sort((a, b) {
+    //     return a.name
+    //         .toString()
+    //         .toLowerCase()
+    //         .compareTo(a.name.toString().toLowerCase());
+    //   });
+    // }
+    // if (index.toString() == "1") {
+    //   _listproductList.sort((a, b) {
+    //     return a.salePrice.compareTo(b.salePrice);
+    //   });
+    // }
+    // if (index.toString() == "2") {
+    //   _listproductList.sort((a, b) {
+    //     return b.salePrice.compareTo(a.salePrice);
+    //   });
+    // }
+    // if (index.toString() == "3") {
+    //   _listproductList.sort((a, b) {
+    //     return a.salePrice.compareTo(b.salePrice);
+    //   });
+    // }
+    // if (index.toString() == "4") {
+    //   _listproductList.sort((a, b) {
+    //     return b.name
+    //         .toString()
+    //         .toLowerCase()
+    //         .compareTo(a.name.toString().toLowerCase());
+    //   });
+    // }
+    // if (index.toString() == "5") {
+    //   _listproductList.sort((a, b) {
+    //     return b.name
+    //         .toString()
+    //         .toLowerCase()
+    //         .compareTo(a.name.toString().toLowerCase());
+    //   });
+    // }
+    // if (index.toString() == "6") {}
+    // _listproductList.sort((a, b) {
+    //   return a.salePrice.compareTo(b.salePrice);
+    // });
   }
 }

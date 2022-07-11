@@ -49,6 +49,7 @@ class _FilterWidgetState extends State<FilterWidget> {
     // TODO: implement initState
     super.initState();
     addFilterList();
+    print("SelectedAns" + int_SelectedFilterIndex.toString());
   }
 
   @override
@@ -75,62 +76,54 @@ class _FilterWidgetState extends State<FilterWidget> {
                         icon: Icon(CommunityMaterialIcons.close_box),
                         color: Colors.cyan)),
               ),
-              Padding(
-                  padding: EdgeInsets.all(10),
-                  child: setBoldText("Filter", 16, Colors.black)
-                  // Text(
-                  //   "Associate / IBO Login",
-                  //   style: TextStyle(
-                  //       color: Colors.black,
-                  //       fontSize: 16,
-                  //       fontWeight: FontWeight.w500),
-                  // ),
-                  ),
+              Padding(padding: EdgeInsets.all(0), child: Text("Sort By")),
               Container(
                 margin: EdgeInsets.fromLTRB(0, 5, 10, 0),
                 padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
                 width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FutureBuilder(
-                        builder: (context, snapshot) {
-                          if (list_Filter.isEmpty) {
-                            return Text("");
-                          } else {
-                            return ListView.builder(
-                                itemCount: list_Filter.length,
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (BuildContext ctx, index) {
-                                  return SizedBox(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 35,
-                                      child: ListTile(
-                                          leading: Radio<String>(
-                                            value: list_Filter[index],
-                                            groupValue: _selectedGender,
-                                            activeColor: buttonColor,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _selectedGender = value!;
-                                                widget.onFilterSelection();
-                                                Navigator.pop(context);
-                                                widget.onIndexSelected(index);
-                                              });
-                                            },
-                                          ),
-                                          title: Text(list_Filter[index])));
-                                });
-                          }
-                        },
-                      )
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FutureBuilder(
+                      builder: (context, snapshot) {
+                        if (list_Filter.isEmpty) {
+                          return Text("");
+                        } else {
+                          return ListView.builder(
+                              itemCount: list_Filter.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (BuildContext ctx, index) {
+                                return Container(
+                                    child: SizedBox(
+                                        width: 50,
+                                        height: 35,
+                                        child: ListTile(
+                                            leading: Radio<String>(
+                                              value: list_Filter[index],
+                                              groupValue: list_Filter[
+                                                  int_SelectedFilterIndex],
+                                              activeColor: buttonColor,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  int_SelectedFilterIndex =
+                                                      index;
+                                                  _selectedGender = value!;
+                                                  Navigator.pop(context);
+                                                  widget.onIndexSelected(index);
+                                                  widget.onFilterSelection();
+                                                });
+                                              },
+                                            ),
+                                            title: Text(list_Filter[index]))));
+                              });
+                        }
+                      },
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           )),
     );
@@ -138,10 +131,10 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   addFilterList() {
     list_Filter.add("All");
-    list_Filter.add("Price:Low to High");
-    list_Filter.add("Price:Hight to High");
-    list_Filter.add("Price:A-Z");
-    list_Filter.add("Price:Z-A");
+    list_Filter.add("Price: Low to High");
+    list_Filter.add("Price: High to Low");
+    list_Filter.add("A-Z");
+    list_Filter.add("Z-A");
     list_Filter.add("Trending");
     list_Filter.add("New");
   }

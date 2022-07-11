@@ -100,6 +100,8 @@ String str_UserId = "";
 // For Address Selection
 String str_SelectedAddress = "";
 
+int int_SelectedFilterIndex = 0;
+
 const PRIMARY_COLOR = Color(0xFF1A8D1C);
 const YELLOW_THEME_COLOR = Color(0xFFF5EE88);
 const YELLOW_DARK = Color(0xFFffe725);
