@@ -316,22 +316,24 @@ class _GetMyAddressState extends State<GetMyAddress>
                   fontWeight: FontWeight.bold),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  child: EditMyAddress(
-                      strFullName: listMyAddres.fullName.toString(),
-                      strAddressLine1: listMyAddres.addressLine1.toString(),
-                      strAddressLine2: listMyAddres.addressLine2.toString(),
-                      strCity: listMyAddres.city.toString(),
-                      strState: listMyAddres.state.toString(),
-                      strMobileNo: listMyAddres.mobileNo.toString(),
-                      strPinCode: listMyAddres.pinCode.toString(),
-                      strLandmark: listMyAddres.landmark.toString(),
-                      strId: listMyAddres.id.toString()),
-                ),
-              );
+              editAddress(listMyAddres);
+
+              // Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.fade,
+              //     child: EditMyAddress(
+              //         strFullName: listMyAddres.fullName.toString(),
+              //         strAddressLine1: listMyAddres.addressLine1.toString(),
+              //         strAddressLine2: listMyAddres.addressLine2.toString(),
+              //         strCity: listMyAddres.city.toString(),
+              //         strState: listMyAddres.state.toString(),
+              //         strMobileNo: listMyAddres.mobileNo.toString(),
+              //         strPinCode: listMyAddres.pinCode.toString(),
+              //         strLandmark: listMyAddres.landmark.toString(),
+              //         strId: listMyAddres.id.toString()),
+              //   ),
+              // );
             },
           ),
         ),
@@ -420,6 +422,30 @@ class _GetMyAddressState extends State<GetMyAddress>
     if (push_AddNewAddress != null || push_AddNewAddress == true) {
       // perform your function
       print("Addnew" + "AddNews");
+      _listMyAddress.clear();
+      getMyAddress();
+    }
+  }
+
+  void editAddress(GetMyAddressData listMyAddres) async {
+    var push_EditAddress = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => EditMyAddress(
+          strFullName: listMyAddres.fullName.toString(),
+          strAddressLine1: listMyAddres.addressLine1.toString(),
+          strAddressLine2: listMyAddres.addressLine2.toString(),
+          strCity: listMyAddres.city.toString(),
+          strState: listMyAddres.state.toString(),
+          strMobileNo: listMyAddres.mobileNo.toString(),
+          strPinCode: listMyAddres.pinCode.toString(),
+          strLandmark: listMyAddres.landmark.toString(),
+          strId: listMyAddres.id.toString()),
+    ));
+
+    if (push_EditAddress != null || push_EditAddress == true) {
+      // perform your function
+      print("Addnew" + "AddNews");
+      _listMyAddress.clear();
+      getMyAddress();
     }
   }
 }

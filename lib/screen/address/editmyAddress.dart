@@ -879,11 +879,7 @@ class _EditMyAddressState extends State<EditMyAddress>
                 {
                   Navigator.pop(_dialogKey.currentContext!),
                   showSnakeBar(context, "Your Address Updated Successfully"),
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (dialogContex) => GetMyAddress()),
-                      ModalRoute.withName("/getmyaddress"))
+                  Navigator.pop(context, true)
                 }
             });
   }
