@@ -17,6 +17,7 @@ class GETMYADDRESSDIALOUG extends StatefulWidget {
 
 class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
   bool bl_IsPickup = false;
+  bool bl_IsDrop = false;
   bool isSelectedPickup = false;
   bool isShowCity = false;
   bool isDoorStepDelivery = false;
@@ -64,6 +65,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: GestureDetector(
                     onTap: () {
                       setState(() {
+                        bl_IsDrop = true;
                         isDoorStepDelivery = true;
                         isSelectedPickup = false;
                         isAhmedabadClick = false;
@@ -110,6 +112,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   onTap: () {
                     print("Tap" + "Pickup");
                     setState(() {
+                      bl_IsDrop = false;
                       bl_IsPickup = true;
                       isDoorStepDelivery = false;
                       isSelectedPickup = true;
@@ -150,7 +153,11 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: cityList(),
                 )),
-            getMyDeliveryAddress()
+            Visibility(
+                visible: bl_IsDrop,
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: getMyDeliveryAddress()))
           ],
         ),
       ),
@@ -400,15 +407,18 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _listMyAddressList.length,
+            scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {
                     setState(() {
                       Navigator.pop(context);
+                      str_SelectedAddress =
+                          getPickupAddress(_listMyAddressList[index]);
+                      widget.onAddressSelection();
                     });
                   },
                   child: Container(
-                    width: 150,
                     child: Padding(
                         padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
                         child: Column(
