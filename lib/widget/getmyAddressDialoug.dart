@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getAddressByCityResponse.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 
 import '../model/getMyAddressResponse/getMyAddressResponse.dart';
 import '../network/service.dart';
@@ -42,6 +43,10 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Visibility(
+              visible: showProgress,
+              child: 
+            showMaterialProgressbar(8)),
             Padding(
                 padding: EdgeInsets.all(10),
                 child: Text(
@@ -283,9 +288,11 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
   }
 
   void getAddressbyCityId(String str_CityId, int int_Position) {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+    showProgressbar();
     Service().getAddressByCitySelection(str_CityId).then((value) => {
-          Navigator.pop(_dialogKey.currentContext!),
+      //    Navigator.pop(_dialogKey.currentContext!),
+          hideProgressBar(),
           if (value.toString() == str_ErrorMsg)
             {
               showSnakeBar(context, str_ErrorMsg),
@@ -303,9 +310,11 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
 
   getMyAddress() {
     if (_listMyAddress.isEmpty) {
-      showLoadingDialog(context, _dialogKey, "Please Wait..");
+     // showLoadingDialog(context, _dialogKey, "Please Wait..");
+      showProgressbar();
       Service().getMyAddress().then((value) => {
-            Navigator.pop(_dialogKey.currentContext!),
+             hideProgressBar(),
+            //Navigator.pop(_dialogKey.currentContext!),
             if (value.toString() == str_ErrorMsg) {setState((() {}))},
             if (value.toString() != str_ErrorMsg)
               {

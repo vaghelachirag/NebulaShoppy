@@ -146,6 +146,8 @@ const kRedColor = Color(0xFFFE4067);
 const kGreenColor = Color(0xFFADE9E3);
 const buttonColor = Color(0XFFf0c350);
 const buttonBorderCOlor = Color(0XFF7e6a37);
+const loginButtonColor = Color(0XFFd34836);
+
 
 // Font Family
 const String Montserrat = "Montserrat";
@@ -153,10 +155,18 @@ const String Ember = "Ember";
 const String EmberBold = "Ember-Bold";
 const String EmberItalic = "Ember-Italic";
 
+const String assestPath = "assets/images/";
+
+
 DateTime currentBackPressTime = DateTime.now();
+
+
 
 String register =
     'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
+
+// For Show Progress  
+bool showProgress = true;
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -258,6 +268,16 @@ Future<void> showLoadingDialog(
       )
     },
   );
+}
+
+// For Show Progress
+void showProgressbar(){
+   showProgress = true;
+}
+
+// For Hide Progress
+void hideProgressBar(){
+   showProgress = false;
 }
 
 getDeviceId() async {

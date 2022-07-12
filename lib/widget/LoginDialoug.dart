@@ -122,7 +122,7 @@ class _LoginDialougState extends State<LoginDialoug> {
               SizedBox(height: 20),
               ElevatedButton(
                 // style: elevatedButtonStyle(),
-                style: buttonShapeStle(),
+                style: buttonShapeLogin(),
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
                   if (_formKey.currentState!.validate()) {

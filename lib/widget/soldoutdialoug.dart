@@ -34,6 +34,8 @@ class _SoldOutDialougState extends State<SoldOutDialoug> {
               color: Colors.red
             ),
           ),
+           SizedBox(height: 10),
+           Image.asset('assets/images/soldout.png',fit: BoxFit.contain,),
           SizedBox(height: 15),
           Container(
             margin: EdgeInsets.fromLTRB(10, 5, 10, 0),

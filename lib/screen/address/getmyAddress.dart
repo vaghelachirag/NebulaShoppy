@@ -8,6 +8,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../model/getMyAddressResponse/getMyAddressResponse.dart';
@@ -32,6 +33,7 @@ class _GetMyAddressState extends State<GetMyAddress>
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   List<GetMyAddressData> _listMyAddress = [];
   bool bl_ShowAddress = false;
+  bool bl_ShowLoading = false;
 
   @override
   void initState() {
@@ -90,6 +92,10 @@ class _GetMyAddressState extends State<GetMyAddress>
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+           Visibility(
+              visible: bl_ShowLoading,
+              child: 
+            showMaterialProgressbar(8)),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
@@ -116,9 +122,14 @@ class _GetMyAddressState extends State<GetMyAddress>
 
   getMyAddress() {
     if (_listMyAddress.isEmpty) {
-      showLoadingDialog(context, _dialogKey, "Please Wait..");
+      setState(() {
+         bl_ShowLoading = true;
+      });
+     
+     // showLoadingDialog(context, _dialogKey, "Please Wait..");
       Service().getMyAddress().then((value) => {
-            Navigator.pop(_dialogKey.currentContext!),
+             bl_ShowLoading = false,
+           // Navigator.pop(_dialogKey.currentContext!),
             if (value.toString() == str_ErrorMsg) {setState((() {}))},
             if (value.toString() != str_ErrorMsg)
               {

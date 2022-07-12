@@ -65,6 +65,23 @@ ButtonStyle buttonShapeStle() {
   );
 }
 
+ButtonStyle buttonShapeLogin() {
+  return ButtonStyle(
+    padding: MaterialStateProperty.all<EdgeInsets>(
+        EdgeInsets.fromLTRB(50, 10, 50, 10)),
+    shape: MaterialStateProperty.all(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10)),
+      ),
+    ),
+    backgroundColor: MaterialStateProperty.all<Color>(loginButtonColor),
+  );
+}
+
 BoxDecoration grandientBackground() {
   return BoxDecoration(
       gradient: LinearGradient(
@@ -158,7 +175,16 @@ Padding loadSkeletonLoaders(Widget box, Axis vertical) {
         }),
   );
 }
-
+Container showMaterialProgressbar(double height){
+  return   Container(           
+                    child: 
+                    LinearProgressIndicator(
+                      backgroundColor: Colors.red[100],
+                      color: Colors.red[300],
+                      minHeight: height,
+                    ),
+                  );
+}
 Padding loadSkeletonLoadersGrid(
     Widget box, Axis vertical, BuildContext context) {
   return Padding(
