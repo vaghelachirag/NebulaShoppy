@@ -79,40 +79,13 @@ class _TabScreenState extends State<TabScreen> {
             if (is_Login) {
               return Scaffold(
                 body: _screensWithLogin[_selectedScreenIndex]["screen"],
-                bottomNavigationBar: _createBottomNavigationBar(),
-                // bottomNavigationBar: BottomNavigationBar(
-                //   backgroundColor: Color.fromRGBO(38, 198, 218, 1),
-                //   type: BottomNavigationBarType.fixed,
-                //   selectedItemColor: Colors.white,
-                //   currentIndex: _selectedScreenIndex,
-                //   onTap: _selectScreen,
-                //   items: const [
-                //     BottomNavigationBarItem(
-                //         icon: Icon(Icons.home), label: 'Home'),
-                //     BottomNavigationBarItem(
-                //         icon: Icon(FontAwesomeIcons.shippingFast),
-                //         label: 'My Order'),
-                //     BottomNavigationBarItem(
-                //         icon: Icon(FontAwesomeIcons.user), label: 'Account')
-                //   ],
-                // ),
+                bottomNavigationBar: _createBottomNavigationBarLogin(),
+               
               );
             } else {
               return Scaffold(
                 body: _screensWithoutLogin[_selectedScreenIndex]["screen"],
-                bottomNavigationBar: BottomNavigationBar(
-                  backgroundColor: Colors.cyan[400],
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.white,
-                  currentIndex: _selectedScreenIndex,
-                  onTap: _selectScreen,
-                  items: const [
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.home), label: 'Home'),
-                    BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.user), label: 'Account')
-                  ],
-                ),
+                bottomNavigationBar:_createBottomNavigationBarWithoutLogin(),
               );
             }
           },
@@ -132,7 +105,7 @@ class _TabScreenState extends State<TabScreen> {
     return Future.value(true);
   }
 
-  Widget _createBottomNavigationBar() {
+  Widget _createBottomNavigationBarLogin() {
     return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -155,6 +128,34 @@ class _TabScreenState extends State<TabScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.shippingFast), label: 'My Order'),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.user), label: 'Account')
+          ],
+        ));
+  }
+
+
+  Widget _createBottomNavigationBarWithoutLogin() {
+    return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff87dae0), Color(0xff9ce3d3)],
+            begin: Alignment.topLeft,
+            end: Alignment.topRight,
+            tileMode: TileMode.clamp,
+          ),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          type: BottomNavigationBarType.fixed,
+          elevation: 0,
+          unselectedItemColor: Colors.white,
+          selectedIconTheme: IconThemeData(color: Colors.black),
+          selectedItemColor: Colors.black,
+          currentIndex: _selectedScreenIndex,
+          onTap: _selectScreen,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.user), label: 'Account')
           ],
