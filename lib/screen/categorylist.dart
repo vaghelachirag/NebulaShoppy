@@ -515,6 +515,10 @@ class _CategoryListState extends State<CategoryList>
     //   });
     // }
 
+   if (index.toString() == "0") {
+       
+    }
+
     if (index.toString() == "1") {
       _listproductList.sort((a, b) {
         return a.salePrice.compareTo(b.salePrice);

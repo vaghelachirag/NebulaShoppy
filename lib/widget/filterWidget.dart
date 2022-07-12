@@ -56,31 +56,29 @@ class _FilterWidgetState extends State<FilterWidget> {
   Widget build(BuildContext context) {
     return Dialog(
       elevation: 0,
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: Color(0xFFB74093),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Container(
           padding: EdgeInsets.all(10),
+          width:  MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          color: Color(0xffffffff),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: [   
               Align(
-                alignment: Alignment.topRight,
-                child: Visibility(
-                    visible: false,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(CommunityMaterialIcons.close_box),
-                        color: Colors.cyan)),
+                alignment: Alignment.topLeft,
+                child: setBoldText("Sort By", 16, Colors.black),
               ),
-              Padding(padding: EdgeInsets.all(0), child: Text("Sort By")),
+              Padding(padding: EdgeInsets.fromLTRB(5, 5, 5, 5),child: 
+              divider(context)),
+              Align(
+                alignment: Alignment.topLeft,
+                child: 
               Container(
-                margin: EdgeInsets.fromLTRB(0, 5, 10, 0),
-                padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
-                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -96,11 +94,16 @@ class _FilterWidgetState extends State<FilterWidget> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext ctx, index) {
                                 return Container(
-                                    child: SizedBox(
-                                        width: 50,
-                                        height: 35,
-                                        child: ListTile(
-                                            leading: Radio<String>(
+                                    height: 35,                                  
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: 
+                                      Row(
+                                        children: [
+                                      SizedBox(
+                                      height: 24.0,width: 24.0,
+                                      child: 
+                                       Radio<String>(
                                               value: list_Filter[index],
                                               groupValue: list_Filter[
                                                   int_SelectedFilterIndex],
@@ -115,15 +118,20 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                   widget.onFilterSelection();
                                                 });
                                               },
-                                            ),
-                                            title: Text(list_Filter[index]))));
+                                            )),
+                                            Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),child: 
+                                            setRegularText(list_Filter[index], 14, Colors.black))
+                                        ],
+                                      )
+                                     ,
+                                    ));
                               });
                         }
                       },
                     )
                   ],
                 ),
-              ),
+              )),
             ],
           )),
     );
