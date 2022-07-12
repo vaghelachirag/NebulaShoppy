@@ -1060,6 +1060,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               "" +
                               _listNewLaunched[index].mrp.toString()),
                       gradientColors: [Colors.white, Colors.white],
+                      onBackPressClicked: () {},
                     );
                   },
                 );
@@ -1095,6 +1096,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       price: '\$' + "Test",
                       mrp: '\$' + "Test"),
                   gradientColors: [Colors.white, Colors.white],
+                  onBackPressClicked: () {},
                 );
               }),
         )

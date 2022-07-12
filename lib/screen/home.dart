@@ -264,6 +264,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       price: '\$' + "Test",
                       mrp: '\$' + "Test"),
                   gradientColors: [Colors.white, Colors.white],
+                  onBackPressClicked: () {},
                 );
               }),
         )
@@ -303,6 +304,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           "" +
                           _listNewLaunched[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
+                  onBackPressClicked: () {
+                    _refreshRecentData();
+                    getCartCount();
+                  },
                 ),
               );
               ;
@@ -346,6 +351,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           "" +
                           _listRecentView[index].mrp.toString()),
                   gradientColors: [Colors.white, Colors.white],
+                  onBackPressClicked: () {
+                    _refreshRecentData();
+                    getCartCount();
+                  },
                 ),
               );
               ;
@@ -512,6 +521,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     mrp: rupees_Sybol +
                         "" +
                         _listNewLaunched[index].mrp.toString()),
+                onBackPressClicked: () {
+                  _refreshRecentData();
+                  getCartCount();
+                },
                 gradientColors: [Colors.white, Colors.white],
               );
             },

@@ -14,7 +14,12 @@ class TrendingItem extends StatelessWidget {
   final Product product;
   final List<Color> gradientColors;
 
-  const TrendingItem({required this.product, required this.gradientColors});
+  final VoidCallback onBackPressClicked;
+
+  const TrendingItem(
+      {required this.product,
+      required this.gradientColors,
+      required this.onBackPressClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +43,19 @@ class TrendingItem extends StatelessWidget {
               child: GestureDetector(
                   onTap: () {
                     print("NewLaunch" + "New Launch");
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          child: ProductDetail(
-                            id: product.id,
-                            productid: product.productid,
-                            categoryid: product.catid,
-                          ),
-                        ));
+
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //       type: PageTransitionType.fade,
+                    //       child: ProductDetail(
+                    //         id: product.id,
+                    //         productid: product.productid,
+                    //         categoryid: product.catid,
+                    //       ),
+                    //     ));
+
+                    goToProductDetail(context);
                   },
                   child: Card(
                     elevation: 0,
@@ -150,6 +158,21 @@ class TrendingItem extends StatelessWidget {
             ))
       ],
     );
+  }
+
+  void goToProductDetail(BuildContext context) async {
+    var push_ProductDetail = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ProductDetail(
+        id: product.id,
+        productid: product.productid,
+        categoryid: product.catid,
+      ),
+    ));
+
+    if (push_ProductDetail == null || push_ProductDetail == true) {
+      print("Back" + "Product Back");
+      onBackPressClicked();
+    }
   }
 }
 

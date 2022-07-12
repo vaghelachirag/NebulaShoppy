@@ -310,6 +310,9 @@ class _CategoryListState extends State<CategoryList>
                 },
                 onCartRemovedClick: () {},
                 onCountChanges: (int) {},
+                onBackPressClicked: () {
+                  getCartCount();
+                },
               );
             },
           ),
@@ -376,6 +379,7 @@ class _CategoryListState extends State<CategoryList>
                       onCartAddClick: () {},
                       onCartRemovedClick: () {},
                       onCountChanges: (int) {},
+                      onBackPressClicked: () {},
                     ),
                   )));
         },
@@ -420,6 +424,9 @@ class _CategoryListState extends State<CategoryList>
               },
               onCartRemovedClick: () {},
               onCountChanges: (int) {},
+              onBackPressClicked: () {
+                getCartCount();
+              },
             ),
           ));
         },

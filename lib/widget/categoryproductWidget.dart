@@ -17,14 +17,15 @@ class CategoryProductWidget extends StatelessWidget {
   final VoidCallback onCartRemovedClick;
   final VoidCallback onCartAddClick;
   final Function(int) onCountChanges;
+  final VoidCallback onBackPressClicked;
 
-  CategoryProductWidget({
-    required this.product,
-    required this.gradientColors,
-    required this.onCartRemovedClick,
-    required this.onCartAddClick,
-    required this.onCountChanges,
-  });
+  CategoryProductWidget(
+      {required this.product,
+      required this.gradientColors,
+      required this.onCartRemovedClick,
+      required this.onCartAddClick,
+      required this.onCountChanges,
+      required this.onBackPressClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +97,17 @@ class CategoryProductWidget extends StatelessWidget {
               showAlertDialog(context, product.icon);
             },
             onTap: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    child: ProductDetail(
-                      id: product.id,
-                      productid: product.productid,
-                      categoryid: product.catid,
-                    ),
-                  ));
+              goToProductDetail(context, product);
+              // Navigator.push(
+              //     context,
+              //     PageTransition(
+              //       type: PageTransitionType.fade,
+              //       child: ProductDetail(
+              //         id: product.id,
+              //         productid: product.productid,
+              //         categoryid: product.catid,
+              //       ),
+              //     ));
             },
             child: Container(
               width: 100,
@@ -119,6 +121,21 @@ class CategoryProductWidget extends StatelessWidget {
         ))
       ],
     );
+  }
+
+  void goToProductDetail(BuildContext context, Product product) async {
+    var push_ProductDetail = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ProductDetail(
+        id: product.id,
+        productid: product.productid,
+        categoryid: product.catid,
+      ),
+    ));
+
+    if (push_ProductDetail == null || push_ProductDetail == true) {
+      print("Back" + "Product Back");
+      onBackPressClicked();
+    }
   }
 
   _productDetails() {
