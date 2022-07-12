@@ -24,6 +24,7 @@ import '../model/product.dart';
 import '../uttils/sharedpref.dart';
 import '../widget/Accountwidget.dart';
 import '../widget/LoginDialoug.dart';
+import '../widget/common_widget.dart';
 import '../widget/myorderwidget.dart';
 import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
@@ -92,6 +93,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
       body: 
       Column(
         children: [
+       showMaterialProgressbar(6),    
         Container(
         color: white,
         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -189,10 +191,14 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   }
 
   void getMyProfile() async {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getMyProfile().then((value) => {
+         hideProgressBar(),
           setState((() {
-            Navigator.pop(_dialogKey.currentContext!);
+        //    Navigator.pop(_dialogKey.currentContext!);
             if (value.statusCode == 1) {
               showProfileDialoug(value);
             } else {

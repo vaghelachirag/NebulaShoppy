@@ -97,11 +97,16 @@ class _AddNewAddressState extends State<AddNewAddress>
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Add Address", false)),
-      body: SingleChildScrollView(
+      body:
+       AbsorbPointer(
+        absorbing: showProgress,
+         child:   
+       SingleChildScrollView(
           child: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
+           showMaterialProgressbar(6),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
@@ -270,7 +275,7 @@ class _AddNewAddressState extends State<AddNewAddress>
           ],
         ),
       )),
-    );
+    ));
   }
 
   Column addDeliveryInstruction() {
@@ -869,7 +874,10 @@ class _AddNewAddressState extends State<AddNewAddress>
   }
 
   void getAddAddressResponse() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+ //   showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service()
         .getAddNewAddressResponse(
             _mobileNumberController.text,
@@ -883,13 +891,14 @@ class _AddNewAddressState extends State<AddNewAddress>
             str_AddressType,
             DeviceId.toString())
         .then((value) => {
+             hideProgressBar(),
               if (value.toString() == str_ErrorMsg)
                 {
                   showSnakeBar(context, str_ErrorMsg),
                 }
               else
                 {
-                  Navigator.pop(_dialogKey.currentContext!),
+               //   Navigator.pop(_dialogKey.currentContext!),
                   showSnakeBar(context, "Your Address Added Successfully"),
                   Navigator.pop(context, true)
                 }

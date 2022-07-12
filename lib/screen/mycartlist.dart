@@ -63,6 +63,7 @@ class _MyCartListState extends State<MyCartList> {
 
     checkUserLoginOrNot();
     getMyCartList();
+    hideProgressBar();
   }
 
   final GlobalKey<_MyCartListState> _myWidgetState =
@@ -85,7 +86,10 @@ class _MyCartListState extends State<MyCartList> {
           child: appBarWidget(context, 3, "My Cart", false)),
       bottomNavigationBar:
           Visibility(visible: is_ShowBottomBar, child: bottomBar()),
-      body: is_ShowNoData == true ? noDataFound() : getMyCartData(),
+      body: is_ShowNoData == true ? noDataFound() :
+      AbsorbPointer(
+        absorbing: showProgress,
+         child:   getMyCartData()),
     );
   }
 
@@ -108,6 +112,7 @@ class _MyCartListState extends State<MyCartList> {
           delegate: SliverChildListDelegate(
             <Widget>[
               locationHeader(),
+              showMaterialProgressbar(6),
               FutureBuilder(
                 builder: (context, snapshot) {
                   if (_listCartItem.isEmpty) {
@@ -447,7 +452,10 @@ class _MyCartListState extends State<MyCartList> {
                   onCountChanges: (int) {},
                   onCartAddClick: () {
                     print("Cart" + "Add Add");
-                    showLoadingDialog(context, _dialogKey, "Please Wait..");
+                  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+                   setState(() {
+                     showProgressbar();
+                   });
                     addToCart(
                         widget.device_Id,
                         str_UserId,
@@ -457,7 +465,10 @@ class _MyCartListState extends State<MyCartList> {
                   },
                   onCartRemovedClick: () {
                     print("Cart" + "Add Minus");
-                    showLoadingDialog(context, _dialogKey, "Please Wait..");
+                      setState(() {
+                     showProgressbar();
+                   });
+                   // showLoadingDialog(context, _dialogKey, "Please Wait..");
                     addToCart(
                         widget.device_Id,
                         str_UserId,
@@ -578,9 +589,8 @@ class _MyCartListState extends State<MyCartList> {
             deviceId, str_userId, productId, quntity.toString(), flag)
         .then((value) => {
               setState((() {
-                if (_dialogKey.currentContext != null) {
-                  Navigator.pop(_dialogKey.currentContext!);
-                  if (value.statusCode == 1) {
+                hideProgressBar();
+                 if (value.statusCode == 1) {
                     if (flag == Flag_Plus) {
                       showSnakeBar(context, "Item Added to Cart!");
                       setState(() {
@@ -597,7 +607,6 @@ class _MyCartListState extends State<MyCartList> {
                   } else {
                     showSnakeBar(context, "Opps! Something Wrong");
                   }
-                }
               }))
             });
   }

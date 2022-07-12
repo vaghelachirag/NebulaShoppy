@@ -92,18 +92,18 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             constraints: BoxConstraints(),
             child: Column(
               children: [
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       PageTransition(
-                //         type: PageTransitionType.fade,
-                //         child: Search(),
-                //       ),
-                //     );
-                //   },
-                //   child: SearchWidget(),
-                // ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        child: Search(),
+                      ),
+                    );
+                  },
+                  child: SearchWidget(),
+                ),
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listBannerImage.isEmpty) {

@@ -112,7 +112,15 @@ class _OrderSummeryState extends State<OrderSummery>
             preferredSize: const Size.fromHeight(50),
             child: appBarWidget(context, 3, widget.str_Title, false)),
         bottomNavigationBar: Visibility(visible: true, child: bottomBar()),
-        body: getOrderSummeryData());
+        body: Column(
+          children: [
+            showMaterialProgressbar(6),
+               AbsorbPointer(
+          absorbing: showProgress,
+         child:   getOrderSummeryData())
+          ],
+        )
+     );
 
     // This trailing comma makes auto-formatting nicer for build methods
   }
@@ -257,10 +265,14 @@ class _OrderSummeryState extends State<OrderSummery>
   }
 
   getTotalCountResponse() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+    //showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getCartTotal(DeviceId, str_UserId).then((value) => {
           setState((() {
-            Navigator.pop(_dialogKey.currentContext!);
+            hideProgressBar();
+            //Navigator.pop(_dialogKey.currentContext!);
             if (value.statusCode == 1) {
               int_TotalItemCount = value.data?.sumOfQty;
             } else {

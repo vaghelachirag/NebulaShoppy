@@ -120,11 +120,16 @@ class _EditMyAddressState extends State<EditMyAddress>
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Edit Address", false)),
-      body: SingleChildScrollView(
+      body: 
+       AbsorbPointer(
+        absorbing: showProgress,
+         child:   
+      SingleChildScrollView(
           child: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
+            showMaterialProgressbar(6),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
@@ -246,7 +251,7 @@ class _EditMyAddressState extends State<EditMyAddress>
           ],
         ),
       )),
-    );
+    ));
   }
 
   Column addDeliveryInstruction() {
@@ -582,11 +587,15 @@ class _EditMyAddressState extends State<EditMyAddress>
 
   void deleteMyAddress(GetMyAddressData listMyAddres) {
     Navigator.pop(context);
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service()
         .getDeletMyAddressResponse(listMyAddres.id.toString())
         .then((value) => {
-              Navigator.pop(_dialogKey.currentContext!),
+            hideProgressBar(),
+            //  Navigator.pop(_dialogKey.currentContext!),
               if (value.toString() == str_ErrorMsg) {setState((() {}))},
               if (value.toString() != str_ErrorMsg)
                 {
@@ -602,10 +611,14 @@ class _EditMyAddressState extends State<EditMyAddress>
   }
 
   getStateList() {
+    setState(() {
+      showProgressbar();
+    });
     Service().getStateList().then((value) => {
           if (this.mounted)
             {
               setState((() {
+                 hideProgressBar();
                 if (value.statusCode == 1) {
                   //  print("Categorylist" + value.message);
                   _listState = value.data!;
@@ -857,7 +870,10 @@ class _EditMyAddressState extends State<EditMyAddress>
   }
 
   void getAddAddressResponse() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+   setState(() {
+     showProgressbar();
+   });
+   // showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service()
         .getEditAddressResponse(
             _mobileNumberController.text,
@@ -870,14 +886,15 @@ class _EditMyAddressState extends State<EditMyAddress>
             _pinCodeController.text,
             str_AddressType,
             widget.strId.toString())
-        .then((value) => {
+           .then((value) => {
+               hideProgressBar(),
               if (value.toString() == str_ErrorMsg)
                 {
                   showSnakeBar(context, str_ErrorMsg),
                 }
               else
                 {
-                  Navigator.pop(_dialogKey.currentContext!),
+                //  Navigator.pop(_dialogKey.currentContext!),
                   showSnakeBar(context, "Your Address Updated Successfully"),
                   Navigator.pop(context, true)
                 }

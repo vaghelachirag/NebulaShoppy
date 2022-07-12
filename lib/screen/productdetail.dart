@@ -1059,7 +1059,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           mrp: rupees_Sybol +
                               "" +
                               _listNewLaunched[index].mrp.toString(),
-                              qunatity: _listNewLaunched[index].quantity),
+                              qunatity: _listNewLaunched[index].quantity ),
                       gradientColors: [Colors.white, Colors.white],
                       onBackPressClicked: () {},
                     );

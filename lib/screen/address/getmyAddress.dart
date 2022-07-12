@@ -93,7 +93,7 @@ class _GetMyAddressState extends State<GetMyAddress>
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            showMaterialProgressbar(8),
+            showMaterialProgressbar(6),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
@@ -407,11 +407,15 @@ class _GetMyAddressState extends State<GetMyAddress>
 
   void deleteMyAddress(GetMyAddressData listMyAddres) {
     Navigator.pop(context);
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+   // showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service()
         .getDeletMyAddressResponse(listMyAddres.id.toString())
         .then((value) => {
-              Navigator.pop(_dialogKey.currentContext!),
+              hideProgressBar(),
+              //Navigator.pop(_dialogKey.currentContext!),
               if (value.toString() == str_ErrorMsg) {setState((() {}))},
               if (value.toString() != str_ErrorMsg)
                 {
