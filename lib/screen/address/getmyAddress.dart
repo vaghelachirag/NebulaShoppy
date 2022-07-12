@@ -39,6 +39,7 @@ class _GetMyAddressState extends State<GetMyAddress>
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
+    showProgressbar();
   }
 
   @override
@@ -92,10 +93,7 @@ class _GetMyAddressState extends State<GetMyAddress>
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-           Visibility(
-              visible: bl_ShowLoading,
-              child: 
-            showMaterialProgressbar(8)),
+            showMaterialProgressbar(8),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
@@ -123,12 +121,14 @@ class _GetMyAddressState extends State<GetMyAddress>
   getMyAddress() {
     if (_listMyAddress.isEmpty) {
       setState(() {
-         bl_ShowLoading = true;
+         bl_ShowLoading = true;        
+          showProgressbar();
       });
-     
+      
      // showLoadingDialog(context, _dialogKey, "Please Wait..");
       Service().getMyAddress().then((value) => {
              bl_ShowLoading = false,
+             hideProgressBar(),
            // Navigator.pop(_dialogKey.currentContext!),
             if (value.toString() == str_ErrorMsg) {setState((() {}))},
             if (value.toString() != str_ErrorMsg)

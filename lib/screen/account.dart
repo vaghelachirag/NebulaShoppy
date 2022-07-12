@@ -89,11 +89,16 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Account", false)),
-      body: Container(
+      body: 
+      Column(
+        children: [
+        Container(
         color: white,
         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: ListView.builder(
           itemCount: _accountList.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return GestureDetector(
@@ -116,7 +121,10 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
             ;
           },
         ),
-      ),
+      )
+        ],
+      )
+      ,
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

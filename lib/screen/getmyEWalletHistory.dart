@@ -13,6 +13,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/homescreen/itembannerimage.dart';
@@ -79,7 +80,10 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: appBarWidget(context, 3, widget.str_Title, false)),
-        body: SingleChildScrollView(
+        body: Column(
+          children: [
+            showMaterialProgressbar(6),
+            SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
             columnSpacing: 10,
@@ -128,7 +132,10 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
             ).toList(),
           ),
           // This trailing comma makes auto-formatting nicer for build methods.
-        ));
+        )
+          ],
+        ) 
+        );
   }
 
   Container getTable() {
@@ -155,8 +162,13 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
   }
 
   void getMyEWalletHistory() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+   setState(() {
+      showProgressbar();
+   });
     Service().getMyWalletHistoryResponse(str_IboKey).then((value) => {
+           
+           hideProgressBar(),
           setState((() {
             if (_dialogKey.currentContext != null) {
               Navigator.pop(_dialogKey.currentContext!);

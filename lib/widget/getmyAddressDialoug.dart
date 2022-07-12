@@ -313,7 +313,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
      // showLoadingDialog(context, _dialogKey, "Please Wait..");
       showProgressbar();
       Service().getMyAddress().then((value) => {
-             hideProgressBar(),
+         hideProgressBar(),
             //Navigator.pop(_dialogKey.currentContext!),
             if (value.toString() == str_ErrorMsg) {setState((() {}))},
             if (value.toString() != str_ErrorMsg)

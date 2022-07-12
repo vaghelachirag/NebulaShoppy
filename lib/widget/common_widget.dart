@@ -178,12 +178,15 @@ Padding loadSkeletonLoaders(Widget box, Axis vertical) {
 Container showMaterialProgressbar(double height){
   return   Container(           
                     child: 
+                    Visibility(
+                      visible: showProgress,
+                      child: 
                     LinearProgressIndicator(
                       backgroundColor: Colors.red[100],
                       color: Colors.red[300],
                       minHeight: height,
                     ),
-                  );
+                  ));
 }
 Padding loadSkeletonLoadersGrid(
     Widget box, Axis vertical, BuildContext context) {
