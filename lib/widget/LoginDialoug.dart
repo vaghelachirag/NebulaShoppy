@@ -36,6 +36,14 @@ class _LoginDialougState extends State<LoginDialoug> {
 
   bool _passwordInVisible = true;
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    hideProgressBar();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -49,6 +57,9 @@ class _LoginDialougState extends State<LoginDialoug> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+               Padding(
+                padding: EdgeInsets.only(left: 10,right: 10),child:
+              showMaterialProgressbar(6)),
               Align(
                 alignment: Alignment.topRight,
                 child: Visibility(
@@ -268,17 +279,21 @@ class _LoginDialougState extends State<LoginDialoug> {
   }
 
   void getLoginResponse() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+   setState(() {
+     showProgressbar();
+   });
     Service().getGenerateTokenResponse(_usernameController.text, _passwordController.text, 'password').then((value) => {
+               hideProgressBar(),
               if (value.toString() == str_ErrorMsg)
                 {
-                  Navigator.pop(_dialogKey.currentContext!),
+                 // Navigator.pop(_dialogKey.currentContext!),
                   showSnakeBar(
                       context, "The user name or password is incorrect")
                 }
               else
                 {
-                  Navigator.pop(_dialogKey.currentContext!),
+                 // Navigator.pop(_dialogKey.currentContext!),
                   getValidLoginResponse(value)
                 }
             });

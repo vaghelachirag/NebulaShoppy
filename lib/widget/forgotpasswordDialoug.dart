@@ -50,6 +50,9 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+           Padding(
+                padding: EdgeInsets.only(left: 10,right: 10),child:
+              showMaterialProgressbar(6)),
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
@@ -133,7 +136,10 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
 
   
   void getLoginResponse() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getSendPasswordOptionResponse(_usernameController.text).then((value) => {
               if (value.toString() == str_ErrorMsg)
                 {          
@@ -142,12 +148,14 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
                 }
               else
                 {  
-                  Navigator.pop(_dialogKey.currentContext!),
+               
+                  //Navigator.pop(_dialogKey.currentContext!),
                   print("Value"+value.data.email),
                   setState(() {
                    email =  value.data.email;
                    password = value.data.mobile;
                     _showNextStep = true;
+                       hideProgressBar();
                   })
                   
                 }

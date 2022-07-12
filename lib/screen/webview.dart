@@ -13,6 +13,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -47,12 +48,14 @@ Webview({Key? key, required this.str_Url , required this.str_Title })
 
 class _WebviewState extends State<Webview> with WidgetsBindingObserver {
   
- bool isLoading=true;
+   bool isLoading=true;
   final _key = UniqueKey();
   @override
   void initState() {
     super.initState();
-    
+    setState(() {
+      showProgressbar();
+    });
   }
 
   @override
@@ -80,10 +83,11 @@ class _WebviewState extends State<Webview> with WidgetsBindingObserver {
             onPageFinished: (finish) {
               setState(() {
                 isLoading = false;
+                hideProgressBar();
               });
             },
           ),
-          isLoading ? Center( child: CircularProgressIndicator(),)
+          isLoading ? showMaterialProgressbar(6)
                     : Stack(),
         ],
       ),

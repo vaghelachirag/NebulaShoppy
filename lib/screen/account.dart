@@ -51,6 +51,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    hideProgressBar();
     addAccountData();
     getIboKey();
     checkUserLoginOrNot();

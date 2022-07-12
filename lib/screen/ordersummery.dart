@@ -131,8 +131,7 @@ class _OrderSummeryState extends State<OrderSummery>
   }
 
   void getOrderSummery() {
-    Service()
-        .getOrderSummery(widget.device_Id, widget.str_UserId, "1")
+    Service().getOrderSummery(widget.device_Id, widget.str_UserId, "1")
         .then((value) => {
               if (value.toString() == str_NoDataMsg) {setState((() {}))},
               if (value.toString() != str_ErrorMsg &&
@@ -459,8 +458,10 @@ class _OrderSummeryState extends State<OrderSummery>
   }
 
   void callOrderApi() {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
-
+    //showLoadingDialog(context, _dialogKey, "Please Wait..");
+     setState(() {
+       showProgressbar();
+     });
     Service()
         .getGenerateOrderPayUResponse(str_UserId, int_Total.toString(), "", "",
             "PickUp", "1", "", "", "Online%20Payment", "true", "UPI", "0")
@@ -468,7 +469,8 @@ class _OrderSummeryState extends State<OrderSummery>
               if (this.mounted)
                 {
                   setState((() {
-                    Navigator.pop(_dialogKey.currentContext!);
+                   // Navigator.pop(_dialogKey.currentContext!);
+                   hideProgressBar();
                     if (value.statusCode == 1) {
                       widget.txnID = value.data!.orderId.toString();
                       widget.firstname = value.data!.firstname.toString();
