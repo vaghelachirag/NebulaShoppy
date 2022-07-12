@@ -56,15 +56,12 @@ class _FilterWidgetState extends State<FilterWidget> {
   Widget build(BuildContext context) {
     return Dialog(
       elevation: 0,
-      backgroundColor: Color(0xFFB74093),
+      backgroundColor: Color(0xffffffff),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Container(
           padding: EdgeInsets.all(10),
-          width:  MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          color: Color(0xffffffff),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [   
@@ -72,7 +69,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 alignment: Alignment.topLeft,
                 child: setBoldText("Sort By", 16, Colors.black),
               ),
-              Padding(padding: EdgeInsets.fromLTRB(5, 5, 5, 5),child: 
+              Padding(padding: EdgeInsets.fromLTRB(5, 8, 5, 8),child: 
               divider(context)),
               Align(
                 alignment: Alignment.topLeft,

@@ -102,7 +102,12 @@ class _GetMyAddressState extends State<GetMyAddress>
                       alignment: Alignment.topLeft,
                       child: setBoldText("Your Addresses", 16, Colors.black))),
             ),
-            addnewAddress(context),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 40,
+              child:  addnewAddress(context),
+            )
+           ,
             Visibility(
                 visible: bl_ShowAddress,
                 child: Padding(
@@ -173,7 +178,7 @@ class _GetMyAddressState extends State<GetMyAddress>
 
                           navigateToAddNewScreen();
                         },
-                        icon: Icon(CommunityMaterialIcons.arrow_right))
+                        icon: Icon(CommunityMaterialIcons.arrow_right,size: 14,))
                   ],
                 ),
               )

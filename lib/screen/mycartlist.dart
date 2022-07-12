@@ -89,7 +89,17 @@ class _MyCartListState extends State<MyCartList> {
       body: is_ShowNoData == true ? noDataFound() :
       AbsorbPointer(
         absorbing: showProgress,
-         child:   getMyCartData()),
+         child:   
+          Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+           locationHeader(),
+          showMaterialProgressbar(6),
+           Expanded(
+            child: 
+           getMyCartData())
+        ])
+        ),
     );
   }
 
@@ -97,11 +107,16 @@ class _MyCartListState extends State<MyCartList> {
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Center(
-            child: Text(
-          "No Data Found!",
+        child:   Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+           Text(
+          "Your Cart is Empty",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        )));
+            )     
+         
+              ],
+            ));
   }
 
   CustomScrollView getMyCartData() {
@@ -111,8 +126,6 @@ class _MyCartListState extends State<MyCartList> {
         sliver: SliverList(
           delegate: SliverChildListDelegate(
             <Widget>[
-              locationHeader(),
-              showMaterialProgressbar(6),
               FutureBuilder(
                 builder: (context, snapshot) {
                   if (_listCartItem.isEmpty) {
@@ -446,7 +459,10 @@ class _MyCartListState extends State<MyCartList> {
                   gradientColors: [Colors.white, Colors.white],
                   onItemRemovedClick: (int) {
                     print("ItemRemovedIt" + int.toString());
-                    showLoadingDialog(context, _dialogKey, "Please Wait..");
+                   // showLoadingDialog(context, _dialogKey, "Please Wait..");
+                   setState(() {
+                     showProgressbar();
+                   });
                     callMethodRemoveItemFromCart(int);
                   },
                   onCountChanges: (int) {},
@@ -512,7 +528,13 @@ class _MyCartListState extends State<MyCartList> {
             alignment: Alignment.centerRight,
             child: MainButtonWidget(
                 onPress: () {
-                  openCheckoutDialoug();
+                  if(str_SelectedAddress == "Deliver To"){
+                    showSnakeBar(context, "Please Select Your Delivery Location");
+                  }
+                  else{
+                    openCheckoutDialoug();
+                  }
+                
                 },
                 buttonText: "Checkout"),
           )
@@ -541,9 +563,8 @@ class _MyCartListState extends State<MyCartList> {
           .getCartRemoveItemWithoutLogin(DeviceId, productId.toString())
           .then((value) => {
                 setState((() {
-                  if (_dialogKey.currentContext != null) {
-                    Navigator.pop(_dialogKey.currentContext!);
-                    if (value.statusCode == 1) {
+                   hideProgressBar();
+                   if (value.statusCode == 1) {         
                       showSnakeBar(context, "Item Removed From Cart!");
                       setState(() {
                         //  _listCartItem.clear();
@@ -552,7 +573,6 @@ class _MyCartListState extends State<MyCartList> {
                     } else {
                       showSnakeBar(context, "Opps! Something Wrong");
                     }
-                  }
                 }))
               });
     } else {
@@ -564,9 +584,8 @@ class _MyCartListState extends State<MyCartList> {
                 DeviceId, productId.toString(), str_UserId)
             .then((value) => {
                   setState((() {
-                    if (_dialogKey.currentContext != null) {
-                      Navigator.pop(_dialogKey.currentContext!);
-                      if (value.statusCode == 1) {
+                  hideProgressBar();
+                  if (value.statusCode == 1) {
                         showSnakeBar(context, "Item Removed From Cart!");
                         setState(() {
                           //  _listCartItem.clear();
@@ -575,7 +594,6 @@ class _MyCartListState extends State<MyCartList> {
                       } else {
                         showSnakeBar(context, "Opps! Something Wrong");
                       }
-                    }
                   }))
                 });
       });
