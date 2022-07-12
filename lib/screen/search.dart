@@ -178,7 +178,8 @@ class _SearchState extends State<Search> {
                       rating: 5,
                       remainingQuantity: 5,
                       price: "Test",
-                      mrp: "Test"),
+                      mrp: "Test",
+                      qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );
@@ -226,7 +227,8 @@ class _SearchState extends State<Search> {
                       remainingQuantity: 5,
                       price: rupees_Sybol +
                           _listSearch[index].salePrice.toString(),
-                      mrp: rupees_Sybol + _listSearch[index].mrp.toString()),
+                      mrp: rupees_Sybol + _listSearch[index].mrp.toString(),
+                      qunatity: _listSearch[index].quantity),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );

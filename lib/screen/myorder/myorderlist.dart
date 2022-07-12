@@ -160,7 +160,8 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                       rating: 5,
                       remainingQuantity: 5,
                       price: "Test",
-                      mrp: "Test"),
+                      mrp: "Test",
+                      qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
                 ),
               );

@@ -185,22 +185,6 @@ class _CategoryListState extends State<CategoryList>
         });
   }
 
-  // getNewLaunchedProduct() async {
-  //   Service().getNewLaunched("1", "0", 1, 50).then((value) => {
-  //         setState((() {
-  //           if (value.statusCode == 1) {
-  //             // print("Categorylist" + value.statusCode.toString());
-  //             _listproductList = value.data.products;
-  //             _listDisplayproductList = _listproductList;
-  //             //filterList(0);
-  //             //print("Filter" + _listproductList.toString());
-  //           } else {
-  //             showSnakeBar(context, somethingWrong);
-  //             //  print("Categorylist" + "Opps Something Wrong!");
-  //           }
-  //         }))
-  //       });
-  // }
 
   Container homeCategory() {
     return Container(
@@ -302,7 +286,8 @@ class _CategoryListState extends State<CategoryList>
                         _listproductList[index].salePrice.toString(),
                     mrp: rupees_Sybol +
                         " " +
-                        _listproductList[index].mrp.toString()),
+                        _listproductList[index].mrp.toString(),
+                        qunatity: _listproductList[index].quantity),
                 gradientColors: [Colors.white, Colors.white],
                 onCartAddClick: () {
                   showLoadingDialog(context, _dialogKey, "Please Wait..");
@@ -374,7 +359,7 @@ class _CategoryListState extends State<CategoryList>
                           rating: 5,
                           remainingQuantity: 5,
                           price: '\$' + "Test",
-                          mrp: '\$' + "Test"),
+                          mrp: '\$' + "Test", qunatity: _listproductList[index].quantity),
                       gradientColors: [Colors.white, Colors.white],
                       onCartAddClick: () {},
                       onCartRemovedClick: () {},
@@ -416,7 +401,8 @@ class _CategoryListState extends State<CategoryList>
                   rating: 5,
                   remainingQuantity: 5,
                   price: _listproductList[index].salePrice.toString(),
-                  mrp: _listproductList[index].mrp.toString()),
+                  mrp: _listproductList[index].mrp.toString(),
+                  qunatity: _listproductList[index].quantity),
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
                 print("CartAdd" + "This");

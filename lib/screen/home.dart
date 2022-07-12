@@ -262,7 +262,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       rating: 5,
                       remainingQuantity: 5,
                       price: '\$' + "Test",
-                      mrp: '\$' + "Test"),
+                      mrp: '\$' + "Test",
+                      qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {},
                 );
@@ -302,7 +303,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           _listNewLaunched[index].salePrice.toString(),
                       mrp: rupees_Sybol +
                           "" +
-                          _listNewLaunched[index].mrp.toString()),
+                          _listNewLaunched[index].mrp.toString(),
+                           qunatity: _listNewLaunched[index].quantity),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
                     _refreshRecentData();
@@ -349,7 +351,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           _listRecentView[index].categorySaleprice.toString(),
                       mrp: rupees_Sybol +
                           "" +
-                          _listRecentView[index].mrp.toString()),
+                          _listRecentView[index].mrp.toString(),
+                          qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
                     _refreshRecentData();
@@ -520,7 +523,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         _listNewLaunched[index].salePrice.toString(),
                     mrp: rupees_Sybol +
                         "" +
-                        _listNewLaunched[index].mrp.toString()),
+                        _listNewLaunched[index].mrp.toString(),
+                        qunatity: _listNewLaunched[index].quantity),
                 onBackPressClicked: () {
                   _refreshRecentData();
                   getCartCount();

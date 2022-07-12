@@ -1058,7 +1058,8 @@ class _ProductDetailState extends State<ProductDetail> {
                               _listNewLaunched[index].salePrice.toString(),
                           mrp: rupees_Sybol +
                               "" +
-                              _listNewLaunched[index].mrp.toString()),
+                              _listNewLaunched[index].mrp.toString(),
+                              qunatity: _listNewLaunched[index].quantity),
                       gradientColors: [Colors.white, Colors.white],
                       onBackPressClicked: () {},
                     );
@@ -1094,7 +1095,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       rating: 5,
                       remainingQuantity: 5,
                       price: '\$' + "Test",
-                      mrp: '\$' + "Test"),
+                      mrp: '\$' + "Test",
+                      qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {},
                 );

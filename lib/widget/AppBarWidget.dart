@@ -10,7 +10,8 @@ import '../screen/search.dart';
 
 Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
   return AppBar(
-      flexibleSpace: Container(
+    iconTheme: IconThemeData(color: Colors.black),
+       flexibleSpace: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -22,7 +23,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
       title: Text(
         str_title,
         style:
-            TextStyle(color: Colors.white, fontSize: 16, fontFamily: EmberBold),
+            TextStyle(color: Colors.black, fontSize: 16, fontFamily: EmberBold),
       ),
       actions: <Widget>[
         //  Image.asset("assets/images/search_icon.png"),
@@ -50,7 +51,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
                   );
                 },
               ),
-              color: Colors.white,
+              color: Colors.black,
             )),
         Visibility(
           visible: isshowCart,
@@ -110,7 +111,7 @@ class _QTYCounterState extends State<QTYCounter> {
                         new IconButton(
                           icon: new Icon(
                             Icons.shopping_cart,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           onPressed: null,
                         ),

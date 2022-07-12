@@ -9,6 +9,7 @@ class Product {
   final String price;
   final String mrp;
   final int remainingQuantity;
+  final int ? qunatity;
 
   Product(
       {required this.id,
@@ -20,5 +21,6 @@ class Product {
       required this.rating,
       required this.price,
       required this.mrp,
-      required this.remainingQuantity});
+      required this.remainingQuantity,
+      required this.qunatity});
 }

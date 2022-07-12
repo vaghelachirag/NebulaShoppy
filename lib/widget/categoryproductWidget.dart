@@ -81,7 +81,7 @@ class CategoryProductWidget extends StatelessWidget {
         ClipPath(
           clipper: ProductImageContainerClipper(),
           child: Container(
-            decoration: BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -110,17 +110,41 @@ class CategoryProductWidget extends StatelessWidget {
               //     ));
             },
             child: Container(
-              width: 100,
-              height: 80,
-              child: FadeInImage.assetNetwork(
+               height: 80,
+              child:  Stack(
+                  children: <Widget>[
+                    Container(
+                       width: 150,
+                       height: 80,
+                      child:              
+                   FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
                   image: product.icon,
-                  fit: BoxFit.contain),
+                  fit: BoxFit.contain)),
+                  showOutOfStock()
+                 ]
+              )
+              ,
             ),
           ),
         ))
       ],
     );
+  }
+
+ Container showOutOfStock(){
+     return Container(
+                    child:                 
+                    Visibility(
+                      visible: product.qunatity! < 1,
+                      child:
+                    Center(child: 
+                    Container( 
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey[300],
+                      child:   setBoldText("OUT OF STOCK", 14, Colors.red),
+                    )
+                  )));
   }
 
   void goToProductDetail(BuildContext context, Product product) async {
@@ -183,6 +207,9 @@ class CategoryProductWidget extends StatelessWidget {
               alignment: Alignment.center,
               child: setProductPrice(product),
             ),
+            Visibility(
+              visible: product.qunatity! > 0,
+              child:           
             Container(
               padding: EdgeInsets.all(5),
               child: GestureDetector(
@@ -191,7 +218,7 @@ class CategoryProductWidget extends StatelessWidget {
                   onCartAddClick();
                 },
               ),
-            ),
+            )),
           ],
         ));
   }

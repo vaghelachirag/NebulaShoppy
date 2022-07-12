@@ -116,7 +116,7 @@ class _GetMyAddressState extends State<GetMyAddress>
 
    getMyAddress() {
      if(_listMyAddress.isEmpty){
- showLoadingDialog(context, _dialogKey, "Please Wait..");
+       showLoadingDialog(context, _dialogKey, "Please Wait..");
        Service().getMyAddress().then((value) => {
           Navigator.pop(_dialogKey.currentContext!),
           if (value.toString() == str_ErrorMsg)
