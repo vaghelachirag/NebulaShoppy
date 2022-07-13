@@ -9,7 +9,6 @@ import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
-import 'package:nebulashoppy/widget/SearchWidget.dart';
 import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';

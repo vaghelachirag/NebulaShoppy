@@ -18,7 +18,6 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/uttils/sliderShowFullmageswidget.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/dotted_slider.dart';
 import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';

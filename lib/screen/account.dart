@@ -13,7 +13,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/screen/webview.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/SearchWidget.dart';
+import 'package:nebulashoppy/widget/noInternet.dart';
 import '../model/getmyorderresponse/setmyorder.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -26,6 +26,7 @@ import '../widget/Accountwidget.dart';
 import '../widget/LoginDialoug.dart';
 import '../widget/common_widget.dart';
 import '../widget/myorderwidget.dart';
+import '../widget/noInternetDialoug.dart';
 import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
@@ -50,13 +51,14 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    isConnectedToInternet();
     hideProgressBar();
     addAccountData();
     getIboKey();
     checkUserLoginOrNot();
     Future.delayed(Duration(seconds: 0), () {
       print("IsLogin" + is_Login.toString());
-      if (!is_Login) {
+      if (!is_Login && is_InternetConnected) {
         showDialog(
           barrierColor: Colors.black26,
           barrierDismissible: false,
@@ -70,6 +72,13 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
             );
           },
         );
+      }
+    });
+
+     Future.delayed(Duration(seconds: 0), () {
+      print("IsLogin" + is_Login.toString());
+      if (!is_InternetConnected) {
+         shownoInternetDialoug(context);
       }
     });
   }

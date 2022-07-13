@@ -12,7 +12,6 @@ import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
 import '../model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
 import '../model/getmyorderresponse/setmyorder.dart';

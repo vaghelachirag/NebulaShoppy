@@ -15,6 +15,7 @@ import 'package:page_transition/page_transition.dart';
 import '../main.dart';
 import '../network/service.dart';
 import '../screen/address/editmyAddress.dart';
+import '../widget/noInternetDialoug.dart';
 import '../widget/restartWidget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
@@ -200,7 +201,6 @@ checkUserLoginOrNot() async {
   if (is_Login) {
     getAuthId();
   }
-
   print("IsLogin" + is_Login.toString());
 }
 
@@ -210,7 +210,22 @@ checkUserLoginOrNot() async {
    print("IsConnected"+ is_InternetConnected.toString());
    return is_InternetConnected;
   }
-
+ 
+  shownoInternetDialoug(BuildContext context){
+     showDialog(
+          barrierColor: Colors.black26,
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return NoInternetDialoug(
+              context,
+              title: "SoldOut",
+              description:
+                  "This product may not be available at the selected address.", onRetryClick: () {  },
+            );
+          },
+        );
+  }
 
 Text setRegularText(String text, int size, Color black) {
   return Text(
