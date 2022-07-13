@@ -9,7 +9,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
 class SliderShowFullmages extends StatefulWidget{
-   List<ProductBannerData> listBannerImage = [];
+   List<dynamic> listBannerImage = [];
   final int current;
    final controller = PageController(viewportFraction: 1, keepPage: true);
 

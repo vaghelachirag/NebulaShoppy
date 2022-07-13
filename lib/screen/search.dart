@@ -22,6 +22,7 @@ import '../model/recentItemResponse/setRecentItem.dart';
 import '../uttils/skeletonloader.dart';
 import '../widget/AppBarWidget.dart';
 import '../widget/common_widget.dart';
+import '../widget/noInternet.dart';
 import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
@@ -44,6 +45,7 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     super.initState();
+    isConnectedToInternet();
     getseachProduct();
     _refreshRecentData();
   }
@@ -83,7 +85,11 @@ class _SearchState extends State<Search> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Search", false)),
-      body: SingleChildScrollView(
+      body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
+         onRetryClick();
+         print("Home"+"Retry");
+      },) : 
+      SingleChildScrollView(
           child: ConstrainedBox(
         constraints: BoxConstraints(),
         child: Column(
@@ -288,5 +294,11 @@ class _SearchState extends State<Search> {
         print("RecentItems" + recentItem.id.toString());
       }
     });
+  }
+
+  void onRetryClick() {
+      setState(() {
+        isConnectedToInternet();
+      });
   }
 }

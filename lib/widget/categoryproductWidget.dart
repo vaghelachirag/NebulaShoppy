@@ -229,22 +229,16 @@ Column setProductPrice(Product product) {
     children: [
       Container(
         padding: EdgeInsets.only(left: 8, top: 10, right: 8),
-        child: Flexible(
-          flex: 5,
-          child: setBoldText(rupees_Sybol + product.price, 14, Colors.red),
-        ),
+        child:  setBoldText(rupees_Sybol + product.price, 14, Colors.red),
       ),
-      Flexible(
-        flex: 5,
-        child: Text(
+      Text(
           rupees_Sybol + product.mrp,
           style: TextStyle(
               color: Colors.grey,
               fontSize: 10,
               fontFamily: Ember,
               decoration: TextDecoration.lineThrough),
-        ),
-      )
+        )
     ],
   );
 }

@@ -23,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../model/product.dart';
 import '../../widget/LoginDialoug.dart';
 import '../../widget/myorderwidget.dart';
+import '../../widget/noInternet.dart';
 import '../../widget/searchitem.dart';
 import '../../widget/star_rating.dart';
 import '../../widget/trending_item.dart';
@@ -43,6 +44,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    isConnectedToInternet();
     getMyOrderList();
   }
 
@@ -62,7 +64,10 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Order List", false)),
-      body: Container(
+      body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
+         onRetryClick();
+        },) :
+       Container(
           padding: EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -196,5 +201,11 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
     print("OrderDare" + dates.toString());
      string_Date = formatter.format(date);
       _orderDate.add(string_Date);
+  }
+
+  void onRetryClick() {
+     setState(() {
+        isConnectedToInternet();
+      });
   }
 }

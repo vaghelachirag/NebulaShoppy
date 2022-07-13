@@ -1551,13 +1551,8 @@ class _ProductDetailState extends State<ProductDetail> {
               .then((value) => {
                     setState(() {
                       print("Cart" + value.data.cart.toString());
-                     if (value.statusCode == 1) {
-                      _listCartItem = value.data.cart;
-                      compareproductquntity(_listCartItem);
-                    } else {
-                      showSnakeBar(context, somethingWrong);
-                      print("Categorylist" + "Opps Something Wrong!");
-                    }
+                      // int_CartCounters = value.data!.sumOfQty;
+                      // QTYCount = value.data!.sumOfQty.toString();
                     })
                   });
         });

@@ -17,6 +17,7 @@ import '../network/service.dart';
 import '../screen/address/editmyAddress.dart';
 import '../widget/restartWidget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 const HOME_SCREEN = 'home_screen';
 
@@ -154,7 +155,7 @@ const String Ember = "Ember";
 const String EmberBold = "Ember-Bold";
 const String EmberItalic = "Ember-Italic";
 
-const String assestPath = "assets/images/";
+const String assestPath = 'assets/images/';
 
 DateTime currentBackPressTime = DateTime.now();
 
@@ -166,6 +167,9 @@ String register =
 
 // For Show Progress
 bool showProgress = true;
+
+// Is Interent Connected 
+bool is_InternetConnected = false;
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -190,6 +194,7 @@ changeBaseURL(int int_BaseUrl) {
 
 gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail) {}
 
+// For Check Interent Connected 
 checkUserLoginOrNot() async {
   is_Login = await SharedPref.readBool(str_IsLogin);
   if (is_Login) {
@@ -198,6 +203,14 @@ checkUserLoginOrNot() async {
 
   print("IsLogin" + is_Login.toString());
 }
+
+// For Internet Connection
+  Future<bool> isConnectedToInternet() async{
+   is_InternetConnected = await SimpleConnectionChecker.isConnectedToInternet();
+   print("IsConnected"+ is_InternetConnected.toString());
+   return is_InternetConnected;
+  }
+
 
 Text setRegularText(String text, int size, Color black) {
   return Text(

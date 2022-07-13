@@ -25,6 +25,7 @@ import '../network/service.dart';
 import '../uttils/constant.dart';
 import '../widget/common_widget.dart';
 import '../widget/mainButton.dart';
+import '../widget/noInternet.dart';
 import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,6 +54,7 @@ class _MyCartListState extends State<MyCartList> {
   @override
   void initState() {
     super.initState();
+    isConnectedToInternet();
     setState(() {
       widget.device_Id = DeviceId.toString();
       bl_ShowCart = false;
@@ -85,8 +87,17 @@ class _MyCartListState extends State<MyCartList> {
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "My Cart", false)),
       bottomNavigationBar:
-          Visibility(visible: is_ShowBottomBar, child: bottomBar()),
-      body: is_ShowNoData == true ? noDataFound() : 
+          Visibility(visible: is_ShowBottomBar && is_InternetConnected, child: bottomBar()),
+      body:  is_InternetConnected == false ? NoInternet(onRetryClick: () {
+         isConnectedToInternet();
+         onRetryClick();
+         print("Home"+"Retry");
+        },) : getCartItem(),
+    );
+  }
+  Container getCartItem(){
+    return Container(
+      child:  is_ShowNoData == true ? noDataFound() : 
       AbsorbPointer(
         absorbing: showProgress,
          child:   
@@ -102,7 +113,6 @@ class _MyCartListState extends State<MyCartList> {
         ),
     );
   }
-
   Container noDataFound() {
     return Container(
         width: MediaQuery.of(context).size.width,
@@ -122,7 +132,7 @@ class _MyCartListState extends State<MyCartList> {
            Text(
           "Cart is Empty",
           style: TextStyle(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold,fontFamily: EmberBold)),),
-           Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 0),child:
+           Padding(padding: EdgeInsets.fromLTRB(20, 5, 20, 0),child:
            Text(
           "Looks like you have no items in your shopping cart.",
           style: TextStyle(fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.normal,fontFamily: Ember)),)],
@@ -841,4 +851,6 @@ class _MyCartListState extends State<MyCartList> {
       getCartItemWithLogin();
     });
   }
+
+  void onRetryClick() {}
 }

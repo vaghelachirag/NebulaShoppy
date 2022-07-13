@@ -246,10 +246,9 @@ Padding loadSkeletonLoadersGrid(
       padding: const EdgeInsets.only(top: 10),
       child: Container(
         width: MediaQuery.of(context).size.width - 100,
-        child: Flexible(
           child: SingleChildScrollView(
             child: 
-          GridView.builder(
+            GridView.builder(
               itemCount: 20,
              shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -269,7 +268,7 @@ Padding loadSkeletonLoadersGrid(
                 mainAxisSpacing: 1,
               )),
         ),
-      )));
+      ));
 }
 
 OutlinedButton setMainButton() {

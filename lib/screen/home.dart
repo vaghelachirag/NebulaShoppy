@@ -14,6 +14,7 @@ import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/SearchWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/noInternet.dart';
 import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -54,6 +55,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
+    isConnectedToInternet();
     getBannerImage();
     getDeviceId();
     checkUserLoginOrNot();
@@ -86,24 +88,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Home", true)),
-      body: WillPopScope(
+      body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
+         onRetryClick();
+         print("Home"+"Retry");
+      },) :  
+         WillPopScope(
           child: SingleChildScrollView(
               child: ConstrainedBox(
             constraints: BoxConstraints(),
             child: Column(
-              children: [
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       PageTransition(
-                //         type: PageTransitionType.fade,
-                //         child: Search(),
-                //       ),
-                //     );
-                //   },
-                //   child: SearchWidget(),
-                // ),
+              children: [        
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listBannerImage.isEmpty) {
@@ -171,7 +165,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               onWillPop), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
   getBannerImage() async {
     Service().getHomeBanner().then((value) => {
           if (this.mounted)
@@ -613,5 +606,11 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         _listRecentView.add(recentItem);
       }
     });
+  }
+
+  onRetryClick(){
+      setState(() {
+        isConnectedToInternet();
+      });
   }
 }

@@ -285,7 +285,7 @@ Widget boxProductCatWise(BuildContext context) {
       children: [
         Container(
           width: 200,
-          height: 200,
+          height: 160,
           decoration:
               BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
         ),

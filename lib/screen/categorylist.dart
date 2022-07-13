@@ -109,11 +109,12 @@ class _CategoryListState extends State<CategoryList>
               visible: bl_IsFilterVisible,
               child: FloatingActionButton(
                 // isExtended: true,
+              //  child: Image.asset('assets/images/filtericon.jpg'),
                 child: Icon(
-                  CommunityMaterialIcons.filter,
-                  color: Colors.black,
+                  CommunityMaterialIcons.filter_variant,
+                  color: Colors.white,
                 ),
-                backgroundColor: Colors.white,
+                backgroundColor: THEME_COLOR,
                 onPressed: () {
                   showDialog(
                     barrierColor: Colors.black26,
@@ -504,14 +505,7 @@ class _CategoryListState extends State<CategoryList>
                   //   //Navigator.pop(_dialogKey.currentContext!);
                     
                   // }
-                  hideProgressBar();
-                    if (value.statusCode == 1) {
-                      print("Value" + value.statusCode.toString());
-                      showSnakeBar(context, "Item Added to Cart!");
-                      getCartCount();
-                    } else {
-                      showSnakeBar(context, "Opps! Something Wrong");
-                    }
+                  
                 }))
               });
     });

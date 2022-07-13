@@ -23,6 +23,7 @@ import '../model/product.dart';
 import '../uttils/skeletonloader.dart';
 import '../widget/LoginDialoug.dart';
 import '../widget/myorderwidget.dart';
+import '../widget/noInternet.dart';
 import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
@@ -45,6 +46,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    isConnectedToInternet();
     getMyOrderList();
     
   }
@@ -65,7 +67,12 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Order List", false)),
-             body:  Container(
+             body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
+         isConnectedToInternet();
+         onRetryClick();
+         print("Home"+"Retry");
+        },) : 
+             Container(
                       padding: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
@@ -110,4 +117,6 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
       _orderDate.add(string_Date);  
   });
   }
+
+  void onRetryClick() {}
 }
