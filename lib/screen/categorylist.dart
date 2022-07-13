@@ -501,6 +501,9 @@ class _CategoryListState extends State<CategoryList>
               productId.toString(), "1", Flag_Plus)
           .then((value) => {
                 setState((() {
+                  hideProgressBar();
+                  showSnakeBar(context, "Item Added to Cart!");
+                  getCartCount();
                   // if (_dialogKey.currentContext != null) {
                   //   //Navigator.pop(_dialogKey.currentContext!);
                     
