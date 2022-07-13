@@ -380,12 +380,18 @@ showLogoutDialoug(BuildContext context) {
 }
 
 refreshApp(BuildContext context) {
-  Navigator.push(
-      context,
-      PageTransition(
-        type: PageTransitionType.fade,
-        child: TabScreen(),
-      ));
+Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (dialogContex) => TabScreen()),
+              ModalRoute.withName("/tabscreen"));
+
+  // dsdsd
+  // Navigator.push(
+  //     context,
+  //     PageTransition(
+  //       type: PageTransitionType.fade,
+  //       child: TabScreen(),
+  //     ));
 }
 
 void clearSession(BuildContext context) async {

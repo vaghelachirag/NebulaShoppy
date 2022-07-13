@@ -112,7 +112,7 @@ class _MyCartListState extends State<MyCartList> {
               children: [
            Text(
           "Your Cart is Empty",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
             )     
          
               ],

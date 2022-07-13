@@ -286,7 +286,7 @@ class _LoginDialougState extends State<LoginDialoug> {
     Service().getLoginResponse(value.iboKeyId).then((loginresponse) => {
           if (loginresponse.statusCode == 1)
             {
-              Navigator.pop(context),
+             // Navigator.pop(context),
               showSnakeBar(context, "Login Successfully!"),
               setLoginData(value),
               refreshApp(context)
