@@ -50,6 +50,7 @@ class _CategoryListState extends State<CategoryList>
     selectedPosition = widget.position;
     selectedId = widget.id;
     int_SelectedFilterIndex = 0;
+    hideProgressBar();
     getDeviceId();
     getCartCount();
     getHomeCategory();
@@ -140,7 +141,12 @@ class _CategoryListState extends State<CategoryList>
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Product List", true)),
-      body: Row(
+      body: 
+      Column(
+        children: [
+          showMaterialProgressbar(6),
+          Expanded(
+            child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           //homeCategory(),
@@ -166,7 +172,10 @@ class _CategoryListState extends State<CategoryList>
             },
           )
         ],
-      ),
+      ))
+        ],
+      )
+      ,
     );
   }
 
@@ -194,6 +203,8 @@ class _CategoryListState extends State<CategoryList>
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: _listHomeCategory.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -290,7 +301,10 @@ class _CategoryListState extends State<CategoryList>
                         qunatity: _listproductList[index].quantity),
                 gradientColors: [Colors.white, Colors.white],
                 onCartAddClick: () {
-                  showLoadingDialog(context, _dialogKey, "Please Wait..");
+                  setState(() {
+                    showProgressbar();
+                  });
+               //   showLoadingDialog(context, _dialogKey, "Please Wait..");
                   print("AddClick" + "AddClick");
                 },
                 onCartRemovedClick: () {},
@@ -381,8 +395,13 @@ class _CategoryListState extends State<CategoryList>
   Container setCategoryList(bool bool) {
     return Container(
       child: Flexible(
-          child: GridView.builder(
+          child: 
+          SingleChildScrollView(
+            child: 
+          GridView.builder(
         padding: EdgeInsets.all(0),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: _listproductList.length,
         itemBuilder: (context, index) {
           return Center(
@@ -406,6 +425,9 @@ class _CategoryListState extends State<CategoryList>
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
                 print("CartAdd" + "This");
+                setState(() {
+                  showProgressbar();
+                });
                 addToCart(widget.device_Id, _listproductList[index].productId);
               },
               onCartRemovedClick: () {},
@@ -422,7 +444,7 @@ class _CategoryListState extends State<CategoryList>
           crossAxisSpacing: 2,
           mainAxisSpacing: 2,
         ),
-      )),
+      ))),
     );
   }
 
@@ -468,15 +490,21 @@ class _CategoryListState extends State<CategoryList>
   }
 
   void addProductInCart(String productId) {
-    showLoadingDialog(context, _dialogKey, "Please Wait..");
+    //showLoadingDialog(context, _dialogKey, "Please Wait..");
+    // setState(() {
+    //   showProgressbar();
+    // });
     Future.delayed(Duration(seconds: 0), () {
       Service()
           .getAddToCartResponse(DeviceId.toString(), str_UserId,
               productId.toString(), "1", Flag_Plus)
           .then((value) => {
                 setState((() {
-                  if (_dialogKey.currentContext != null) {
-                    Navigator.pop(_dialogKey.currentContext!);
+                  // if (_dialogKey.currentContext != null) {
+                  //   //Navigator.pop(_dialogKey.currentContext!);
+                    
+                  // }
+                  hideProgressBar();
                     if (value.statusCode == 1) {
                       print("Value" + value.statusCode.toString());
                       showSnakeBar(context, "Item Added to Cart!");
@@ -484,7 +512,6 @@ class _CategoryListState extends State<CategoryList>
                     } else {
                       showSnakeBar(context, "Opps! Something Wrong");
                     }
-                  }
                 }))
               });
     });

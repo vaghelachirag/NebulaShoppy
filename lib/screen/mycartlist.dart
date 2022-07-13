@@ -86,7 +86,7 @@ class _MyCartListState extends State<MyCartList> {
           child: appBarWidget(context, 3, "My Cart", false)),
       bottomNavigationBar:
           Visibility(visible: is_ShowBottomBar, child: bottomBar()),
-      body: is_ShowNoData == true ? noDataFound() :
+      body: is_ShowNoData == true ? noDataFound() : 
       AbsorbPointer(
         absorbing: showProgress,
          child:   
@@ -107,16 +107,26 @@ class _MyCartListState extends State<MyCartList> {
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child:   Column(
+        child:  
+         Column(
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
+          
+              IconButton(
+            icon: const Icon(Icons.shopping_cart_outlined,size: 60,color: THEME_COLOR,),
+            tooltip: 'Source Code',
+            onPressed: () {
+            },
+          ),
+          Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(30)),child:
            Text(
-          "Your Cart is Empty",
-          style: TextStyle(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
-            )     
-         
-              ],
-            ));
+          "Cart is Empty",
+          style: TextStyle(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold,fontFamily: EmberBold)),),
+           Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 0),child:
+           Text(
+          "Looks like you have no items in your shopping cart.",
+          style: TextStyle(fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.normal,fontFamily: Ember)),)],
+          ),);
   }
 
   CustomScrollView getMyCartData() {
