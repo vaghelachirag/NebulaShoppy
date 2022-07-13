@@ -110,12 +110,12 @@ class CategoryProductWidget extends StatelessWidget {
               //     ));
             },
             child: Container(
-               height: 80,
+               height: MediaQuery.of(context).size.height / 10,
               child:  Stack(
                   children: <Widget>[
                     Container(
-                       width: 150,
-                       height: 80,
+                       width: MediaQuery.of(context).size.width / 3,
+                       height:  MediaQuery.of(context).size.height / 10,
                       child:              
                    FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
