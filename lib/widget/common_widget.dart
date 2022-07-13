@@ -99,6 +99,32 @@ BoxDecoration grandientBackgroundMyCart() {
           colors: [Color(0xff87dae0), Color(0xff87dae0)]));
 }
 
+ SizedBox getLoginText(String hint, TextEditingController fullNameController,
+      String str_Error, int i, TextInputType name, BuildContext context) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: ScreenUtil().setSp(45),
+        child: TextFormField(
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.number,
+            controller: fullNameController,
+            decoration: logininputText(hint),
+            
+            onChanged: (value) {
+              // do something
+            },
+            
+            maxLength: i,
+            validator: (email) {
+              if (email!.isEmpty) {
+                return str_Error;
+              } else {
+                return null;
+              }
+            }));
+  }
+
+
 InputDecoration addressText(String hint) {
   return InputDecoration(
       hintText: hint,
@@ -111,6 +137,31 @@ InputDecoration addressText(String hint) {
           borderRadius: BorderRadius.all(Radius.circular(10)),
           borderSide: BorderSide(color: Colors.black)),
       contentPadding: const EdgeInsets.all(10),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)));
+}
+
+
+InputDecoration logininputText(String hint) {
+  return InputDecoration(
+      hintText: hint,
+      focusColor: Colors.black,
+      counter: Offstage(),
+      hoverColor: Colors.black,
+      fillColor: Colors.black,
+      hintStyle: TextStyle(fontFamily: Ember,fontSize: 14,color: BLACK),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderSide: BorderSide(color: Colors.black)),
+      contentPadding: const EdgeInsets.all(10),
+      prefixIcon: const Padding(
+      padding: EdgeInsets.only(top: 0), // add padding to adjust icon
+      child: Icon(
+        Icons.person,
+        color: BLACK,
+        size: 14,
+      ),
+    ),
+    
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)));
 }
 

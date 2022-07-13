@@ -13,6 +13,7 @@ import '../screen/webview.dart';
 import '../uttils/constant.dart';
 import 'package:page_transition/page_transition.dart';
 import '../uttils/constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginDialoug extends StatefulWidget {
   const LoginDialoug(
@@ -82,53 +83,34 @@ class _LoginDialougState extends State<LoginDialoug> {
                   //       fontWeight: FontWeight.w500),
                   // ),
                   ),
-              SizedBox(height: 15),
-              Container(
-                margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: TextFormField(
-                    controller: _usernameController,
-                    obscureText: false,
-                    enabled: true,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.number,
-                    // inputFormatters: [
-                    //   LengthLimitingTextInputFormatter(10),
-                    // ],
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                      LengthLimitingTextInputFormatter(10),
-                    ],
-                    decoration: inputDecorationWithBorderAndIconEmail(
-                        'Associate / IBO Login'),
-                    validator: (email) {
-                      if (email!.isEmpty) {
-                        return 'Please enter Login Id';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (text) {
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ),
               SizedBox(height: 5),
               Container(
                 margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                 width: MediaQuery.of(context).size.width,
                 child: Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 15.0),
-                    child: buildPasswordFormField('Password'),
-                  ),
-                ),
+                  child: SizedBox(
+                width: 500,
+                height: 45,
+                child: getLoginText("Associate / IBO Login", _usernameController,
+                    "Please enter Login Id", 100, TextInputType.name,context),
               ),
-              SizedBox(height: 20),
+              ),
+              ),
+              SizedBox(height: 5),
+                 Container(
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: SizedBox(
+                width: 500,
+                height: 45,
+                child:buildPasswordFormField('Password'),
+              ),
+                ),
+              ),           
+            SizedBox(height: 20),
               ElevatedButton(
                 // style: elevatedButtonStyle(),
                 style: buttonShapeLogin(),
@@ -197,8 +179,7 @@ class _LoginDialougState extends State<LoginDialoug> {
           )),
     );
   }
-
-  TextFormField buildPasswordFormField(getHint) {
+ TextFormField buildPasswordFormField(getHint) {
     return TextFormField(
       enabled: true,
       controller: _passwordController,
@@ -212,14 +193,13 @@ class _LoginDialougState extends State<LoginDialoug> {
       obscureText: _passwordInVisible,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        labelText: getHint,
-        labelStyle: const TextStyle(color: BLACK),
         hintText: getHint,
         prefixIcon: const Padding(
           padding: EdgeInsets.only(top: 0), // add padding to adjust icon
           child: Icon(
             Icons.lock,
             color: BLACK,
+            size: 14,
           ),
         ),
         filled: true,
@@ -247,7 +227,7 @@ class _LoginDialougState extends State<LoginDialoug> {
         focusedErrorBorder: const OutlineInputBorder(
             borderRadius: const BorderRadius.all(const Radius.circular(10)),
             borderSide: BorderSide(width: 1, color: DARK_GRAY)),
-        hintStyle: const TextStyle(fontSize: 16, color: BLACK),
+        hintStyle: const TextStyle(fontSize: 14, color: BLACK,fontFamily: Ember),
         // suffix: GestureDetector(
         //     onTap: () {
         //       setState(() {
@@ -268,6 +248,7 @@ class _LoginDialougState extends State<LoginDialoug> {
           child: Icon(
             _passwordInVisible ? Icons.visibility : Icons.visibility_off,
             color: BLACK,
+            size: 16,
           ),
         ),
       ),
@@ -283,7 +264,10 @@ class _LoginDialougState extends State<LoginDialoug> {
         .getGenerateTokenResponse(
             _usernameController.text, _passwordController.text, 'password')
         .then((value) => {
-              hideProgressBar(),
+              setState(() {
+                     hideProgressBar();
+              }),
+         
               if (value.toString() == str_ErrorMsg)
                 {
                   // Navigator.pop(_dialogKey.currentContext!),

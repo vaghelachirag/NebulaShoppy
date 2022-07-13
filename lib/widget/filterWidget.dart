@@ -14,6 +14,8 @@ import '../screen/webview.dart';
 import '../uttils/constant.dart';
 import 'package:page_transition/page_transition.dart';
 import '../uttils/constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class FilterWidget extends StatefulWidget {
   const FilterWidget(BuildContext context,
@@ -91,14 +93,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext ctx, index) {
                                 return Container(
-                                    height: 35,                                  
+                                    height: ScreenUtil().setSp(35),                                  
                                     child: Align(
                                       alignment: Alignment.topLeft,
                                       child: 
                                       Row(
                                         children: [
                                       SizedBox(
-                                      height: 24.0,width: 24.0,
+                                      height: ScreenUtil().setSp(24),width: ScreenUtil().setSp(24),
                                       child: 
                                        Radio<String>(
                                               value: list_Filter[index],

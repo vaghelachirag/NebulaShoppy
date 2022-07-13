@@ -16,6 +16,7 @@ import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItemWidget extends StatelessWidget {
   final SetCartItem product;
@@ -138,7 +139,7 @@ class CartItemWidget extends StatelessWidget {
                   ));
             },
             child: Container(
-              height: 80,
+              height: ScreenUtil().setSp(80),
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
                   image: product.icon,

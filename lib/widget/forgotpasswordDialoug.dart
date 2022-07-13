@@ -60,7 +60,7 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
                       Navigator.pop(context);
                     },
                     icon: Icon(CommunityMaterialIcons.close_box),
-                    color: Colors.cyan),
+                    color: loginButtonColor),
               ),
               Text(
                 "Forgot Password",
@@ -69,39 +69,19 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 15),
-              Container(
-                margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+              SizedBox(height: 10),
+             Container(
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 width: MediaQuery.of(context).size.width,
                 child: Center(
-                  child: TextFormField(
-                    controller: _usernameController,
-                    obscureText: false,
-                    enabled: true,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.number,
-                    // inputFormatters: [
-                    //   LengthLimitingTextInputFormatter(10),
-                    // ],
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                      LengthLimitingTextInputFormatter(10),
-                    ],
-                    decoration: inputDecorationWithBorderAndIconEmail(
-                        'Associate / IBO Login'),
-                    validator: (email) {
-                      if (email!.isEmpty) {
-                        return 'Please enter Login Id';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (text) {
-                      setState(() {});
-                    },
-                  ),
-                ),
+                  child: SizedBox(
+                width: 500,
+                height: 45,
+                child: getLoginText("Associate / IBO Login", _usernameController,
+                    "Please enter Login Id", 100, TextInputType.name,context),
+              ),
+              ),
               ),
               Visibility(
                   visible: _showNextStep, child: sendPasswordOption(email)),
