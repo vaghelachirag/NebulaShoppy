@@ -194,9 +194,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
     final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
     var dates = formatter.format(date.toUtc()) + "GMT-0";
     print("OrderDare" + dates.toString());
-    setState(() {
-      string_Date = formatter.format(date);
+     string_Date = formatter.format(date);
       _orderDate.add(string_Date);
-    });
   }
 }

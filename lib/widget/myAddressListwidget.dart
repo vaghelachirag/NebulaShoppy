@@ -33,9 +33,7 @@ class MyAddressListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Stack(
-        children: <Widget>[
-          Container(
+      child:   Container(
             margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 0.0),
@@ -53,8 +51,6 @@ class MyAddressListWidget extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
       onTap: () {},
     );
   }

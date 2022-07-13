@@ -247,8 +247,12 @@ Padding loadSkeletonLoadersGrid(
       child: Container(
         width: MediaQuery.of(context).size.width - 100,
         child: Flexible(
-          child: GridView.builder(
+          child: SingleChildScrollView(
+            child: 
+          GridView.builder(
               itemCount: 20,
+             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext ctx, index) {
                 int timer = 2000;
                 return Shimmer.fromColors(
@@ -265,7 +269,7 @@ Padding loadSkeletonLoadersGrid(
                 mainAxisSpacing: 1,
               )),
         ),
-      ));
+      )));
 }
 
 OutlinedButton setMainButton() {

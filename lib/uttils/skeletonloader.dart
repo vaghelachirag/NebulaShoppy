@@ -174,13 +174,13 @@ Widget boxMyCartList() {
                 SizedBox(
                   height: 10,
                 ),
-                // Container(
-                //   width: double.infinity,
-                //   height: 10,
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(50),
-                //       color: Colors.grey),
-                // ),
+                Container(
+                  width: double.infinity,
+                  height: 10,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.grey),
+                ),
               ],
             ),
           )

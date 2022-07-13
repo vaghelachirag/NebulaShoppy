@@ -341,7 +341,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
         print("SelectedAddresss" + "SelectedAddress");
       },
       child: Container(
-        width: 200,
+        width: MediaQuery.of(context).size.width,
         child: Padding(
             padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
             child: Column(
@@ -362,9 +362,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                             padding: EdgeInsets.all(10),
                             child: Align(
                               alignment: Alignment.topLeft,
-                              child: Flexible(
-                                  //newly added
-                                  child: Container(
+                              child:  Container(
                                 padding:
                                     EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
                                 child: Text(
@@ -373,7 +371,6 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                     softWrap: true),
                               )),
                             ),
-                          ),
                         ],
                       ),
                     ))
@@ -447,9 +444,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                         padding: EdgeInsets.all(10),
                                         child: Align(
                                           alignment: Alignment.topLeft,
-                                          child: Flexible(
-                                              //newly added
-                                              child: Container(
+                                          child: Container(
                                             padding: EdgeInsets.fromLTRB(
                                                 0.0, 0.0, 0.0, 15.0),
                                             child: Column(
@@ -462,7 +457,6 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                             ),
                                           )),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ))
