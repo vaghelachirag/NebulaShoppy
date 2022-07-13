@@ -37,7 +37,7 @@ class SearchItem extends StatelessWidget {
                 elevation: 0,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: <Widget>[_productImage(), _productDetails()],
                   ),
@@ -91,7 +91,7 @@ class SearchItem extends StatelessWidget {
 
   _productDetails() {
     return Padding(
-        padding: EdgeInsets.only(left: 5),
+        padding: EdgeInsets.only(left: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -101,13 +101,15 @@ class SearchItem extends StatelessWidget {
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
             setBoldText(product.company, 14, Colors.black),
-            setRegularText(product.name, 10, Colors.black),
+            Padding(padding: EdgeInsets.only(top: 5),child:
+            setRegularText(product.name, 10, Colors.black)),
             // Text(
             //   product.name,
             //   maxLines: 1,
             //   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
             // ),
-            StarRating(rating: product.rating, size: 10),
+          //  StarRating(rating: product.rating, size: 10),
+          Padding(padding: EdgeInsets.only(top: 5),child: 
             Row(
               children: <Widget>[
                 setBoldText(product.price, 14, Colors.red),
@@ -127,7 +129,7 @@ class SearchItem extends StatelessWidget {
                           decoration: TextDecoration.lineThrough),
                     ))
               ],
-            )
+            ))
           ],
         ));
   }

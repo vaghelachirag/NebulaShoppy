@@ -87,6 +87,8 @@ class _ProductDetailState extends State<ProductDetail> {
     getCartCounter();
     getProductBanner(widget.productid.toString());
 
+    print("ProductId"+ widget.productid.toString());
+
     Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -1043,8 +1045,8 @@ class _ProductDetailState extends State<ProductDetail> {
                   itemBuilder: (context, index) {
                     return TrendingItem(
                       product: Product(
-                          id: _listNewLaunched[index].productId,
-                          productid: _listNewLaunched[index].id,
+                          id: _listNewLaunched[index].id,
+                          productid: _listNewLaunched[index].productId,
                           catid: _listNewLaunched[index].categoryId,
                           company: _listNewLaunched[index].name.toString(),
                           name: _listNewLaunched[index]
@@ -1549,8 +1551,13 @@ class _ProductDetailState extends State<ProductDetail> {
               .then((value) => {
                     setState(() {
                       print("Cart" + value.data.cart.toString());
-                      // int_CartCounters = value.data!.sumOfQty;
-                      // QTYCount = value.data!.sumOfQty.toString();
+                     if (value.statusCode == 1) {
+                      _listCartItem = value.data.cart;
+                      compareproductquntity(_listCartItem);
+                    } else {
+                      showSnakeBar(context, somethingWrong);
+                      print("Categorylist" + "Opps Something Wrong!");
+                    }
                     })
                   });
         });

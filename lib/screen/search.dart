@@ -98,6 +98,7 @@ class _SearchState extends State<Search> {
                       child: TextField(
                         controller: searchData,
                         enabled: bl_IsEdibleSearch,
+                        textAlignVertical: TextAlignVertical.center,
                         onChanged: (value) => _runFilter(value),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -110,6 +111,7 @@ class _SearchState extends State<Search> {
                             ),
                           ),
                           filled: true,
+                          
                           prefixIcon: Icon(Icons.search),
                           fillColor: Color(0xFFF2F4F5),
                           hintStyle: new TextStyle(color: Colors.grey[600],fontFamily: Ember),
