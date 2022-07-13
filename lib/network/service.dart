@@ -496,6 +496,8 @@ class Service {
     var response = await client.get(uri);
     var json = response.body;
 
+    print("EWalltet" + json.toString());
+
     if (response.statusCode == 200) {
       return GetMyWalletResponse.fromJson(jsonDecode(response.body));
     } else {

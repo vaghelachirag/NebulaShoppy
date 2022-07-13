@@ -57,9 +57,9 @@ class _LoginDialougState extends State<LoginDialoug> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-               Padding(
-                padding: EdgeInsets.only(left: 10,right: 10),child:
-              showMaterialProgressbar(6)),
+              Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: showMaterialProgressbar(6)),
               Align(
                 alignment: Alignment.topRight,
                 child: Visibility(
@@ -72,17 +72,16 @@ class _LoginDialougState extends State<LoginDialoug> {
                         color: Colors.cyan)),
               ),
               Padding(
-                padding: EdgeInsets.all(10),
-                child: 
-                setBoldText("Associate / IBO Login", 16, Colors.black)
-                // Text(
-                //   "Associate / IBO Login",
-                //   style: TextStyle(
-                //       color: Colors.black,
-                //       fontSize: 16,
-                //       fontWeight: FontWeight.w500),
-                // ),
-              ),
+                  padding: EdgeInsets.all(10),
+                  child: setBoldText("Associate / IBO Login", 16, Colors.black)
+                  // Text(
+                  //   "Associate / IBO Login",
+                  //   style: TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.w500),
+                  // ),
+                  ),
               SizedBox(height: 15),
               Container(
                 margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -90,7 +89,6 @@ class _LoginDialougState extends State<LoginDialoug> {
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: TextFormField(
-                    
                     controller: _usernameController,
                     obscureText: false,
                     enabled: true,
@@ -156,8 +154,8 @@ class _LoginDialougState extends State<LoginDialoug> {
                   Padding(
                       padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                       child: GestureDetector(
-                        child: 
-                        setRegularText("Forgot Password", 14, Colors.red),
+                        child:
+                            setRegularText("Forgot Password", 14, Colors.red),
                         onTap: () {
                           print("Forgot" + "ForgotPassword");
                           Navigator.pop(context);
@@ -178,9 +176,7 @@ class _LoginDialougState extends State<LoginDialoug> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                     child: GestureDetector(
-                      child: 
-                      setRegularText("Register Here", 14, Colors.black)
-                     ,
+                      child: setRegularText("Register Here", 14, Colors.black),
                       onTap: () {
                         print("Register" + "Register");
                         Navigator.push(
@@ -279,21 +275,24 @@ class _LoginDialougState extends State<LoginDialoug> {
   }
 
   void getLoginResponse() {
-  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
-   setState(() {
-     showProgressbar();
-   });
-    Service().getGenerateTokenResponse(_usernameController.text, _passwordController.text, 'password').then((value) => {
-               hideProgressBar(),
+    //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+    setState(() {
+      showProgressbar();
+    });
+    Service()
+        .getGenerateTokenResponse(
+            _usernameController.text, _passwordController.text, 'password')
+        .then((value) => {
+              hideProgressBar(),
               if (value.toString() == str_ErrorMsg)
                 {
-                 // Navigator.pop(_dialogKey.currentContext!),
+                  // Navigator.pop(_dialogKey.currentContext!),
                   showSnakeBar(
                       context, "The user name or password is incorrect")
                 }
               else
                 {
-                 // Navigator.pop(_dialogKey.currentContext!),
+                  // Navigator.pop(_dialogKey.currentContext!),
                   getValidLoginResponse(value)
                 }
             });

@@ -50,9 +50,9 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-           Padding(
-                padding: EdgeInsets.only(left: 10,right: 10),child:
-              showMaterialProgressbar(6)),
+              Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: showMaterialProgressbar(6)),
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
@@ -104,15 +104,13 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
                 ),
               ),
               Visibility(
-                visible: _showNextStep,
-                child: sendPasswordOption(email)),
-                   Visibility(
-                visible: _showNextStep,
-                child: sendPasswordOption(password)),
+                  visible: _showNextStep, child: sendPasswordOption(email)),
+              Visibility(
+                  visible: _showNextStep, child: sendPasswordOption(password)),
               SizedBox(height: 20),
               ElevatedButton(
                 // style: elevatedButtonStyle(),
-                style: buttonShapeStle(),
+                style: buttonShapeLogin(),
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
                   if (_formKey.currentState!.validate()) {
@@ -134,35 +132,32 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
     );
   }
 
-  
   void getLoginResponse() {
     setState(() {
       showProgressbar();
     });
-  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
-    Service().getSendPasswordOptionResponse(_usernameController.text).then((value) => {
+    //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+    Service()
+        .getSendPasswordOptionResponse(_usernameController.text)
+        .then((value) => {
               if (value.toString() == str_ErrorMsg)
-                {          
+                {
                   showSnakeBar(
                       context, "The user name or password is incorrect")
                 }
               else
-                {  
-               
+                {
                   //Navigator.pop(_dialogKey.currentContext!),
-                  print("Value"+value.data.email),
+                  print("Value" + value.data.email),
                   setState(() {
-                   email =  value.data.email;
-                   password = value.data.mobile;
+                    email = value.data.email;
+                    password = value.data.mobile;
                     _showNextStep = true;
-                       hideProgressBar();
+                    hideProgressBar();
                   })
-                  
                 }
             });
   }
-
-
 
   setLoginData(value) {
     String token = value.tokenType + " " + value.accessToken;
@@ -182,41 +177,43 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
   }
 
   void showForgotPasswordDialoug() {
-      showDialog(
-          barrierColor: Colors.black26,
-          context: context,
-          builder: (context) {
-            return forgotpasswordDialoug(
-              context,
-              title: "SoldOut",
-              description:
-                  "This product may not be available at the selected address.",
-            );
-          },
+    showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return forgotpasswordDialoug(
+          context,
+          title: "SoldOut",
+          description:
+              "This product may not be available at the selected address.",
         );
+      },
+    );
   }
 
-  Container sendPasswordOption(String email){
+  Container sendPasswordOption(String email) {
     return Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                     Radio(
-                  value: email,
-                  onChanged: (value) {
-                    setState(() {
-                    sendOption = email;
-                    });
-                  },
-                  activeColor: THEME_COLOR, groupValue: '',
-                ),
-                 Text(email,style: TextStyle(color: Colors.black,fontSize: 14),),
-                  ],
-                )
-                
-              );
+        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Radio(
+              value: email,
+              onChanged: (value) {
+                setState(() {
+                  sendOption = email;
+                });
+              },
+              activeColor: THEME_COLOR,
+              groupValue: '',
+            ),
+            Text(
+              email,
+              style: TextStyle(color: Colors.black, fontSize: 14),
+            ),
+          ],
+        ));
   }
 }

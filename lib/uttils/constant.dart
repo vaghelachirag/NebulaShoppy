@@ -148,7 +148,6 @@ const buttonColor = Color(0XFFf0c350);
 const buttonBorderCOlor = Color(0XFF7e6a37);
 const loginButtonColor = Color(0XFFd34836);
 
-
 // Font Family
 const String Montserrat = "Montserrat";
 const String Ember = "Ember";
@@ -157,15 +156,15 @@ const String EmberItalic = "Ember-Italic";
 
 const String assestPath = "assets/images/";
 
-
 DateTime currentBackPressTime = DateTime.now();
 
-
+// E Wallet
+String str_Ewalltet = "0.0";
 
 String register =
     'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
 
-// For Show Progress  
+// For Show Progress
 bool showProgress = true;
 
 showSnakeBar(BuildContext context, String msg) {
@@ -271,13 +270,13 @@ Future<void> showLoadingDialog(
 }
 
 // For Show Progress
-void showProgressbar(){
-   showProgress = true;
+void showProgressbar() {
+  showProgress = true;
 }
 
 // For Hide Progress
-void hideProgressBar(){
-   showProgress = false;
+void hideProgressBar() {
+  showProgress = false;
 }
 
 getDeviceId() async {

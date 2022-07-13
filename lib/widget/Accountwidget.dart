@@ -170,7 +170,7 @@ class AccountWiget extends StatelessWidget {
                   Visibility(
                       visible: product.is_Ewallet,
                       child: Text(
-                        rupees_Sybol + "0.0",
+                        rupees_Sybol + str_Ewalltet,
                         style: TextStyle(
                             color: Colors.green,
                             fontSize: 16,

@@ -92,18 +92,18 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             constraints: BoxConstraints(),
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        child: Search(),
-                      ),
-                    );
-                  },
-                  child: SearchWidget(),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       PageTransition(
+                //         type: PageTransitionType.fade,
+                //         child: Search(),
+                //       ),
+                //     );
+                //   },
+                //   child: SearchWidget(),
+                // ),
                 FutureBuilder(
                   builder: (context, snapshot) {
                     if (_listBannerImage.isEmpty) {
@@ -304,7 +304,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       mrp: rupees_Sybol +
                           "" +
                           _listNewLaunched[index].mrp.toString(),
-                           qunatity: _listNewLaunched[index].quantity),
+                      qunatity: _listNewLaunched[index].quantity),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
                     _refreshRecentData();
@@ -352,7 +352,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       mrp: rupees_Sybol +
                           "" +
                           _listRecentView[index].mrp.toString(),
-                          qunatity: 1),
+                      qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
                     _refreshRecentData();
@@ -524,7 +524,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     mrp: rupees_Sybol +
                         "" +
                         _listNewLaunched[index].mrp.toString(),
-                        qunatity: _listNewLaunched[index].quantity),
+                    qunatity: _listNewLaunched[index].quantity),
                 onBackPressClicked: () {
                   _refreshRecentData();
                   getCartCount();

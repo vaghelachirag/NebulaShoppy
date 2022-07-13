@@ -10,12 +10,12 @@ class GetMyWalletResponse {
   GetMyWalletResponse({
     this.statusCode,
     this.message,
-    this.data,
+    required this.data,
   });
 
   int? statusCode;
   String? message;
-  int? data;
+  double data;
 
   factory GetMyWalletResponse.fromJson(Map<String, dynamic> json) =>
       GetMyWalletResponse(

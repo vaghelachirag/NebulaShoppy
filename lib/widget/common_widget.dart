@@ -9,7 +9,7 @@ import '../uttils/skeletonloader.dart';
 InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
   return InputDecoration(
     labelText: getHint,
-    labelStyle: const TextStyle(color: BLACK),
+    labelStyle: const TextStyle(color: BLACK, fontSize: 12),
     hintText: getHint,
     filled: true,
     alignLabelWithHint: true,
@@ -18,6 +18,7 @@ InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
       child: Icon(
         Icons.person,
         color: BLACK,
+        size: 14,
       ),
     ),
     fillColor: white,
@@ -44,7 +45,7 @@ InputDecoration inputDecorationWithBorderAndIconEmail(getHint) {
     focusedErrorBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(width: 1, color: DARK_GRAY)),
-    hintStyle: const TextStyle(fontSize: 16, color: BLACK, fontFamily: Ember),
+    hintStyle: const TextStyle(fontSize: 12, color: BLACK, fontFamily: Ember),
   );
 }
 
@@ -175,19 +176,19 @@ Padding loadSkeletonLoaders(Widget box, Axis vertical) {
         }),
   );
 }
-Container showMaterialProgressbar(double height){
-  return   Container(           
-                    child: 
-                    Visibility(
-                      visible: showProgress,
-                      child: 
-                    LinearProgressIndicator(
-                      backgroundColor: Colors.red[100],
-                      color: Colors.red[300],
-                      minHeight: height,
-                    ),
-                  ));
+
+Container showMaterialProgressbar(double height) {
+  return Container(
+      child: Visibility(
+    visible: showProgress,
+    child: LinearProgressIndicator(
+      backgroundColor: Colors.red[100],
+      color: Colors.red[300],
+      minHeight: height,
+    ),
+  ));
 }
+
 Padding loadSkeletonLoadersGrid(
     Widget box, Axis vertical, BuildContext context) {
   return Padding(

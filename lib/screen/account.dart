@@ -46,7 +46,6 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   String str_IboKey = "";
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
-  dynamic walletAmount = 0.0;
 
   @override
   void initState() {
@@ -91,43 +90,41 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Account", false)),
-      body: 
-      Column(
+      body: Column(
         children: [
-       showMaterialProgressbar(6),    
-        Container(
-        color: white,
-        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-        child: ListView.builder(
-          itemCount: _accountList.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                print("object" + "onTap");
+          showMaterialProgressbar(6),
+          Container(
+            color: white,
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: ListView.builder(
+              itemCount: _accountList.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    print("object" + "onTap");
+                  },
+                  child: AccountWiget(
+                    product: SetMyAccount(
+                        postition: _accountList[index].postition,
+                        is_Ewallet: _accountList[index].is_Ewallet,
+                        Title: _accountList[index].Title,
+                        is_ShowLine: _accountList[index].is_ShowLine,
+                        is_Divider: _accountList[index].is_Divider),
+                    gradientColors: [Colors.white, Colors.white],
+                    onProfileClicked: () {
+                      getMyProfile();
+                    },
+                  ),
+                );
+                ;
               },
-              child: AccountWiget(
-                product: SetMyAccount(
-                    postition: _accountList[index].postition,
-                    is_Ewallet: _accountList[index].is_Ewallet,
-                    Title: _accountList[index].Title,
-                    is_ShowLine: _accountList[index].is_ShowLine,
-                    is_Divider: _accountList[index].is_Divider),
-                gradientColors: [Colors.white, Colors.white],
-                onProfileClicked: () {
-                  getMyProfile();
-                },
-              ),
-            );
-            ;
-          },
-        ),
-      )
+            ),
+          )
         ],
-      )
-      ,
+      ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -195,11 +192,11 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     setState(() {
       showProgressbar();
     });
-  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+    //  showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getMyProfile().then((value) => {
-         hideProgressBar(),
+          hideProgressBar(),
           setState((() {
-        //    Navigator.pop(_dialogKey.currentContext!);
+            //    Navigator.pop(_dialogKey.currentContext!);
             if (value.statusCode == 1) {
               showProfileDialoug(value);
             } else {
@@ -230,7 +227,10 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     Service().getMyWalletResponse(str_IboKey).then((value) => {
           setState((() {
             if (value.statusCode == 1) {
-              walletAmount = value.data;
+              setState(() {
+                str_Ewalltet = value.data.toString();
+                print("EWallet" + str_Ewalltet);
+              });
             } else {
               showSnakeBar(context, "Opps! Something Wrong");
             }
@@ -241,7 +241,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   void getIboKey() async {
     str_IboKey = await SharedPref.readString(str_IBO_Id);
     print("IboKeyId" + str_IboKey.toString());
-    // /getEWalletResponse();
+    getEWalletResponse();
   }
 
   void checkSession() async {
