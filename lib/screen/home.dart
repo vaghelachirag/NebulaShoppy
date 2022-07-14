@@ -26,6 +26,8 @@ import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -50,9 +52,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   DateTime currentBackPressTime = DateTime.now();
 
+
+  late FirebaseMessaging messaging;
+
   @override
   void initState() {
     super.initState();
+    // messaging = FirebaseMessaging.instance;
+    //  messaging.getToken().then((value){
+    //     print(value);
+    // });
     WidgetsBinding.instance?.addObserver(this);
     isConnectedToInternet();
     getBannerImage();

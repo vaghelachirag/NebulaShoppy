@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225904649992",
+    "project_id": "nebulashoppyflutter",
+    "storage_bucket": "nebulashoppyflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225904649992:android:4fa87555f7b23a3d516ebd",
+        "android_client_info": {
+          "package_name": "com.example.nebulashoppy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225904649992-75lbtmlbh7cjjpb9f25qcpqrhrplkt5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARYxytKT0OC1l5Kov9klgpewkdZX4gk2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225904649992-75lbtmlbh7cjjpb9f25qcpqrhrplkt5v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

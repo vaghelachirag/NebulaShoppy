@@ -23,7 +23,21 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+def firebaseCoreProject = findProject(':firebase_core')
+if (firebaseCoreProject == null) {
+    throw new GradleException('Could not find the firebase_core FlutterFire plugin, have you added it as a dependency in your pubspec?')
+} else if (!firebaseCoreProject.properties['FirebaseSDKVersion']) {
+    throw new GradleException('A newer version of the firebase_core FlutterFire plugin is required, please update your firebase_core pubspec dependency.')
+}
+
+def getRootProjectExtOrCoreProperty(name, firebaseCoreProject) {
+    if (!rootProject.ext.has('FlutterFire')) return firebaseCoreProject.properties[name]
+    if (!rootProject.ext.get('FlutterFire')[name]) return firebaseCoreProject.properties[name]
+    return rootProject.ext.get('FlutterFire').get(name)
+}
 
 android {
     compileSdkVersion flutter.compileSdkVersion
@@ -64,5 +78,9 @@ flutter {
 }
 
 dependencies {
+     implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    implementation 'com.google.firebase:firebase-analytics'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 }
