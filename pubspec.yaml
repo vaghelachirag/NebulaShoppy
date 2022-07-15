@@ -65,6 +65,7 @@ dev_dependencies:
   firebase_messaging: ^11.2.14
   flutter_local_notifications: ^9.5.3+1
   simple_connection_checker: ^0.2.1
+  badges: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

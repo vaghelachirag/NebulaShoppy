@@ -5,6 +5,7 @@ import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:badges/badges.dart';
 
 import '../screen/search.dart';
 
@@ -106,37 +107,48 @@ class _QTYCounterState extends State<QTYCounter> {
                         ),
                       );
                     },
-                    child: new Stack(
-                      children: <Widget>[
-                        new IconButton(
-                          icon: new Icon(
-                            Icons.shopping_cart,
-                            color: Colors.black,
-                          ),
-                          onPressed: null,
-                        ),
-                        new Positioned(
-                            child: new Stack(
-                          children: <Widget>[
-                            new Icon(Icons.brightness_1,
-                                size: 22.0, color: Colors.red[400]),
-                            new Positioned(
-                                top: 3.0,
-                                right: 3.0,
-                                left: 3.0,
-                                child: new Center(
-                                  child: new Text(
-                                    QTYCount,
-                                    style: new TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                )),
-                          ],
-                        )),
-                      ],
+                    child: Badge(
+                      animationType: BadgeAnimationType.fade,
+                      badgeContent: Text(
+                        QTYCount,
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: Ember,
+                            color: Colors.white),
+                      ),
+                      child: Icon(Icons.shopping_cart),
                     ),
+                    // child: new Stack(
+                    //   children: <Widget>[
+                    //     new IconButton(
+                    //       icon: new Icon(
+                    //         Icons.shopping_cart,
+                    //         color: Colors.black,
+                    //       ),
+                    //       onPressed: null,
+                    //     ),
+                    //     new Positioned(
+                    //         child: new Stack(
+                    //       children: <Widget>[
+                    //         new Icon(Icons.brightness_1,
+                    //             size: 22.0, color: Colors.red[400]),
+                    //         new Positioned(
+                    //             top: 3.0,
+                    //             right: 3.0,
+                    //             left: 3.0,
+                    //             child: new Center(
+                    //               child: new Text(
+                    //                 QTYCount,
+                    //                 style: new TextStyle(
+                    //                     color: Colors.white,
+                    //                     fontSize: 10.0,
+                    //                     fontWeight: FontWeight.w500),
+                    //               ),
+                    //             )),
+                    //       ],
+                    //     )),
+                    //   ],
+                    // ),
                   ))),
         ],
       ),
