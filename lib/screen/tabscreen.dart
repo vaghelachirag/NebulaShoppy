@@ -32,13 +32,21 @@ import 'home.dart';
 import 'myorder/myorderlist.dart';
 
 class TabScreen extends StatefulWidget {
+  int int_Selectedtab = 0;
+
+   TabScreen(
+      {Key? key,
+      required this.int_Selectedtab})
+      : super(key: key);
+
+
   @override
   _TabScreenState createState() => _TabScreenState();
 }
 
 class _TabScreenState extends State<TabScreen> {
   int int_tablength = 1;
-  int _selectedScreenIndex = 0;
+ // int _selectedScreenIndex = 0;
 
   final List _screensWithLogin = [
     {"screen": Home(), "title": "Screen A Title"},
@@ -56,6 +64,8 @@ class _TabScreenState extends State<TabScreen> {
     super.initState();
     checkUserLoginOrNot();
 
+    print("SelectedTab"+widget.int_Selectedtab.toString());
+
     if (is_Login) {
       int_tablength = 2;
     } else {
@@ -65,7 +75,7 @@ class _TabScreenState extends State<TabScreen> {
 
   void _selectScreen(int index) {
     setState(() {
-      _selectedScreenIndex = index;
+      widget.int_Selectedtab = index;
     });
   }
 
@@ -77,13 +87,13 @@ class _TabScreenState extends State<TabScreen> {
           builder: (context, snapshot) {
             if (is_Login) {
               return Scaffold(
-                body: _screensWithLogin[_selectedScreenIndex]["screen"],
+                body: _screensWithLogin[widget.int_Selectedtab]["screen"],
                 bottomNavigationBar: _createBottomNavigationBarLogin(),
                
               );
             } else {
               return Scaffold(
-                body: _screensWithoutLogin[_selectedScreenIndex]["screen"],
+                body: _screensWithoutLogin[widget.int_Selectedtab]["screen"],
                 bottomNavigationBar:_createBottomNavigationBarWithoutLogin(),
               );
             }
@@ -121,7 +131,7 @@ class _TabScreenState extends State<TabScreen> {
           unselectedItemColor: Colors.white,
           selectedIconTheme: IconThemeData(color: Colors.black),
           selectedItemColor: Colors.black,
-          currentIndex: _selectedScreenIndex,
+          currentIndex: widget.int_Selectedtab,
           onTap: _selectScreen,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -151,7 +161,7 @@ class _TabScreenState extends State<TabScreen> {
           unselectedItemColor: Colors.white,
           selectedIconTheme: IconThemeData(color: Colors.black),
           selectedItemColor: Colors.black,
-          currentIndex: _selectedScreenIndex,
+          currentIndex: widget.int_Selectedtab,
           onTap: _selectScreen,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

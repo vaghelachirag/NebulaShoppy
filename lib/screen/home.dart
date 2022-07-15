@@ -554,10 +554,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     print("BackPress" + "Backpress");
     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      now.difference(currentBackPressTime) > Duration(seconds: 2)) {
       currentBackPressTime = now;
-      // showSnakeBar(context, "Please Press back!");
-
       return Future.value(false);
     }
     return Future.value(true);
@@ -618,21 +616,26 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     });
   }
 
-  onRetryClick(){
-      setState(() {
-        isConnectedToInternet();
-      });
-  }
-
+// Register Token
   void getRegisterToken() async{
    var str_FcmToken = await SharedPref.readString(str_FCMToken);
    if(is_Login){
     getUserId();
-    sendTokenToServer(str_FcmToken);
+     Future.delayed(Duration(seconds: 0), () {
+      sendTokenToServer(str_FcmToken);
+     });   
    }
    print("DeviceID"+ str_FcmToken);
   }
 
+  void onRetryClick() {
+    setState(() {
+      isConnectedToInternet();
+    });
+  }
+  }
+
+  // Send Token to Server
   void sendTokenToServer(str_fcmToken) {
     Service().getRegisterTokenResponse(str_fcmToken,"IMEI1","0",str_UserId)
         .then((value) => {
@@ -645,5 +648,4 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                  print("Success"+"Success")
                 }
             });
-  }
 }

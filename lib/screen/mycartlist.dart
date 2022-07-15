@@ -14,6 +14,7 @@ import 'package:nebulashoppy/widget/LoginDialoug.dart';
 import 'package:nebulashoppy/widget/cartitemwidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
 import 'package:nebulashoppy/widget/getmyAddressDialoug.dart';
+import 'package:nebulashoppy/widget/paymentSucessWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../model/getCartItemResponse/getCarItemResponse.dart';
@@ -26,6 +27,7 @@ import '../uttils/constant.dart';
 import '../widget/common_widget.dart';
 import '../widget/mainButton.dart';
 import '../widget/noInternet.dart';
+import '../widget/paymentcancelledwidget.dart';
 import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,6 +68,7 @@ class _MyCartListState extends State<MyCartList> {
     checkUserLoginOrNot();
     getMyCartList();
     hideProgressBar();
+   
   }
 
   final GlobalKey<_MyCartListState> _myWidgetState =
@@ -138,6 +141,7 @@ class _MyCartListState extends State<MyCartList> {
           style: TextStyle(fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.normal,fontFamily: Ember)),)],
           ),);
   }
+
 
   CustomScrollView getMyCartData() {
     return CustomScrollView(shrinkWrap: true, slivers: <Widget>[

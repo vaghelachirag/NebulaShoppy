@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+
+import '../screen/tabscreen.dart';
 
 class PaymentSucessWidget extends StatefulWidget {
 
    final VoidCallback onClickClicked;
    String title = "";
    String description = "";
+   String str_Amount;
 
     PaymentSucessWidget({
     required this.title,
     required this.description,
     required this.onClickClicked,
+    required this.str_Amount
   });
-
-
-
+  
   @override
   _PaymentSucessWidgetState createState() => _PaymentSucessWidgetState();
 }
@@ -29,26 +32,45 @@ class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
       color: Colors.black.withOpacity(0.5),
       child:  Dialog(
       elevation: 0,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 15),
-           Image.asset('assets/images/payment_successful.gif',fit: BoxFit.contain,),
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            padding:  EdgeInsets.fromLTRB(10, 0, 0, 0),
+          SizedBox(height: 8),
+          SizedBox(
+            height: 80,
+            child:  Image.asset(assestPath+ 'success.png',fit: BoxFit.contain,color:Colors.lightGreen,),
+          ),
+           Container(
+            margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+            padding:  EdgeInsets.fromLTRB(0, 5, 0, 0),
             width: MediaQuery.of(context).size.width,
               child: Center(
                 child: Text(
-                  "${widget.title}",
+                 "Success",
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
+                    fontFamily: EmberBold
+                  ),
+                ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            padding:  EdgeInsets.fromLTRB(0, 10, 0, 0),
+            width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: Text(
+                 "Paid  " + rupees_Sybol + "${widget.str_Amount}",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black38,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
             ),
@@ -65,14 +87,18 @@ class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
               highlightColor: Colors.grey[200],
               onTap: () {
                 Navigator.of(context).pop();
+                
               },
               
               child: Center(
                 child:   ElevatedButton(
                   style: buttonOK(),
                 onPressed: () {
-                   Navigator.pop(context);
-                   widget.onClickClicked();
+                Navigator.pop(context);
+                 Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (dialogContex) => TabScreen(int_Selectedtab: 1,)),
+              ModalRoute.withName("/tabscreen"));
                 },
              child: Text('Ok'),
                ),

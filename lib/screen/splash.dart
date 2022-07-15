@@ -26,6 +26,7 @@ class _SplashState extends State<Splash> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.all(50),
         color: color,
         child: Image.asset(
           'assets/images/nebula_logo_news.gif',
@@ -38,7 +39,7 @@ class _SplashState extends State<Splash> {
   void goToHomeScreen() async {
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (dialogContex) => TabScreen()),
+        MaterialPageRoute(builder: (dialogContex) => TabScreen(int_Selectedtab: 0)),
         ModalRoute.withName("/tabscreen"));
   }
 }

@@ -412,7 +412,7 @@ showLogoutDialoug(BuildContext context) {
 refreshApp(BuildContext context) {
 Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (dialogContex) => TabScreen()),
+              MaterialPageRoute(builder: (dialogContex) => TabScreen(int_Selectedtab: 0,)),
               ModalRoute.withName("/tabscreen"));
 
   // dsdsd

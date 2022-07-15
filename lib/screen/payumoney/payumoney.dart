@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
+import 'package:nebulashoppy/widget/paymentSucessWidget.dart';
 import 'package:nebulashoppy/widget/paymentcancelledwidget.dart';
 import  'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
 
@@ -59,8 +60,20 @@ class _PayUMoneyState extends State<PayUMoney> with WidgetsBindingObserver {
   }
 
    handlePaymentSuccess(){
-   //Implement Your Success Logic
-    print("Payment"+"Sucess");
+     showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return PaymentSucessWidget(
+            title: "Payment Cancelled.",
+            description:
+                "If the amount was debited, kindly wait for 8 hours until we verify and update your payment.", onClickClicked: () { 
+                  print("OnClick"+"onClick");
+                    Navigator.pop(context);
+                 }, str_Amount: "50",
+          );
+        },
+      );
    }
 
   handlePaymentFailure(String errorMessage){

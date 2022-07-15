@@ -555,7 +555,7 @@ class _OrderSummeryState extends State<OrderSummery>
           onClickClicked: () {
             print("OnClick" + "onClick");
             Navigator.pop(context);
-          },
+          }, str_Amount: str_GrandTotal,
         );
       },
     );
