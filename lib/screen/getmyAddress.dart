@@ -198,12 +198,12 @@ class _GetMyAddressState extends State<GetMyAddress>
             itemCount: _listMyAddress.length,
             itemBuilder: (context, index) {
               return   Card(
-      margin: EdgeInsets.all(5),
-  elevation: 5,
-  shape: RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular(10),
-  ),
-  child: 
+            margin: EdgeInsets.all(5),
+           elevation: 5,
+           shape: RoundedRectangleBorder(
+           borderRadius: BorderRadius.circular(10),
+            ),
+            child: 
               Container(
                 margin: EdgeInsets.all(5),
                 padding: EdgeInsets.all(5),
