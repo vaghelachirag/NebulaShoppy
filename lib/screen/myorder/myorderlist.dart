@@ -62,7 +62,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
-          child: appBarWidget(context, 3, "Order List", false)),
+          child: appBarWidget(context, 3, "Order List", true)),
       body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
          onRetryClick();
         },) :

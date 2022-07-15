@@ -68,7 +68,10 @@ class _MyCartListState extends State<MyCartList> {
     checkUserLoginOrNot();
     getMyCartList();
     hideProgressBar();
-   
+    // Future.delayed(const Duration(seconds: 5), () {
+    //    handlePaymentFailure("Error Message");
+    // });
+  
   }
 
   final GlobalKey<_MyCartListState> _myWidgetState =
@@ -142,7 +145,24 @@ class _MyCartListState extends State<MyCartList> {
           ),);
   }
 
-
+handlePaymentFailure(String errorMessage){
+  print("Payment"+"Fail" + errorMessage);
+  showDialog(
+        barrierColor: Colors.black26,
+        context: context,
+        builder: (context) {
+          return PaymentSucessWidget(
+            title: "Payment Cancelled.",
+            description:
+                "If the amount was debited, kindly wait for 8 hours until we verify and update your payment.", onClickClicked: () { 
+                  print("OnClick"+"onClick");
+                    Navigator.pop(context);
+                 }, str_Amount: "50",
+          );
+        },
+      );
+   }
+   
   CustomScrollView getMyCartData() {
     return CustomScrollView(shrinkWrap: true, slivers: <Widget>[
       SliverPadding(

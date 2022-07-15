@@ -98,7 +98,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
-          child: appBarWidget(context, 3, "Account", false)),
+          child: appBarWidget(context, 3, "Account", true)),
       body: Column(
         children: [
           showMaterialProgressbar(6),

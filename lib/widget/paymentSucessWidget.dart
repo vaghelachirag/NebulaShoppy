@@ -18,12 +18,15 @@ class PaymentSucessWidget extends StatefulWidget {
     required this.onClickClicked,
     required this.str_Amount
   });
+
+  
   
   @override
   _PaymentSucessWidgetState createState() => _PaymentSucessWidgetState();
 }
 
 class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
+  
   @override
   Widget build(BuildContext context) {
     return Container(
