@@ -93,7 +93,7 @@ class _GetMyAddressState extends State<GetMyAddress>
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            showMaterialProgressbar(6),
+            showMaterialProgressbar(5),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(

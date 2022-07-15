@@ -44,7 +44,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
         child: Column(
           children: [
             Visibility(
-                visible: showProgress, child: showMaterialProgressbar(8)),
+                visible: showProgress, child: showMaterialProgressbar(5)),
             Padding(
                 padding: EdgeInsets.all(10),
                 child: Text(

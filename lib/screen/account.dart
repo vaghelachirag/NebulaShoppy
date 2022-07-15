@@ -101,7 +101,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           child: appBarWidget(context, 3, "Account", true)),
       body: Column(
         children: [
-          showMaterialProgressbar(6),
+          showMaterialProgressbar(5),
           Container(
             color: white,
             margin: EdgeInsets.fromLTRB(0, 10, 0, 0),

@@ -114,7 +114,7 @@ class _OrderSummeryState extends State<OrderSummery>
         bottomNavigationBar: Visibility(visible: true, child: bottomBar()),
         body: Column(
           children: [
-            showMaterialProgressbar(6),
+            showMaterialProgressbar(5),
                AbsorbPointer(
           absorbing: showProgress,
          child:   getOrderSummeryData())

@@ -81,7 +81,7 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
             child: appBarWidget(context, 3, widget.str_Title, false)),
         body: Column(
           children: [
-            showMaterialProgressbar(6),
+            showMaterialProgressbar(5),
             SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(

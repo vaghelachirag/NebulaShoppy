@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../uttils/constant.dart';
@@ -235,7 +236,7 @@ Container showMaterialProgressbar(double height) {
     child: LinearProgressIndicator(
       backgroundColor: Colors.red[100],
       color: Colors.red[300],
-      minHeight: height,
+      minHeight:  ScreenUtil().setSp(height),
     ),
   ));
 }

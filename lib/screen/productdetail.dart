@@ -127,7 +127,7 @@ class _ProductDetailState extends State<ProductDetail> {
       child: 
       Column(
         children: [ 
-        showMaterialProgressbar(6), 
+        showMaterialProgressbar(5), 
         Expanded(child:
         SingleChildScrollView(
         child: Column(

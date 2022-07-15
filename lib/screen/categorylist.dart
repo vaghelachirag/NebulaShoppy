@@ -145,7 +145,7 @@ class _CategoryListState extends State<CategoryList>
       body: 
       Column(
         children: [
-          showMaterialProgressbar(6),
+          showMaterialProgressbar(5),
           Expanded(
             child: Row(
         mainAxisSize: MainAxisSize.min,

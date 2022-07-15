@@ -111,7 +111,7 @@ class _MyCartListState extends State<MyCartList> {
         mainAxisSize: MainAxisSize.max,
         children: [
            locationHeader(),
-          showMaterialProgressbar(6),
+          showMaterialProgressbar(5),
            Expanded(
             child: 
            getMyCartData())

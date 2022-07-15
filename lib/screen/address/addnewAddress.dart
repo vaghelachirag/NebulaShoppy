@@ -106,7 +106,7 @@ class _AddNewAddressState extends State<AddNewAddress>
         key: _formKey,
         child: Column(
           children: <Widget>[
-           showMaterialProgressbar(6),
+           showMaterialProgressbar(5),
             Padding(
               padding: EdgeInsets.all(0),
               child: Padding(
