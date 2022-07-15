@@ -19,6 +19,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:nebulashoppy/uttils/sharedpref.dart';
+
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -143,5 +146,6 @@ void navigateToScreens(int index) {
 
 getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
+    SharedPref.saveString(str_FCMToken, token);
     print("FCM_TOKEN -> $token");  
   }

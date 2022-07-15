@@ -47,6 +47,7 @@ const WS_GET_CART_WITH_LOGIN_ITEM = '/API/ECom/GetCartItemsList';
 const WS_REMOVE_CART_ITEM = '/API/ECom/RemoveFromCartWithoutUser';
 const WS_REMOVE_CART = '/API/ECom/RemoveFromCart';
 const WS_GENERATE_TOKEN = '/API/Token';
+const WS_REGISTER_TOKEN = '/API/Notifications/NebProUpdateDeviceToken';
 const WS_LOGIN_VALIDATE_KEY = '/Api/NebProDashboard/IBOLogin';
 const WS_FORGOT_PASSWORD_OPTION = '/Api/ForgotPassword/CheckUserDetails';
 const WS_GET_MY_ORDER_LIST = '/API/ECom/GetOrderList';
@@ -86,6 +87,7 @@ String str_DeliverTo = "Deliver To";
 const somethingWrong = "Opps Something Wrong!";
 
 // Sharred Prefrences
+String str_FCMToken = "fcmToken";
 String str_Token = "accessToken";
 String str_RefreshToken = "refreshToken";
 String str_Role = "role";

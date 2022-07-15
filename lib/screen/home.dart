@@ -21,6 +21,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../uttils/sharedpref.dart';
 import '../uttils/skeletonloader.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
@@ -63,6 +64,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     //     print(value);
     // });
     WidgetsBinding.instance?.addObserver(this);
+    getRegisterToken();
     isConnectedToInternet();
     getBannerImage();
     getDeviceId();
@@ -620,5 +622,28 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       setState(() {
         isConnectedToInternet();
       });
+  }
+
+  void getRegisterToken() async{
+   var str_FcmToken = await SharedPref.readString(str_FCMToken);
+   if(is_Login){
+    getUserId();
+    sendTokenToServer(str_FcmToken);
+   }
+   print("DeviceID"+ str_FcmToken);
+  }
+
+  void sendTokenToServer(str_fcmToken) {
+    Service().getRegisterTokenResponse(str_fcmToken,"IMEI1","0",str_UserId)
+        .then((value) => {
+              if (value.toString() == str_ErrorMsg)
+                {
+                 print("Success"+"Fail")
+                }
+              else
+                {
+                 print("Success"+"Success")
+                }
+            });
   }
 }

@@ -37,6 +37,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetail extends StatefulWidget {
+  
   int id;
   int productid;
   int categoryid;
@@ -82,6 +83,7 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   void initState() {
     super.initState();
+    hideProgressBar();
     setDeviceId();
     getCartCounter();
     getProductBanner(widget.productid.toString());
@@ -114,7 +116,43 @@ class _ProductDetailState extends State<ProductDetail> {
           child: appBarWidget(context, 3, "Product detail", true)),
       bottomNavigationBar: Visibility(
         visible: is_ShowCart,
-        child: Container(
+        child: addToCartContainer(),
+      ),
+      body: setProductDesc(),
+    );
+  }
+
+  Container setProductDesc(){
+    return Container(
+      child: 
+      Column(
+        children: [ 
+        showMaterialProgressbar(6), 
+        Expanded(child:
+        SingleChildScrollView(
+        child: Column(
+          children: [
+            _getTopImage(context),
+            _setNubulaCustomised(),
+            // _getproductVariant(context),
+            //Product Info
+            // _buildExtra(context),
+            //_buildDescription(context),
+            //  _buildComments(context),
+            setDescription(),
+            _buildProductImageData(context),
+            _buildProducts(context),
+          ],
+        ),
+      ))],
+        
+      )
+     ,
+    );
+  }
+
+ Container addToCartContainer(){
+  return Container(
             color: Theme.of(context).backgroundColor,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 11,
@@ -159,8 +197,11 @@ class _ProductDetailState extends State<ProductDetail> {
                             setState(() {
                               widget.device_Id = DeviceId.toString();
                             });
-                            showLoadingDialog(
-                                context, _dialogKey, "Please Wait..");
+                            setState(() {
+                               showProgressbar();
+                            });                         
+                            // showLoadingDialog(
+                            //     context, _dialogKey, "Please Wait..");
                             addToCart(widget.device_Id, str_UserId,
                                 widget.productid.toString(), 1, Flag_Minus);
                           },
@@ -200,8 +241,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                 widget.device_Id = DeviceId.toString();
                               });
                               print("AddDeviceId" + widget.device_Id);
-                              showLoadingDialog(
-                                  context, _dialogKey, "Please Wait..");
+                              // showLoadingDialog(
+                              //     context, _dialogKey, "Please Wait..");
+                              setState(() {
+                               showProgressbar();
+                            });  
                               addToCart(widget.device_Id, str_UserId,
                                   widget.productid.toString(), 1, Flag_Plus);
                               print("onCart" + "Add To Cart");
@@ -224,35 +268,32 @@ class _ProductDetailState extends State<ProductDetail> {
                               ),
                             )))
                   ],
-                ))),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _getTopImage(context),
-            Row(
+                )));
+ }
+
+
+ Row _setNubulaCustomised(){
+  return  Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildInfo(context),
-                SizedBox(
-                  width: 30,
-                  height: 30,
+                Column(
+                  children: [
+                 SizedBox(
+                  width: ScreenUtil().setSp(30),
+                  height: ScreenUtil().setSp(30),
                   child: Image.asset(assestPath + "nebulacustomised.png"),
+                ),
+                 SizedBox(
+                  height: 8,
+                  ),
+                  Padding(padding:EdgeInsets.fromLTRB(0, 0, 10, 0),child: 
+                 setBoldText("NebulaCare Cusomised", 12, Colors.black))
+                  ],
                 )
+               
               ],
-            ),
-            // _getproductVariant(context),
-            //Product Info
-            // _buildExtra(context),
-            //_buildDescription(context),
-            //  _buildComments(context),
-            setDescription(),
-            _buildProductImageData(context),
-            _buildProducts(context),
-          ],
-        ),
-      ),
-    );
+            );
   }
 
   Column setDescription() {
@@ -304,7 +345,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   _productSlideImage(String imageUrl) {
     return Container(
-      height: 200,
+      height: ScreenUtil().setSp(30),
       width: double.infinity,
       decoration: BoxDecoration(
         image:
@@ -370,7 +411,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     ),
                 options: CarouselOptions(
-                  height: 150,
+                  height: ScreenUtil().setSp(150),
                   viewportFraction: 1,
                   aspectRatio: 16 / 9,
                   autoPlay: false,
@@ -410,7 +451,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 280,
+                  height: ScreenUtil().setSp(280),
                   child: Center(
                     child: FadeInImage.assetNetwork(
                         placeholder: placeholder_path,
@@ -470,7 +511,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   Column(
                     children: [
                       SizedBox(
-                        height: 240,
+                        height: ScreenUtil().setSp(200),
                         child: PageView.builder(
                           controller: controller,
                           // itemCount: pages.length,
@@ -550,7 +591,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   _buildInfo(context) {
     return Container(
-      width: MediaQuery.of(context).size.width - 50,
+      width: MediaQuery.of(context).size.width /2 ,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -571,7 +612,7 @@ class _ProductDetailState extends State<ProductDetail> {
               ],
             ),
             SizedBox(
-              height: 8,
+              height: ScreenUtil().setSp(8),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -1453,9 +1494,12 @@ class _ProductDetailState extends State<ProductDetail> {
                 deviceId, str_userId, productId, quntity.toString(), flag)
             .then((value) => {
                   setState((() {
-                    if (_dialogKey.currentContext != null) {
-                      Navigator.pop(_dialogKey.currentContext!);
-                      if (value.statusCode == 1) {
+                    // if (_dialogKey.currentContext != null) {
+                    //   Navigator.pop(_dialogKey.currentContext!);
+                     
+                    // }
+                    hideProgressBar();
+                     if (value.statusCode == 1) {
                         if (flag == Flag_Plus) {
                           showSnakeBar(context, "Item Added to Cart!");
                           setState(() {
@@ -1480,7 +1524,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       } else {
                         showSnakeBar(context, "Opps! Something Wrong");
                       }
-                    }
                   }))
                 });
       } else {
@@ -1492,8 +1535,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   deviceId, str_userId, productId, quntity.toString(), flag)
               .then((value) => {
                     setState((() {
-                      if (_dialogKey.currentContext != null) {
-                        Navigator.pop(_dialogKey.currentContext!);
+                         hideProgressBar();
                         if (value.statusCode == 1) {
                           if (flag == Flag_Plus) {
                             showSnakeBar(context, "Item Added to Cart!");
@@ -1519,7 +1561,6 @@ class _ProductDetailState extends State<ProductDetail> {
                         } else {
                           showSnakeBar(context, "Opps! Something Wrong");
                         }
-                      }
                     }))
                   });
         });

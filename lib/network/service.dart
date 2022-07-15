@@ -28,6 +28,7 @@ import 'package:nebulashoppy/network/EndPoint.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/getMyProfileResponse/getMyProfileResponse.dart';
+import '../model/getRegisterFcmTokenResponse/getRegisterFcmTokenResponse.dart';
 import '../model/productdetail/productbanner.dart';
 import '../model/search/SearchProduct.dart';
 import 'dart:convert';
@@ -414,6 +415,30 @@ class Service {
     print("Response" + response.statusCode.toString());
     if (response.statusCode == 200) {
       return GetGenerateTokenresponse.fromJson(jsonDecode(response.body));
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+  Future<dynamic> getRegisterTokenResponse(
+
+    String str_TokenKey, String str_IMEI1, String str_IMEI2, String str_UserId) async {
+    Map<String, dynamic> body = {
+      'TokenKey': str_TokenKey,
+      'IMEI1': str_IMEI1,
+      'IMEI2': str_IMEI2,
+      'UserId': str_UserId
+    };
+
+    final response = await http.post(Uri.parse(BASE_URL + WS_REGISTER_TOKEN),
+        //body: body,
+        body: body,
+        encoding: Encoding.getByName("utf-8"));
+
+    print("Response" + response.statusCode.toString());
+  
+    if (response.statusCode == 200) {
+      return GetRegisterFcmResponse.fromJson(jsonDecode(response.body));
     } else {
       return str_ErrorMsg;
     }

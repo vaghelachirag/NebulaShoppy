@@ -189,12 +189,12 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
                       child: SizedBox(
                           width: 25,
                           height: 25,
                           child:
-                              Image.asset(assestPath + "/ahmedabad_icon.png")),
+                              Image.asset(assestPath + 'ahmedabad_icon.png')),
                     ),
                     // IconButton(
                     //     onPressed: () {},
@@ -230,12 +230,12 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
                       child: SizedBox(
                           width: 25,
                           height: 25,
                           child:
-                              Image.asset(assestPath + "/hydrabad_icon.png")),
+                              Image.asset(assestPath + 'hydrabad_icon.png')),
                     ),
                     Text(
                       "Hyderabad",
@@ -267,11 +267,11 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
                       child: SizedBox(
                           width: 25,
                           height: 25,
-                          child: Image.asset(assestPath + "/chennai_icon.png")),
+                          child: Image.asset(assestPath + 'chennai_icon.png')),
                     ),
                     // IconButton(
                     //     onPressed: () {},

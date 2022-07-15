@@ -92,7 +92,7 @@ class _QTYCounterState extends State<QTYCounter> {
       child: Stack(
         children: <Widget>[
           Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(15.0),
               child: new Container(
                   height: 150.0,
                   width: 30.0,
@@ -116,7 +116,7 @@ class _QTYCounterState extends State<QTYCounter> {
                             fontFamily: Ember,
                             color: Colors.white),
                       ),
-                      child: Icon(Icons.shopping_cart),
+                      child: Icon(Icons.shopping_cart_outlined),
                     ),
                     // child: new Stack(
                     //   children: <Widget>[

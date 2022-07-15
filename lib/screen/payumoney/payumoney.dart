@@ -106,8 +106,7 @@ class _PayUMoneyState extends State<PayUMoney> with WidgetsBindingObserver {
    }
 
   void generateOrder() {
-  showLoadingDialog(
-                                context, _dialogKey, "Please Wait..");
+  showLoadingDialog(context, _dialogKey, "Please Wait..");
     Service().getGenerateOrderResponse("8bb7fb09-269f-4912-81a1-30c70252e069","4727","","","PickUp","1","","","Online%20Payment","true","UPI","0").then((value) => {
           if (this.mounted)
             {
