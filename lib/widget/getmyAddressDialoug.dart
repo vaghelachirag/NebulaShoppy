@@ -44,9 +44,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
         child: Column(
           children: [
             Visibility(
-              visible: showProgress,
-              child: 
-            showMaterialProgressbar(8)),
+                visible: showProgress, child: showMaterialProgressbar(8)),
             Padding(
                 padding: EdgeInsets.all(10),
                 child: Text(
@@ -190,10 +188,18 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 elevation: 5,
                 child: Row(
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(CommunityMaterialIcons.city),
-                        color: Colors.cyan),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child:
+                              Image.asset(assestPath + "/ahmedabad_icon.png")),
+                    ),
+                    // IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(CommunityMaterialIcons.city),
+                    //     color: Colors.cyan),
                     Text(
                       "Ahmedabad",
                       style: TextStyle(
@@ -223,10 +229,14 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 elevation: 5,
                 child: Row(
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(CommunityMaterialIcons.city),
-                        color: Colors.cyan),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child:
+                              Image.asset(assestPath + "/hydrabad_icon.png")),
+                    ),
                     Text(
                       "Hyderabad",
                       style: TextStyle(
@@ -256,10 +266,17 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 elevation: 5,
                 child: Row(
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(CommunityMaterialIcons.city),
-                        color: Colors.cyan),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: Image.asset(assestPath + "/chennai_icon.png")),
+                    ),
+                    // IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(CommunityMaterialIcons.city),
+                    //     color: Colors.cyan),
                     Text(
                       "Chennai",
                       style: TextStyle(
@@ -288,10 +305,10 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
   }
 
   void getAddressbyCityId(String str_CityId, int int_Position) {
-  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+    //  showLoadingDialog(context, _dialogKey, "Please Wait..");
     showProgressbar();
     Service().getAddressByCitySelection(str_CityId).then((value) => {
-      //    Navigator.pop(_dialogKey.currentContext!),
+          //    Navigator.pop(_dialogKey.currentContext!),
           hideProgressBar(),
           if (value.toString() == str_ErrorMsg)
             {
@@ -310,10 +327,10 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
 
   getMyAddress() {
     if (_listMyAddress.isEmpty) {
-     // showLoadingDialog(context, _dialogKey, "Please Wait..");
+      // showLoadingDialog(context, _dialogKey, "Please Wait..");
       showProgressbar();
       Service().getMyAddress().then((value) => {
-         hideProgressBar(),
+            hideProgressBar(),
             //Navigator.pop(_dialogKey.currentContext!),
             if (value.toString() == str_ErrorMsg) {setState((() {}))},
             if (value.toString() != str_ErrorMsg)
@@ -341,7 +358,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
         print("SelectedAddresss" + "SelectedAddress");
       },
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: 200,
         child: Padding(
             padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
             child: Column(
@@ -361,16 +378,18 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Align(
-                              alignment: Alignment.topLeft,
-                              child:  Container(
-                                padding:
-                                    EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
-                                child: Text(
-                                    _listAddressCityList[0].address.toString(),
-                                    style: TextStyle(fontFamily: EmberBold),
-                                    softWrap: true),
-                              )),
-                            ),
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                                  child: Text(
+                                      _listAddressCityList[0]
+                                          .address
+                                          .toString(),
+                                      style: TextStyle(fontFamily: EmberBold),
+                                      softWrap: true),
+                                )),
+                          ),
                         ],
                       ),
                     ))
@@ -443,20 +462,21 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                       Padding(
                                         padding: EdgeInsets.all(10),
                                         child: Align(
-                                          alignment: Alignment.topLeft,
-                                          child: Container(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0.0, 0.0, 0.0, 15.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(getPickupAddress(
-                                                    _listMyAddressList[index])),
-                                              ],
-                                            ),
-                                          )),
-                                        ),
+                                            alignment: Alignment.topLeft,
+                                            child: Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0.0, 0.0, 0.0, 15.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(getPickupAddress(
+                                                      _listMyAddressList[
+                                                          index])),
+                                                ],
+                                              ),
+                                            )),
+                                      ),
                                     ],
                                   ),
                                 ))

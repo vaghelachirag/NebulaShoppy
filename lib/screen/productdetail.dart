@@ -86,7 +86,7 @@ class _ProductDetailState extends State<ProductDetail> {
     getCartCounter();
     getProductBanner(widget.productid.toString());
 
-    print("ProductId"+ widget.productid.toString());
+    print("ProductId" + widget.productid.toString());
 
     Dialog(
       shape: RoundedRectangleBorder(
@@ -230,7 +230,17 @@ class _ProductDetailState extends State<ProductDetail> {
         child: Column(
           children: [
             _getTopImage(context),
-            _buildInfo(context),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildInfo(context),
+                SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset(assestPath + "nebulacustomised.png"),
+                )
+              ],
+            ),
             // _getproductVariant(context),
             //Product Info
             // _buildExtra(context),
@@ -540,7 +550,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   _buildInfo(context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width - 50,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -1060,7 +1070,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           mrp: rupees_Sybol +
                               "" +
                               _listNewLaunched[index].mrp.toString(),
-                              qunatity: _listNewLaunched[index].quantity ),
+                          qunatity: _listNewLaunched[index].quantity),
                       gradientColors: [Colors.white, Colors.white],
                       onBackPressClicked: () {},
                     );

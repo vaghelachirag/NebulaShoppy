@@ -10,8 +10,8 @@ import '../screen/search.dart';
 
 Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
   return AppBar(
-    iconTheme: IconThemeData(color: Colors.black),
-       flexibleSpace: Container(
+      iconTheme: IconThemeData(color: Colors.black),
+      flexibleSpace: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -119,7 +119,7 @@ class _QTYCounterState extends State<QTYCounter> {
                             child: new Stack(
                           children: <Widget>[
                             new Icon(Icons.brightness_1,
-                                size: 20.0, color: Colors.red[400]),
+                                size: 22.0, color: Colors.red[400]),
                             new Positioned(
                                 top: 3.0,
                                 right: 3.0,
