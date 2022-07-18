@@ -104,6 +104,7 @@ String str_UserId = "";
 
 // For Address Selection
 String str_SelectedAddress = "";
+String str_SelectedAddressType = "";
 
 int int_SelectedFilterIndex = 0;
 

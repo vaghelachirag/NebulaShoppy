@@ -352,6 +352,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
       onTap: () {
         setState(() {
           str_SelectedAddress = _listAddressCityList[0].address.toString();
+          str_SelectedAddressType = "1";
           widget.onAddressSelection();
           Navigator.pop(context);
         });
@@ -438,8 +439,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   onTap: () {
                     setState(() {
                       Navigator.pop(context);
-                      str_SelectedAddress =
-                          getPickupAddress(_listMyAddressList[index]);
+                      str_SelectedAddress = getPickupAddress(_listMyAddressList[index],_listMyAddressList[index].addressType);
+                      str_SelectedAddressType = "0";
                       widget.onAddressSelection();
                     });
                   },
@@ -472,7 +473,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                                 children: [
                                                   Text(getPickupAddress(
                                                       _listMyAddressList[
-                                                          index])),
+                                                          index],_listMyAddressList[index].addressType)),
                                                 ],
                                               ),
                                             )),
@@ -490,7 +491,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
     );
   }
 
-  String getPickupAddress(GetMyAddressData getMyAddressData) {
+  String getPickupAddress(GetMyAddressData getMyAddressData, String? addressType) {
     String str_Address = getMyAddressData.fullName.toString() +
         "\n" +
         getMyAddressData.addressLine1.toString() +
@@ -502,8 +503,10 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
         getMyAddressData.state.toString() +
         "," +
         "(" +
-        getMyAddressData.mobileNo.toString() +
-        ")";
+        getMyAddressData.mobileNo.toString() + ")";
+
+
+        
     print("Address" + str_Address);
     return str_Address;
   }

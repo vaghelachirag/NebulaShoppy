@@ -41,7 +41,7 @@ class MyCartList extends StatefulWidget {
   void addToCartMethod() {}
 }
 
-class _MyCartListState extends State<MyCartList> {
+class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   List<ItemCart> _listCartItem = [];
   bool is_ShowBottomBar = false;
   bool is_ShowNoData = false;
@@ -55,6 +55,7 @@ class _MyCartListState extends State<MyCartList> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     isConnectedToInternet();
     setState(() {
       widget.device_Id = DeviceId.toString();
@@ -62,16 +63,65 @@ class _MyCartListState extends State<MyCartList> {
       if (str_SelectedAddress == null || str_SelectedAddress == "") {
         str_SelectedAddress = str_DeliverTo;
       }
+       if (str_SelectedAddressType == null || str_SelectedAddressType == "") {
+        str_SelectedAddressType = "0";
+      }
     });
 
     checkUserLoginOrNot();
     getMyCartList();
     hideProgressBar();
+
     // Future.delayed(const Duration(seconds: 5), () {
     //    handlePaymentFailure("Error Message");
     // });
   
   }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+ @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    print("didChangeDependencies");
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("APP_STATE: $state");
+    if (state == AppLifecycleState.resumed) {
+      // user returned to our app
+      // _showPasswordDialog();
+       print("MyCart"+"OnResume");
+        isConnectedToInternet();
+        setState(() {
+      widget.device_Id = DeviceId.toString();
+      bl_ShowCart = false;
+      if (str_SelectedAddress == null || str_SelectedAddress == "") {
+        str_SelectedAddress = str_DeliverTo;
+      }
+       if (str_SelectedAddressType == null || str_SelectedAddressType == "") {
+        str_SelectedAddressType = "0";
+      }
+    });
+
+    checkUserLoginOrNot();
+    getMyCartList();
+    hideProgressBar();
+    } else if (state == AppLifecycleState.inactive) {
+      // app is inactive
+    } else if (state == AppLifecycleState.paused) {
+      // user quit our app temporally
+    } else if (state == AppLifecycleState.detached) {
+      // user quit our app temporally
+    }
+  }
+
 
   final GlobalKey<_MyCartListState> _myWidgetState =
       GlobalKey<_MyCartListState>();
@@ -275,26 +325,42 @@ handlePaymentFailure(String errorMessage){
       child: Align(
         alignment: Alignment.centerLeft,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
+            SizedBox(
+              width: 24,
+              child:  
+              Center(
+                child: IconButton(
                 onPressed: () {},
                 icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
-                color: Colors.black),
+                color: Colors.black)
+              )
+            ),
+            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),child: 
             SizedBox(
               width: MediaQuery.of(context).size.width - 100,
               child: Text(str_SelectedAddress,
                   maxLines: 2,
-                  style: TextStyle(fontSize: 16, fontFamily: Ember),
+                  style: TextStyle(fontSize: 14, fontFamily: Ember),
                   softWrap: true),
-            ),
+            )),
             //setBoldText(str_SelectedAddress, 12, Colors.black),
-            IconButton(
+            Padding(padding: EdgeInsets.only(right: 10),child: 
+            SizedBox(
+                 width: 24,
+                  child:  
+              Center(
+                child: IconButton(
                 onPressed: () {
                   onLocationPressed();
                 },
                 icon:
                     Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
                 color: Colors.black)
+              )
+            ))
+           
           ],
         ),
       ),
@@ -693,6 +759,9 @@ handlePaymentFailure(String errorMessage){
                   onAddressSelection: () {
                     setState(() {
                       str_SelectedAddress = str_SelectedAddress;
+                      str_SelectedAddressType = str_SelectedAddressType;
+                     getMyCartList();
+                      print("AddressType"+str_SelectedAddressType);
                     });
                   },
                 ),
@@ -821,7 +890,7 @@ handlePaymentFailure(String errorMessage){
     is_ShowBottomBar = false;
 
     Service()
-        .getCartItemWithLogin(widget.device_Id, "0", str_UserId)
+        .getCartItemWithLogin(widget.device_Id, str_SelectedAddressType, str_UserId)
         .then((value) => {
               print("CartList" + value.toString()),
               if (value.toString() == str_NoDataMsg)
