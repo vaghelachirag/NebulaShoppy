@@ -10,7 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SliderShowFullmages extends StatefulWidget{
    List<dynamic> listBannerImage = [];
-  final int current;
+  late  int current;
    final controller = PageController(viewportFraction: 1, keepPage: true);
 
   SliderShowFullmages(
@@ -45,7 +45,15 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, "Product Image", false)),
-      body:  getfullscreenImage(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+         getfullscreenImage(),
+         Expanded(child: 
+          getsmallscreenImage())
+        ],
+      )
+      ,
     );
   }
     Container getfullscreenImage(){
@@ -64,7 +72,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
                 },
                 child:   Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height / 2,
                  child: FadeInImage.assetNetwork(
                       placeholder: placeholder_path,
                       image: widget.listBannerImage[index].imageFile,
@@ -76,41 +84,83 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
 
       return Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child:  Column(
-          children: [
-            SizedBox(
-                       height: MediaQuery.of(context).size.height - 100,
+        height: MediaQuery.of(context).size.height / 2,
+        color: Colors.white,
+        child: SizedBox(
+                       height: MediaQuery.of(context).size.height,
                         child: PageView.builder(
-                          controller: widget.controller,
                           // itemCount: pages.length,
                           itemBuilder: (_, index) {
                             return pages[index % pages.length];
                           },
                         ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.white,
-                        child: SmoothPageIndicator(
-                            controller: widget.controller,
-                            count: widget.listBannerImage.length,
-                            effect: ScrollingDotsEffect(
-                                activeStrokeWidth: 2.6,
-                                activeDotScale: 1.3,
-                                maxVisibleDots: 5,
-                                radius: 8,
-                                spacing: 10,
-                                dotHeight: 12,
-                                dotWidth: 12,
-                                activeDotColor: Colors.cyan)),
                       )
-          ],
-        )
        
       );
     }      
+  
+
+   Container getsmallscreenImage(){
+          return Container(
+            child: FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (widget.listBannerImage.isEmpty) {
+                      return Text("");
+                    } else {
+                      return Center(child: 
+                       getSmallImages());
+                    }
+                  },
+                ),
+          );
+       }
+
+  Container getSmallImages() {
+    return Container(
+       width: MediaQuery.of(context).size.width,
+       height: MediaQuery.of(context).size.height/8,
+      child:  
+      Align(
+        alignment: Alignment.center,
+        child: 
+      ListView.builder(
+        itemCount: widget.listBannerImage.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+               setState(() {
+                  widget.current = index;
+               });
+            },
+            child: 
+            Padding(padding: EdgeInsets.all(2),child: 
+            Align(
+              alignment: Alignment.center,
+              child: 
+                Container(
+                 decoration: BoxDecoration(
+           border: Border.all(color:  widget.current == index
+                              ? Colors.black
+                              : Colors.black12)
+            ),
+                child: SizedBox(
+              width: MediaQuery.of(context).size.width / 6,
+              child:  Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1),
+              child:  FadeInImage.assetNetwork(
+                      placeholder: placeholder_path,
+                      image: widget.listBannerImage[index].imageFile,
+                      fit: BoxFit.contain),
+            ),
+            ),
+              ),
+            ) 
+          ));
+        },
+      ),
+    ));
+  }      
   
 
 }
