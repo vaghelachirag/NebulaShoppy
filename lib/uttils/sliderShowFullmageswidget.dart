@@ -72,7 +72,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
                 },
                 child:   Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height  -  MediaQuery.of(context).size.height/4,
                  child: FadeInImage.assetNetwork(
                       placeholder: placeholder_path,
                       image: widget.listBannerImage[index].imageFile,
@@ -84,7 +84,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
 
       return Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 2,
+        height: MediaQuery.of(context).size.height  -  MediaQuery.of(context).size.height/4,
         color: Colors.white,
         child: SizedBox(
                        height: MediaQuery.of(context).size.height,
