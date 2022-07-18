@@ -64,6 +64,7 @@ const WS_GET_EDIT_ADDRESS = '/API/ECom/UpdateAddress';
 const WS_GET_CITYLIST_BY_STATE = '/API/Config/CityInfo';
 const WS_GET_GENERATE_ORDER = '/API/Ecom/GenerateOrderPaytm';
 const WS_GET_GENERATE_ORDER_PAYUMONEY = '/API/Ecom/GenerateOrderPayUMoney';
+const WS_GET_DELETE_CART = '/API/ECom/MarkCartDelete';
 
 const MerchantKey = "0w2qzK";
 const MerchantSalt = "Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU";

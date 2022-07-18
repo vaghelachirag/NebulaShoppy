@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/ordersummery.dart';
-import 'package:nebulashoppy/screen/payumoney/payumoney.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
@@ -494,7 +493,7 @@ handlePaymentFailure(String errorMessage){
                     name: _listCartItem[index].productName,
                     desc: _listCartItem[index].volWt.toString(),
                     icon: _listCartItem[index].mainImage,
-                    price: _listCartItem[index].mrpPrice.toString(),
+                    price: _listCartItem[index].pricePerPiece.toString(),
                     pv: _listCartItem[index].pv.toString(),
                     bv: _listCartItem[index].bv.toString(),
                     nv: _listCartItem[index].nv.toString(),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:nebulashoppy/model/generateorderresponse/generateorderResponse.dart';
+import 'package:nebulashoppy/model/getCartItemDeleteResponse/getCartItemDeleteResponse.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:nebulashoppy/model/getCityByStateResponse/getCityByStateResponse.dart';
 import 'package:nebulashoppy/model/getEwallethistory/GetMyEwalletHistoryResponse.dart';
@@ -395,8 +396,7 @@ class Service {
     }
   }
 
-  Future<dynamic> getGenerateTokenResponse(
-      String str_username, String str_password, String str_type) async {
+  Future<dynamic> getGenerateTokenResponse(String str_username, String str_password, String str_type) async {
     Map<String, dynamic> body = {
       'username': str_username,
       'password': str_password,
@@ -420,9 +420,7 @@ class Service {
     }
   }
 
-  Future<dynamic> getRegisterTokenResponse(
-
-    String str_TokenKey, String str_IMEI1, String str_IMEI2, String str_UserId) async {
+  Future<dynamic> getRegisterTokenResponse(String str_TokenKey, String str_IMEI1, String str_IMEI2, String str_UserId) async {
     Map<String, dynamic> body = {
       'TokenKey': str_TokenKey,
       'IMEI1': str_IMEI1,
@@ -439,6 +437,27 @@ class Service {
   
     if (response.statusCode == 200) {
       return GetRegisterFcmResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+   Future<dynamic> getDeleteCartResponse(String issuccess, String userid, String deviceid) async {
+    Map<String, dynamic> body = {
+      'issuccess': issuccess,
+      'userid': userid,
+      'deviceid': deviceid
+    };
+
+    final response = await http.post(Uri.parse(BASE_URL + WS_GET_DELETE_CART),
+        //body: body,
+        body: body,
+        encoding: Encoding.getByName("utf-8"));
+
+    print("Response" + response.statusCode.toString());
+  
+    if (response.statusCode == 200) {
+      return GetDeleteCartResponse.fromJson(jsonDecode(response.body));
     } else {
       return str_ErrorMsg;
     }

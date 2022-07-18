@@ -15,7 +15,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
-      changeBaseURL(1);
+      changeBaseURL(0);
       goToHomeScreen();
     });
   }

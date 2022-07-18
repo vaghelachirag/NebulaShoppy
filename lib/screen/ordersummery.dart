@@ -506,7 +506,8 @@ class _OrderSummeryState extends State<OrderSummery>
         userPhoneNumber: widget.phone);
 
     if (response['status'] == PayUParams.success) {
-      handlePaymentSuccess();
+      getMarkDeleteCart();
+     
     }
 
     if (response['status'] == PayUParams.failed) {
@@ -585,5 +586,22 @@ class _OrderSummeryState extends State<OrderSummery>
     int_Total = widget.int_GrandTotal;
     int_SubTotal = widget.int_SubTotal;
     int_ShippingCharge = widget.int_ShippingCharge;
+  }
+
+  void getMarkDeleteCart() {
+     Service().getDeleteCartResponse("true",str_UserId,DeviceId)
+        .then((value) => {
+         
+              if (value.toString() == str_ErrorMsg)
+                {
+                  // Navigator.pop(_dialogKey.currentContext!),
+                  showSnakeBar(
+                      context, "The user name or password is incorrect")
+                }
+              else
+                {
+                  handlePaymentSuccess()
+                }
+            });
   }
 }

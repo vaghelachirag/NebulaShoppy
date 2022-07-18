@@ -107,7 +107,11 @@ class _CategoryListState extends State<CategoryList>
           padding: EdgeInsets.all(10),
           child: Visibility(
               visible: bl_IsFilterVisible,
-              child: FloatingActionButton(
+              child: 
+         Container(
+         width: ScreenUtil().setSp(35),
+         height: ScreenUtil().setSp(35),
+        child: FloatingActionButton(
                 // isExtended: true,
               //  child: Image.asset('assets/images/filtericon.jpg'),
                 child: Icon(
@@ -138,7 +142,9 @@ class _CategoryListState extends State<CategoryList>
                     },
                   );
                 },
-              ))),
+              ),
+)
+)),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Product List", true)),
@@ -180,6 +186,7 @@ class _CategoryListState extends State<CategoryList>
     );
   }
 
+  
   void getHomeCategory() async {
     Service().getHomeCategory().then((value) => {
           setState((() {
@@ -194,6 +201,7 @@ class _CategoryListState extends State<CategoryList>
           }))
         });
   }
+
 
 
   Container homeCategory() {

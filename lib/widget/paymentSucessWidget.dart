@@ -43,10 +43,11 @@ class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 8),
-          SizedBox(
-            height: 80,
-            child:  Image.asset(assestPath+ 'success.png',fit: BoxFit.contain,color:Colors.lightGreen,),
-          ),
+          AnimatedContainer(
+          height: 80,
+          child: Image.asset(assestPath+ 'success.png',fit: BoxFit.contain,color:Colors.lightGreen,) ,
+        duration: Duration(milliseconds: 5000),
+       curve: Curves.bounceInOut,),
            Container(
             margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
             padding:  EdgeInsets.fromLTRB(0, 5, 0, 0),

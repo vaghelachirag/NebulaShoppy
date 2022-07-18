@@ -288,7 +288,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   height: 8,
                   ),
                   Padding(padding:EdgeInsets.fromLTRB(0, 0, 10, 0),child: 
-                 setBoldText("NebulaCare Cusomised", 12, Colors.black))
+                 setBoldText("NebulaCare Customised", 12, Colors.black))
                   ],
                 )
                
