@@ -446,7 +446,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SliderShowFullmages(
                             listBannerImage: _listBannerImage,
-                            current: 0,
+                            current: index,
                           )));
                 },
                 child: Container(

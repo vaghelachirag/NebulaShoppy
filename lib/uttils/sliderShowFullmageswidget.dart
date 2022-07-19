@@ -10,8 +10,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SliderShowFullmages extends StatefulWidget{
    List<dynamic> listBannerImage = [];
-  late  int current;
+ // late  int current;
    final controller = PageController(viewportFraction: 1, keepPage: true);
+ int current = 0;
 
   SliderShowFullmages(
       {required this.listBannerImage,
@@ -23,16 +24,18 @@ class SliderShowFullmages extends StatefulWidget{
    _SliderShowFullmagesState createState() =>  _SliderShowFullmagesState();
 }
 class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
-  int _current = 0;
+ late PageController controller ;
+ 
   bool _stateChange = false; 
   @override
   void initState() {
     super.initState();
+    controller =  PageController(initialPage: widget.current, keepPage: false, viewportFraction: 1);
   }
  
   @override
   Widget build(BuildContext context) {
-    _current = (_stateChange == false) ? widget.current : _current;
+    widget.current = (_stateChange == false) ? widget.current : widget.current;
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
@@ -75,7 +78,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
                 height: MediaQuery.of(context).size.height  -  MediaQuery.of(context).size.height/4,
                  child: FadeInImage.assetNetwork(
                       placeholder: placeholder_path,
-                      image: widget.listBannerImage[index].imageFile,
+                      image: widget.listBannerImage[index].hqImageFile,
                       fit: BoxFit.contain),
               ),
               )
@@ -89,9 +92,17 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
         child: SizedBox(
                        height: MediaQuery.of(context).size.height,
                         child: PageView.builder(
+                            controller: controller,
                           // itemCount: pages.length,
                           itemBuilder: (_, index) {
                             return pages[index % pages.length];
+                          },
+                           padEnds: true,   
+                           itemCount:  widget.listBannerImage.length,
+                              onPageChanged: (value) {                            
+                              setState((){
+                                widget.current = value;
+                              });
                           },
                         ),
                       )
@@ -107,7 +118,8 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
                     if (widget.listBannerImage.isEmpty) {
                       return Text("");
                     } else {
-                      return Center(child: 
+                      return 
+                       Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0),child:
                        getSmallImages());
                     }
                   },
@@ -117,13 +129,19 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
 
   Container getSmallImages() {
     return Container(
-       width: MediaQuery.of(context).size.width,
        height: MediaQuery.of(context).size.height/8,
-      child:  
-      Align(
-        alignment: Alignment.center,
-        child: 
-      ListView.builder(
+      child:   Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child:
+              new Expanded(
+           child: 
+           Align(
+            alignment: Alignment.center,
+            child: 
+           
+             ListView.builder(
         itemCount: widget.listBannerImage.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
@@ -131,6 +149,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
             onTap: () {
                setState(() {
                   widget.current = index;
+                  controller.jumpToPage(widget.current);
                });
             },
             child: 
@@ -151,15 +170,19 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
               child:  FadeInImage.assetNetwork(
                       placeholder: placeholder_path,
                       image: widget.listBannerImage[index].imageFile,
-                      fit: BoxFit.contain),
+                      fit: BoxFit.fitHeight),
             ),
             ),
               ),
             ) 
           ));
         },
-      ),
-    ));
+      ))),
+          )
+        ],
+      )
+      ,
+    );
   }      
   
 
