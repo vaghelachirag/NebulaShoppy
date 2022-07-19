@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itemhomecategory.dart';
+import 'package:nebulashoppy/model/productdetail/itemProductColorsVariant.dart';
 import 'package:nebulashoppy/model/productdetail/itemproductdetail.dart';
 import 'package:nebulashoppy/model/productdetail/itemproductdetailimage.dart';
 import 'package:nebulashoppy/model/productdetail/itemproductvariant.dart';
@@ -59,6 +60,8 @@ class _ProductDetailState extends State<ProductDetail> {
   List<dynamic> _listProductImageDetail = [];
   List<itemNewLaunchedProduct> _listNewLaunched = [];
   List<ItemProductVariantData> _listProductVariant = [];
+   List<ItemProductColorsVariant> _listProductVariantColor = [];
+  List<int> _listProductVariantColorSkuList = [];
   List<ItemCart> _listCartItem = [];
 
   // Product Detail Data
@@ -77,6 +80,9 @@ class _ProductDetailState extends State<ProductDetail> {
   int? int_CartCounter = 0;
   bool is_ShowDescription = false;
   bool is_ShowCart = false;
+  int int_SelectedVariantId = 0;
+
+
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
@@ -131,10 +137,11 @@ class _ProductDetailState extends State<ProductDetail> {
         Expanded(child:
         SingleChildScrollView(
         child: Column(
+           mainAxisSize: MainAxisSize.min,
           children: [
             _getTopImage(context),
             _setNubulaCustomised(),
-            // _getproductVariant(context),
+             _getproductVariant(context),
             //Product Info
             // _buildExtra(context),
             //_buildDescription(context),
@@ -547,7 +554,11 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   _getproductVariant(context) {
-    return Container(
+    return FutureBuilder(builder: (context, snapshot) {
+       if(_listProductVariantColor.isEmpty){
+        return Text("");
+       }else{
+         return  Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -561,20 +572,40 @@ class _ProductDetailState extends State<ProductDetail> {
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    "White",
+                    _listProductVariantColor[0].AttributeName,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
-            Container(
+            
+            ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _listProductVariantColor.length,
+            itemBuilder: (context, index) {
+              return FutureBuilder(
+                future: setSelectedHeighlitId(_listProductVariantColor),
+                builder: (context, snapshot) {
+                  return Container(
+                width: 25,
+                height: 25,
+                 decoration: BoxDecoration(
+               border: Border.all(
+              color:  int_SelectedVariantId == index
+                              ? Colors.black
+                              : Colors.black12,
+          ),
+             borderRadius: BorderRadius.all(Radius.circular(5))
+              ),
               child: Padding(
                 padding: EdgeInsets.all(0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.green,
+                child: 
+                CircleAvatar(
+                  backgroundColor:  Color(int.parse(_listProductVariantColor[index].AttributeColor)),
                   maxRadius: 15,
                   child: Text(
-                    "-",
+                    "",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 10,
@@ -582,11 +613,16 @@ class _ProductDetailState extends State<ProductDetail> {
                   ),
                 ),
               ),
-            )
+            );
+           },);             
+            },
+          )               
           ],
         ),
       ),
     );
+   }
+    },); 
   }
 
   _buildInfo(context) {
@@ -596,7 +632,7 @@ class _ProductDetailState extends State<ProductDetail> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -1177,7 +1213,6 @@ class _ProductDetailState extends State<ProductDetail> {
   getProductDetail(int productid) {
     Service().getProductDetail(productid.toString(), "0").then((value) => {
           setState((() {
-            print("Banner" + value.message.toString());
             if (value.statusCode == 1) {
               setProductData(value.data);
             } else {
@@ -1213,8 +1248,16 @@ class _ProductDetailState extends State<ProductDetail> {
     } else {
       is_ShowDescription = true;
     }
+   
+    int_SelectedVariantId = data.highlightsIds;
 
-    getProductVarinatData();
+    if(data.isMainProduct){
+      getProductVarinatData(widget.id.toString(),);
+    }
+    else{
+       getProductVarinatData(data.masterProductId.toString());
+    }
+   
     getProductDetailImage();
     getCartItemList();
 
@@ -1315,12 +1358,13 @@ class _ProductDetailState extends State<ProductDetail> {
         });
   }
 
-  getProductVarinatData() async {
-    Service().getProductVarintData("0", "65").then((value) => {
+  getProductVarinatData(masterProductId) async {
+    Service().getProductVarintData("0", masterProductId).then((value) => {
           setState((() {
             print("Banner" + value.message.toString());
             if (value.statusCode == 1) {
               _listProductVariant = value.data!;
+              setAttribute();
               print("ProductVarint" + _listProductVariant.length.toString());
             } else {
               showSnakeBar(context, somethingWrong);
@@ -1655,5 +1699,30 @@ class _ProductDetailState extends State<ProductDetail> {
           data.shortDescription.toString());
       print("fdf" + "fdf");
     }
+  }
+
+  void setAttribute() {
+    if(!_listProductVariant.isEmpty){
+      for(int i=0; i<_listProductVariant.length; i++){
+        if(_listProductVariant[i].mainKey == "Color"){
+          print("Color"+ _listProductVariant[i].ecomAttributeValueList.toString());
+            for(int j=0; j<_listProductVariant[i].ecomAttributeValueList.length; j++){
+              print("Color"+ _listProductVariant[i].ecomAttributeValueList[j].attributeColor.toString());
+              String strColors = _listProductVariant[i].ecomAttributeValueList[j].attributeColor.toString();
+              final splitted = strColors.split('#');
+              _listProductVariantColor.add(ItemProductColorsVariant(AttributeName: _listProductVariant[i].ecomAttributeValueList[j].attributeName.toString(), AttributeColor: "0xff" + splitted[1], EcomAttributeSKUList: _listProductVariant[i].ecomAttributeValueList[j].ecomAttributeSkuList));
+              _listProductVariantColorSkuList.add(_listProductVariant[i].ecomAttributeValueList[j].ecomAttributeSkuList[0]);
+            }
+        }
+      }
+   
+    }
+  }
+
+  setSelectedHeighlitId(List<ItemProductColorsVariant> listProductVariantColor) {
+    if(_listProductVariantColorSkuList.indexOf(int_SelectedVariantId) != -1){
+ int_SelectedVariantId =  _listProductVariantColorSkuList.indexOf(int_SelectedVariantId);
+     print("SelectedId" +  _listProductVariantColorSkuList.indexOf(int_SelectedVariantId).toString() + " "+ _listProductVariantColorSkuList.toString());
+    }  
   }
 }

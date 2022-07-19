@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'common_widget.dart';
+
 class SoldOutDialoug extends StatefulWidget {
   const SoldOutDialoug({
     Key? key,
@@ -80,14 +82,15 @@ class _SoldOutDialougState extends State<SoldOutDialoug> {
                 Navigator.of(context).pop();
               },
               
-              child: Center(
-                child: Text(
-                  "Ok",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              child: 
+              Center(
+                child:  ElevatedButton(
+                  style: buttonOK(),
+                onPressed: () {
+                Navigator.of(context).pop();
+                },
+             child: Text('Ok'),
+               ),
               ),
             ),
           ),

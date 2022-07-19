@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
+import 'package:nebulashoppy/screen/test.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:badges/badges.dart';
@@ -47,7 +48,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
                     context,
                     PageTransition(
                       type: PageTransitionType.rightToLeft,
-                      child: Search(),
+                      child: Test(),
                     ),
                   );
                 },

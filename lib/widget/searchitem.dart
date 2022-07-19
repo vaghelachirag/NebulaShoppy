@@ -13,13 +13,14 @@ import 'package:nebulashoppy/screen/productdetail.dart';
 class SearchItem extends StatelessWidget {
   final Product product;
   final List<Color> gradientColors;
+  final  double int_width ;
 
-  const SearchItem({required this.product, required this.gradientColors});
+  // ignore: non_constant_identifier_names
+  const SearchItem({required this.product, required this.gradientColors,required this.int_width});
 
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-
     double rectWidth = MediaQuery.of(context).size.width;
     double trendCardWidth = ScreenUtil().setHeight(160);
 
@@ -79,6 +80,7 @@ class SearchItem extends StatelessWidget {
         ),
         Center(
             child: Container(
+          width: int_width,
           height: 80,
           child: FadeInImage.assetNetwork(
               placeholder: placeholder_path,

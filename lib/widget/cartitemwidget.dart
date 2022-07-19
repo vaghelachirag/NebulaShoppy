@@ -139,6 +139,7 @@ class CartItemWidget extends StatelessWidget {
                   ));
             },
             child: Container(
+              width: MediaQuery.of(context).size.width / 4,
               height: ScreenUtil().setSp(80),
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,

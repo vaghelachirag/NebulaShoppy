@@ -60,12 +60,12 @@ class EcomAttributeValueList {
   EcomAttributeValueList({
     this.attributeName,
     this.attributeColor,
-    this.ecomAttributeSkuList,
+    required this.ecomAttributeSkuList,
   });
 
   String? attributeName;
   String? attributeColor;
-  List<int>? ecomAttributeSkuList;
+  List<int> ecomAttributeSkuList;
 
   factory EcomAttributeValueList.fromJson(Map<String, dynamic> json) =>
       EcomAttributeValueList(

@@ -188,6 +188,7 @@ class _SearchState extends State<Search> {
                       mrp: "Test",
                       qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
+                  int_width: MediaQuery.of(context).size.width/ 4,
                 ),
               );
               ;
@@ -237,6 +238,7 @@ class _SearchState extends State<Search> {
                       mrp: rupees_Sybol + _listSearch[index].mrp.toString(),
                       qunatity: _listSearch[index].quantity),
                   gradientColors: [Colors.white, Colors.white],
+                    int_width: MediaQuery.of(context).size.width/ 4,
                 ),
               );
               ;

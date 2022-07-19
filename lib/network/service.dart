@@ -156,7 +156,14 @@ class Service {
             pickupid),
         headers: requestHeaders);
     var json = response.body;
-    //  print("Json" + json.toString());
+      print("Json" + BASE_URL +
+            WS_GET_PRODUCT_DETAILS +
+            "?" +
+            "Id=" +
+            _productid +
+            "&" +
+            "pickupid=" +
+            pickupid.toString());
     return itemProductDetailFromJson(json);
   }
 
@@ -177,17 +184,18 @@ class Service {
   Future<ItemProductVariant> getProductVarintData(
       String _pickupId, String _productId) async {
     var client = http.Client();
-    var response = await client.get(Uri.parse(BASE_URL +
+    Uri uri =  Uri.parse(BASE_URL +
         WS_GET_PRODUCT_VARINT_DATA +
         "?" +
         "pickupid=" +
         _pickupId +
         "&" +
         "Id=" +
-        _productId));
+        _productId);
+    var response = await client.get(uri);
     var json = response.body;
 
-    //  print("ProductVarint " + json.toString());
+      print("ProductVarint" + uri.toString() );
     return itemProductVariantFromJson(json);
   }
 
@@ -204,15 +212,7 @@ class Service {
         str_UserId));
     var json = response.body;
 
-    print("ProductVarint " +
-        BASE_URL +
-        WS_GET_CART_COUNT +
-        "?" +
-        "deviceid=" +
-        _deviceid +
-        "&" +
-        "userid=" +
-        str_UserId);
+
     return getCartCountResponseFromJson(json);
   }
 
@@ -229,7 +229,7 @@ class Service {
         _userid));
     var json = response.body;
 
-    print("ProductVarint " + json.toString());
+   // print("ProductVarint " + json.toString());
     return getCartTotalResponseFromJson(json);
   }
 

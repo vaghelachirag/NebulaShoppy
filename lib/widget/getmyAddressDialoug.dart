@@ -160,7 +160,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 visible: bl_IsDrop,
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: getMyDeliveryAddress()))
+                    child:  getMyDeliveryAddress()))
           ],
         ),
       ),

@@ -153,7 +153,7 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
                });
             },
             child: 
-            Padding(padding: EdgeInsets.all(2),child: 
+            Padding(padding: EdgeInsets.all(5),child: 
             Align(
               alignment: Alignment.center,
               child: 
@@ -184,6 +184,5 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
       ,
     );
   }      
-  
 
 }
