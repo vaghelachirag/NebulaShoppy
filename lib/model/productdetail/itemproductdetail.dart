@@ -85,7 +85,7 @@ class itemProdctDetailData {
   String warranty;
   bool inStock;
   String sku;
-  String weight;
+  dynamic weight;
   String dimension;
   String? manufacturer;
   double pv;
