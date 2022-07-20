@@ -77,6 +77,8 @@ class _ProductDetailState extends State<ProductDetail> {
   String str_Description = "";
   String str_ShortDescription = "";
   String str_highlightsIds = "";
+  String str_SelectedColor = "";
+  String str_SelectedSize = "";
 
   int? int_ProductQuantity = 0;
   int? int_CartQuantity = 0;
@@ -142,9 +144,21 @@ class _ProductDetailState extends State<ProductDetail> {
               children: [
                 _getTopImage(context),
                 _setNubulaCustomised(),
-                _getproductVariantColor(context),
-                _getproductVariantWeight(context),
-                _getproductVariantSize(context),
+                chooseColorHeader(),
+                Visibility(
+                    visible: !_listProductVariantColor.isEmpty,
+                    child: getproductVariantColor()),
+                //   _getproductVariantColor(context),
+                chooseWeightHeader(),
+                Visibility(
+                    visible: !_listProductVariantWeight.isEmpty,
+                    child: getproductVariantWeight()),
+                // _getproductVariantWeight(context),
+                chooseSizeHeader(),
+                Visibility(
+                    visible: !_listProductVariantSize.isEmpty,
+                    child: getproductVariantSize()),
+                //_getproductVariantSize(context),
                 //Product Info
                 // _buildExtra(context),
                 //_buildDescription(context),
@@ -157,6 +171,172 @@ class _ProductDetailState extends State<ProductDetail> {
           ))
         ],
       ),
+    );
+  }
+
+  Container getproductVariantSize() {
+    return Container(
+      height: MediaQuery.of(context).size.height / 20,
+      child: FutureBuilder(
+        builder: (context, snapshot) {
+          if (_listProductVariantSize.isEmpty) {
+            return Text("");
+          } else {
+            return Center(
+                child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _listProductVariantSize.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                        margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                          color: int_SelectedVariantId == index
+                              ? Colors.black
+                              : Colors.black12,
+                        )),
+                        child: FutureBuilder(
+                          future: setSelectedHeighlitSizetId(
+                              _listProductVariantSize),
+                          builder: (context, snapshot) {
+                            return Padding(
+                                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: Container(
+                                  child: Padding(
+                                      padding: EdgeInsets.all(0),
+                                      child: Center(
+                                        child: Text(
+                                          _listProductVariantSize[index]
+                                              .AttributeName
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )),
+                                ));
+                          },
+                        ));
+                  },
+                ),
+              ),
+            ));
+          }
+        },
+      ),
+    );
+  }
+
+  Container getproductVariantColor() {
+    return Container(
+      child: Container(
+          height: MediaQuery.of(context).size.height / 20,
+          child: FutureBuilder(
+            builder: (context, snapshot) {
+              if (_listProductVariantColor.isEmpty) {
+                return Text("");
+              } else {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: ListView.builder(
+                        itemCount: _listProductVariantColor.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return FutureBuilder(
+                            future:
+                                setSelectedHeighlitId(_listProductVariantColor),
+                            builder: (context, snapshot) {
+                              return Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: int_SelectedVariantId == index
+                                              ? Colors.black
+                                              : Colors.black12,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(1),
+                                      child: CircleAvatar(
+                                        backgroundColor: Color(int.parse(
+                                            _listProductVariantColor[index]
+                                                .AttributeColor)),
+                                        maxRadius: 15,
+                                        child: Text(
+                                          "",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ));
+                            },
+                          );
+                        },
+                      )),
+                );
+              }
+            },
+          )),
+    );
+  }
+
+  Container getproductVariantWeight() {
+    return Container(
+      child: Container(
+          height: MediaQuery.of(context).size.height / 20,
+          child: FutureBuilder(
+            builder: (context, snapshot) {
+              if (_listProductVariantWeight.isEmpty) {
+                return Text("");
+              } else {
+                return Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: _listProductVariantWeight.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            child: FutureBuilder(
+                              future: setSelectedHeighlitWeightId(
+                                  _listProductVariantWeight),
+                              builder: (context, snapshot) {
+                                return Container(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Text(
+                                      _listProductVariantWeight[index]
+                                          .AttributeName
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ));
+                      },
+                    ),
+                  ),
+                );
+              }
+            },
+          )),
     );
   }
 
@@ -297,7 +477,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: setBoldText("NebulaCare Customised", 12, Colors.black))
+                child: setBoldText("NebulaCare Customised", 10, Colors.black))
           ],
         )
       ],
@@ -554,6 +734,117 @@ class _ProductDetailState extends State<ProductDetail> {
         ));
   }
 
+  Container chooseColorHeader() {
+    return Container(child: FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listProductVariantColor == null ||
+            _listProductVariantColor.isEmpty) {
+          return Text("");
+        } else {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text("Choose Color:"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          str_SelectedColor,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    ));
+  }
+
+  Container chooseWeightHeader() {
+    return Container(child: FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listProductVariantWeight == null ||
+            _listProductVariantWeight.isEmpty) {
+          return Text("");
+        } else {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text("Choose Weight:"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          _listProductVariantWeight[0].AttributeName,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    ));
+  }
+
+  Container chooseSizeHeader() {
+    return Container(child: FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listProductVariantSize == null ||
+            _listProductVariantSize.isEmpty) {
+          return Text("");
+        } else {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text("Choose Size:"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          str_SelectedSize,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    ));
+  }
+
   _getproductVariantColor(context) {
     return FutureBuilder(
       builder: (context, snapshot) {
@@ -574,7 +865,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: Text(
-                          _listProductVariantColor[0].AttributeName,
+                          str_SelectedColor,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -585,6 +876,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _listProductVariantColor.length,
+                    scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return FutureBuilder(
                         future: setSelectedHeighlitId(_listProductVariantColor),
@@ -716,7 +1008,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: Text(
-                          _listProductVariantSize[0].AttributeName,
+                          str_SelectedSize,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -731,7 +1023,11 @@ class _ProductDetailState extends State<ProductDetail> {
                       return Container(
                           width: 200,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)),
+                              border: Border.all(
+                            color: int_SelectedVariantId == index
+                                ? Colors.black
+                                : Colors.black12,
+                          )),
                           child: FutureBuilder(
                             future: setSelectedHeighlitSizetId(
                                 _listProductVariantSize),
@@ -1389,6 +1685,7 @@ class _ProductDetailState extends State<ProductDetail> {
     }
 
     int_SelectedVariantId = data.highlightsIds;
+    print("HightLightId" + " " + int_SelectedVariantId.toString());
 
     if (data.isMainProduct) {
       getProductVarinatData(
@@ -1916,6 +2213,10 @@ class _ProductDetailState extends State<ProductDetail> {
     if (_listProductVariantColorSkuList.indexOf(int_SelectedVariantId) != -1) {
       int_SelectedVariantId =
           _listProductVariantColorSkuList.indexOf(int_SelectedVariantId);
+      str_SelectedColor = listProductVariantColor[int_SelectedVariantId]
+          .AttributeName
+          .toString();
+
       print("SelectedId" +
           _listProductVariantColorSkuList
               .indexOf(int_SelectedVariantId)
@@ -1944,7 +2245,10 @@ class _ProductDetailState extends State<ProductDetail> {
     if (_listProductVariantSizeSkuList.indexOf(int_SelectedVariantId) != -1) {
       int_SelectedVariantId =
           _listProductVariantSizeSkuList.indexOf(int_SelectedVariantId);
-      print("SelectedId" +
+      str_SelectedSize = listProductVariantColor[int_SelectedVariantId]
+          .AttributeName
+          .toString();
+      print("SelectedSize" +
           _listProductVariantSizeSkuList
               .indexOf(int_SelectedVariantId)
               .toString() +
