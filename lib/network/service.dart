@@ -156,14 +156,15 @@ class Service {
             pickupid),
         headers: requestHeaders);
     var json = response.body;
-      print("Json" + BASE_URL +
-            WS_GET_PRODUCT_DETAILS +
-            "?" +
-            "Id=" +
-            _productid +
-            "&" +
-            "pickupid=" +
-            pickupid.toString());
+    print("ProductDetailJson" +
+        BASE_URL +
+        WS_GET_PRODUCT_DETAILS +
+        "?" +
+        "Id=" +
+        _productid +
+        "&" +
+        "pickupid=" +
+        pickupid.toString());
     return itemProductDetailFromJson(json);
   }
 
@@ -184,7 +185,7 @@ class Service {
   Future<ItemProductVariant> getProductVarintData(
       String _pickupId, String _productId) async {
     var client = http.Client();
-    Uri uri =  Uri.parse(BASE_URL +
+    Uri uri = Uri.parse(BASE_URL +
         WS_GET_PRODUCT_VARINT_DATA +
         "?" +
         "pickupid=" +
@@ -195,7 +196,7 @@ class Service {
     var response = await client.get(uri);
     var json = response.body;
 
-      print("ProductVarint" + uri.toString() );
+    print("ProductVarint" + uri.toString());
     return itemProductVariantFromJson(json);
   }
 
@@ -211,7 +212,6 @@ class Service {
         "userid=" +
         str_UserId));
     var json = response.body;
-
 
     return getCartCountResponseFromJson(json);
   }
@@ -229,7 +229,7 @@ class Service {
         _userid));
     var json = response.body;
 
-   // print("ProductVarint " + json.toString());
+    // print("ProductVarint " + json.toString());
     return getCartTotalResponseFromJson(json);
   }
 
@@ -396,7 +396,8 @@ class Service {
     }
   }
 
-  Future<dynamic> getGenerateTokenResponse(String str_username, String str_password, String str_type) async {
+  Future<dynamic> getGenerateTokenResponse(
+      String str_username, String str_password, String str_type) async {
     Map<String, dynamic> body = {
       'username': str_username,
       'password': str_password,
@@ -420,7 +421,8 @@ class Service {
     }
   }
 
-  Future<dynamic> getRegisterTokenResponse(String str_TokenKey, String str_IMEI1, String str_IMEI2, String str_UserId) async {
+  Future<dynamic> getRegisterTokenResponse(String str_TokenKey,
+      String str_IMEI1, String str_IMEI2, String str_UserId) async {
     Map<String, dynamic> body = {
       'TokenKey': str_TokenKey,
       'IMEI1': str_IMEI1,
@@ -434,7 +436,7 @@ class Service {
         encoding: Encoding.getByName("utf-8"));
 
     print("Response" + response.statusCode.toString());
-  
+
     if (response.statusCode == 200) {
       return GetRegisterFcmResponse.fromJson(jsonDecode(response.body));
     } else {
@@ -442,7 +444,8 @@ class Service {
     }
   }
 
-   Future<dynamic> getDeleteCartResponse(String issuccess, String userid, String deviceid) async {
+  Future<dynamic> getDeleteCartResponse(
+      String issuccess, String userid, String deviceid) async {
     Map<String, dynamic> body = {
       'issuccess': issuccess,
       'userid': userid,
@@ -455,7 +458,7 @@ class Service {
         encoding: Encoding.getByName("utf-8"));
 
     print("Response" + response.statusCode.toString());
-  
+
     if (response.statusCode == 200) {
       return GetDeleteCartResponse.fromJson(jsonDecode(response.body));
     } else {

@@ -160,11 +160,85 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 visible: bl_IsDrop,
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child:  getMyDeliveryAddress()))
+                    child: getMyDeliverAddress())),
           ],
         ),
       ),
     );
+  }
+
+  Container getMyDeliverAddress() {
+    return Container(
+        height: 100.0,
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            if (_listMyAddressList.isEmpty) {
+              return Text("");
+            } else {
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _listMyAddressList.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Navigator.pop(context);
+                          str_SelectedAddress = getPickupAddress(
+                              _listMyAddressList[index],
+                              _listMyAddressList[index].addressType);
+                          str_SelectedAddressType = "0";
+                          widget.onAddressSelection();
+                        });
+                      },
+                      child: Container(
+                        width: 200,
+                        child: Padding(
+                            padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                            child: Column(
+                              children: [
+                                Card(
+                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Container(
+                                      margin: EdgeInsets.all(0),
+                                      padding: EdgeInsets.all(0),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Container(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      0.0, 0.0, 0.0, 15.0),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(getPickupAddress(
+                                                          _listMyAddressList[
+                                                              index],
+                                                          _listMyAddressList[
+                                                                  index]
+                                                              .addressType)),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+                              ],
+                            )),
+                      ));
+                },
+              );
+            }
+          },
+        ));
   }
 
   Column cityList() {
@@ -234,8 +308,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       child: SizedBox(
                           width: 25,
                           height: 25,
-                          child:
-                              Image.asset(assestPath + 'hydrabad_icon.png')),
+                          child: Image.asset(assestPath + 'hydrabad_icon.png')),
                     ),
                     Text(
                       "Hyderabad",
@@ -423,75 +496,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
     }
   }
 
-  FutureBuilder getMyDeliveryAddress() {
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        if (_listMyAddressList.isEmpty) {
-          return Text("");
-        } else {
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _listMyAddressList.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      Navigator.pop(context);
-                      str_SelectedAddress = getPickupAddress(_listMyAddressList[index],_listMyAddressList[index].addressType);
-                      str_SelectedAddressType = "0";
-                      widget.onAddressSelection();
-                    });
-                  },
-                  child: Container(
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                        child: Column(
-                          children: [
-                            Card(
-                                margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Container(
-                                  margin: EdgeInsets.all(0),
-                                  padding: EdgeInsets.all(0),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0.0, 0.0, 0.0, 15.0),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(getPickupAddress(
-                                                      _listMyAddressList[
-                                                          index],_listMyAddressList[index].addressType)),
-                                                ],
-                                              ),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                ))
-                          ],
-                        )),
-                  ));
-            },
-          );
-        }
-      },
-    );
-  }
-
-  String getPickupAddress(GetMyAddressData getMyAddressData, String? addressType) {
+  String getPickupAddress(
+      GetMyAddressData getMyAddressData, String? addressType) {
     String str_Address = getMyAddressData.fullName.toString() +
         "\n" +
         getMyAddressData.addressLine1.toString() +
@@ -503,10 +509,9 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
         getMyAddressData.state.toString() +
         "," +
         "(" +
-        getMyAddressData.mobileNo.toString() + ")";
+        getMyAddressData.mobileNo.toString() +
+        ")";
 
-
-        
     print("Address" + str_Address);
     return str_Address;
   }

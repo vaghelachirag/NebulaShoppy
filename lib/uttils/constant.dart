@@ -173,7 +173,7 @@ String register =
 // For Show Progress
 bool showProgress = true;
 
-// Is Interent Connected 
+// Is Interent Connected
 bool is_InternetConnected = false;
 
 showSnakeBar(BuildContext context, String msg) {
@@ -199,7 +199,7 @@ changeBaseURL(int int_BaseUrl) {
 
 gotoNextScreen(BuildContext context, MyOrderDetail myOrderDetail) {}
 
-// For Check Interent Connected 
+// For Check Interent Connected
 checkUserLoginOrNot() async {
   is_Login = await SharedPref.readBool(str_IsLogin);
   if (is_Login) {
@@ -209,27 +209,28 @@ checkUserLoginOrNot() async {
 }
 
 // For Internet Connection
-  Future<bool> isConnectedToInternet() async{
-   is_InternetConnected = await SimpleConnectionChecker.isConnectedToInternet();
-   print("IsConnected"+ is_InternetConnected.toString());
-   return is_InternetConnected;
-  }
- 
-  shownoInternetDialoug(BuildContext context){
-     showDialog(
-          barrierColor: Colors.black26,
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return NoInternetDialoug(
-              context,
-              title: "SoldOut",
-              description:
-                  "This product may not be available at the selected address.", onRetryClick: () {  },
-            );
-          },
-        );
-  }
+Future<bool> isConnectedToInternet() async {
+  is_InternetConnected = await SimpleConnectionChecker.isConnectedToInternet();
+  print("IsConnected" + is_InternetConnected.toString());
+  return is_InternetConnected;
+}
+
+shownoInternetDialoug(BuildContext context) {
+  showDialog(
+    barrierColor: Colors.black26,
+    barrierDismissible: false,
+    context: context,
+    builder: (context) {
+      return NoInternetDialoug(
+        context,
+        title: "SoldOut",
+        description:
+            "This product may not be available at the selected address.",
+        onRetryClick: () {},
+      );
+    },
+  );
+}
 
 Text setRegularText(String text, int size, Color black) {
   return Text(
@@ -245,6 +246,7 @@ Text setBoldText(String text, int size, Color black) {
   return Text(
     text,
     maxLines: 1,
+    overflow: TextOverflow.ellipsis,
     style: TextStyle(
         fontFamily: EmberBold,
         fontWeight: FontWeight.bold,
@@ -412,10 +414,13 @@ showLogoutDialoug(BuildContext context) {
 }
 
 refreshApp(BuildContext context) {
-Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (dialogContex) => TabScreen(int_Selectedtab: 0,)),
-              ModalRoute.withName("/tabscreen"));
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (dialogContex) => TabScreen(
+                int_Selectedtab: 0,
+              )),
+      ModalRoute.withName("/tabscreen"));
 
   // dsdsd
   // Navigator.push(

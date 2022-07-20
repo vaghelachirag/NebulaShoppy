@@ -81,7 +81,7 @@ class CategoryProductWidget extends StatelessWidget {
         ClipPath(
           clipper: ProductImageContainerClipper(),
           child: Container(
-              decoration: BoxDecoration(
+            decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -110,21 +110,17 @@ class CategoryProductWidget extends StatelessWidget {
               //     ));
             },
             child: Container(
-               height: MediaQuery.of(context).size.height / 10,
-              child:  Stack(
-                  children: <Widget>[
-                    Container(
-                       width: MediaQuery.of(context).size.width / 3,
-                       height:  MediaQuery.of(context).size.height / 10,
-                      child:              
-                   FadeInImage.assetNetwork(
-                  placeholder: placeholder_path,
-                  image: product.icon,
-                  fit: BoxFit.contain)),
-                  showOutOfStock()
-                 ]
-              )
-              ,
+              height: MediaQuery.of(context).size.height / 10,
+              child: Stack(children: <Widget>[
+                Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.height / 10,
+                    child: FadeInImage.assetNetwork(
+                        placeholder: placeholder_path,
+                        image: product.icon,
+                        fit: BoxFit.contain)),
+                showOutOfStock(context)
+              ]),
             ),
           ),
         ))
@@ -132,19 +128,17 @@ class CategoryProductWidget extends StatelessWidget {
     );
   }
 
- Container showOutOfStock(){
-     return Container(
-                    child:                 
-                    Visibility(
-                      visible: product.qunatity! < 1,
-                      child:
-                    Center(child: 
-                    Container( 
-                      padding: EdgeInsets.all(10),
-                      color: Colors.grey[300],
-                      child:   setBoldText("OUT OF STOCK", 14, Colors.red),
-                    )
-                  )));
+  Container showOutOfStock(BuildContext context) {
+    return Container(
+        width: MediaQuery.of(context).size.width / 3,
+        child: Visibility(
+            visible: product.qunatity! < 1,
+            child: Center(
+                child: Container(
+              padding: EdgeInsets.all(10),
+              color: Colors.grey[300],
+              child: setBoldText("OUT OF STOCK", 12, Colors.red),
+            ))));
   }
 
   void goToProductDetail(BuildContext context, Product product) async {
@@ -208,17 +202,16 @@ class CategoryProductWidget extends StatelessWidget {
               child: setProductPrice(product),
             ),
             Visibility(
-              visible: product.qunatity! > 0,
-              child:           
-            Container(
-              padding: EdgeInsets.all(5),
-              child: GestureDetector(
-                child: addtoCart(),
-                onTap: () {
-                  onCartAddClick();
-                },
-              ),
-            )),
+                visible: product.qunatity! > 0,
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: GestureDetector(
+                    child: addtoCart(),
+                    onTap: () {
+                      onCartAddClick();
+                    },
+                  ),
+                )),
           ],
         ));
   }
@@ -229,16 +222,16 @@ Column setProductPrice(Product product) {
     children: [
       Container(
         padding: EdgeInsets.only(left: 8, top: 10, right: 8),
-        child:  setBoldText(rupees_Sybol + product.price, 14, Colors.red),
+        child: setBoldText(rupees_Sybol + product.price, 14, Colors.red),
       ),
       Text(
-          rupees_Sybol + product.mrp,
-          style: TextStyle(
-              color: Colors.grey,
-              fontSize: 10,
-              fontFamily: Ember,
-              decoration: TextDecoration.lineThrough),
-        )
+        rupees_Sybol + product.mrp,
+        style: TextStyle(
+            color: Colors.grey,
+            fontSize: 10,
+            fontFamily: Ember,
+            decoration: TextDecoration.lineThrough),
+      )
     ],
   );
 }

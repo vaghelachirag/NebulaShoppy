@@ -38,7 +38,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetail extends StatefulWidget {
-  
   int id;
   int productid;
   int categoryid;
@@ -60,9 +59,13 @@ class _ProductDetailState extends State<ProductDetail> {
   List<dynamic> _listProductImageDetail = [];
   List<itemNewLaunchedProduct> _listNewLaunched = [];
   List<ItemProductVariantData> _listProductVariant = [];
-   List<ItemProductColorsVariant> _listProductVariantColor = [];
+  List<ItemProductColorsVariant> _listProductVariantColor = [];
   List<int> _listProductVariantColorSkuList = [];
+  List<ItemProductColorsVariant> _listProductVariantWeight = [];
+  List<int> _listProductVariantWeightSkuList = [];
   List<ItemCart> _listCartItem = [];
+  List<ItemProductColorsVariant> _listProductVariantSize = [];
+  List<int> _listProductVariantSizeSkuList = [];
 
   // Product Detail Data
   String str_Mrp = "";
@@ -81,7 +84,6 @@ class _ProductDetailState extends State<ProductDetail> {
   bool is_ShowDescription = false;
   bool is_ShowCart = false;
   int int_SelectedVariantId = 0;
-
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
@@ -128,179 +130,178 @@ class _ProductDetailState extends State<ProductDetail> {
     );
   }
 
-  Container setProductDesc(){
+  Container setProductDesc() {
     return Container(
-      child: 
-      Column(
-        children: [ 
-        showMaterialProgressbar(5), 
-        Expanded(child:
-        SingleChildScrollView(
-        child: Column(
-           mainAxisSize: MainAxisSize.min,
-          children: [
-            _getTopImage(context),
-            _setNubulaCustomised(),
-             _getproductVariant(context),
-            //Product Info
-            // _buildExtra(context),
-            //_buildDescription(context),
-            //  _buildComments(context),
-            setDescription(),
-            _buildProductImageData(context),
-            _buildProducts(context),
-          ],
-        ),
-      ))],
-        
-      )
-     ,
+      child: Column(
+        children: [
+          showMaterialProgressbar(5),
+          Expanded(
+              child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _getTopImage(context),
+                _setNubulaCustomised(),
+                _getproductVariantColor(context),
+                _getproductVariantWeight(context),
+                _getproductVariantSize(context),
+                //Product Info
+                // _buildExtra(context),
+                //_buildDescription(context),
+                //  _buildComments(context),
+                setDescription(),
+                _buildProductImageData(context),
+                _buildProducts(context),
+              ],
+            ),
+          ))
+        ],
+      ),
     );
   }
 
- Container addToCartContainer(){
-  return Container(
-            color: Theme.of(context).backgroundColor,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 11,
-            child: Container(
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.5, color: Colors.black12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            print("OnCart" + "Add ToCart");
-                          },
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.all(0),
-                              child: CircleAvatar(
-                                  backgroundColor: buttonColor,
-                                  maxRadius: 25,
-                                  child: Icon(
-                                    CommunityMaterialIcons.heart,
-                                    color: Colors.white,
-                                  )),
-                            ),
-                          ),
-                        )),
-                    Align(
-                        alignment: Alignment.centerRight,
-                        child: setRegularText("Add To Cart", 20, Colors.black)
-                        // Text(
-                        //   "Add To Cart",
-                        //   style: TextStyle(fontSize: 20, color: Colors.black),
-                        // ),
+  Container addToCartContainer() {
+    return Container(
+        color: Theme.of(context).backgroundColor,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 11,
+        child: Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.black12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        print("OnCart" + "Add ToCart");
+                      },
+                      child: Container(
+                        child: Padding(
+                          padding: EdgeInsets.all(0),
+                          child: CircleAvatar(
+                              backgroundColor: buttonColor,
+                              maxRadius: 25,
+                              child: Icon(
+                                CommunityMaterialIcons.heart,
+                                color: Colors.white,
+                              )),
                         ),
-                    Container(
-                      child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              widget.device_Id = DeviceId.toString();
-                            });
-                            setState(() {
-                               showProgressbar();
-                            });                         
-                            // showLoadingDialog(
-                            //     context, _dialogKey, "Please Wait..");
-                            addToCart(widget.device_Id, str_UserId,
-                                widget.productid.toString(), 1, Flag_Minus);
-                          },
+                      ),
+                    )),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: setRegularText("Add To Cart", 20, Colors.black)
+                    // Text(
+                    //   "Add To Cart",
+                    //   style: TextStyle(fontSize: 20, color: Colors.black),
+                    // ),
+                    ),
+                Container(
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.device_Id = DeviceId.toString();
+                        });
+                        setState(() {
+                          showProgressbar();
+                        });
+                        // showLoadingDialog(
+                        //     context, _dialogKey, "Please Wait..");
+                        addToCart(widget.device_Id, str_UserId,
+                            widget.productid.toString(), 1, Flag_Minus);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: CircleAvatar(
+                            backgroundColor: buttonColor,
+                            maxRadius: 25,
+                            child: setBoldText("-", 20, Colors.black)
+                            // Text(
+                            //   "-",
+                            //   style: TextStyle(
+                            //       color: Colors.white,
+                            //       fontSize: 20,
+                            //       fontWeight: FontWeight.bold),
+                            // ),
+                            ),
+                      )),
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: setBoldText(
+                        int_CartQuantity.toString(), 20, Colors.black)
+                    // Text(
+                    //   int_CartQuantity.toString(),
+                    //   style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 20,
+                    //       fontWeight: FontWeight.bold),
+                    // ),
+                    ),
+                Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.device_Id = DeviceId.toString();
+                          });
+                          print("AddDeviceId" + widget.device_Id);
+                          // showLoadingDialog(
+                          //     context, _dialogKey, "Please Wait..");
+                          setState(() {
+                            showProgressbar();
+                          });
+                          addToCart(widget.device_Id, str_UserId,
+                              widget.productid.toString(), 1, Flag_Plus);
+                          print("onCart" + "Add To Cart");
+                        },
+                        child: Container(
                           child: Padding(
                             padding: EdgeInsets.all(0),
                             child: CircleAvatar(
                                 backgroundColor: buttonColor,
                                 maxRadius: 25,
-                                child: setBoldText("-", 20, Colors.black)
+                                child: setBoldText("+", 20, Colors.black)
                                 // Text(
-                                //   "-",
+                                //   "+",
                                 //   style: TextStyle(
                                 //       color: Colors.white,
                                 //       fontSize: 20,
-                                //       fontWeight: FontWeight.bold),
+                                //       fontWeight: FontWeight.normal),
                                 // ),
                                 ),
-                          )),
-                    ),
-                    Align(
-                        alignment: Alignment.center,
-                        child: setBoldText(
-                            int_CartQuantity.toString(), 20, Colors.black)
-                        // Text(
-                        //   int_CartQuantity.toString(),
-                        //   style: TextStyle(
-                        //       color: Colors.black,
-                        //       fontSize: 20,
-                        //       fontWeight: FontWeight.bold),
-                        // ),
-                        ),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                widget.device_Id = DeviceId.toString();
-                              });
-                              print("AddDeviceId" + widget.device_Id);
-                              // showLoadingDialog(
-                              //     context, _dialogKey, "Please Wait..");
-                              setState(() {
-                               showProgressbar();
-                            });  
-                              addToCart(widget.device_Id, str_UserId,
-                                  widget.productid.toString(), 1, Flag_Plus);
-                              print("onCart" + "Add To Cart");
-                            },
-                            child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.all(0),
-                                child: CircleAvatar(
-                                    backgroundColor: buttonColor,
-                                    maxRadius: 25,
-                                    child: setBoldText("+", 20, Colors.black)
-                                    // Text(
-                                    //   "+",
-                                    //   style: TextStyle(
-                                    //       color: Colors.white,
-                                    //       fontSize: 20,
-                                    //       fontWeight: FontWeight.normal),
-                                    // ),
-                                    ),
-                              ),
-                            )))
-                  ],
-                )));
- }
-
-
- Row _setNubulaCustomised(){
-  return  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildInfo(context),
-                Column(
-                  children: [
-                 SizedBox(
-                  width: ScreenUtil().setSp(30),
-                  height: ScreenUtil().setSp(30),
-                  child: Image.asset(assestPath + "nebulacustomised.png"),
-                ),
-                 SizedBox(
-                  height: 8,
-                  ),
-                  Padding(padding:EdgeInsets.fromLTRB(0, 0, 10, 0),child: 
-                 setBoldText("NebulaCare Customised", 12, Colors.black))
-                  ],
-                )
-               
+                          ),
+                        )))
               ],
-            );
+            )));
+  }
+
+  Row _setNubulaCustomised() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildInfo(context),
+        Column(
+          children: [
+            SizedBox(
+              width: ScreenUtil().setSp(30),
+              height: ScreenUtil().setSp(30),
+              child: Image.asset(assestPath + "nebulacustomised.png"),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                child: setBoldText("NebulaCare Customised", 12, Colors.black))
+          ],
+        )
+      ],
+    );
   }
 
   Column setDescription() {
@@ -553,81 +554,219 @@ class _ProductDetailState extends State<ProductDetail> {
         ));
   }
 
-  _getproductVariant(context) {
-    return FutureBuilder(builder: (context, snapshot) {
-       if(_listProductVariantColor.isEmpty){
-        return Text("");
-       }else{
-         return  Container(
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Row(
-              children: [
-                Text("Choose Color:"),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    _listProductVariantColor[0].AttributeName,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+  _getproductVariantColor(context) {
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listProductVariantColor.isEmpty) {
+          return Text("");
+        } else {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text("Choose Color:"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          _listProductVariantColor[0].AttributeName,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _listProductVariantColor.length,
+                    itemBuilder: (context, index) {
+                      return FutureBuilder(
+                        future: setSelectedHeighlitId(_listProductVariantColor),
+                        builder: (context, snapshot) {
+                          return Container(
+                            width: 25,
+                            height: 25,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: int_SelectedVariantId == index
+                                      ? Colors.black
+                                      : Colors.black12,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Padding(
+                              padding: EdgeInsets.all(0),
+                              child: CircleAvatar(
+                                backgroundColor: Color(int.parse(
+                                    _listProductVariantColor[index]
+                                        .AttributeColor)),
+                                maxRadius: 15,
+                                child: Text(
+                                  "",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
-            
-            ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _listProductVariantColor.length,
-            itemBuilder: (context, index) {
-              return FutureBuilder(
-                future: setSelectedHeighlitId(_listProductVariantColor),
-                builder: (context, snapshot) {
-                  return Container(
-                width: 25,
-                height: 25,
-                 decoration: BoxDecoration(
-               border: Border.all(
-              color:  int_SelectedVariantId == index
-                              ? Colors.black
-                              : Colors.black12,
-          ),
-             borderRadius: BorderRadius.all(Radius.circular(5))
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(0),
-                child: 
-                CircleAvatar(
-                  backgroundColor:  Color(int.parse(_listProductVariantColor[index].AttributeColor)),
-                  maxRadius: 15,
-                  child: Text(
-                    "",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            );
-           },);             
-            },
-          )               
-          ],
-        ),
-      ),
+          );
+        }
+      },
     );
-   }
-    },); 
+  }
+
+  _getproductVariantWeight(context) {
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listProductVariantWeight.isEmpty) {
+          return Text("");
+        } else {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text("Choose Weight:"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          _listProductVariantWeight[0].AttributeName,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _listProductVariantWeight.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          width: 200,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: FutureBuilder(
+                            future: setSelectedHeighlitWeightId(
+                                _listProductVariantWeight),
+                            builder: (context, snapshot) {
+                              return Container(
+                                width: 200,
+                                child: Padding(
+                                  padding: EdgeInsets.all(0),
+                                  child: Text(
+                                    _listProductVariantWeight[index]
+                                        .AttributeName
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              );
+                            },
+                          ));
+                    },
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  _getproductVariantSize(context) {
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (_listProductVariantSize.isEmpty) {
+          return Text("");
+        } else {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text("Choose Size:"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          _listProductVariantSize[0].AttributeName,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _listProductVariantSize.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          width: 200,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: FutureBuilder(
+                            future: setSelectedHeighlitSizetId(
+                                _listProductVariantSize),
+                            builder: (context, snapshot) {
+                              return Container(
+                                width: 200,
+                                child: Padding(
+                                  padding: EdgeInsets.all(0),
+                                  child: Text(
+                                    _listProductVariantSize[index]
+                                        .AttributeName
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              );
+                            },
+                          ));
+                    },
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 
   _buildInfo(context) {
     return Container(
-      width: MediaQuery.of(context).size.width /2 ,
+      width: MediaQuery.of(context).size.width / 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -1248,16 +1387,17 @@ class _ProductDetailState extends State<ProductDetail> {
     } else {
       is_ShowDescription = true;
     }
-   
+
     int_SelectedVariantId = data.highlightsIds;
 
-    if(data.isMainProduct){
-      getProductVarinatData(widget.id.toString(),);
+    if (data.isMainProduct) {
+      getProductVarinatData(
+        widget.id.toString(),
+      );
+    } else {
+      getProductVarinatData(data.masterProductId.toString());
     }
-    else{
-       getProductVarinatData(data.masterProductId.toString());
-    }
-   
+
     getProductDetailImage();
     getCartItemList();
 
@@ -1540,10 +1680,47 @@ class _ProductDetailState extends State<ProductDetail> {
                   setState((() {
                     // if (_dialogKey.currentContext != null) {
                     //   Navigator.pop(_dialogKey.currentContext!);
-                     
+
                     // }
                     hideProgressBar();
-                     if (value.statusCode == 1) {
+                    if (value.statusCode == 1) {
+                      if (flag == Flag_Plus) {
+                        showSnakeBar(context, "Item Added to Cart!");
+                        setState(() {
+                          int_CartCounters = int_CartCounters + 1;
+                          int_CartQuantity = int_CartQuantity! + 1;
+                          int_CartCounter = int_CartCounter! + 1;
+                          QTYCount = int_CartCounter.toString();
+                          setState(() {});
+                        });
+                      } else {
+                        setState(() {
+                          if (int_CartQuantity! > 0) {
+                            int_CartCounters = int_CartCounters - 1;
+                            int_CartQuantity = int_CartQuantity! - 1;
+                            int_CartCounter = int_CartCounter! - 1;
+                            QTYCount = int_CartCounter.toString();
+                            setState(() {});
+                          }
+                        });
+                        showSnakeBar(context, "Item Removed from Cart!");
+                      }
+                    } else {
+                      showSnakeBar(context, "Opps! Something Wrong");
+                    }
+                  }))
+                });
+      } else {
+        getUserId();
+        Future.delayed(Duration(seconds: 0), () {
+          print("IsLogin" + str_UserId.toString());
+          Service()
+              .getAddToCartResponse(
+                  deviceId, str_userId, productId, quntity.toString(), flag)
+              .then((value) => {
+                    setState((() {
+                      hideProgressBar();
+                      if (value.statusCode == 1) {
                         if (flag == Flag_Plus) {
                           showSnakeBar(context, "Item Added to Cart!");
                           setState(() {
@@ -1568,43 +1745,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       } else {
                         showSnakeBar(context, "Opps! Something Wrong");
                       }
-                  }))
-                });
-      } else {
-        getUserId();
-        Future.delayed(Duration(seconds: 0), () {
-          print("IsLogin" + str_UserId.toString());
-          Service()
-              .getAddToCartResponse(
-                  deviceId, str_userId, productId, quntity.toString(), flag)
-              .then((value) => {
-                    setState((() {
-                         hideProgressBar();
-                        if (value.statusCode == 1) {
-                          if (flag == Flag_Plus) {
-                            showSnakeBar(context, "Item Added to Cart!");
-                            setState(() {
-                              int_CartCounters = int_CartCounters + 1;
-                              int_CartQuantity = int_CartQuantity! + 1;
-                              int_CartCounter = int_CartCounter! + 1;
-                              QTYCount = int_CartCounter.toString();
-                              setState(() {});
-                            });
-                          } else {
-                            setState(() {
-                              if (int_CartQuantity! > 0) {
-                                int_CartCounters = int_CartCounters - 1;
-                                int_CartQuantity = int_CartQuantity! - 1;
-                                int_CartCounter = int_CartCounter! - 1;
-                                QTYCount = int_CartCounter.toString();
-                                setState(() {});
-                              }
-                            });
-                            showSnakeBar(context, "Item Removed from Cart!");
-                          }
-                        } else {
-                          showSnakeBar(context, "Opps! Something Wrong");
-                        }
                     }))
                   });
         });
@@ -1702,27 +1842,114 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   void setAttribute() {
-    if(!_listProductVariant.isEmpty){
-      for(int i=0; i<_listProductVariant.length; i++){
-        if(_listProductVariant[i].mainKey == "Color"){
-          print("Color"+ _listProductVariant[i].ecomAttributeValueList.toString());
-            for(int j=0; j<_listProductVariant[i].ecomAttributeValueList.length; j++){
-              print("Color"+ _listProductVariant[i].ecomAttributeValueList[j].attributeColor.toString());
-              String strColors = _listProductVariant[i].ecomAttributeValueList[j].attributeColor.toString();
-              final splitted = strColors.split('#');
-              _listProductVariantColor.add(ItemProductColorsVariant(AttributeName: _listProductVariant[i].ecomAttributeValueList[j].attributeName.toString(), AttributeColor: "0xff" + splitted[1], EcomAttributeSKUList: _listProductVariant[i].ecomAttributeValueList[j].ecomAttributeSkuList));
-              _listProductVariantColorSkuList.add(_listProductVariant[i].ecomAttributeValueList[j].ecomAttributeSkuList[0]);
-            }
+    if (!_listProductVariant.isEmpty) {
+      for (int i = 0; i < _listProductVariant.length; i++) {
+        if (_listProductVariant[i].mainKey == "Color") {
+          print("Color" +
+              _listProductVariant[i].ecomAttributeValueList.toString());
+          for (int j = 0;
+              j < _listProductVariant[i].ecomAttributeValueList.length;
+              j++) {
+            String strColors = _listProductVariant[i]
+                .ecomAttributeValueList[j]
+                .attributeColor
+                .toString();
+            final splitted = strColors.split('#');
+            _listProductVariantColor.add(ItemProductColorsVariant(
+                AttributeName: _listProductVariant[i]
+                    .ecomAttributeValueList[j]
+                    .attributeName
+                    .toString(),
+                AttributeColor: "0xff" + splitted[1],
+                EcomAttributeSKUList: _listProductVariant[i]
+                    .ecomAttributeValueList[j]
+                    .ecomAttributeSkuList));
+            _listProductVariantColorSkuList.add(_listProductVariant[i]
+                .ecomAttributeValueList[j]
+                .ecomAttributeSkuList[0]);
+          }
+        }
+
+        if (_listProductVariant[i].mainKey == "Weight") {
+          for (int j = 0;
+              j < _listProductVariant[i].ecomAttributeValueList.length;
+              j++) {
+            _listProductVariantWeight.add(ItemProductColorsVariant(
+                AttributeName: _listProductVariant[i]
+                    .ecomAttributeValueList[j]
+                    .attributeName
+                    .toString(),
+                AttributeColor: "",
+                EcomAttributeSKUList: _listProductVariant[i]
+                    .ecomAttributeValueList[j]
+                    .ecomAttributeSkuList));
+            _listProductVariantWeightSkuList.add(_listProductVariant[i]
+                .ecomAttributeValueList[j]
+                .ecomAttributeSkuList[0]);
+          }
+        }
+
+        if (_listProductVariant[i].mainKey == "Size") {
+          for (int j = 0;
+              j < _listProductVariant[i].ecomAttributeValueList.length;
+              j++) {
+            _listProductVariantSize.add(ItemProductColorsVariant(
+                AttributeName: _listProductVariant[i]
+                    .ecomAttributeValueList[j]
+                    .attributeName
+                    .toString(),
+                AttributeColor: "",
+                EcomAttributeSKUList: _listProductVariant[i]
+                    .ecomAttributeValueList[j]
+                    .ecomAttributeSkuList));
+            _listProductVariantSizeSkuList.add(_listProductVariant[i]
+                .ecomAttributeValueList[j]
+                .ecomAttributeSkuList[0]);
+          }
         }
       }
-   
     }
   }
 
-  setSelectedHeighlitId(List<ItemProductColorsVariant> listProductVariantColor) {
-    if(_listProductVariantColorSkuList.indexOf(int_SelectedVariantId) != -1){
- int_SelectedVariantId =  _listProductVariantColorSkuList.indexOf(int_SelectedVariantId);
-     print("SelectedId" +  _listProductVariantColorSkuList.indexOf(int_SelectedVariantId).toString() + " "+ _listProductVariantColorSkuList.toString());
-    }  
+  setSelectedHeighlitId(
+      List<ItemProductColorsVariant> listProductVariantColor) {
+    if (_listProductVariantColorSkuList.indexOf(int_SelectedVariantId) != -1) {
+      int_SelectedVariantId =
+          _listProductVariantColorSkuList.indexOf(int_SelectedVariantId);
+      print("SelectedId" +
+          _listProductVariantColorSkuList
+              .indexOf(int_SelectedVariantId)
+              .toString() +
+          " " +
+          _listProductVariantColorSkuList.toString());
+    }
+  }
+
+  setSelectedHeighlitWeightId(
+      List<ItemProductColorsVariant> listProductVariantColor) {
+    if (_listProductVariantWeightSkuList.indexOf(int_SelectedVariantId) != -1) {
+      int_SelectedVariantId =
+          _listProductVariantWeightSkuList.indexOf(int_SelectedVariantId);
+      print("SelectedId" +
+          _listProductVariantWeightSkuList
+              .indexOf(int_SelectedVariantId)
+              .toString() +
+          " " +
+          _listProductVariantWeightSkuList.toString());
+    }
+  }
+
+  setSelectedHeighlitSizetId(
+      List<ItemProductColorsVariant> listProductVariantColor) {
+    if (_listProductVariantSizeSkuList.indexOf(int_SelectedVariantId) != -1) {
+      int_SelectedVariantId =
+          _listProductVariantSizeSkuList.indexOf(int_SelectedVariantId);
+      print("SelectedId" +
+          _listProductVariantSizeSkuList
+              .indexOf(int_SelectedVariantId)
+              .toString() +
+          " " +
+          _listProductVariantSizeSkuList.toString());
+    }
   }
 }
