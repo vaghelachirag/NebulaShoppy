@@ -101,35 +101,38 @@ class Service {
             "&" "PageLength=" +
             pagelenth.toString()),
         headers: requestHeaders);
-    // print("object " +
-    //     BASE_URL +
-    //     WS_CATEGORY +
-    //     "?" +
-    //     "catid=" +
-    //     "1" +
-    //     "&" +
-    //     "pickupid=" +
-    //     pickupid +
-    //     "&" +
-    //     "PageIndex=" +
-    //     pageindex.toString() +
-    //     "&" "PageLength=" +
-    //     pagelenth.toString());
+    print("object " +
+        BASE_URL +
+        WS_CATEGORY +
+        "?" +
+        "catid=" +
+        "1" +
+        "&" +
+        "pickupid=" +
+        pickupid +
+        "&" +
+        "PageIndex=" +
+        pageindex.toString() +
+        "&" "PageLength=" +
+        pagelenth.toString());
     var json = response.body;
     //  print("Json" + json.toString());
     return itemNewLaunchedFromJson(json);
   }
 
-  Future<ProductBanner> getProductBanner(String _productid) async {
+  Future<dynamic> getProductBanner(String _productid) async {
     var client = http.Client();
     var response = await client.get(
         Uri.parse(
             BASE_URL + WS_ProductBanner + "?" + "productid=" + _productid),
         headers: requestHeaders);
     var json = response.body;
-    // print(
-    //     "URL" + BASE_URL + WS_ProductBanner + "?" + "productid=" + _productid);
-    return productBannerFromJson(json);
+
+    if (response.statusCode == 200) {
+      return productBannerFromJson(json);
+    } else {
+      throw Exception('Failed to create album.');
+    }
   }
 
   Future<SearchProduct> getSearchProduct() async {

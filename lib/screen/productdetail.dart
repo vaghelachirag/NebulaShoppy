@@ -42,6 +42,7 @@ class ProductDetail extends StatefulWidget {
   int productid;
   int categoryid;
   String device_Id = "";
+  String mrp = "";
 
   ProductDetail(
       {Key? key,
@@ -94,12 +95,11 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   void initState() {
     super.initState();
+    print("Detail" + widget.productid.toString() + " " + widget.id.toString());
     hideProgressBar();
     setDeviceId();
     getCartCounter();
     getProductBanner(widget.productid.toString());
-
-    print("ProductId" + widget.productid.toString());
 
     Dialog(
       shape: RoundedRectangleBorder(
@@ -267,31 +267,49 @@ class _ProductDetailState extends State<ProductDetail> {
                             builder: (context, snapshot) {
                               return Padding(
                                   padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: int_SelectedVariantId == index
-                                              ? Colors.black
-                                              : Colors.black12,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(1),
-                                      child: CircleAvatar(
-                                        backgroundColor: Color(int.parse(
-                                            _listProductVariantColor[index]
-                                                .AttributeColor)),
-                                        maxRadius: 15,
-                                        child: Text(
-                                          "",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
+                                  child: GestureDetector(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color:
+                                                int_SelectedVariantId == index
+                                                    ? Colors.black
+                                                    : Colors.black12,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20))),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(1),
+                                        child: CircleAvatar(
+                                          backgroundColor: Color(int.parse(
+                                              _listProductVariantColor[index]
+                                                  .AttributeColor)),
+                                          maxRadius: 15,
+                                          child: Text(
+                                            "",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
                                       ),
                                     ),
+                                    onTap: () {
+                                      showProgressbar();
+                                      widget.id =
+                                          _listProductVariantColor[index]
+                                              .EcomAttributeSKUList[0];
+                                      getProductDetail(
+                                          _listProductVariantColor[index]
+                                              .EcomAttributeSKUList[0],
+                                          true);
+                                      print("Color" +
+                                          "OnTap" +
+                                          _listProductVariantColor[index]
+                                              .EcomAttributeSKUList[0]
+                                              .toString());
+                                    },
                                   ));
                             },
                           );
@@ -1658,12 +1676,20 @@ class _ProductDetailState extends State<ProductDetail> {
             });
   }
 
-  getProductDetail(int productid) {
+  getProductDetail(int productid, bool iscallBanner) {
     Service().getProductDetail(productid.toString(), "0").then((value) => {
           setState((() {
             if (value.statusCode == 1) {
               setProductData(value.data);
+              if (iscallBanner) {
+                hideProgressBar();
+                widget.productid = value.data.productId;
+                getProductBannerFromVariant(value.data.productId.toString());
+              }
             } else {
+              if (iscallBanner) {
+                hideProgressBar();
+              }
               showSnakeBar(context, somethingWrong);
               print("Categorylist" + "Opps Something Wrong!");
             }
@@ -1798,11 +1824,26 @@ class _ProductDetailState extends State<ProductDetail> {
               _listBannerImage = value.data;
               print("Banner" + _listBannerImage.toString());
               // showSnakeBar(context, value.statusCode.toString());
-              getProductDetail(widget.id);
+              getProductDetail(widget.id, false);
             } else {
               showSnakeBar(context, somethingWrong);
               print("Categorylist" + "Opps Something Wrong!");
-              getProductDetail(widget.id);
+              getProductDetail(widget.id, false);
+            }
+          }))
+        });
+  }
+
+  getProductBannerFromVariant(String productId) {
+    Service().getProductBanner(productId).then((value) => {
+          setState((() {
+            print("Banner" + value.message.toString());
+            if (value.statusCode == 1) {
+              _listBannerImage = [];
+              _listBannerImage = value.data;
+            } else {
+              showSnakeBar(context, somethingWrong);
+              print("Categorylist" + "Opps Something Wrong!");
             }
           }))
         });
@@ -2161,6 +2202,7 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   void setAttribute() {
+    clearList();
     if (!_listProductVariant.isEmpty) {
       for (int i = 0; i < _listProductVariant.length; i++) {
         if (_listProductVariant[i].mainKey == "Color") {
@@ -2277,5 +2319,12 @@ class _ProductDetailState extends State<ProductDetail> {
           " " +
           _listProductVariantSizeSkuList.toString());
     }
+  }
+
+  void clearList() {
+    _listProductVariantColor = [];
+    _listProductVariantColorSkuList = [];
+    _listProductVariantWeight = [];
+    _listProductVariantWeightSkuList = [];
   }
 }

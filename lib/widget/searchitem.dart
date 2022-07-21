@@ -13,10 +13,13 @@ import 'package:nebulashoppy/screen/productdetail.dart';
 class SearchItem extends StatelessWidget {
   final Product product;
   final List<Color> gradientColors;
-  final  double int_width ;
+  final double int_width;
 
   // ignore: non_constant_identifier_names
-  const SearchItem({required this.product, required this.gradientColors,required this.int_width});
+  const SearchItem(
+      {required this.product,
+      required this.gradientColors,
+      required this.int_width});
 
   @override
   Widget build(BuildContext context) {
@@ -103,35 +106,37 @@ class SearchItem extends StatelessWidget {
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
             setBoldText(product.company, 14, Colors.black),
-            Padding(padding: EdgeInsets.only(top: 5),child:
-            setRegularText(product.name, 10, Colors.black)),
+            Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: setRegularText(product.name, 10, Colors.black)),
             // Text(
             //   product.name,
             //   maxLines: 1,
             //   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
             // ),
-          //  StarRating(rating: product.rating, size: 10),
-          Padding(padding: EdgeInsets.only(top: 5),child: 
-            Row(
-              children: <Widget>[
-                setBoldText(product.price, 14, Colors.red),
-                // Text(product.price,
-                //     style: TextStyle(
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.bold,
-                //         color: Colors.red)),
-                Padding(
-                    padding: EdgeInsets.only(left: 3),
-                    child: Text(
-                      product.mrp,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10,
-                          fontFamily: Ember,
-                          decoration: TextDecoration.lineThrough),
-                    ))
-              ],
-            ))
+            //  StarRating(rating: product.rating, size: 10),
+            Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: Row(
+                  children: <Widget>[
+                    setBoldText(product.price, 14, Colors.red),
+                    // Text(product.price,
+                    //     style: TextStyle(
+                    //         fontSize: 16,
+                    //         fontWeight: FontWeight.bold,
+                    //         color: Colors.red)),
+                    Padding(
+                        padding: EdgeInsets.only(left: 3),
+                        child: Text(
+                          product.mrp,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 10,
+                              fontFamily: Ember,
+                              decoration: TextDecoration.lineThrough),
+                        ))
+                  ],
+                ))
           ],
         ));
   }

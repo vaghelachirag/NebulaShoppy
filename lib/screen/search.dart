@@ -84,78 +84,81 @@ class _SearchState extends State<Search> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Search", false)),
-      body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
-         onRetryClick();
-         print("Home"+"Retry");
-      },) : 
-      SingleChildScrollView(
-          child: ConstrainedBox(
-        constraints: BoxConstraints(),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Theme(
-                    child: Container(
-                      height: 40,
-                      child: TextField(
-                        controller: searchData,
-                        enabled: bl_IsEdibleSearch,
-                        textAlignVertical: TextAlignVertical.center,
-                        onChanged: (value) => _runFilter(value),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(
-                              width: 0,
-                              
-                              style: BorderStyle.none,
+      body: is_InternetConnected == false
+          ? NoInternet(
+              onRetryClick: () {
+                onRetryClick();
+                print("Home" + "Retry");
+              },
+            )
+          : SingleChildScrollView(
+              child: ConstrainedBox(
+              constraints: BoxConstraints(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Theme(
+                          child: Container(
+                            height: 40,
+                            child: TextField(
+                              controller: searchData,
+                              enabled: bl_IsEdibleSearch,
+                              textAlignVertical: TextAlignVertical.center,
+                              onChanged: (value) => _runFilter(value),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                filled: true,
+                                prefixIcon: Icon(Icons.search),
+                                fillColor: Color(0xFFF2F4F5),
+                                hintStyle: new TextStyle(
+                                    color: Colors.grey[600], fontFamily: Ember),
+                                hintText: "Enter Text Here",
+                              ),
+                              autofocus: false,
                             ),
                           ),
-                          filled: true,
-                          
-                          prefixIcon: Icon(Icons.search),
-                          fillColor: Color(0xFFF2F4F5),
-                          hintStyle: new TextStyle(color: Colors.grey[600],fontFamily: Ember),
-                          hintText: "Enter Text Here",
-                        ),
-                        autofocus: false,
-                      ),
+                          data: Theme.of(context).copyWith(
+                            primaryColor: Colors.grey[600],
+                          )),
                     ),
-                    data: Theme.of(context).copyWith(
-                      primaryColor: Colors.grey[600],
-                    )),
+                  ),
+                  Visibility(
+                      visible: bl_showNoData,
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: Center(
+                            child: Text(
+                              "No Data Found!",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ))),
+                  Visibility(
+                      visible: !bl_showNoData,
+                      child: FutureBuilder(
+                        builder: (context, snapshot) {
+                          if (_listSearch.isEmpty) {
+                            return loadSkeletonLoaders(
+                                boxseach(), Axis.vertical);
+                          } else {
+                            return buildSearchProduct();
+                          }
+                        },
+                      ))
+                ],
               ),
-            ),
-            Visibility(
-                visible: bl_showNoData,
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: Center(
-                      child: Text(
-                        "No Data Found!",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ))),
-            Visibility(
-                visible: !bl_showNoData,
-                child: FutureBuilder(
-                  builder: (context, snapshot) {
-                    if (_listSearch.isEmpty) {
-                      return loadSkeletonLoaders(boxseach(), Axis.vertical);
-                    } else {
-                      return buildSearchProduct();
-                    }
-                  },
-                ))
-          ],
-        ),
-      )), // This trailing comma makes auto-formatting nicer for build methods.
+            )), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -188,7 +191,7 @@ class _SearchState extends State<Search> {
                       mrp: "Test",
                       qunatity: 1),
                   gradientColors: [Colors.white, Colors.white],
-                  int_width: MediaQuery.of(context).size.width/ 4,
+                  int_width: MediaQuery.of(context).size.width / 4,
                 ),
               );
               ;
@@ -238,7 +241,7 @@ class _SearchState extends State<Search> {
                       mrp: rupees_Sybol + _listSearch[index].mrp.toString(),
                       qunatity: _listSearch[index].quantity),
                   gradientColors: [Colors.white, Colors.white],
-                    int_width: MediaQuery.of(context).size.width/ 4,
+                  int_width: MediaQuery.of(context).size.width / 4,
                 ),
               );
               ;
@@ -298,8 +301,8 @@ class _SearchState extends State<Search> {
   }
 
   void onRetryClick() {
-      setState(() {
-        isConnectedToInternet();
-      });
+    setState(() {
+      isConnectedToInternet();
+    });
   }
 }

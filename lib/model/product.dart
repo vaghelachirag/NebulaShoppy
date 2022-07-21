@@ -9,7 +9,7 @@ class Product {
   final String price;
   final String mrp;
   final int remainingQuantity;
-  final int ? qunatity;
+  final int? qunatity;
 
   Product(
       {required this.id,
