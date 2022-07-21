@@ -151,7 +151,9 @@ class _ProductDetailState extends State<ProductDetail> {
                 // _buildExtra(context),
                 //_buildDescription(context),
                 //  _buildComments(context),
-                setDescription(),
+                Visibility(
+                    visible: str_Description.length > 0,
+                    child: setDescription()),
                 _buildProductImageData(context),
                 _buildProducts(context),
               ],
@@ -180,10 +182,12 @@ class _ProductDetailState extends State<ProductDetail> {
               visible: !_listProductVariantWeight.isEmpty,
               child: getproductVariantWeight()),
           // _getproductVariantWeight(context),
-          chooseSizeHeader(),
+          //  chooseSizeHeader(),
           Visibility(
               visible: !_listProductVariantSize.isEmpty,
-              child: getproductVariantSize()),
+              child: Column(
+                children: [chooseSizeHeader(), getproductVariantSize()],
+              )),
         ],
       ),
     ));
@@ -191,7 +195,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   Container getproductVariantSize() {
     return Container(
-      height: MediaQuery.of(context).size.height / 20,
+      height: MediaQuery.of(context).size.height / 15,
       child: FutureBuilder(
         builder: (context, snapshot) {
           if (_listProductVariantSize.isEmpty) {
@@ -200,13 +204,13 @@ class _ProductDetailState extends State<ProductDetail> {
             return Center(
                 child: Container(
               child: Padding(
-                padding: const EdgeInsets.all(0.0),
+                padding: const EdgeInsets.only(top: 8),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _listProductVariantSize.length,
                   itemBuilder: (context, index) {
                     return Container(
-                        margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        margin: EdgeInsets.fromLTRB(8, 0, 5, 0),
                         decoration: BoxDecoration(
                             border: Border.all(
                           color: int_SelectedVariantId == index
@@ -337,7 +341,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Container getproductVariantWeight() {
     return Container(
       child: Container(
-          height: MediaQuery.of(context).size.height / 20,
+          height: MediaQuery.of(context).size.height / 15,
           child: FutureBuilder(
             builder: (context, snapshot) {
               if (_listProductVariantWeight.isEmpty) {
@@ -359,15 +363,17 @@ class _ProductDetailState extends State<ProductDetail> {
                               builder: (context, snapshot) {
                                 return Container(
                                   child: Padding(
-                                    padding: EdgeInsets.all(0),
-                                    child: Text(
-                                      _listProductVariantWeight[index]
-                                          .AttributeName
-                                          .toString(),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold),
+                                    padding: EdgeInsets.all(5),
+                                    child: Center(
+                                      child: Text(
+                                        _listProductVariantWeight[index]
+                                            .AttributeName
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                 );
@@ -533,7 +539,7 @@ class _ProductDetailState extends State<ProductDetail> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          padding: EdgeInsets.fromLTRB(8, 5, 0, 0),
+          padding: EdgeInsets.fromLTRB(8, 10, 0, 0),
           child: setBoldText("Description", 18, Colors.black),
         ),
         SizedBox(
@@ -861,7 +867,7 @@ class _ProductDetailState extends State<ProductDetail> {
           return Container(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1139,7 +1145,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       fontWeight: FontWeight.normal),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: 5),
+                    padding: EdgeInsets.only(left: 1),
                     child: Text(
                       str_Mrp,
                       style: TextStyle(

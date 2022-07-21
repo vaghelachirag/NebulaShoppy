@@ -169,7 +169,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
 
   Container getMyDeliverAddress() {
     return Container(
-        height: 100.0,
+        height: MediaQuery.of(context).size.height,
         child: FutureBuilder(
           builder: (context, snapshot) {
             if (_listMyAddressList.isEmpty) {
@@ -213,17 +213,19 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                                                 alignment: Alignment.topLeft,
                                                 child: Container(
                                                   padding: EdgeInsets.fromLTRB(
-                                                      0.0, 0.0, 0.0, 15.0),
+                                                      0.0, 0.0, 0.0, 0.0),
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
-                                                      Text(getPickupAddress(
-                                                          _listMyAddressList[
-                                                              index],
-                                                          _listMyAddressList[
-                                                                  index]
-                                                              .addressType)),
+                                                      Center(
+                                                        child: Text(getPickupAddress(
+                                                            _listMyAddressList[
+                                                                index],
+                                                            _listMyAddressList[
+                                                                    index]
+                                                                .addressType)),
+                                                      ),
                                                     ],
                                                   ),
                                                 )),
@@ -263,7 +265,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
+                      padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                       child: SizedBox(
                           width: 25,
                           height: 25,
@@ -304,7 +306,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
+                      padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                       child: SizedBox(
                           width: 25,
                           height: 25,
@@ -340,7 +342,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
+                      padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                       child: SizedBox(
                           width: 25,
                           height: 25,
@@ -450,12 +452,13 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(8),
                             child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Container(
+                                  color: Colors.white,
                                   padding:
-                                      EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 15.0),
+                                      EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                       _listAddressCityList[0]
                                           .address
