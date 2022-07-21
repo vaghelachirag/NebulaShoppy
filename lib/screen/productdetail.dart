@@ -95,6 +95,7 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   void initState() {
     super.initState();
+    is_ShowProductVariant = false;
     print("Detail" + widget.productid.toString() + " " + widget.id.toString());
     hideProgressBar();
     setDeviceId();
@@ -145,7 +146,9 @@ class _ProductDetailState extends State<ProductDetail> {
               children: [
                 _getTopImage(context),
                 _setNubulaCustomised(),
-                productVarint(),
+                Visibility(
+                    visible: _listProductVariant.length > 0,
+                    child: productVarint()),
                 //_getproductVariantSize(context),
                 //Product Info
                 // _buildExtra(context),
@@ -167,7 +170,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Container productVarint() {
     return Container(
         child: Visibility(
-      visible: is_ShowProductVariant,
+      visible: _listProductVariant.length > 0,
       child: Column(
         children: [
           Container(
