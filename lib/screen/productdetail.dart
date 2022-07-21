@@ -168,7 +168,9 @@ class _ProductDetailState extends State<ProductDetail> {
       visible: is_ShowProductVariant,
       child: Column(
         children: [
-          chooseColorHeader(),
+          Container(
+            child: chooseColorHeader(),
+          ),
           Visibility(
               visible: !_listProductVariantColor.isEmpty,
               child: getproductVariantColor()),
@@ -217,20 +219,29 @@ class _ProductDetailState extends State<ProductDetail> {
                           builder: (context, snapshot) {
                             return Padding(
                                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                child: Container(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(0),
-                                      child: Center(
-                                        child: Text(
-                                          _listProductVariantSize[index]
-                                              .AttributeName
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print("OnTap" + "Size Click");
+                                    showProgressbar();
+                                    widget.id = _listProductVariantSize[index]
+                                        .EcomAttributeSKUList[0];
+                                    getProductDetail(widget.id, true);
+                                  },
+                                  child: Container(
+                                    child: Padding(
+                                        padding: EdgeInsets.all(0),
+                                        child: Center(
+                                          child: Text(
+                                            _listProductVariantSize[index]
+                                                .AttributeName
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )),
+                                  ),
                                 ));
                           },
                         ));
@@ -246,6 +257,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   Container getproductVariantColor() {
     return Container(
+      padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
       child: Container(
           height: MediaQuery.of(context).size.height / 20,
           child: FutureBuilder(
@@ -266,7 +278,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                 setSelectedHeighlitId(_listProductVariantColor),
                             builder: (context, snapshot) {
                               return Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                                   child: GestureDetector(
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -333,7 +345,7 @@ class _ProductDetailState extends State<ProductDetail> {
               } else {
                 return Container(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     child: ListView.builder(
                       itemCount: _listProductVariantWeight.length,
                       scrollDirection: Axis.horizontal,
@@ -347,7 +359,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               builder: (context, snapshot) {
                                 return Container(
                                   child: Padding(
-                                    padding: EdgeInsets.all(5),
+                                    padding: EdgeInsets.all(0),
                                     child: Text(
                                       _listProductVariantWeight[index]
                                           .AttributeName
@@ -812,7 +824,7 @@ class _ProductDetailState extends State<ProductDetail> {
           return Container(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1052,7 +1064,6 @@ class _ProductDetailState extends State<ProductDetail> {
                     itemCount: _listProductVariantSize.length,
                     itemBuilder: (context, index) {
                       return Container(
-                          width: 200,
                           decoration: BoxDecoration(
                               border: Border.all(
                             color: int_SelectedVariantId == index
@@ -1064,13 +1075,13 @@ class _ProductDetailState extends State<ProductDetail> {
                                 _listProductVariantSize),
                             builder: (context, snapshot) {
                               return Container(
-                                width: 200,
                                 child: Padding(
                                   padding: EdgeInsets.all(0),
                                   child: Text(
                                     _listProductVariantSize[index]
-                                        .AttributeName
-                                        .toString(),
+                                            .AttributeName
+                                            .toString() +
+                                        "ss",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 10,
@@ -1095,7 +1106,7 @@ class _ProductDetailState extends State<ProductDetail> {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -1685,6 +1696,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 hideProgressBar();
                 widget.productid = value.data.productId;
                 getProductBannerFromVariant(value.data.productId.toString());
+                getCartItemList();
               }
             } else {
               if (iscallBanner) {
@@ -2326,5 +2338,7 @@ class _ProductDetailState extends State<ProductDetail> {
     _listProductVariantColorSkuList = [];
     _listProductVariantWeight = [];
     _listProductVariantWeightSkuList = [];
+    _listProductVariantSize = [];
+    _listProductVariantSizeSkuList = [];
   }
 }
