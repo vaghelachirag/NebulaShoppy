@@ -85,6 +85,7 @@ class _ProductDetailState extends State<ProductDetail> {
   int? int_CartCounter = 0;
   bool is_ShowDescription = false;
   bool is_ShowCart = false;
+  bool is_ShowProductVariant = false;
   int int_SelectedVariantId = 0;
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
@@ -144,20 +145,7 @@ class _ProductDetailState extends State<ProductDetail> {
               children: [
                 _getTopImage(context),
                 _setNubulaCustomised(),
-                chooseColorHeader(),
-                Visibility(
-                    visible: !_listProductVariantColor.isEmpty,
-                    child: getproductVariantColor()),
-                //   _getproductVariantColor(context),
-                chooseWeightHeader(),
-                Visibility(
-                    visible: !_listProductVariantWeight.isEmpty,
-                    child: getproductVariantWeight()),
-                // _getproductVariantWeight(context),
-                chooseSizeHeader(),
-                Visibility(
-                    visible: !_listProductVariantSize.isEmpty,
-                    child: getproductVariantSize()),
+                productVarint(),
                 //_getproductVariantSize(context),
                 //Product Info
                 // _buildExtra(context),
@@ -172,6 +160,31 @@ class _ProductDetailState extends State<ProductDetail> {
         ],
       ),
     );
+  }
+
+  Container productVarint() {
+    return Container(
+        child: Visibility(
+      visible: is_ShowProductVariant,
+      child: Column(
+        children: [
+          chooseColorHeader(),
+          Visibility(
+              visible: !_listProductVariantColor.isEmpty,
+              child: getproductVariantColor()),
+          //   _getproductVariantColor(context),
+          chooseWeightHeader(),
+          Visibility(
+              visible: !_listProductVariantWeight.isEmpty,
+              child: getproductVariantWeight()),
+          // _getproductVariantWeight(context),
+          chooseSizeHeader(),
+          Visibility(
+              visible: !_listProductVariantSize.isEmpty,
+              child: getproductVariantSize()),
+        ],
+      ),
+    ));
   }
 
   Container getproductVariantSize() {
@@ -1113,7 +1126,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    setBoldText("PV:", 14, Colors.black),
+                    setBoldText("PV:", 12, Colors.black),
                     // Text(
                     //   "PV:",
                     //   style: TextStyle(
@@ -1123,7 +1136,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: setBoldText(str_PV, 14, Colors.red),
+                      child: setBoldText(str_PV, 12, Colors.red),
                       // Text(
                       //   str_PV,
                       //   style: TextStyle(
@@ -1134,7 +1147,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText("BV:", 14, Colors.black)
+                        child: setBoldText("BV:", 12, Colors.black)
                         //  Text(
                         //   "BV:",
                         //   style: TextStyle(
@@ -1145,7 +1158,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText(str_BV, 14, Colors.red)
+                        child: setBoldText(str_BV, 12, Colors.red)
                         // Text(
                         //   str_BV,
                         //   style: TextStyle(
@@ -1156,7 +1169,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText("NV:", 14, Colors.black)
+                        child: setBoldText("NV:", 12, Colors.black)
                         // Text(
                         //   "NV:",
                         //   style: TextStyle(
@@ -1167,7 +1180,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText(str_NV, 14, Colors.red)
+                        child: setBoldText(str_NV, 12, Colors.red)
                         // Text(
                         //   str_NV,
                         //   style: TextStyle(
@@ -1802,13 +1815,22 @@ class _ProductDetailState extends State<ProductDetail> {
             if (value.statusCode == 1) {
               _listProductVariant = value.data!;
               setAttribute();
+              setState(() {
+                is_ShowProductVariant = true;
+              });
+
               print("ProductVarint" + _listProductVariant.length.toString());
             } else {
+              setState(() {
+                is_ShowProductVariant = false;
+              });
               showSnakeBar(context, somethingWrong);
               print("Categorylist" + "Opps Something Wrong!");
             }
           }))
         });
+
+    print("IsShowVariant" + is_ShowProductVariant.toString());
   }
 
   getProductDetailImage() async {
