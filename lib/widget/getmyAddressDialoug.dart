@@ -67,18 +67,27 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                 padding: EdgeInsets.fromLTRB(10, 2, 10, 0),
                 child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        bl_IsDrop = true;
-                        isDoorStepDelivery = true;
-                        isSelectedPickup = false;
-                        isAhmedabadClick = false;
-                        isHyderabadClick = false;
-                        isChennaiClick = false;
-                        isShowCity = false;
-                        _listAddressCityList.clear();
-                        setCityVisibity(3);
-                        getMyAddress();
+                      checkUserLoginOrNot();
+                      Future.delayed(Duration(seconds: 0), () {
+                        print("IsLogin" + is_Login.toString());
+                        if (!is_Login) {
+                          showSnakeBar(context, "Please Login First!");
+                        } else {
+                          setState(() {
+                            bl_IsDrop = true;
+                            isDoorStepDelivery = true;
+                            isSelectedPickup = false;
+                            isAhmedabadClick = false;
+                            isHyderabadClick = false;
+                            isChennaiClick = false;
+                            isShowCity = false;
+                            _listAddressCityList.clear();
+                            setCityVisibity(3);
+                            getMyAddress();
+                          });
+                        }
                       });
+
                       print("Tap" + "Dorr Click");
                     },
                     child: Card(

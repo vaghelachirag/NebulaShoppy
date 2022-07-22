@@ -14,7 +14,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       changeBaseURL(1);
       goToHomeScreen();
     });
@@ -39,7 +39,8 @@ class _SplashState extends State<Splash> {
   void goToHomeScreen() async {
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (dialogContex) => TabScreen(int_Selectedtab: 0)),
+        MaterialPageRoute(
+            builder: (dialogContex) => TabScreen(int_Selectedtab: 0)),
         ModalRoute.withName("/tabscreen"));
   }
 }

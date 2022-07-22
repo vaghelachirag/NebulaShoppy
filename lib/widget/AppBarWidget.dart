@@ -48,7 +48,7 @@ Widget appBarWidget(context, int i, String str_title, bool isshowCart) {
                     context,
                     PageTransition(
                       type: PageTransitionType.rightToLeft,
-                      child: Test(),
+                      child: Search(),
                     ),
                   );
                 },
