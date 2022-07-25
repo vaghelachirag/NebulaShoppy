@@ -396,7 +396,7 @@ class _ProductDetailState extends State<ProductDetail> {
     return Container(
         color: Theme.of(context).backgroundColor,
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 11,
+        height: MediaQuery.of(context).size.height / 12,
         child: Container(
             padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -416,7 +416,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           padding: EdgeInsets.all(0),
                           child: CircleAvatar(
                               backgroundColor: buttonColor,
-                              maxRadius: 25,
+                              maxRadius: 20,
                               child: Icon(
                                 CommunityMaterialIcons.heart,
                                 color: Colors.white,
@@ -426,7 +426,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     )),
                 Align(
                     alignment: Alignment.centerRight,
-                    child: setRegularText("Add To Cart", 20, Colors.black)
+                    child: setRegularText("Add To Cart", 16, Colors.black)
                     // Text(
                     //   "Add To Cart",
                     //   style: TextStyle(fontSize: 20, color: Colors.black),
@@ -450,8 +450,8 @@ class _ProductDetailState extends State<ProductDetail> {
                         padding: EdgeInsets.all(0),
                         child: CircleAvatar(
                             backgroundColor: buttonColor,
-                            maxRadius: 25,
-                            child: setBoldText("-", 20, Colors.black)
+                            maxRadius: 20,
+                            child: setBoldText("-", 16, Colors.black)
                             // Text(
                             //   "-",
                             //   style: TextStyle(
@@ -465,7 +465,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 Align(
                     alignment: Alignment.center,
                     child: setBoldText(
-                        int_CartQuantity.toString(), 20, Colors.black)
+                        int_CartQuantity.toString(), 16, Colors.black)
                     // Text(
                     //   int_CartQuantity.toString(),
                     //   style: TextStyle(
@@ -496,8 +496,8 @@ class _ProductDetailState extends State<ProductDetail> {
                             padding: EdgeInsets.all(0),
                             child: CircleAvatar(
                                 backgroundColor: buttonColor,
-                                maxRadius: 25,
-                                child: setBoldText("+", 20, Colors.black)
+                                maxRadius: 20,
+                                child: setBoldText("+", 16, Colors.black)
                                 // Text(
                                 //   "+",
                                 //   style: TextStyle(
