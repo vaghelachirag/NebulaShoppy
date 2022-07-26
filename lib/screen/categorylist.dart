@@ -21,6 +21,8 @@ import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
+import 'package:provider/provider.dart';
 
 class CategoryList extends StatefulWidget {
   int position, id;
@@ -43,6 +45,9 @@ class _CategoryListState extends State<CategoryList>
   bool bl_IsFilterVisible = false;
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
+   late CartCounter cartCounter ;
+
   @override
   void initState() {
     super.initState();
@@ -92,6 +97,7 @@ class _CategoryListState extends State<CategoryList>
 
   @override
   Widget build(BuildContext context) {
+     cartCounter = Provider.of<CartCounter>(context);
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -173,7 +179,7 @@ class _CategoryListState extends State<CategoryList>
                 return loadSkeletonLoadersGrid(
                     boxProductCatWise(context), Axis.horizontal, context);
               } else {
-                return setCategoryList(false);
+                return setCategoryList(false,cartCounter);
                 //  return setCategoryList(false);
               }
             },
@@ -401,7 +407,7 @@ class _CategoryListState extends State<CategoryList>
     );
   }
 
-  Container setCategoryList(bool bool) {
+  Container setCategoryList(bool bool, CartCounter cartCounter) {
     return Container(
       child: Flexible(
           child: 
@@ -434,6 +440,7 @@ class _CategoryListState extends State<CategoryList>
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
                 print("CartAdd" + "This");
+             
                 setState(() {
                   showProgressbar();
                 });
@@ -512,6 +519,7 @@ class _CategoryListState extends State<CategoryList>
                   hideProgressBar();
                   showSnakeBar(context, "Item Added to Cart!");
                   getCartCount();
+                   cartCounter.addItemInCart();
                   // if (_dialogKey.currentContext != null) {
                   //   //Navigator.pop(_dialogKey.currentContext!);
                     

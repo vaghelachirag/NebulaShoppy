@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:nebulashoppy/widget/cartCounter.dart';
+import 'package:provider/provider.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
@@ -51,7 +53,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
   String str_UserIds = "";
-
+ late CartCounter cartCounter ;
   @override
   void initState() {
     super.initState();
@@ -128,6 +130,9 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
 
   @override
   Widget build(BuildContext context) {
+    cartCounter = Provider.of<CartCounter>(context);
+    cartCounter.setCartCountity(int_CartCounters);
+    
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -719,12 +724,14 @@ handlePaymentFailure(String errorMessage){
                 hideProgressBar();
                  if (value.statusCode == 1) {
                     if (flag == Flag_Plus) {
+                      cartCounter.addItemInCart();
                       showSnakeBar(context, "Item Added to Cart!");
                       setState(() {
                         // _listCartItem.clear();
                         getMyCartList();
                       });
                     } else {
+                       cartCounter.removeItemFromCart();
                       showSnakeBar(context, "Item Removed from Cart!");
                       setState(() {
                         //  _listCartItem.clear();

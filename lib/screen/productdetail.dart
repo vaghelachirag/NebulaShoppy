@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
@@ -19,6 +19,7 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/uttils/sliderShowFullmageswidget.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:nebulashoppy/widget/dotted_slider.dart';
 import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
@@ -92,6 +93,9 @@ class _ProductDetailState extends State<ProductDetail> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
+  late CartCounter cartCounter ;
+
   @override
   void initState() {
     super.initState();
@@ -114,6 +118,8 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
+     cartCounter = Provider.of<CartCounter>(context);
+    cartCounter.setCartCountity(int_CartCounters);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
@@ -2066,6 +2072,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     hideProgressBar();
                     if (value.statusCode == 1) {
                       if (flag == Flag_Plus) {
+                        cartCounter.addItemInCart();
                         showSnakeBar(context, "Item Added to Cart!");
                         setState(() {
                           int_CartCounters = int_CartCounters + 1;
@@ -2084,6 +2091,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             setState(() {});
                           }
                         });
+                         cartCounter.removeItemFromCart();
                         showSnakeBar(context, "Item Removed from Cart!");
                       }
                     } else {
