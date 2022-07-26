@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 
 class CartCounter extends ChangeNotifier {
   int total = 0;
-  CartCounter() {
+  double getCartTotal() {
+    double price = 0;
     notifyListeners();
+    return price;
   }
 
   int getCartQuantity() {
     return total;
   }
 
-  int setCartCountity(int int_Counter) {
-    total = int_Counter;
+  addItemToCart() {
+    total = 2;
+    print("Add" + "Add Item In Cart");
     notifyListeners();
-    return total;
   }
 }

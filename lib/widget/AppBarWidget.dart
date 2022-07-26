@@ -5,8 +5,10 @@ import 'package:nebulashoppy/network/service.dart';
 import 'package:nebulashoppy/screen/mycartlist.dart';
 import 'package:nebulashoppy/screen/test.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
 
 import '../screen/search.dart';
 
@@ -86,6 +88,7 @@ class _QTYCounterState extends State<QTYCounter> {
 
   @override
   Widget build(BuildContext context) {
+    var store = Provider.of<CartCounter>(context);
     // getUserID();
     setState(() {});
     return Container(
@@ -111,7 +114,7 @@ class _QTYCounterState extends State<QTYCounter> {
                     child: Badge(
                       animationType: BadgeAnimationType.fade,
                       badgeContent: Text(
-                        QTYCount,
+                        store.getCartQuantity().toString(),
                         style: TextStyle(
                             fontSize: 10,
                             fontFamily: Ember,

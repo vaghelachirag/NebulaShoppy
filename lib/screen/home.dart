@@ -84,6 +84,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    var cartCounter = Provider.of<CartCounter>(context);
+    cartCounter.setCartCountity(int_CartCounters);
     var size = MediaQuery.of(context).size;
 
     ScreenUtil.init(context);

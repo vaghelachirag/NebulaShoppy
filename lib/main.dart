@@ -14,17 +14,16 @@ import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/BottomNavBarWidget.dart';
 import 'package:nebulashoppy/widget/BottomNavBarWidgetLogin.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'network/service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
-
-
+import 'package:provider/provider.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   RemoteNotification? notification = message.notification;
@@ -47,7 +46,6 @@ Future<void> _generateNotification(
 
   if (notification.android!.smallIcon.toString().isNotEmpty &&
       notification.android!.smallIcon.toString() != "") {
-  
     flutterLocalNotificationsPlugin?.show(
       notification.hashCode,
       notification.title,
@@ -86,17 +84,15 @@ Future<void> _generateNotification(
     );
   }
 
-   FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-        print("message recieved");
-        print(event.notification!.body);
-    });
+  FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+    print("message recieved");
+    print(event.notification!.body);
+  });
 
   // _onClickNotification(message.data);
 }
 
-
-
-void main()  async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseMessaging.instance
@@ -106,7 +102,7 @@ void main()  async {
         sound: true,
       )
       .then((value) {});
-      
+
   channel = const AndroidNotificationChannel(
     'nebulashoppy', // id
     'Nebula Shoppy', // title
@@ -115,25 +111,27 @@ void main()  async {
     enableVibration: true,
     showBadge: true,
   );
-runApp(MyApp());
+  runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-     checkUserLoginOrNot();
-     getToken();
-    return MaterialApp(
-      home: Splash(),
-      theme: ThemeData(
-          fontFamily: 'Roboto',
-          primaryColor: Colors.white,
-          primaryColorDark: Colors.white,
-          backgroundColor: Colors.white),
-      debugShowCheckedModeBanner: false,
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    checkUserLoginOrNot();
+    getToken();
+    return ChangeNotifierProvider(
+      create: (context) => CartCounter(),
+      child: MaterialApp(
+        home: Splash(),
+        theme: ThemeData(
+            fontFamily: 'Roboto',
+            primaryColor: Colors.white,
+            primaryColorDark: Colors.white,
+            backgroundColor: Colors.white),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
@@ -145,7 +143,7 @@ void navigateToScreens(int index) {
 }
 
 getToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    SharedPref.saveString(str_FCMToken, token);
-    print("FCM_TOKEN -> $token");  
-  }
+  String? token = await FirebaseMessaging.instance.getToken();
+  SharedPref.saveString(str_FCMToken, token);
+  print("FCM_TOKEN -> $token");
+}
