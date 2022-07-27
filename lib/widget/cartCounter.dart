@@ -15,4 +15,14 @@ class CartCounter extends ChangeNotifier {
     notifyListeners();
     return total;
   }
+
+  addItemToCart() {
+    total = total + 1;
+    notifyListeners();
+  }
+
+  removeItemFromCart() {
+    total = total - 1;
+    notifyListeners();
+  }
 }

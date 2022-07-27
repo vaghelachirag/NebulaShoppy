@@ -10,6 +10,7 @@ import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/uttils/skeletonloader.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/LoginDialoug.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:nebulashoppy/widget/cartitemwidget.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
 import 'package:nebulashoppy/widget/getmyAddressDialoug.dart';
@@ -31,6 +32,7 @@ import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:provider/provider.dart';
 
 class MyCartList extends StatefulWidget {
   String device_Id = "";
@@ -41,7 +43,7 @@ class MyCartList extends StatefulWidget {
   void addToCartMethod() {}
 }
 
-class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
+class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver {
   List<ItemCart> _listCartItem = [];
   bool is_ShowBottomBar = false;
   bool is_ShowNoData = false;
@@ -51,6 +53,8 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
   String str_UserIds = "";
+
+  late CartCounter cartCounter;
 
   @override
   void initState() {
@@ -63,7 +67,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
       if (str_SelectedAddress == null || str_SelectedAddress == "") {
         str_SelectedAddress = str_DeliverTo;
       }
-       if (str_SelectedAddressType == null || str_SelectedAddressType == "") {
+      if (str_SelectedAddressType == null || str_SelectedAddressType == "") {
         str_SelectedAddressType = "0";
       }
     });
@@ -75,7 +79,6 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
     // Future.delayed(const Duration(seconds: 5), () {
     //    handlePaymentFailure("Error Message");
     // });
-  
   }
 
   @override
@@ -84,7 +87,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
     super.dispose();
   }
 
- @override
+  @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
@@ -97,22 +100,22 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
     if (state == AppLifecycleState.resumed) {
       // user returned to our app
       // _showPasswordDialog();
-       print("MyCart"+"OnResume");
-        isConnectedToInternet();
-        setState(() {
-      widget.device_Id = DeviceId.toString();
-      bl_ShowCart = false;
-      if (str_SelectedAddress == null || str_SelectedAddress == "") {
-        str_SelectedAddress = str_DeliverTo;
-      }
-       if (str_SelectedAddressType == null || str_SelectedAddressType == "") {
-        str_SelectedAddressType = "0";
-      }
-    });
+      print("MyCart" + "OnResume");
+      isConnectedToInternet();
+      setState(() {
+        widget.device_Id = DeviceId.toString();
+        bl_ShowCart = false;
+        if (str_SelectedAddress == null || str_SelectedAddress == "") {
+          str_SelectedAddress = str_DeliverTo;
+        }
+        if (str_SelectedAddressType == null || str_SelectedAddressType == "") {
+          str_SelectedAddressType = "0";
+        }
+      });
 
-    checkUserLoginOrNot();
-    getMyCartList();
-    hideProgressBar();
+      checkUserLoginOrNot();
+      getMyCartList();
+      hideProgressBar();
     } else if (state == AppLifecycleState.inactive) {
       // app is inactive
     } else if (state == AppLifecycleState.paused) {
@@ -122,12 +125,12 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
     }
   }
 
-
   final GlobalKey<_MyCartListState> _myWidgetState =
       GlobalKey<_MyCartListState>();
 
   @override
   Widget build(BuildContext context) {
+    cartCounter = Provider.of<CartCounter>(context);
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -141,77 +144,92 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "My Cart", false)),
-      bottomNavigationBar:
-          Visibility(visible: is_ShowBottomBar && is_InternetConnected, child: bottomBar()),
-      body:  is_InternetConnected == false ? NoInternet(onRetryClick: () {
-         isConnectedToInternet();
-         onRetryClick();
-         print("Home"+"Retry");
-        },) : getCartItem(),
+      bottomNavigationBar: Visibility(
+          visible: is_ShowBottomBar && is_InternetConnected,
+          child: bottomBar()),
+      body: is_InternetConnected == false
+          ? NoInternet(
+              onRetryClick: () {
+                isConnectedToInternet();
+                onRetryClick();
+                print("Home" + "Retry");
+              },
+            )
+          : getCartItem(),
     );
-  }
-  Container getCartItem(){
-    return Container(
-      child:  is_ShowNoData == true ? noDataFound() : 
-      AbsorbPointer(
-        absorbing: showProgress,
-         child:   
-          Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-           locationHeader(),
-          showMaterialProgressbar(5),
-           Expanded(
-            child: 
-           getMyCartData())
-        ])
-        ),
-    );
-  }
-  Container noDataFound() {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child:  
-         Column(
-               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-          
-              IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined,size: 60,color: THEME_COLOR,),
-            tooltip: 'Source Code',
-            onPressed: () {
-            },
-          ),
-          Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(30)),child:
-           Text(
-          "Cart is Empty",
-          style: TextStyle(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold,fontFamily: EmberBold)),),
-           Padding(padding: EdgeInsets.fromLTRB(20, 5, 20, 0),child:
-           Text(
-          "Looks like you have no items in your shopping cart.",
-          style: TextStyle(fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.normal,fontFamily: Ember)),)],
-          ),);
   }
 
-handlePaymentFailure(String errorMessage){
-  print("Payment"+"Fail" + errorMessage);
-  showDialog(
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return PaymentSucessWidget(
-            title: "Payment Cancelled.",
-            description:
-                "If the amount was debited, kindly wait for 8 hours until we verify and update your payment.", onClickClicked: () { 
-                  print("OnClick"+"onClick");
-                    Navigator.pop(context);
-                 }, str_Amount: "50",
-          );
-        },
-      );
-   }
-   
+  Container getCartItem() {
+    return Container(
+      child: is_ShowNoData == true
+          ? noDataFound()
+          : AbsorbPointer(
+              absorbing: showProgress,
+              child: Column(mainAxisSize: MainAxisSize.max, children: [
+                locationHeader(),
+                showMaterialProgressbar(5),
+                Expanded(child: getMyCartData())
+              ])),
+    );
+  }
+
+  Container noDataFound() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+              size: 60,
+              color: THEME_COLOR,
+            ),
+            tooltip: 'Source Code',
+            onPressed: () {},
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: ScreenUtil().setSp(30)),
+            child: Text("Cart is Empty",
+                style: TextStyle(
+                    fontSize: ScreenUtil().setSp(20),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: EmberBold)),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+            child: Text("Looks like you have no items in your shopping cart.",
+                style: TextStyle(
+                    fontSize: ScreenUtil().setSp(16),
+                    fontWeight: FontWeight.normal,
+                    fontFamily: Ember)),
+          )
+        ],
+      ),
+    );
+  }
+
+  handlePaymentFailure(String errorMessage) {
+    print("Payment" + "Fail" + errorMessage);
+    showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return PaymentSucessWidget(
+          title: "Payment Cancelled.",
+          description:
+              "If the amount was debited, kindly wait for 8 hours until we verify and update your payment.",
+          onClickClicked: () {
+            print("OnClick" + "onClick");
+            Navigator.pop(context);
+          },
+          str_Amount: "50",
+        );
+      },
+    );
+  }
+
   CustomScrollView getMyCartData() {
     return CustomScrollView(shrinkWrap: true, slivers: <Widget>[
       SliverPadding(
@@ -328,39 +346,35 @@ handlePaymentFailure(String errorMessage){
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 24,
-              child:  
-              Center(
-                child: IconButton(
-                onPressed: () {},
-                icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
-                color: Colors.black)
-              )
-            ),
-            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),child: 
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 100,
-              child: Text(str_SelectedAddress,
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 14, fontFamily: Ember),
-                  softWrap: true),
-            )),
+                width: 24,
+                child: Center(
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                            CommunityMaterialIcons.map_marker_alert_outline),
+                        color: Colors.black))),
+            Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Text(str_SelectedAddress,
+                      maxLines: 2,
+                      style: TextStyle(fontSize: 14, fontFamily: Ember),
+                      softWrap: true),
+                )),
             //setBoldText(str_SelectedAddress, 12, Colors.black),
-            Padding(padding: EdgeInsets.only(right: 10),child: 
-            SizedBox(
-                 width: 24,
-                  child:  
-              Center(
-                child: IconButton(
-                onPressed: () {
-                  onLocationPressed();
-                },
-                icon:
-                    Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
-                color: Colors.black)
-              )
-            ))
-           
+            Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: SizedBox(
+                    width: 24,
+                    child: Center(
+                        child: IconButton(
+                            onPressed: () {
+                              onLocationPressed();
+                            },
+                            icon: Icon(CommunityMaterialIcons
+                                .arrow_down_drop_circle_outline),
+                            color: Colors.black))))
           ],
         ),
       ),
@@ -568,19 +582,19 @@ handlePaymentFailure(String errorMessage){
                   gradientColors: [Colors.white, Colors.white],
                   onItemRemovedClick: (int) {
                     print("ItemRemovedIt" + int.toString());
-                   // showLoadingDialog(context, _dialogKey, "Please Wait..");
-                   setState(() {
-                     showProgressbar();
-                   });
+                    // showLoadingDialog(context, _dialogKey, "Please Wait..");
+                    setState(() {
+                      showProgressbar();
+                    });
                     callMethodRemoveItemFromCart(int);
                   },
                   onCountChanges: (int) {},
                   onCartAddClick: () {
                     print("Cart" + "Add Add");
-                  //  showLoadingDialog(context, _dialogKey, "Please Wait..");
-                   setState(() {
-                     showProgressbar();
-                   });
+                    //  showLoadingDialog(context, _dialogKey, "Please Wait..");
+                    setState(() {
+                      showProgressbar();
+                    });
                     addToCart(
                         widget.device_Id,
                         str_UserId,
@@ -590,10 +604,10 @@ handlePaymentFailure(String errorMessage){
                   },
                   onCartRemovedClick: () {
                     print("Cart" + "Add Minus");
-                      setState(() {
-                     showProgressbar();
-                   });
-                   // showLoadingDialog(context, _dialogKey, "Please Wait..");
+                    setState(() {
+                      showProgressbar();
+                    });
+                    // showLoadingDialog(context, _dialogKey, "Please Wait..");
                     addToCart(
                         widget.device_Id,
                         str_UserId,
@@ -637,13 +651,12 @@ handlePaymentFailure(String errorMessage){
             alignment: Alignment.centerRight,
             child: MainButtonWidget(
                 onPress: () {
-                  if(str_SelectedAddress == "Deliver To"){
-                    showSnakeBar(context, "Please Select Your Delivery Location");
-                  }
-                  else{
+                  if (str_SelectedAddress == "Deliver To") {
+                    showSnakeBar(
+                        context, "Please Select Your Delivery Location");
+                  } else {
                     openCheckoutDialoug();
                   }
-                
                 },
                 buttonText: "Checkout"),
           )
@@ -672,16 +685,16 @@ handlePaymentFailure(String errorMessage){
           .getCartRemoveItemWithoutLogin(DeviceId, productId.toString())
           .then((value) => {
                 setState((() {
-                   hideProgressBar();
-                   if (value.statusCode == 1) {         
-                      showSnakeBar(context, "Item Removed From Cart!");
-                      setState(() {
-                        //  _listCartItem.clear();
-                        getMyCartList();
-                      });
-                    } else {
-                      showSnakeBar(context, "Opps! Something Wrong");
-                    }
+                  hideProgressBar();
+                  if (value.statusCode == 1) {
+                    showSnakeBar(context, "Item Removed From Cart!");
+                    setState(() {
+                      //  _listCartItem.clear();
+                      getMyCartList();
+                    });
+                  } else {
+                    showSnakeBar(context, "Opps! Something Wrong");
+                  }
                 }))
               });
     } else {
@@ -693,16 +706,16 @@ handlePaymentFailure(String errorMessage){
                 DeviceId, productId.toString(), str_UserId)
             .then((value) => {
                   setState((() {
-                  hideProgressBar();
-                  if (value.statusCode == 1) {
-                        showSnakeBar(context, "Item Removed From Cart!");
-                        setState(() {
-                          //  _listCartItem.clear();
-                          getMyCartList();
-                        });
-                      } else {
-                        showSnakeBar(context, "Opps! Something Wrong");
-                      }
+                    hideProgressBar();
+                    if (value.statusCode == 1) {
+                      showSnakeBar(context, "Item Removed From Cart!");
+                      setState(() {
+                        //  _listCartItem.clear();
+                        getMyCartList();
+                      });
+                    } else {
+                      showSnakeBar(context, "Opps! Something Wrong");
+                    }
                   }))
                 });
       });
@@ -717,23 +730,23 @@ handlePaymentFailure(String errorMessage){
         .then((value) => {
               setState((() {
                 hideProgressBar();
-                 if (value.statusCode == 1) {
-                    if (flag == Flag_Plus) {
-                      showSnakeBar(context, "Item Added to Cart!");
-                      setState(() {
-                        // _listCartItem.clear();
-                        getMyCartList();
-                      });
-                    } else {
-                      showSnakeBar(context, "Item Removed from Cart!");
-                      setState(() {
-                        //  _listCartItem.clear();
-                        getMyCartList();
-                      });
-                    }
+                if (value.statusCode == 1) {
+                  if (flag == Flag_Plus) {
+                    showSnakeBar(context, "Item Added to Cart!");
+                    setState(() {
+                      // _listCartItem.clear();
+                      getMyCartList();
+                    });
                   } else {
-                    showSnakeBar(context, "Opps! Something Wrong");
+                    showSnakeBar(context, "Item Removed from Cart!");
+                    setState(() {
+                      //  _listCartItem.clear();
+                      getMyCartList();
+                    });
                   }
+                } else {
+                  showSnakeBar(context, "Opps! Something Wrong");
+                }
               }))
             });
   }
@@ -760,8 +773,8 @@ handlePaymentFailure(String errorMessage){
                     setState(() {
                       str_SelectedAddress = str_SelectedAddress;
                       str_SelectedAddressType = str_SelectedAddressType;
-                     getMyCartList();
-                      print("AddressType"+str_SelectedAddressType);
+                      getMyCartList();
+                      print("AddressType" + str_SelectedAddressType);
                     });
                   },
                 ),
@@ -890,7 +903,8 @@ handlePaymentFailure(String errorMessage){
     is_ShowBottomBar = false;
 
     Service()
-        .getCartItemWithLogin(widget.device_Id, str_SelectedAddressType, str_UserId)
+        .getCartItemWithLogin(
+            widget.device_Id, str_SelectedAddressType, str_UserId)
         .then((value) => {
               print("CartList" + value.toString()),
               if (value.toString() == str_NoDataMsg)
