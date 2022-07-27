@@ -732,12 +732,14 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver {
                 hideProgressBar();
                 if (value.statusCode == 1) {
                   if (flag == Flag_Plus) {
+                    cartCounter.addItemInCart();
                     showSnakeBar(context, "Item Added to Cart!");
                     setState(() {
                       // _listCartItem.clear();
                       getMyCartList();
                     });
                   } else {
+                    cartCounter.removeItemFromCart();
                     showSnakeBar(context, "Item Removed from Cart!");
                     setState(() {
                       //  _listCartItem.clear();
