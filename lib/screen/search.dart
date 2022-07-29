@@ -102,7 +102,6 @@ class _SearchState extends State<Search> {
                       padding: EdgeInsets.all(10.0),
                       child: Theme(
                           child: Container(
-                            height: 40,
                             child: TextField(
                               controller: searchData,
                               enabled: bl_IsEdibleSearch,

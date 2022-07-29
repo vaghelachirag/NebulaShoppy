@@ -21,8 +21,6 @@ import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:nebulashoppy/widget/cartCounter.dart';
-import 'package:provider/provider.dart';
 
 class CategoryList extends StatefulWidget {
   int position, id;
@@ -45,9 +43,6 @@ class _CategoryListState extends State<CategoryList>
   bool bl_IsFilterVisible = false;
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
-
-   late CartCounter cartCounter ;
-
   @override
   void initState() {
     super.initState();
@@ -97,7 +92,6 @@ class _CategoryListState extends State<CategoryList>
 
   @override
   Widget build(BuildContext context) {
-     cartCounter = Provider.of<CartCounter>(context);
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -176,10 +170,9 @@ class _CategoryListState extends State<CategoryList>
           FutureBuilder(
             builder: (context, snapshot) {
               if (_listproductList.isEmpty) {
-                return loadSkeletonLoadersGrid(
-                    boxProductCatWise(context), Axis.horizontal, context);
+                return skeletonsetCategoryList(false);
               } else {
-                return setCategoryList(false,cartCounter);
+                return setCategoryList(false);
                 //  return setCategoryList(false);
               }
             },
@@ -399,15 +392,15 @@ class _CategoryListState extends State<CategoryList>
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 1,
-          childAspectRatio: 8.0 / 12.0,
+          childAspectRatio: 0.8,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
         ),
       )),
     );
   }
 
-  Container setCategoryList(bool bool, CartCounter cartCounter) {
+  Container setCategoryList(bool bool) {
     return Container(
       child: Flexible(
           child: 
@@ -440,7 +433,6 @@ class _CategoryListState extends State<CategoryList>
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
                 print("CartAdd" + "This");
-             
                 setState(() {
                   showProgressbar();
                 });
@@ -463,6 +455,44 @@ class _CategoryListState extends State<CategoryList>
       ))),
     );
   }
+
+ Container skeletonsetCategoryList(bool bool) {
+    return Container(
+      child: Flexible(
+          child: 
+          SingleChildScrollView(
+            child: 
+          GridView.builder(
+        padding: EdgeInsets.all(0),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return Center(
+              child: Container(
+            color: Colors.blueGrey,
+            margin: EdgeInsets.all(0),
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child:  
+                 Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade300,
+                  period: Duration(milliseconds: 2000),
+                  child: boxProductCatWise(context),
+                )
+          ));
+        },
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+        ),
+      ))),
+    );
+  }
+
+
 
   Shimmer loadSkeletonLoader(Flexible skeletonbuildNewLaunch) {
     return Shimmer.fromColors(
@@ -519,7 +549,6 @@ class _CategoryListState extends State<CategoryList>
                   hideProgressBar();
                   showSnakeBar(context, "Item Added to Cart!");
                   getCartCount();
-                   cartCounter.addItemInCart();
                   // if (_dialogKey.currentContext != null) {
                   //   //Navigator.pop(_dialogKey.currentContext!);
                     

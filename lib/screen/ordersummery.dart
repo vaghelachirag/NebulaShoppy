@@ -472,12 +472,12 @@ class _OrderSummeryState extends State<OrderSummery>
                    // Navigator.pop(_dialogKey.currentContext!);
                    hideProgressBar();
                     if (value.statusCode == 1) {
-                      widget.txnID = value.data!.orderId.toString();
+                      widget.txnID = "Order_637946852342729071";
                       widget.firstname = value.data!.firstname.toString();
                       widget.productInfo = value.data!.productinfo.toString();
                       widget.email = value.data!.email.toString();
                       widget.phone = value.data!.phone.toString();
-                      print("TransectionId" + widget.txnID);
+                     // print("TransectionId" + widget.txnID);
                       initializePayments();
                     } else {
                       showSnakeBar(context, somethingWrong);
@@ -499,7 +499,7 @@ class _OrderSummeryState extends State<OrderSummery>
         amount: int_Total.toString(),
         hashUrl: '<Checksum URL to generate dynamic hashes>',
         productInfo: widget.productInfo,
-        transactionId: widget.txnID,
+        transactionId: "Order_637946852342729071",
         showExitConfirmation: true,
         showLogs: false, // true for debugging, false for production
         userCredentials: MerchantKey + ":" + widget.email,

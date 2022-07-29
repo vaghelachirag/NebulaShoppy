@@ -280,12 +280,12 @@ Widget boxNewLaunch() {
 Widget boxProductCatWise(BuildContext context) {
   return Container(
     margin: EdgeInsets.only(bottom: 0),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
     child: Column(
       children: [
         Container(
-          width: 200,
-          height: 160,
+          width: MediaQuery.of(context).size.width ,
+          height: MediaQuery.of(context).size.height,
           decoration:
               BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
         ),

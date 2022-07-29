@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nebulashoppy/screen/home.dart';
-import 'package:nebulashoppy/widget/star_rating.dart';
 import '../model/product.dart';
 import '../uttils/constant.dart';
-import 'clip_shadow_path.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:nebulashoppy/screen/productdetail.dart';
-import 'package:nebulashoppy/screen/categorylist.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 

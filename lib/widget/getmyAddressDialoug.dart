@@ -52,7 +52,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.normal),
                 )),
             Padding(
                 padding: EdgeInsets.all(10),
@@ -106,7 +106,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700),
+                                fontWeight: FontWeight.w400),
                           )
                         ],
                       ),
@@ -153,7 +153,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -290,7 +290,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w400),
                     )
                   ],
                 ),
@@ -326,7 +326,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w400),
                     )
                   ],
                 ),
@@ -366,7 +366,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w400),
                     )
                   ],
                 ),

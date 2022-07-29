@@ -16,14 +16,19 @@ import '../uttils/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginDialoug extends StatefulWidget {
-  const LoginDialoug(
-    BuildContext context, {
-    Key? key,
-    required this.title,
-    required this.description,
-  }) : super(key: key);
+   final VoidCallback onLoginSuccess;
+
 
   final String title, description;
+
+   LoginDialoug({
+     required this.title,
+    required this.description,
+      required this.onLoginSuccess
+  });
+
+
+
 
   @override
   _LoginDialougState createState() => _LoginDialougState();
@@ -286,10 +291,11 @@ class _LoginDialougState extends State<LoginDialoug> {
     Service().getLoginResponse(value.iboKeyId).then((loginresponse) => {
           if (loginresponse.statusCode == 1)
             {
-             // Navigator.pop(context),
+              Navigator.pop(context),
               showSnakeBar(context, "Login Successfully!"),
               setLoginData(value),
-              refreshApp(context)
+              widget.onLoginSuccess()
+           //   refreshApp(context)
             }
         });
   }
@@ -309,5 +315,6 @@ class _LoginDialougState extends State<LoginDialoug> {
     SharedPref.saveString(str_IBO_Id, ibo_key_id);
     SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
     SharedPref.saveBoolean(str_IsLogin, true);
+    
   }
 }

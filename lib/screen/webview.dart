@@ -20,14 +20,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
-import '../widget/Accountwidget.dart';
-import '../widget/LoginDialoug.dart';
-import '../widget/myorderwidget.dart';
-import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

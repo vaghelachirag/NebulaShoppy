@@ -105,7 +105,7 @@ class SearchItem extends StatelessWidget {
             //   maxLines: 1,
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
-            setBoldText(product.company, 14, Colors.black),
+            setRegularText(product.company, 14, Colors.black),
             Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: setRegularText(product.name, 10, Colors.black)),
@@ -119,7 +119,7 @@ class SearchItem extends StatelessWidget {
                 padding: EdgeInsets.only(top: 5),
                 child: Row(
                   children: <Widget>[
-                    setBoldText(product.price, 14, Colors.red),
+                    setBoldText(removeDecimalAmount(product.price), 14, Colors.red),
                     // Text(product.price,
                     //     style: TextStyle(
                     //         fontSize: 16,
@@ -128,7 +128,7 @@ class SearchItem extends StatelessWidget {
                     Padding(
                         padding: EdgeInsets.only(left: 3),
                         child: Text(
-                          product.mrp,
+                          removeDecimalAmount(product.mrp)                          ,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 10,

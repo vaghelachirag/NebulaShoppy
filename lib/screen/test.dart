@@ -36,6 +36,9 @@ import 'package:http/http.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
+
+
 class Test extends StatefulWidget {
   @override
   State<Test> createState() => _TestState();
@@ -43,15 +46,18 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> with RouteAware {
   final controller = PageController(viewportFraction: 1, keepPage: true);
-  bool isReadmore = false;
+    bool isReadmore= false;
 
-  var scrollController = ScrollController();
-
+     var scrollController = ScrollController();
+     
   @override
   void initState() {
     super.initState();
+   
   }
 
+
+  
   @override
   void didPush() {
     print('HomePage: Called didPush');
@@ -75,28 +81,68 @@ class _TestState extends State<Test> with RouteAware {
     print('HomePage: Called didPushNext');
     super.didPushNext();
   }
-
-  @override
+ @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return MaterialApp(
+      home: Scaffold(
         appBar: AppBar(
-          title: Text('Read More'),
-          centerTitle: true,
+          title: const Text('Payu Money Flutter'),
         ),
-        body: Text("data"));
+       body: Center(
+          child: ElevatedButton(
+            child: Text("Make Payment"),
+            onPressed: () async {
+              // // Every Transaction should have a unique ID. I am using timestamp as transactionid. Because its always unique :)
+              String orderId = DateTime.now().millisecondsSinceEpoch.toString();
+              // Amount is in rs. Enter 100 for Rs100.
+              final String amount = "1";
+
+              // Phone Number should be 10 digits. Please validate it before passing else it will throw error.
+              // hashUrl is required. check github documentation for nodejs code.
+              var response = await PayumoneyProUnofficial.payUParams(
+                  email: 'vaghelacd99@gmail.com',
+                  firstName: "chirag vaghela",
+                  merchantName: 'chirag',
+                  isProduction: true,
+                  merchantKey:
+                      '0w2qzK', //You will find these details from payumoney dashboard
+                  merchantSalt: 'Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU',
+                  amount: '1.00',
+                  productInfo: 'iPhone 12', // Enter Product Name
+                  transactionId:
+                      orderId, //Every Transaction should have a unique ID
+                  hashUrl: '',
+                  userCredentials: '0w2qzK:tvaghelacd99@gmail.com',
+                  showLogs: true,
+                  userPhoneNumber: '9999999999');
+              // handling success response
+              if (response['status'] == PayUParams.success)
+                handlePaymentSuccess(amount);
+              // handling failure response
+              if (response['status'] == PayUParams.failed)
+                handlePaymentFailure(amount, response['message']);
+            },
+          ),
+        ),
+      ),
+    );
+
   }
 
-  Widget buildText(String text) {
-    // if read more is false then show only 3 lines from text
-    // else show full text
-    final lines = isReadmore ? null : 3;
-    return Text(
-      text,
-      style: TextStyle(fontSize: 25),
-      maxLines: lines,
-      // overflow properties is used to show 3 dot in text widget
-      // so that user can understand there are few more line to read.
-      overflow: isReadmore ? TextOverflow.visible : TextOverflow.ellipsis,
-    );
+  // Function to implement business login on payment success
+  handlePaymentSuccess(String amount) {
+    print("Success");
+    // Implement your logic here for successful payment.
+  }
+
+// Function to implement business login on payment failure
+  handlePaymentFailure(String amount, String error) {
+    print("Failed");
+    print(error);
+    // Implement your logic here for failed payment.
   }
 }
+ 
+  void startPayment() async {
+  
+  }

@@ -163,11 +163,11 @@ class CategoryProductWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             //setTextData(product.company, 16),
-            setBoldText(product.company, 16, Colors.black),
+            setRegularText(product.company, 14, Colors.black),
             //setRegularText(product.name, 12, Colors.black),
             Padding(
               padding: EdgeInsets.only(top: 3),
-              child: setRegularText(product.name, 12, Colors.black),
+              child: setRegularText(product.name, 10, Colors.black),
             ),
             // Row(
             //   children: <Widget>[
@@ -222,10 +222,10 @@ Column setProductPrice(Product product) {
     children: [
       Container(
         padding: EdgeInsets.only(left: 8, top: 10, right: 8),
-        child: setBoldText(rupees_Sybol + product.price, 14, Colors.red),
+        child: setBoldText(rupees_Sybol + removeDecimalAmount(product.price) , 14, Colors.red),
       ),
       Text(
-        rupees_Sybol + product.mrp,
+        rupees_Sybol + removeDecimalAmount(product.mrp),
         style: TextStyle(
             color: Colors.grey,
             fontSize: 10,

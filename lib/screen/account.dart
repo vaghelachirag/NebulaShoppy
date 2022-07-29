@@ -24,6 +24,7 @@ import '../model/product.dart';
 import '../uttils/sharedpref.dart';
 import '../widget/Accountwidget.dart';
 import '../widget/LoginDialoug.dart';
+import '../widget/cartCounter.dart';
 import '../widget/common_widget.dart';
 import '../widget/myorderwidget.dart';
 import '../widget/noInternetDialoug.dart';
@@ -31,10 +32,11 @@ import '../widget/searchitem.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
 
 import '../widget/userprofilewidget.dart';
+import 'package:provider/provider.dart';
+
 
 class Account extends StatefulWidget {
   @override
@@ -65,10 +67,15 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           context: context,
           builder: (context) {
             return LoginDialoug(
-              context,
               title: "SoldOut",
               description:
-                  "This product may not be available at the selected address.",
+                  "This product may not be available at the selected address.", onLoginSuccess: () {  
+                    setState(() {
+                      is_Login = true;
+                       addAccountData();
+                       getCartCount();
+                    });
+                  },
             );
           },
         );
@@ -86,7 +93,9 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
+    var cartCounter = Provider.of<CartCounter>(context);
+    initilizationCounter(context);
+    cartCounter.setCartCountity(int_CartCounters);
     ScreenUtil.init(context);
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
@@ -139,6 +148,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
   }
 
   void addAccountData() {
+    _accountList.clear();
     _accountList.add(SetMyAccount(
         postition: 0,
         Title: "My Address",

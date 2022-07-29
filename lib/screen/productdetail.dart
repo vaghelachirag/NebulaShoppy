@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-import 'package:provider/provider.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
@@ -19,7 +19,6 @@ import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/uttils/sliderShowFullmageswidget.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:nebulashoppy/widget/dotted_slider.dart';
 import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
@@ -28,6 +27,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../model/product.dart';
+import '../widget/cartCounter.dart';
 import '../widget/common_widget.dart';
 import '../widget/soldoutdialoug.dart';
 import '../widget/star_rating.dart';
@@ -37,6 +37,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class ProductDetail extends StatefulWidget {
   int id;
@@ -93,9 +94,7 @@ class _ProductDetailState extends State<ProductDetail> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
-
   late CartCounter cartCounter ;
-
   @override
   void initState() {
     super.initState();
@@ -118,7 +117,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
-     cartCounter = Provider.of<CartCounter>(context);
+    cartCounter = Provider.of<CartCounter>(context);
     cartCounter.setCartCountity(int_CartCounters);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -295,16 +294,13 @@ class _ProductDetailState extends State<ProductDetail> {
                                   child: GestureDetector(
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color:
-                                                int_SelectedVariantId == index
-                                                    ? Colors.black
-                                                    : Colors.black12,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
+                                         shape: BoxShape.circle,
+                                         color:  int_SelectedVariantId == index
+                                      ? Colors.black
+                                      : Colors.black12
+                                    ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(1),
+                                        padding: EdgeInsets.all(3),
                                         child: CircleAvatar(
                                           backgroundColor: Color(int.parse(
                                               _listProductVariantColor[index]
@@ -365,7 +361,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       itemBuilder: (context, index) {
                         return Container(
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
+                                border: Border.all(color: Colors.black),),
                             child: FutureBuilder(
                               future: setSelectedHeighlitWeightId(
                                   _listProductVariantWeight),
@@ -417,7 +413,10 @@ class _ProductDetailState extends State<ProductDetail> {
                       onTap: () {
                         print("OnCart" + "Add ToCart");
                       },
-                      child: Container(
+                      child: 
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child:  Container(
                         child: Padding(
                           padding: EdgeInsets.all(0),
                           child: CircleAvatar(
@@ -429,6 +428,8 @@ class _ProductDetailState extends State<ProductDetail> {
                               )),
                         ),
                       ),
+                      )
+                     ,
                     )),
                 Align(
                     alignment: Alignment.centerRight,
@@ -481,7 +482,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     ),
                 Align(
-                    alignment: Alignment.topRight,
+                    alignment: Alignment.centerRight,
                     child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -535,7 +536,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: setBoldText("NebulaCare Customised", 10, Colors.black))
+                child: setRegularText("Nebulacare Customised", 10, Colors.black))
           ],
         )
       ],
@@ -672,7 +673,7 @@ class _ProductDetailState extends State<ProductDetail> {
       children: [
         Text(
           _listBannerImage[0].name,
-          style: TextStyle(fontSize: 16, color: Colors.red),
+          style: TextStyle(fontSize: 14, color: Colors.red[100],fontStyle: FontStyle.normal),
         )
       ],
     );
@@ -725,8 +726,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              setBoldText(
-                                  _listBannerImage[0].name, 20, Colors.red),
+                              setRegularText(
+                                  _listBannerImage[0].name, 16, Colors.red),
                               // Text(
                               //   _listBannerImage[0].name,
                               //   style: TextStyle(
@@ -740,10 +741,11 @@ class _ProductDetailState extends State<ProductDetail> {
                               // ),
                             ],
                           ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),child:
                           Align(
                             alignment: Alignment.topLeft,
                             child: setItalicText(
-                                str_ShortDescription, 12, Colors.grey),
+                                str_ShortDescription, 10, Colors.grey),
                             // Text(
                             //   str_ShortDescription,
                             //   style: TextStyle(
@@ -751,7 +753,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             //       color: Colors.grey,
                             //       fontWeight: FontWeight.normal),
                             // ),
-                          )
+                          ))
                         ],
                       )),
                   Column(
@@ -1129,7 +1131,7 @@ class _ProductDetailState extends State<ProductDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                setBoldText('\u{20B9}${str_saleprice}', 20, Colors.black)
+                setRegularText('\u{20B9}${str_saleprice}', 20, Colors.black)
                 // Text(
                 //   '\u{20B9}${str_saleprice}',
                 //   style: TextStyle(
@@ -1156,7 +1158,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 Padding(
                     padding: EdgeInsets.only(left: 1),
                     child: Text(
-                      str_Mrp,
+                      removeDecimalAmount(str_Mrp),
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
@@ -1170,7 +1172,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    setBoldText("PV:", 12, Colors.black),
+                    setRegularText("PV:", 12, Colors.black),
                     // Text(
                     //   "PV:",
                     //   style: TextStyle(
@@ -1180,7 +1182,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: setBoldText(str_PV, 12, Colors.red),
+                      child: setRegularText(removeDecimalAmount(str_PV), 12, Colors.red),
                       // Text(
                       //   str_PV,
                       //   style: TextStyle(
@@ -1191,7 +1193,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText("BV:", 12, Colors.black)
+                        child: setRegularText("BV:", 12, Colors.black)
                         //  Text(
                         //   "BV:",
                         //   style: TextStyle(
@@ -1202,7 +1204,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText(str_BV, 12, Colors.red)
+                        child: setRegularText(removeDecimalAmount(str_BV), 12, Colors.red)
                         // Text(
                         //   str_BV,
                         //   style: TextStyle(
@@ -1213,7 +1215,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText("NV:", 12, Colors.black)
+                        child: setRegularText("NV:", 12, Colors.black)
                         // Text(
                         //   "NV:",
                         //   style: TextStyle(
@@ -1224,7 +1226,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setBoldText(str_NV, 12, Colors.red)
+                        child: setRegularText(removeDecimalAmount(str_NV), 12, Colors.red)
                         // Text(
                         //   str_NV,
                         //   style: TextStyle(
@@ -1240,7 +1242,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    setBoldText("SKU:", 14, Colors.black),
+                    setRegularText("SKU:", 14, Colors.black),
                     // Text(
                     //   "SKU:",
                     //   style: TextStyle(
@@ -1250,7 +1252,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: setBoldText(str_SKU, 14, Colors.red),
+                      child: setRegularText(str_SKU, 14, Colors.black),
                       //   Text(
                       //   str_SKU,
                       //   style: TextStyle(
@@ -1285,30 +1287,9 @@ class _ProductDetailState extends State<ProductDetail> {
             Text("Capacity"),
             Row(
               children: <Widget>[
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('64 GB'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.grey, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 0.8, //width of the border
-                  ),
-                ),
+               
                 SizedBox(
                   width: 8,
-                ),
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('128 GB'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.red, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 1, //width of the border
-                  ),
                 ),
               ],
             ),
@@ -1318,45 +1299,15 @@ class _ProductDetailState extends State<ProductDetail> {
             Text("Color"),
             Row(
               children: <Widget>[
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('GOLD'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.orangeAccent, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 1.5, //width of the border
-                  ),
-                ),
+              
                 SizedBox(
                   width: 8,
                 ),
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('SILVER'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.grey, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 0.8, //width of the border
-                  ),
-                ),
+               
                 SizedBox(
                   width: 8,
                 ),
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('PINK'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.grey, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 0.8, //width of the border
-                  ),
-                ),
+                
               ],
             ),
           ],
@@ -1382,9 +1333,9 @@ class _ProductDetailState extends State<ProductDetail> {
                       "Description",
                       maxLines: 5,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         color: Colors.black45,
-                        fontSize: 18,
+                        fontSize: 14,
                       ),
                     ),
                     Visibility(
@@ -1576,7 +1527,7 @@ class _ProductDetailState extends State<ProductDetail> {
           padding: const EdgeInsets.all(6.0),
           child: Row(
             children: <Widget>[
-              Expanded(child: setBoldText("Similar Items", 18, Colors.black)
+              Expanded(child: setRegularText("Similar Items", 16, Colors.black)
                   // Text(
                   //   "Similar Items",
                   //   style: TextStyle(
@@ -1727,6 +1678,7 @@ class _ProductDetailState extends State<ProductDetail> {
   setProductData(itemProdctDetailData data) async {
     str_Mrp = data.mrp.toString();
     str_saleprice = data.salePrice.toString();
+    str_saleprice = removeDecimalAmount(str_saleprice);
     str_BV = data.bv.toString();
     str_PV = data.pv.toString();
     str_NV = data.nv.toString();
@@ -2072,7 +2024,6 @@ class _ProductDetailState extends State<ProductDetail> {
                     hideProgressBar();
                     if (value.statusCode == 1) {
                       if (flag == Flag_Plus) {
-                        cartCounter.addItemInCart();
                         showSnakeBar(context, "Item Added to Cart!");
                         setState(() {
                           int_CartCounters = int_CartCounters + 1;
@@ -2091,7 +2042,6 @@ class _ProductDetailState extends State<ProductDetail> {
                             setState(() {});
                           }
                         });
-                         cartCounter.removeItemFromCart();
                         showSnakeBar(context, "Item Removed from Cart!");
                       }
                     } else {
@@ -2111,6 +2061,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       hideProgressBar();
                       if (value.statusCode == 1) {
                         if (flag == Flag_Plus) {
+                          cartCounter.addItemInCart();
                           showSnakeBar(context, "Item Added to Cart!");
                           setState(() {
                             int_CartCounters = int_CartCounters + 1;
@@ -2129,6 +2080,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               setState(() {});
                             }
                           });
+                          cartCounter.removeItemFromCart();
                           showSnakeBar(context, "Item Removed from Cart!");
                         }
                       } else {
