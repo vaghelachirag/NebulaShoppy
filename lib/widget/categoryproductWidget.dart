@@ -94,7 +94,7 @@ class CategoryProductWidget extends StatelessWidget {
           child: InkWell(
             onLongPress: () {
               print("Image" + "Image");
-              showAlertDialog(context, product.icon);
+              showAlertDialog(context, product.icon,product.company);
             },
             onTap: () {
               goToProductDetail(context, product);
@@ -222,13 +222,13 @@ Column setProductPrice(Product product) {
     children: [
       Container(
         padding: EdgeInsets.only(left: 8, top: 10, right: 8),
-        child: setBoldText(rupees_Sybol + removeDecimalAmount(product.price) , 14, Colors.red),
+        child: setBoldText(rupees_Sybol + removeDecimalAmount(product.price) , 14, priceColor),
       ),
       Text(
         rupees_Sybol + removeDecimalAmount(product.mrp),
         style: TextStyle(
-            color: Colors.grey,
-            fontSize: 10,
+            color: productDetailColor,
+            fontSize: 12,
             fontFamily: Ember,
             decoration: TextDecoration.lineThrough),
       )
@@ -288,7 +288,7 @@ class ProductImageContainerClipper extends CustomClipper<Path> {
   }
 }
 
-showAlertDialog(BuildContext context, String icon) {
+showAlertDialog(BuildContext context, String icon, String name) {
   // set up the button
   Widget okButton = FlatButton(
     child: Text(
@@ -303,7 +303,7 @@ showAlertDialog(BuildContext context, String icon) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(""),
+    title: Text(name,style: TextStyle(color: Colors.black,fontSize: 16, fontFamily: EmberBold),),
     content: Image(image: NetworkImage(icon)),
     actions: [
       okButton,
