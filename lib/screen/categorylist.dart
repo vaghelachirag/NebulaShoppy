@@ -5,6 +5,7 @@ import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:nebulashoppy/widget/categoryproductWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:nebulashoppy/widget/filterWidget.dart';
@@ -21,6 +22,8 @@ import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:provider/provider.dart';
+
 
 class CategoryList extends StatefulWidget {
   int position, id;
@@ -43,6 +46,8 @@ class _CategoryListState extends State<CategoryList>
   bool bl_IsFilterVisible = false;
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
+   late CartCounter cartCounter ;
   @override
   void initState() {
     super.initState();
@@ -92,6 +97,8 @@ class _CategoryListState extends State<CategoryList>
 
   @override
   Widget build(BuildContext context) {
+     cartCounter = Provider.of<CartCounter>(context);
+    cartCounter.setCartCountity(int_CartCounters);
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -493,8 +500,6 @@ class _CategoryListState extends State<CategoryList>
     );
   }
 
-
-
   Shimmer loadSkeletonLoader(Flexible skeletonbuildNewLaunch) {
     return Shimmer.fromColors(
       baseColor: Colors.grey.shade300,
@@ -504,18 +509,7 @@ class _CategoryListState extends State<CategoryList>
     );
   }
 
-  void getCartCount() async {
-    setState(() {
-      widget.device_Id = DeviceId.toString();
-    });
-    Service().getCartCount(DeviceId.toString(), "").then((value) => {
-          setState(() {
-            int_CartCounters = value.data!.sumOfQty;
-            QTYCount = value.data!.sumOfQty.toString();
-          })
-        });
-  }
-
+  
   Container loadhomeCategorySkeleton() {
     return Container(
         height: MediaQuery.of(context).size.height,

@@ -117,6 +117,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
+    initilizationCounter(context);
     cartCounter = Provider.of<CartCounter>(context);
     cartCounter.setCartCountity(int_CartCounters);
     var size = MediaQuery.of(context).size;
@@ -442,6 +443,9 @@ class _ProductDetailState extends State<ProductDetail> {
                 Container(
                   child: GestureDetector(
                       onTap: () {
+                        if(int_CartQuantity == 0){
+                          return;
+                        }
                         setState(() {
                           widget.device_Id = DeviceId.toString();
                         });
@@ -456,7 +460,10 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: Padding(
                         padding: EdgeInsets.all(0),
                         child: CircleAvatar(
-                            backgroundColor: buttonColor,
+                            backgroundColor: int_CartQuantity == 0
+                              ? Colors.amber.shade100
+                              :buttonColor,
+                          
                             maxRadius: 20,
                             child: setBoldText("-", 16, Colors.black)
                             // Text(
@@ -781,9 +788,10 @@ class _ProductDetailState extends State<ProductDetail> {
                                 maxVisibleDots: 5,
                                 radius: 8,
                                 spacing: 10,
-                                dotHeight: 12,
-                                dotWidth: 12,
-                                activeDotColor: Colors.cyan)),
+                                dotHeight: 10,
+                                dotWidth: 10,
+                                dotColor: Colors.grey,
+                                activeDotColor: Colors.grey.shade200)),
                       )
                     ],
                   )
@@ -2061,7 +2069,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       hideProgressBar();
                       if (value.statusCode == 1) {
                         if (flag == Flag_Plus) {
-                          cartCounter.addItemInCart();
+                        //  cartCounter.addItemInCart();
                           showSnakeBar(context, "Item Added to Cart!");
                           setState(() {
                             int_CartCounters = int_CartCounters + 1;
@@ -2080,7 +2088,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               setState(() {});
                             }
                           });
-                          cartCounter.removeItemFromCart();
+                         // cartCounter.removeItemFromCart();
                           showSnakeBar(context, "Item Removed from Cart!");
                         }
                       } else {

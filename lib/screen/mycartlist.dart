@@ -353,7 +353,7 @@ handlePaymentFailure(String errorMessage){
                   softWrap: true),
             )),
             //setBoldText(str_SelectedAddress, 12, Colors.black),
-            Padding(padding: EdgeInsets.only(right: 10),child: 
+            Padding(padding: EdgeInsets.only(right: 20),child: 
             SizedBox(
                  width: 24,
                   child:  
@@ -706,7 +706,8 @@ handlePaymentFailure(String errorMessage){
                         showSnakeBar(context, "Item Removed From Cart!");
                         setState(() {
                           //  _listCartItem.clear();
-                          getMyCartList();
+                           getMyCartList();
+                           getCartCount();
                         });
                       } else {
                         showSnakeBar(context, "Opps! Something Wrong");

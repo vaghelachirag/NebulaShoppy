@@ -218,6 +218,8 @@ class _OrderSummeryState extends State<OrderSummery>
                   children: [
                     Checkbox(
                       activeColor: THEME_COLOR,
+                      hoverColor: THEME_COLOR,
+                      focusColor: THEME_COLOR,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: isCheckedEWallet,
                       checkColor: Colors.white,
@@ -348,7 +350,7 @@ class _OrderSummeryState extends State<OrderSummery>
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(str_SelectedAddress,
-                    style: TextStyle(fontSize: 12, fontFamily: Ember),
+                    style: TextStyle(fontSize: 14, fontFamily: Ember),
                     softWrap: true)
                 //setRegularText( str_SelectedAddress, 12, Colors.black)
                 ,

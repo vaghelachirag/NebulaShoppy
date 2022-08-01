@@ -216,6 +216,8 @@ class Service {
         str_UserId));
     var json = response.body;
 
+    print("CartCount"+ json.toString());
+
     return getCartCountResponseFromJson(json);
   }
 
