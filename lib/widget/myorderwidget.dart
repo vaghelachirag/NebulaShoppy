@@ -101,7 +101,7 @@ class MyOrderWiget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 10),
               child:
-                  setBoldText(product.ordernumber.toString(), 16, Colors.black),
+                  setBoldText(product.ordernumber.toString(), 14, Colors.black),
             ),
             // Text(
             //   product.ordernumber.toString(),

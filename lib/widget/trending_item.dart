@@ -127,7 +127,7 @@ class TrendingItem extends StatelessWidget {
         // ),
         Padding(
             padding: EdgeInsets.only(top: 3),
-            child: setBoldText(product.company, 14, Colors.black)),
+            child: setRegularText(product.company, 14, Colors.black)),
         // setRegularText( product.name, 12, Colors.black, FontWeight.normal),
         Padding(
           padding: EdgeInsets.only(top: 3),
@@ -143,11 +143,11 @@ class TrendingItem extends StatelessWidget {
             padding: EdgeInsets.only(top: 3),
             child: Row(
               children: <Widget>[
-                setBoldText(product.price, 12, Colors.red),
+                setBoldText(removeDecimalAmount(product.price), 12, Colors.red),
                 Padding(
                     padding: EdgeInsets.only(left: 3),
                     child: Text(
-                      product.mrp,
+                     removeDecimalAmount(product.mrp),
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 10,

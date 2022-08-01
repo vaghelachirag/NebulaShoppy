@@ -8,6 +8,7 @@ import 'package:nebulashoppy/screen/splash.dart';
 import 'package:nebulashoppy/screen/tabscreen.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
+import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,6 +20,7 @@ import '../widget/noInternetDialoug.dart';
 import '../widget/restartWidget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
+import 'package:provider/provider.dart';
 
 const HOME_SCREEN = 'home_screen';
 
@@ -167,6 +169,8 @@ DateTime currentBackPressTime = DateTime.now();
 // E Wallet
 String str_Ewalltet = "0.0";
 
+ late CartCounter cartCounter ;
+
 String register =
     'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
 
@@ -183,6 +187,10 @@ showSnakeBar(BuildContext context, String msg) {
       behavior: SnackBarBehavior.floating,
     ),
   );
+}
+
+initilizationCounter(BuildContext context){
+   cartCounter = Provider.of<CartCounter>(context);
 }
 
 changeBaseURL(int int_BaseUrl) {
@@ -236,6 +244,7 @@ Text setRegularText(String text, int size, Color black) {
   return Text(
     text,
     maxLines: 1,
+overflow: TextOverflow.ellipsis,
     style: TextStyle(
         fontFamily: Ember, fontSize: ScreenUtil().setSp(size), color: black),
     textAlign: TextAlign.start,
@@ -337,6 +346,17 @@ String getDeviceHeight(BuildContext context) {
   } else {
     return "Medium";
   }
+}
+
+String removeDecimalAmount(String amount){
+   if(amount.contains(".")){
+    var arr = amount.split('.');
+    amount = arr[0]; 
+    return amount;
+   }
+   else {
+    return amount;
+   }
 }
 
 Future<bool> willPopCallback() async {
@@ -445,7 +465,8 @@ void getCartCount() async {
     if (!is_Login) {
       Service().getCartCount(DeviceId.toString(), "").then((value) => {
             int_CartCounters = value.data!.sumOfQty,
-            QTYCount = value.data!.sumOfQty.toString()
+            QTYCount = value.data!.sumOfQty.toString(),
+             cartCounter.setCartCountity(int_CartCounters)
           });
     } else {
       getUserId();
@@ -458,7 +479,8 @@ void getCartCount() async {
         .getCartCount(DeviceId.toString(), str_UserId.toString())
         .then((value) => {
               int_CartCounters = value.data!.sumOfQty,
-              QTYCount = value.data!.sumOfQty.toString()
+              QTYCount = value.data!.sumOfQty.toString(),
+              cartCounter.setCartCountity(int_CartCounters)
             });
   });
 }

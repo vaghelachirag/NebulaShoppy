@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'package:nebulashoppy/widget/cartCounter.dart';
-import 'package:provider/provider.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
@@ -25,6 +23,7 @@ import '../model/homescreen/itemhomecategory.dart';
 import '../model/product.dart';
 import '../network/service.dart';
 import '../uttils/constant.dart';
+import '../widget/cartCounter.dart';
 import '../widget/common_widget.dart';
 import '../widget/mainButton.dart';
 import '../widget/noInternet.dart';
@@ -33,6 +32,8 @@ import '../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:provider/provider.dart';
+
 
 class MyCartList extends StatefulWidget {
   String device_Id = "";
@@ -53,7 +54,8 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
   String str_UserIds = "";
- late CartCounter cartCounter ;
+
+ late CartCounter cartCounter;
   @override
   void initState() {
     super.initState();
@@ -131,8 +133,6 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   @override
   Widget build(BuildContext context) {
     cartCounter = Provider.of<CartCounter>(context);
-    cartCounter.setCartCountity(int_CartCounters);
-    
     ScreenUtil.init(context);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
@@ -249,7 +249,7 @@ handlePaymentFailure(String errorMessage){
                         Container(
                           padding: EdgeInsets.all(10),
                           width: MediaQuery.of(context).size.width,
-                          child: setBoldText("Order Detail", 16, Colors.grey),
+                          child: setBoldText("Order Details", 16, Colors.grey),
                           //  Text(
                           //   "Order Detail",
                           //   style: TextStyle(color: Colors.grey, fontSize: 16),
@@ -389,7 +389,7 @@ handlePaymentFailure(String errorMessage){
           Align(
               alignment: Alignment.topRight,
               child: setRegularText(
-                  rupees_Sybol + detail.toString(), 14, Colors.red)
+                  rupees_Sybol + detail.toString(), 16, Colors.red)
               // Text(
               //   rupees_Sybol + detail.toString(),
               //   style: TextStyle(
@@ -419,7 +419,7 @@ handlePaymentFailure(String errorMessage){
               ),
           Align(
               alignment: Alignment.topRight,
-              child: setBoldText(detail!, 14, Colors.blue)
+              child: setBoldText(detail!, 16, Colors.blue)
               // Text(
               //   detail!,
               //   style: const TextStyle(
@@ -618,7 +618,7 @@ handlePaymentFailure(String errorMessage){
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       decoration: grandientBackground(),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 11,
+      height: MediaQuery.of(context).size.height / 13,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -626,7 +626,7 @@ handlePaymentFailure(String errorMessage){
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                setBoldText("Payable Amount:  ", 16, Colors.black),
+                setBoldText("Payable Amount :  ", 16, Colors.black),
                 // Text(
                 //   "Payable Amount:  ",
                 //   style: TextStyle(
@@ -634,7 +634,7 @@ handlePaymentFailure(String errorMessage){
                 //       fontWeight: FontWeight.bold,
                 //       fontSize: 16),
                 // ),
-                setBoldText(rupees_Sybol + str_GrandTotal, 16, Colors.black)
+                setRegularText(rupees_Sybol + str_GrandTotal, 14, Colors.black)
               ],
             ),
           ),
@@ -731,7 +731,7 @@ handlePaymentFailure(String errorMessage){
                         getMyCartList();
                       });
                     } else {
-                       cartCounter.removeItemFromCart();
+                      cartCounter.removeItemFromCart();
                       showSnakeBar(context, "Item Removed from Cart!");
                       setState(() {
                         //  _listCartItem.clear();
@@ -859,21 +859,28 @@ handlePaymentFailure(String errorMessage){
   }
 
   void openCheckoutDialoug() {
-    if (!is_Login) {
-      showDialog(
+      if(!is_Login){
+         showDialog(
         barrierColor: Colors.black26,
         context: context,
         builder: (context) {
           return LoginDialoug(
-            context,
             title: "SoldOut",
             description:
-                "This product may not be available at the selected address.",
+                "This product may not be available at the selected address.", onLoginSuccess: () { 
+                  print("onLogin"+"OnloginnSuccess");
+                   setState(() {
+                     is_Login = true;
+                      getMyCartList();
+                   });
+                 },
           );
         },
       );
-    } else {
-      Navigator.push(
+      }
+      else{
+          // showSnakeBar(context, "Login");
+           Navigator.push(
           context,
           PageTransition(
             type: PageTransitionType.fade,
@@ -890,7 +897,39 @@ handlePaymentFailure(String errorMessage){
               is_WalletFreez: getCartItemData?.isEwalletfreeze,
             ),
           ));
-    }
+      }
+    // if (!is_Login) {
+    //   showDialog(
+    //     barrierColor: Colors.black26,
+    //     context: context,
+    //     builder: (context) {
+    //       return LoginDialoug(
+    //         context,
+    //         title: "SoldOut",
+    //         description:
+    //             "This product may not be available at the selected address.",
+    //       );
+    //     },
+    //   );
+    // } else {
+    //   Navigator.push(
+    //       context,
+    //       PageTransition(
+    //         type: PageTransitionType.fade,
+    //         child: OrderSummery(
+    //           str_Title: "Order Summery",
+    //           int_SubTotal: getCartItemData?.subTotal,
+    //           int_GrandTotal: getCartItemData?.grandTotal,
+    //           int_ShippingCharge: getCartItemData?.shippingCharge,
+    //           int_GrandTotalWallet: getCartItemData?.grandTotalWithEwallet,
+    //           int_ShippingChargeWallet: getCartItemData?.shippingWithEwallet,
+    //           int_SubTotalWallet: getCartItemData?.subTotalWithEwallet,
+    //           int_E_WalletAmount: getCartItemData?.ewalletAmount,
+    //           is_EwalletOnOff: getCartItemData?.isEwalletOnOff,
+    //           is_WalletFreez: getCartItemData?.isEwalletfreeze,
+    //         ),
+    //       ));
+    // }
   }
 
   void getCartItemWithLogin() {

@@ -139,7 +139,7 @@ class CartItemWidget extends StatelessWidget {
                   ));
             },
             child: Container(
-              width: MediaQuery.of(context).size.width / 4,
+              width: MediaQuery.of(context).size.width / 5,
               height: ScreenUtil().setSp(80),
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
@@ -162,7 +162,7 @@ class CartItemWidget extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    setBoldText(product.name, 16, Colors.black),
+                    setRegularText(product.name, 14, Colors.black),
                     // setTextData(product.name, 16),
                     Padding(
                         padding: EdgeInsets.only(top: 5),
@@ -268,7 +268,7 @@ Container setTextData(String text, double i) {
 Row setProductPrice(SetCartItem product) {
   return Row(
     children: <Widget>[
-      setBoldText(rupees_Sybol + " " + product.price, 16, Colors.red)
+      setBoldText(rupees_Sybol + " " + removeDecimalAmount(product.price) , 16, Colors.red)
     ],
   );
 }
@@ -284,7 +284,7 @@ Row setPvNv(SetCartItem product) {
       // ),
       Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-        child: setRegularText(product.pv, 12, Colors.black),
+        child: setRegularText(removeDecimalAmount(product.pv) , 12, Colors.black),
       ),
       setBoldText("NV", 14, Colors.black),
       // Text(
@@ -295,12 +295,12 @@ Row setPvNv(SetCartItem product) {
 
       Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: setRegularText(product.nv, 12, Colors.black),
+        child: setRegularText(removeDecimalAmount(product.nv) , 12, Colors.black),
       ),
       setBoldText("BV", 14, Colors.black),
       Padding(
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: setRegularText(product.bv + "%", 12, Colors.black))
+          child: setRegularText(removeDecimalAmount(product.bv) + "%", 12, Colors.black))
       // Text(
       //   product.bv + "%",
       //   style: TextStyle(

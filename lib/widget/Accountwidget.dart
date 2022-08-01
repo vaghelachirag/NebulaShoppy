@@ -92,10 +92,10 @@ class AccountWiget extends StatelessWidget {
           context: context,
           builder: (context) {
             return LoginDialoug(
-              context,
               title: "SoldOut",
               description:
                   "This product may not be available at the selected address.",
+                   onLoginSuccess: () {  },
             );
           },
         );
@@ -157,7 +157,7 @@ class AccountWiget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            setBoldText(product.Title, 16, Colors.black),
+            setRegularText(product.Title, 14, Colors.black),
             // Text(
             //   product.Title,
             //   maxLines: 1,

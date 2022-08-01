@@ -245,14 +245,15 @@ Padding loadSkeletonLoadersGrid(
     Widget box, Axis vertical, BuildContext context) {
   return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 100,
+      child: Flexible(child: 
+       Container(
+        width: MediaQuery.of(context).size.width / 2,
           child: SingleChildScrollView(
             child: 
             GridView.builder(
               itemCount: 20,
              shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+             physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext ctx, index) {
                 int timer = 2000;
                 return Shimmer.fromColors(
@@ -262,14 +263,14 @@ Padding loadSkeletonLoadersGrid(
                   child: boxProductCatWise(context),
                 );
               },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                crossAxisSpacing: 1,
-                mainAxisSpacing: 1,
-              )),
+             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+        )),
         ),
-      ));
+      )));
 }
 
 OutlinedButton setMainButton() {

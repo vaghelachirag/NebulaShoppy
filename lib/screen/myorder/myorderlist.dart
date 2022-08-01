@@ -21,14 +21,15 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../model/product.dart';
 import '../../widget/LoginDialoug.dart';
+import '../../widget/cartCounter.dart';
 import '../../widget/myorderwidget.dart';
 import '../../widget/noInternet.dart';
 import '../../widget/searchitem.dart';
 import '../../widget/star_rating.dart';
 import '../../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MyOrderList extends StatefulWidget {
   @override
@@ -49,6 +50,8 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+     var cartCounter = Provider.of<CartCounter>(context);
+    cartCounter.setCartCountity(int_CartCounters);
     var size = MediaQuery.of(context).size;
 
     ScreenUtil.init(context);

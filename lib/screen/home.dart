@@ -12,7 +12,6 @@ import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
-import 'package:nebulashoppy/widget/cartCounter.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:nebulashoppy/widget/noInternet.dart';
 import '../database/sQLHelper.dart';
@@ -24,12 +23,12 @@ import 'package:shimmer/shimmer.dart';
 import '../model/product.dart';
 import '../uttils/sharedpref.dart';
 import '../uttils/skeletonloader.dart';
+import '../widget/cartCounter.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -54,7 +53,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   DateTime currentBackPressTime = DateTime.now();
 
-  late FirebaseMessaging messaging;
 
   @override
   void initState() {
@@ -100,87 +98,83 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Home", true)),
-      body: is_InternetConnected == false
-          ? NoInternet(
-              onRetryClick: () {
-                onRetryClick();
-                print("Home" + "Retry");
-              },
-            )
-          : WillPopScope(
-              child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                constraints: BoxConstraints(),
-                child: Column(
-                  children: [
-                    FutureBuilder(
-                      builder: (context, snapshot) {
-                        if (_listBannerImage.isEmpty) {
-                          return Container(
-                            margin: EdgeInsets.only(top: 6),
-                            height: ScreenUtil().setHeight(80),
-                            child: loadSkeletonLoaders(
-                                boxVerticalCategory(), Axis.horizontal),
-                          );
-                        } else {
-                          return homeCategory();
-                        }
-                      },
-                    ),
-                    FutureBuilder(
-                      builder: (context, snapshot) {
-                        if (_listBannerImage.isEmpty) {
-                          return loadSkeletonLoader(skeletontopbannerImage());
-                        } else {
-                          return topbannerImage();
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    topHeader("Newly launched"),
-                    FutureBuilder(
-                      future: getNewLaunchedProduct(),
-                      builder: (context, snapshot) {
-                        if (_listNewLaunched.isEmpty) {
-                          return loadNewLaunchSkeleton();
-                        } else {
-                          return buildNewLaunch();
-                        }
-                      },
-                    ),
-                    topHeader("Trending"),
-                    FutureBuilder(
-                      future: getNewLaunchedProduct(),
-                      builder: (context, snapshot) {
-                        if (_listNewLaunched.isEmpty) {
-                          return loadNewLaunchSkeleton();
-                        } else {
-                          return buildTranding();
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 2.0,
-                    ),
-                    FutureBuilder(
-                      builder: (context, snapshot) {
-                        if (_listRecentView.isEmpty) {
-                          return Text("");
-                        } else {
-                          return buildRecentView();
-                        }
-                      },
-                    )
-                  ],
+      body: is_InternetConnected == false ? NoInternet(onRetryClick: () {
+         onRetryClick();
+         print("Home"+"Retry");
+      },) :  
+         WillPopScope(
+          child: SingleChildScrollView(
+              child: ConstrainedBox(
+            constraints: BoxConstraints(),
+            child: Column(
+              children: [        
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_listBannerImage.isEmpty) {
+                      return Container(
+                        margin: EdgeInsets.only(top: 6),
+                        height: ScreenUtil().setHeight(80),
+                        child: loadSkeletonLoaders(
+                            boxVerticalCategory(), Axis.horizontal),
+                      );
+                    } else {
+                      return homeCategory();
+                    }
+                  },
                 ),
-              )),
-              onWillPop:
-                  onWillPop), // This trailing comma makes auto-formatting nicer for build methods.
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_listBannerImage.isEmpty) {
+                      return loadSkeletonLoader(skeletontopbannerImage());
+                    } else {
+                      return topbannerImage();
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                topHeader("Newly launched"),
+                FutureBuilder(
+                  future: getNewLaunchedProduct(),
+                  builder: (context, snapshot) {
+                    if (_listNewLaunched.isEmpty) {
+                      return loadNewLaunchSkeleton();
+                    } else {
+                      return buildNewLaunch();
+                    }
+                  },
+                ),
+                topHeader("Trending"),
+                FutureBuilder(
+                  future: getNewLaunchedProduct(),
+                  builder: (context, snapshot) {
+                    if (_listNewLaunched.isEmpty) {
+                      return loadNewLaunchSkeleton();
+                    } else {
+                      return buildTranding();
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 2.0,
+                ),
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (_listRecentView.isEmpty) {
+                      return Text("");
+                    } else {
+                      return buildRecentView();
+                    }
+                  },
+                )
+              ],
+            ),
+          )),
+          onWillPop:
+              onWillPop), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
   getBannerImage() async {
     Service().getHomeBanner().then((value) => {
           if (this.mounted)
@@ -560,7 +554,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     print("BackPress" + "Backpress");
     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      now.difference(currentBackPressTime) > Duration(seconds: 2)) {
       currentBackPressTime = now;
       return Future.value(false);
     }
@@ -623,15 +617,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   }
 
 // Register Token
-  void getRegisterToken() async {
-    var str_FcmToken = await SharedPref.readString(str_FCMToken);
-    if (is_Login) {
-      getUserId();
-      Future.delayed(Duration(seconds: 0), () {
-        sendTokenToServer(str_FcmToken);
-      });
-    }
-    print("DeviceID" + str_FcmToken);
+  void getRegisterToken() async{
+   var str_FcmToken = await SharedPref.readString(str_FCMToken);
+   if(is_Login){
+    getUserId();
+     Future.delayed(Duration(seconds: 0), () {
+      sendTokenToServer(str_FcmToken);
+     });   
+   }
+   print("DeviceID"+ str_FcmToken);
   }
 
   void onRetryClick() {
@@ -639,16 +633,19 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       isConnectedToInternet();
     });
   }
-}
+  }
 
-// Send Token to Server
-void sendTokenToServer(str_fcmToken) {
-  Service()
-      .getRegisterTokenResponse(str_fcmToken, "IMEI1", "0", str_UserId)
-      .then((value) => {
-            if (value.toString() == str_ErrorMsg)
-              {print("Success" + "Fail")}
-            else
-              {print("Success" + "Success")}
-          });
+  // Send Token to Server
+  void sendTokenToServer(str_fcmToken) {
+    Service().getRegisterTokenResponse(str_fcmToken,"IMEI1","0",str_UserId)
+        .then((value) => {
+              if (value.toString() == str_ErrorMsg)
+                {
+                 print("Success"+"Fail")
+                }
+              else
+                {
+                 print("Success"+"Success")
+                }
+            });
 }

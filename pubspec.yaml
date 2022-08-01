@@ -66,6 +66,7 @@ dev_dependencies:
   flutter_local_notifications: ^9.5.3+1
   simple_connection_checker: ^0.2.1
   badges: ^2.0.3
+  provider: ^6.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

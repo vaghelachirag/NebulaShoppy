@@ -5,11 +5,8 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/services.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
-import 'package:nebulashoppy/widget/forgotpasswordDialoug.dart';
-
 import '../model/getcartCountResponse/getAddToCartResponse.dart';
 import '../network/service.dart';
-import '../screen/webview.dart';
 import '../uttils/constant.dart';
 import 'package:page_transition/page_transition.dart';
 import '../uttils/constant.dart';

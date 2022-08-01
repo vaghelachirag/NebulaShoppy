@@ -24,7 +24,6 @@ import '../uttils/skeletonloader.dart';
 import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'account.dart';
@@ -63,9 +62,7 @@ class _TabScreenState extends State<TabScreen> {
   void initState() {
     super.initState();
     checkUserLoginOrNot();
-
-    print("SelectedTab"+widget.int_Selectedtab.toString());
-
+    
     if (is_Login) {
       int_tablength = 2;
     } else {
