@@ -180,23 +180,24 @@ class _OrderSummeryState extends State<OrderSummery>
                   }
                 },
               ),
-              divider(context),
-              Card(
-                child: Column(
+              Padding(padding: EdgeInsets.fromLTRB(10, 3, 10, 3),child: divider(context),)
+               ,
+             Column(
                   children: [
                     orderSummeryTitle(
-                        "Sub Total", int_SubTotal.toString(), true, "Gray"),
+                        "Subtotal", int_SubTotal.toString(), true, "Gray"),
                     Padding(
                       padding: EdgeInsets.all(0),
                       child: EwalletOption(),
                     ),
-                    orderSummeryTitle("Shipping Charge",
+                    orderSummeryTitle("Shipping Charges",
                         int_ShippingCharge.toString(), true, "Gray"),
+                        
                     orderSummeryTitle(
                         "Grand Total", int_Total.toString(), true, "Black"),
                   ],
                 ),
-              ),
+                 Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 8),child: divider(context),),
               setPickupAddress(),
             ],
           ),
@@ -216,7 +217,7 @@ class _OrderSummeryState extends State<OrderSummery>
                 Row(
                   children: [
                     Checkbox(
-                      activeColor: buttonColor,
+                      activeColor: THEME_COLOR,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: isCheckedEWallet,
                       checkColor: Colors.white,
@@ -294,8 +295,9 @@ class _OrderSummeryState extends State<OrderSummery>
         children: [
           Align(
               alignment: Alignment.topLeft,
-              child: setRegularText(
-                  title, 14, str_color == "Black" ? Colors.black : Colors.grey)
+              child: 
+              Text(title,style: TextStyle(fontSize: 14,color:str_color == "Black" ? Colors.black : Colors.grey,fontWeight: str_color == "Black" ? FontWeight.bold : FontWeight.normal ),)
+               
               // Text(
               //   title,
               //   style: TextStyle(
@@ -314,7 +316,7 @@ class _OrderSummeryState extends State<OrderSummery>
               ),
               Align(
                 alignment: Alignment.topRight,
-                child: setBoldText(detail.toString(), 14, Colors.red),
+                child: setBoldText(detail.toString(), 14, priceColor),
               )
             ],
           ),
@@ -340,10 +342,9 @@ class _OrderSummeryState extends State<OrderSummery>
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: Card(
-            child: Container(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          padding: EdgeInsets.fromLTRB(10, 0, 5, 0),
+          child: Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(str_SelectedAddress,
@@ -353,7 +354,6 @@ class _OrderSummeryState extends State<OrderSummery>
                 ,
               ),
             ),
-          ),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -382,6 +382,9 @@ class _OrderSummeryState extends State<OrderSummery>
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Card(
+              color: selectedPosition == true
+                        ? selectpaymentBg
+                        : Colors.white,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
                     color: selectedPosition == true
@@ -401,12 +404,13 @@ class _OrderSummeryState extends State<OrderSummery>
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(10, 20, 0, 20),
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: Text(
                       "UPI",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold),
                     ),
                   )
@@ -567,7 +571,7 @@ class _OrderSummeryState extends State<OrderSummery>
       setState(() {
         int_Total = widget.int_GrandTotalWallet;
         int_ShippingCharge = widget.int_ShippingChargeWallet;
-        int_SubTotal = widget.int_SubTotalWallet;
+        int_SubTotal = widget.int_SubTotal;
         widget.int_SettleAmount = widget.int_E_WalletAmount;
         print("Wallet" + widget.int_SubTotalWallet.toString());
       });

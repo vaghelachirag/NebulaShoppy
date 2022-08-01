@@ -353,8 +353,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                       child: SizedBox(
-                          width: 25,
-                          height: 25,
+                          width: 30,
+                          height: 30,
                           child: Image.asset(assestPath + 'chennai_icon.png')),
                     ),
                     // IconButton(
@@ -450,7 +450,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
               children: [
                 Card(
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    elevation: 5,
+                    elevation: 20,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -461,7 +461,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(10),
                             child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Container(

@@ -477,7 +477,7 @@ class _CategoryListState extends State<CategoryList>
             child:  
                  Shimmer.fromColors(
                   baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
                   period: Duration(milliseconds: 2000),
                   child: boxProductCatWise(context),
                 )

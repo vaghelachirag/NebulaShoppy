@@ -287,16 +287,17 @@ handlePaymentFailure(String errorMessage){
                       shape: RoundedRectangleBorder(
                         side: new BorderSide(color: Colors.grey, width: 0.5),
                       ),
-                      margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                      margin: EdgeInsets.fromLTRB(10, 5, 10, 20),
                       child: Column(
                         children: [
                           Container(
                               padding: EdgeInsets.all(10),
                               width: MediaQuery.of(context).size.width,
-                              child: setRegularText(
-                                  "Pv and NV generated on this order",
-                                  16,
-                                  Colors.black)
+                              child: Text( "Pv and NV generated on this order", style: TextStyle(fontSize: 16,color: Colors.black,fontStyle: FontStyle.italic),)
+                              // setRegularText(
+                              //     "Pv and NV generated on this order",
+                              //     16,
+                              //     Colors.black)
                               // Text(
                               //   "Pv and NV generated on this order",
                               //   style:
@@ -304,6 +305,7 @@ handlePaymentFailure(String errorMessage){
                               // ),
                               ),
                           divider(context),
+                          
                           getPVNVDetail(
                               "PV", getCartItemData?.totalPv.toString()),
                           Container(
@@ -769,7 +771,9 @@ handlePaymentFailure(String errorMessage){
                       str_SelectedAddress = str_SelectedAddress;
                       str_SelectedAddressType = str_SelectedAddressType;
                      getMyCartList();
+                     
                       print("AddressType"+str_SelectedAddressType);
+                      
                     });
                   },
                 ),

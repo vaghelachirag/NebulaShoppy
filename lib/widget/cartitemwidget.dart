@@ -43,11 +43,10 @@ class CartItemWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
             width: MediaQuery.of(context).size.width,
             child: Card(
                 elevation: 0,
-                color: Colors.white,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

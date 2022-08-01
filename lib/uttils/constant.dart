@@ -162,6 +162,9 @@ const orderDetailbg =  Color(0xFF7e7e7e);
 const productNameColor =  Color(0xFF711212);
 const productDetailColor =  Color(0xFF696969);
 const productPriceBg =  Color(0xFFaaaaaa);
+const selectpaymentBg =  Color(0xFFfdf9ee);
+
+
 
 // Font Family
 const String Montserrat = "Montserrat";
