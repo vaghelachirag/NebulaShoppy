@@ -101,7 +101,7 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w500),
                       )), //Extracting from Map element the value
                       DataCell(Center(
                           child: Text(

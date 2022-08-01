@@ -156,6 +156,13 @@ const buttonColor = Color(0XFFf0c350);
 const buttonBorderCOlor = Color(0XFF7e6a37);
 const loginButtonColor = Color(0XFFd34836);
 
+const pvtextBg = Color(0xFF2c2cd0);
+const priceColor = Color(0xFFcf1615);
+const orderDetailbg =  Color(0xFF7e7e7e);
+const productNameColor =  Color(0xFF711212);
+const productDetailColor =  Color(0xFF696969);
+const productPriceBg =  Color(0xFFaaaaaa);
+
 // Font Family
 const String Montserrat = "Montserrat";
 const String Ember = "Ember";

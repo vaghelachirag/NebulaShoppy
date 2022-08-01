@@ -143,14 +143,14 @@ class TrendingItem extends StatelessWidget {
             padding: EdgeInsets.only(top: 3),
             child: Row(
               children: <Widget>[
-                setBoldText(removeDecimalAmount(product.price), 12, Colors.red),
+                setBoldText(removeDecimalAmount(product.price), 14, priceColor),
                 Padding(
                     padding: EdgeInsets.only(left: 3),
                     child: Text(
                      removeDecimalAmount(product.mrp),
                       style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10,
+                          color: productPriceBg,
+                          fontSize: 12,
                           fontFamily: EmberItalic,
                           decoration: TextDecoration.lineThrough),
                     ))

@@ -28,54 +28,55 @@ class _SoldOutDialougState extends State<SoldOutDialoug> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 15),
-          Text(
-            "${widget.title}",
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.red
-            ),
-          ),
-           SizedBox(height: 10),
+          // Text(
+          //   "${widget.title}",
+          //   style: TextStyle(
+          //     fontSize: 20.0,
+          //     fontWeight: FontWeight.bold,
+          //     color: Colors.red
+          //   ),
+          // ),
+           SizedBox(height: 5),
            Image.asset('assets/images/soldout.png',fit: BoxFit.contain,),
-          SizedBox(height: 15),
+          SizedBox(height: 5),
           Container(
-            margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-            padding:  EdgeInsets.fromLTRB(10, 5, 10, 0),
+            margin: EdgeInsets.fromLTRB(20, 5, 20, 0),
+            padding:  EdgeInsets.fromLTRB(20, 5, 20, 0),
             width: MediaQuery.of(context).size.width,
               child: Center(
                 child: Text(
                   "${widget.description}",
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
             ),
           ),
            Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            padding:  EdgeInsets.fromLTRB(10, 5, 10, 0),
+            margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding:  EdgeInsets.fromLTRB(20, 5, 20, 0),
             width: MediaQuery.of(context).size.width,
               child: Center(
                 child: Text(
                   "Kindly change your address, to avail this product.",
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
             ),
           ),
           SizedBox(height: 20),
+          Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),child:
           Container(
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: InkWell(
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(15.0),
-                bottomRight: Radius.circular(15.0),
+                bottomLeft: Radius.circular(5.0),
+                bottomRight: Radius.circular(5.0),
               ),
               highlightColor: Colors.grey[200],
               onTap: () {
@@ -89,11 +90,11 @@ class _SoldOutDialougState extends State<SoldOutDialoug> {
                 onPressed: () {
                 Navigator.of(context).pop();
                 },
-             child: Text('Ok'),
+             child: Text('OK'),
                ),
               ),
             ),
-          ),
+          )),
         ],
       ),
     );

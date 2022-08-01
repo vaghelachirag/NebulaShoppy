@@ -720,14 +720,14 @@ class _ProductDetailState extends State<ProductDetail> {
               return Column(
                 children: [
                   Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 3),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               setRegularText(
-                                  _listBannerImage[0].name, 16, Colors.red),
+                                  _listBannerImage[0].name, 16, productNameColor),
                               // Text(
                               //   _listBannerImage[0].name,
                               //   style: TextStyle(
@@ -745,7 +745,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: setItalicText(
-                                str_ShortDescription, 10, Colors.grey),
+                                str_ShortDescription, 12, productDetailColor),
                             // Text(
                             //   str_ShortDescription,
                             //   style: TextStyle(

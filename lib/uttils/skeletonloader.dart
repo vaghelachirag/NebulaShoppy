@@ -287,7 +287,7 @@ Widget boxProductCatWise(BuildContext context) {
           width: MediaQuery.of(context).size.width ,
           height: MediaQuery.of(context).size.height,
           decoration:
-              BoxDecoration(shape: BoxShape.rectangle, color: Colors.grey),
+              BoxDecoration(shape: BoxShape.rectangle, color: Colors.white),
         ),
       ],
     ),

@@ -471,7 +471,7 @@ class _CategoryListState extends State<CategoryList>
         itemBuilder: (context, index) {
           return Center(
               child: Container(
-            color: Colors.blueGrey,
+            color: Colors.white,
             margin: EdgeInsets.all(0),
             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child:  

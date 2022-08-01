@@ -243,13 +243,13 @@ handlePaymentFailure(String errorMessage){
                   return Text("");
                 } else {
                   return Card(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Column(
                       children: [
                         Container(
                           padding: EdgeInsets.all(10),
                           width: MediaQuery.of(context).size.width,
-                          child: setBoldText("Order Details", 16, Colors.grey),
+                          child: setRegularText("Order Details", 16, orderDetailbg),
                           //  Text(
                           //   "Order Detail",
                           //   style: TextStyle(color: Colors.grey, fontSize: 16),
@@ -285,9 +285,9 @@ handlePaymentFailure(String errorMessage){
                   } else {
                     return Card(
                       shape: RoundedRectangleBorder(
-                        side: new BorderSide(color: Colors.black, width: 0.5),
+                        side: new BorderSide(color: Colors.grey, width: 0.5),
                       ),
-                      margin: EdgeInsets.all(10),
+                      margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
                       child: Column(
                         children: [
                           Container(
@@ -389,7 +389,7 @@ handlePaymentFailure(String errorMessage){
           Align(
               alignment: Alignment.topRight,
               child: setRegularText(
-                  rupees_Sybol + detail.toString(), 16, Colors.red)
+                  rupees_Sybol + detail.toString(), 16, priceColor)
               // Text(
               //   rupees_Sybol + detail.toString(),
               //   style: TextStyle(
@@ -405,7 +405,7 @@ handlePaymentFailure(String errorMessage){
 
   Container getPVNVDetail(String title, String? detail) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -419,7 +419,7 @@ handlePaymentFailure(String errorMessage){
               ),
           Align(
               alignment: Alignment.topRight,
-              child: setBoldText(detail!, 16, Colors.blue)
+              child: setBoldText(detail!, 16, pvtextBg)
               // Text(
               //   detail!,
               //   style: const TextStyle(
@@ -626,7 +626,7 @@ handlePaymentFailure(String errorMessage){
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                setBoldText("Payable Amount :  ", 16, Colors.black),
+                setBoldText("Payable Amount :  ", 20, Colors.black),
                 // Text(
                 //   "Payable Amount:  ",
                 //   style: TextStyle(
@@ -634,7 +634,7 @@ handlePaymentFailure(String errorMessage){
                 //       fontWeight: FontWeight.bold,
                 //       fontSize: 16),
                 // ),
-                setRegularText(rupees_Sybol + str_GrandTotal, 14, Colors.black)
+                setRegularText(rupees_Sybol +" " + str_GrandTotal, 16, Colors.black)
               ],
             ),
           ),
@@ -683,6 +683,7 @@ handlePaymentFailure(String errorMessage){
                       setState(() {
                         //  _listCartItem.clear();
                         getMyCartList();
+                       getCartCount();
                       });
                     } else {
                       showSnakeBar(context, "Opps! Something Wrong");

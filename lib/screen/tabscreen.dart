@@ -133,9 +133,9 @@ class _TabScreenState extends State<TabScreen> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.shippingFast), label: 'My Order'),
+                icon: Icon(FontAwesomeIcons.shippingFast), label: 'My Orders'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.user), label: 'Account')
+                icon: Icon(FontAwesomeIcons.user), label: 'My Account')
           ],
         ));
   }
@@ -163,7 +163,7 @@ class _TabScreenState extends State<TabScreen> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.user), label: 'Account')
+                icon: Icon(FontAwesomeIcons.user), label: 'My Account')
           ],
         ));
   }

@@ -43,7 +43,7 @@ class CartItemWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
             width: MediaQuery.of(context).size.width,
             child: Card(
                 elevation: 0,
@@ -140,7 +140,7 @@ class CartItemWidget extends StatelessWidget {
             },
             child: Container(
               width: MediaQuery.of(context).size.width / 5,
-              height: ScreenUtil().setSp(80),
+              height: ScreenUtil().setSp(100),
               child: FadeInImage.assetNetwork(
                   placeholder: placeholder_path,
                   image: product.icon,
@@ -162,11 +162,11 @@ class CartItemWidget extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    setRegularText(product.name, 14, Colors.black),
+                    setRegularText(product.name, 16, Colors.black),
                     // setTextData(product.name, 16),
                     Padding(
                         padding: EdgeInsets.only(top: 5),
-                        child: setRegularText(product.desc, 12, Colors.green)),
+                        child: setRegularText(product.desc, 14, Colors.green)),
                     Padding(
                         padding: EdgeInsets.only(top: 5),
                         child: setProductPrice(product)),
@@ -268,7 +268,7 @@ Container setTextData(String text, double i) {
 Row setProductPrice(SetCartItem product) {
   return Row(
     children: <Widget>[
-      setBoldText(rupees_Sybol + " " + removeDecimalAmount(product.price) , 16, Colors.red)
+      setRegularText(rupees_Sybol  + removeDecimalAmount(product.price) , 16, priceColor)
     ],
   );
 }
@@ -284,7 +284,7 @@ Row setPvNv(SetCartItem product) {
       // ),
       Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-        child: setRegularText(removeDecimalAmount(product.pv) , 12, Colors.black),
+        child: setRegularText(removeDecimalAmount(product.pv) , 14, pvtextBg),
       ),
       setBoldText("NV", 14, Colors.black),
       // Text(
@@ -295,12 +295,12 @@ Row setPvNv(SetCartItem product) {
 
       Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: setRegularText(removeDecimalAmount(product.nv) , 12, Colors.black),
+        child: setRegularText(removeDecimalAmount(product.nv) , 14, pvtextBg),
       ),
       setBoldText("BV", 14, Colors.black),
       Padding(
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: setRegularText(removeDecimalAmount(product.bv) + "%", 12, Colors.black))
+          child: setRegularText(removeDecimalAmount(product.bv) + "%", 14, pvtextBg))
       // Text(
       //   product.bv + "%",
       //   style: TextStyle(
