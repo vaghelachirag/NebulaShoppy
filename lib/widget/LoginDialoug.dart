@@ -69,13 +69,13 @@ class _LoginDialougState extends State<LoginDialoug> {
               Align(
                 alignment: Alignment.topRight,
                 child: Visibility(
-                    visible: false,
+                    visible: true,
                     child: IconButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
                         icon: Icon(CommunityMaterialIcons.close_box),
-                        color: Colors.cyan)),
+                        color: loginButtonColor)),
               ),
               Padding(
                   padding: EdgeInsets.all(10),
