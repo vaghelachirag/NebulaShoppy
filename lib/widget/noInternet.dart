@@ -23,16 +23,19 @@ class NoInternet extends StatelessWidget {
          Column(
                mainAxisAlignment: MainAxisAlignment.center,
               children: [  
-                 Image.asset(
-            'assets/images/order_image.png',
-            fit: BoxFit.contain,
-          )   
-             ,
-          Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(30)),child:
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 4,
+                  height: MediaQuery.of(context).size.width / 5,
+                  child: Image.asset(
+                assestPath+ 'no_internet.png',
+                 fit: BoxFit.contain,
+                 ),
+                ) ,
+          Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(20)),child:
            Text(
           "Network Error",
           style: TextStyle(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold,fontFamily: EmberBold)),),
-           Padding(padding: EdgeInsets.fromLTRB(20, 30, 20, 0),child:
+           Padding(padding: EdgeInsets.fromLTRB(20, 30, 5, 0),child:
            Text(
           "Faild to connect to NebulaPro. Please check your device's network connection.",
           style: TextStyle(fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.normal,fontFamily: EmberBold)),),          

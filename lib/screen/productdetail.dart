@@ -298,10 +298,10 @@ class _ProductDetailState extends State<ProductDetail> {
                                          shape: BoxShape.circle,
                                          color:  int_SelectedVariantId == index
                                       ? Colors.black
-                                      : Colors.black12
+                                      : Colors.white
                                     ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(3),
+                                        padding: EdgeInsets.all(2),
                                         child: CircleAvatar(
                                           backgroundColor: Color(int.parse(
                                               _listProductVariantColor[index]

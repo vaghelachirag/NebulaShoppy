@@ -56,19 +56,21 @@ class _NoInternetDialougState extends State<NoInternetDialoug> {
         height: MediaQuery.of(context).size.height / 4,
         child: 
          Column(
-              children: [     
-              IconButton(
-            icon: const Icon(Icons.signal_wifi_connected_no_internet_4,size: 30,color: THEME_COLOR,),
-            tooltip: 'Source Code',
-            onPressed: () {
-            
-            },
-          ),
+              children: [   
+                Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),child: 
+            SizedBox(
+                  width: MediaQuery.of(context).size.width / 8,
+                  height: MediaQuery.of(context).size.width / 9,
+                  child: Image.asset(
+                assestPath+ 'no_internet.png',
+                 fit: BoxFit.contain,
+                 ),
+                )),
           Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(5)),child:
            Text(
           "Network Error",
           style: TextStyle(fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.bold,fontFamily: EmberBold)),),
-           Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 0),child:
+           Padding(padding: EdgeInsets.fromLTRB(20, 10, 5, 0),child:
            Text(
           "Faild to connect to NebulaPro. Please check your device's network connection.",
           style: TextStyle(fontSize: ScreenUtil().setSp(14), fontWeight: FontWeight.normal,fontFamily: EmberBold)),),          

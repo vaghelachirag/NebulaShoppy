@@ -341,7 +341,7 @@ handlePaymentFailure(String errorMessage){
               height: size.height/ 15,
               child:  
               Image.asset(
-          assestPath+'icon_location.png',
+          assestPath+'location.png',
           fit: BoxFit.contain,
         )
             ),
