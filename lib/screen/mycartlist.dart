@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
+import 'package:nebulashoppy/screen/address/addnewAddress.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/ordersummery.dart';
 import 'package:nebulashoppy/screen/search.dart';
@@ -782,7 +783,10 @@ handlePaymentFailure(String errorMessage){
                       print("AddressType"+str_SelectedAddressType);
                       
                     });
-                  },
+                  }, onNewAddressSelection: () { 
+                    print("NewAddress"+"New Address");
+                     Navigator.push(context,PageTransition(type: PageTransitionType.fade,child: AddNewAddress(),));
+                   },
                 ),
               ),
             ),

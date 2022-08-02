@@ -9,8 +9,9 @@ import '../uttils/constant.dart';
 
 class GETMYADDRESSDIALOUG extends StatefulWidget {
   final VoidCallback onAddressSelection;
+  final VoidCallback onNewAddressSelection;
 
-  GETMYADDRESSDIALOUG({required this.onAddressSelection});
+  GETMYADDRESSDIALOUG({required this.onAddressSelection,required this.onNewAddressSelection});
 
   @override
   _GETMYADDRESSDIALOUGState createState() => _GETMYADDRESSDIALOUGState();
@@ -171,11 +172,28 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: cityList(),
                 )),
-            Visibility(
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    child:  Row(
+                  children: [
+                    Visibility(
                 visible: bl_IsDrop,
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: getMyDeliverAddress())),
+                    child:  getMyDeliverAddress())),
+                    Visibility(
+                visible: bl_IsDrop,
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: addNewAddress())),
+                  ],
+                ),
+                  
+                  ),
+                )
+               
+             ,
           ],
         ),
       ),
@@ -191,6 +209,8 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
               return Text("");
             } else {
               return ListView.builder(
+                 shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: _listMyAddressList.length,
                 itemBuilder: (context, index) {
@@ -257,6 +277,76 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
           },
         ));
   }
+
+    Container addNewAddress() {
+    return Container(
+        height: MediaQuery.of(context).size.height,
+        child: GestureDetector(
+          onTap: () {
+            print("Add"+ "Add New Address");
+             widget.onNewAddressSelection();
+          },
+          child:   FutureBuilder(
+          builder: (context, snapshot) {
+           return   ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                      onTap: () {
+                          print("Add"+ "Add New Address");
+                          widget.onNewAddressSelection();
+                      },
+                      child: Container(
+                        width: 200,
+                        child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 5, 5),
+                            child: Column(
+                              children: [
+                                Card(
+                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Container(
+                                      margin: EdgeInsets.all(20),
+                                      padding: EdgeInsets.all(0),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Container(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      0.0, 0.0, 0.0, 0.0),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Center(
+                                                        child: setBoldText("Add New Address", 16, Colors.black),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+                              ],
+                            )),
+                      ));
+                },
+              );
+          },
+        )),
+        );
+  }
+
 
   Column cityList() {
     return Column(
