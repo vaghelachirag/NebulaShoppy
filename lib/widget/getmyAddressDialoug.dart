@@ -97,10 +97,11 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       elevation: 5,
                       child: Row(
                         children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(CommunityMaterialIcons.dump_truck),
-                              color: Colors.cyan),
+                            Container(
+                          margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          width: 45,
+                          height: 45,                    
+                    child:  Image.asset(assestPath + 'doorstep_icon.png'),),
                           Text(
                             "Door step delivery (shipping charges applicable).",
                             style: TextStyle(
@@ -143,11 +144,16 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                     elevation: 5,
                     child: Row(
                       children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon:
-                                Icon(CommunityMaterialIcons.map_marker_circle),
-                            color: Colors.cyan),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          width: 35,
+                          height: 35,                    
+                          decoration: BoxDecoration(
+                         color: selectpickuppointBg,                        
+                        border: Border.all(
+                      color: Colors.black,),
+                     borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child:  Image.asset(assestPath + 'choose_location.png'),),               
                         Text(
                           "Select a pickup point.",
                           style: TextStyle(

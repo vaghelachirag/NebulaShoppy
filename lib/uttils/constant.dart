@@ -163,6 +163,7 @@ const productNameColor =  Color(0xFF711212);
 const productDetailColor =  Color(0xFF696969);
 const productPriceBg =  Color(0xFFaaaaaa);
 const selectpaymentBg =  Color(0xFFfdf9ee);
+const selectpickuppointBg =  Color(0xFF12808d);
 
 
 
