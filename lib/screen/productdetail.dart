@@ -2134,6 +2134,8 @@ class _ProductDetailState extends State<ProductDetail> {
               .then((value) => {
                     setState(() {
                       print("Cart" + value.data.cart.toString());
+                      _listCartItem = value.data.cart;
+                      compareproductquntity(_listCartItem);
                       // int_CartCounters = value.data!.sumOfQty;
                       // QTYCount = value.data!.sumOfQty.toString();
                     })
