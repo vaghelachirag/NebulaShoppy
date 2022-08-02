@@ -151,7 +151,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                           decoration: BoxDecoration(
                          color: selectpickuppointBg,                        
                         border: Border.all(
-                      color: Colors.black,),
+                      color: selectpickuppointBg,),
                      borderRadius: BorderRadius.all(Radius.circular(20))),
                     child:  Image.asset(assestPath + 'choose_location.png'),),               
                         Text(
