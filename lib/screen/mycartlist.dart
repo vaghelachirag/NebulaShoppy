@@ -183,13 +183,12 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
          Column(
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
-          
-              IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined,size: 60,color: THEME_COLOR,),
-            tooltip: 'Source Code',
-            onPressed: () {
-            },
-          ),
+           SizedBox(width: MediaQuery.of(context).size.width/3,height:  MediaQuery.of(context).size.height/5,
+           child:  Image.asset(
+            'assets/images/no_cart.png',
+            fit: BoxFit.fill,
+          ),)     
+          ,    
           Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(30)),child:
            Text(
           "Cart is Empty",
@@ -357,6 +356,7 @@ handlePaymentFailure(String errorMessage){
                   softWrap: true),
             )),
             //setBoldText(str_SelectedAddress, 12, Colors.black),
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0),child: 
             GestureDetector(
               onTap: () {
                 onLocationPressed();
@@ -372,7 +372,7 @@ handlePaymentFailure(String errorMessage){
             )
             ),
             ),
-            )
+            ))
            
            
           ],

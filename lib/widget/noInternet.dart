@@ -22,14 +22,12 @@ class NoInternet extends StatelessWidget {
         child:  
          Column(
                mainAxisAlignment: MainAxisAlignment.center,
-              children: [     
-              IconButton(
-            icon: const Icon(Icons.signal_wifi_connected_no_internet_4,size: 60,color: THEME_COLOR,),
-            tooltip: 'Source Code',
-            onPressed: () {
-             
-            },
-          ),
+              children: [  
+                 Image.asset(
+            'assets/images/order_image.png',
+            fit: BoxFit.contain,
+          )   
+             ,
           Padding(padding: EdgeInsets.only(top:  ScreenUtil().setSp(30)),child:
            Text(
           "Network Error",

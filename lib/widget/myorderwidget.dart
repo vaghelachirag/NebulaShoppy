@@ -38,17 +38,17 @@ class MyOrderWiget extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
+              padding: const EdgeInsets.only(bottom: 4.0,right: 8.0,left: 8.0),
               child: Card(
-                elevation: 0,
+                elevation: 5,
                 color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.all(5),
-                        child: _productImage(),
+                        padding: EdgeInsets.all(0),
+                        child: _productImage(context),
                       ),
                       _productDetails(context)
                     ],
@@ -65,31 +65,17 @@ class MyOrderWiget extends StatelessWidget {
     );
   }
 
-  _productImage() {
-    return Stack(
-      children: <Widget>[
-        ClipPath(
-          clipper: ProductImageContainerClipper(),
-          child: Container(
-            width: 80,
-            height: 70,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomCenter,
-                    colors: gradientColors)),
-          ),
-        ),
-        Container(
-          width: 80,
-          height: 80,
+  _productImage(BuildContext context) {
+    return  Container(
+          color: Colors.white,
+          padding: EdgeInsets.all(5),
+          width: MediaQuery.of(context).size.width / 4,
+          height: MediaQuery.of(context).size.height / 8,
           child: Image.asset(
             'assets/images/order_image.png',
             fit: BoxFit.contain,
           ),
-        )
-      ],
-    );
+        );
   }
 
   _productDetails(BuildContext context) {
@@ -109,7 +95,7 @@ class MyOrderWiget extends StatelessWidget {
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
             Padding(
-              padding: EdgeInsets.only(top: 5),
+              padding: EdgeInsets.only(top: 8),
               child: setRegularText(product.date.toString(), 12, Colors.black),
             ),
             //     Text(
@@ -118,8 +104,8 @@ class MyOrderWiget extends StatelessWidget {
             //       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
             //     ),
             Container(
-                padding: EdgeInsets.only(top: 5),
-                width: MediaQuery.of(context).size.width / 2,
+                padding: EdgeInsets.only(top: 8),
+                width: MediaQuery.of(context).size.width / 2 + 50,
                 child: MainButtonWidget(
                   buttonText: "View Order",
                   onPress: () {

@@ -400,7 +400,7 @@ class _OrderSummeryState extends State<OrderSummery>
                   Align(
                     alignment: Alignment.topLeft,
                     child: Image.asset(
-                      'assets/images/upi.webp',
+                      'assets/images/upi.png',
                       height: 50,
                       width: 50,
                     ),
@@ -412,7 +412,7 @@ class _OrderSummeryState extends State<OrderSummery>
                       "UPI",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
                   )

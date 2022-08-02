@@ -46,7 +46,7 @@ class CartItemWidget extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
             width: MediaQuery.of(context).size.width,
             child: Card(
-                elevation: 0,
+                elevation: 5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

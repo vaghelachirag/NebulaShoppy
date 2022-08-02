@@ -31,14 +31,14 @@ class MainButtonWidget extends StatelessWidget {
         child: Text(
           buttonText,
           style: TextStyle(
-              fontSize: 14, fontFamily: EmberBold, color: Colors.black),
+              fontSize: 14, fontFamily: Ember, color: Colors.black),
         ),
         onPressed: () {
           onPress();
         },
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
+            borderRadius: BorderRadius.circular(5.0),
           ),
           backgroundColor: buttonColor,
           side: BorderSide(width: 1, color: buttonBorderCOlor),

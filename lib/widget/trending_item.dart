@@ -58,7 +58,7 @@ class TrendingItem extends StatelessWidget {
                     goToProductDetail(context);
                   },
                   child: Card(
-                    elevation: 0,
+                    elevation: 5,
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),

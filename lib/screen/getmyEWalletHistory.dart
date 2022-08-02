@@ -81,6 +81,7 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
         body: Column(
           children: [
             showMaterialProgressbar(5),
+            setWalletHeader(),
             SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
@@ -221,5 +222,18 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
     setState(() {
       _orderDate.add(string_Date);
     });
+  }
+
+ Container setWalletHeader() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
+      child: Row(
+        children: [
+          setBoldText("Your E-wallet balance:", 22, Colors.black),
+          Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),child: 
+          setBoldText(rupees_Sybol + str_Ewalltet, 22, Colors.green))
+        ],
+      ),
+    );
   }
 }

@@ -70,7 +70,6 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
          onRetryClick();
         },) :
        Container(
-          padding: EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: FutureBuilder(
