@@ -99,10 +99,10 @@ class _SearchState extends State<Search> {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Theme(
                           child: Container(
-                            child: TextField(
+                            child: TextFormField(
                               controller: searchData,
                               enabled: bl_IsEdibleSearch,
                               textAlignVertical: TextAlignVertical.center,

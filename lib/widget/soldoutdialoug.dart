@@ -37,7 +37,12 @@ class _SoldOutDialougState extends State<SoldOutDialoug> {
           //   ),
           // ),
            SizedBox(height: 5),
-           Image.asset('assets/images/soldout.png',fit: BoxFit.contain,),
+           SizedBox(
+            width: MediaQuery.of(context).size.width / 5,
+            height:  MediaQuery.of(context).size.width / 5,
+            child:  Image.asset('assets/images/soldout.pngr',fit: BoxFit.contain,),
+           )
+          ,
           SizedBox(height: 5),
           Container(
             margin: EdgeInsets.fromLTRB(20, 5, 20, 0),

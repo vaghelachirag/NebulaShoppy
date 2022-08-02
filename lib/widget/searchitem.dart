@@ -36,12 +36,12 @@ class SearchItem extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
+              padding: const EdgeInsets.only(bottom: 0.0),
               child: Card(
                 elevation: 0,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Row(
                     children: <Widget>[_productImage(), _productDetails()],
                   ),

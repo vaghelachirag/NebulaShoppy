@@ -110,7 +110,7 @@ class _LoginDialougState extends State<LoginDialoug> {
                 child: Center(
                   child: SizedBox(
                 width: 500,
-                height: 45,
+                height: 40,
                 child:buildPasswordFormField('Password'),
               ),
                 ),

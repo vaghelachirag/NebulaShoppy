@@ -37,7 +37,8 @@ import 'package:provider/provider.dart';
 
 class MyCartList extends StatefulWidget {
   String device_Id = "";
-
+  int width = 0;
+  int height = 0;
   @override
   State<MyCartList> createState() => _MyCartListState();
 
@@ -54,7 +55,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
   String str_UserIds = "";
-
+   var size ;
  late CartCounter cartCounter;
   @override
   void initState() {
@@ -133,8 +134,8 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   @override
   Widget build(BuildContext context) {
     cartCounter = Provider.of<CartCounter>(context);
-    ScreenUtil.init(context);
-    var size = MediaQuery.of(context).size;
+     ScreenUtil.init(context);
+     size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
     final double itemWidth = size.width / 2;
@@ -334,17 +335,19 @@ handlePaymentFailure(String errorMessage){
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 24,
+            Container(
+              child:  SizedBox(
+              width: size.width/ 10,
+              height: size.height/ 15,
               child:  
-              Center(
-                child: IconButton(
-                onPressed: () {},
-                icon: Icon(CommunityMaterialIcons.map_marker_alert_outline),
-                color: Colors.black)
-              )
+              Image.asset(
+          assestPath+'icon_location.png',
+          fit: BoxFit.contain,
+        )
             ),
-            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),child: 
+            )
+           ,
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0),child: 
             SizedBox(
               width: MediaQuery.of(context).size.width - 100,
               child: Text(str_SelectedAddress,
@@ -353,20 +356,23 @@ handlePaymentFailure(String errorMessage){
                   softWrap: true),
             )),
             //setBoldText(str_SelectedAddress, 12, Colors.black),
-            Padding(padding: EdgeInsets.only(right: 20),child: 
-            SizedBox(
-                 width: 24,
-                  child:  
-              Center(
-                child: IconButton(
-                onPressed: () {
-                  onLocationPressed();
-                },
-                icon:
-                    Icon(CommunityMaterialIcons.arrow_down_drop_circle_outline),
-                color: Colors.black)
-              )
-            ))
+            GestureDetector(
+              onTap: () {
+                onLocationPressed();
+              },
+              child:  Container(
+              child:  SizedBox(
+              width: size.width/ 12,
+              height: size.height/ 15,
+              child:  
+              Image.asset(
+          assestPath+'down_arrow.png',
+          fit: BoxFit.contain,
+            )
+            ),
+            ),
+            )
+           
            
           ],
         ),
