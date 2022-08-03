@@ -484,12 +484,7 @@ handlePaymentFailure(String errorMessage){
    void compareproductquntity(List<ItemCart> listCartItem) {
     if (listCartItem.isNotEmpty) {
       for (int i = 0; i < listCartItem.length; i++) {
-        print("CartItem" +
-            listCartItem[i].productId.toString() +
-            " " +
-            productid.toString());
         if (listCartItem[i].productId == productid) {
-          print("CartItemQuanity" + listCartItem[i].cartQuantity.toString());
           setState(() {
             int_CartQuantity = listCartItem[i].cartQuantity;
           });
