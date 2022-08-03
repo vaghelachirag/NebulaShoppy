@@ -13,7 +13,7 @@ class CartCounter extends ChangeNotifier {
 
   int setCartCountity(int int_Counter) {
     total = int_Counter;
-    notifyListeners();
+    //notifyListeners();
     return total;
   }
 

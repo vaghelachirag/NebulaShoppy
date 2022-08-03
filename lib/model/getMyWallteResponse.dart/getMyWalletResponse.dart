@@ -15,7 +15,7 @@ class GetMyWalletResponse {
 
   int? statusCode;
   String? message;
-  double data;
+  dynamic data;
 
   factory GetMyWalletResponse.fromJson(Map<String, dynamic> json) =>
       GetMyWalletResponse(

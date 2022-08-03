@@ -58,7 +58,7 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
   bool isClicked = false;
-  List<ProductBannerData> _listBannerImage = [];
+  List<GetProductBannerData> _listBannerImage = [];
   List<dynamic> _listProductImageDetail = [];
   List<itemNewLaunchedProduct> _listNewLaunched = [];
   List<ItemProductVariantData> _listProductVariant = [];
@@ -1812,7 +1812,10 @@ class _ProductDetailState extends State<ProductDetail> {
   getProductBanner(String productId) {
     Service().getProductBanner(productId).then((value) => {
           setState((() {
-            print("Banner" + value.message.toString());
+            if (value.toString() == str_NoDataMsg){
+
+            }
+            else{
             if (value.statusCode == 1) {
               _listBannerImage = value.data;
               print("Banner" + _listBannerImage.toString());
@@ -1823,6 +1826,8 @@ class _ProductDetailState extends State<ProductDetail> {
               print("Categorylist" + "Opps Something Wrong!");
               getProductDetail(widget.id, false);
             }
+            }
+           
           }))
         });
   }

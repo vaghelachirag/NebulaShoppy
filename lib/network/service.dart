@@ -122,16 +122,21 @@ class Service {
 
   Future<dynamic> getProductBanner(String _productid) async {
     var client = http.Client();
-    var response = await client.get(
+    dynamic response = await client.get(
         Uri.parse(
             BASE_URL + WS_ProductBanner + "?" + "productid=" + _productid),
         headers: requestHeaders);
-    var json = response.body;
-
-    if (response.statusCode == 200) {
-      return productBannerFromJson(json);
+    dynamic jsons = response.body;
+    
+      final jsonBody = json.decode(response.body);
+      if (response.statusCode == 200) {
+      if (jsonBody["StatusCode"] == 0) {
+        return str_NoDataMsg;
+      } else {
+        return getProductBannerImageResponseFromJson(jsons);
+      }
     } else {
-      throw Exception('Failed to create album.');
+      return str_ErrorMsg;
     }
   }
 
