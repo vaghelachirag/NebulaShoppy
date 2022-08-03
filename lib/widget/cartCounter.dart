@@ -41,4 +41,11 @@ class CartCounter extends ChangeNotifier {
   setLoginTrue(){
     
   }
+
+  setCartZero(){
+     total = 0;
+      int_CartCounters = total;
+    //  print("Total" + total.toString());
+      notifyListeners();
+  }
 }

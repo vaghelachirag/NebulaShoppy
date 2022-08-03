@@ -6,7 +6,7 @@ import 'package:nebulashoppy/uttils/constant.dart';
 import '../model/productdetail/productbanner.dart';
 import '../widget/AppBarWidget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:pinch_zoom/pinch_zoom.dart';
 
 class SliderShowFullmages extends StatefulWidget{
    List<dynamic> listBannerImage = [];
@@ -76,10 +76,18 @@ class _SliderShowFullmagesState extends State<SliderShowFullmages>  {
                 child:   Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height  -  MediaQuery.of(context).size.height/4,
-                 child: FadeInImage.assetNetwork(
+                 child:  PinchZoom(
+               child: FadeInImage.assetNetwork(
                       placeholder: placeholder_path,
                       image: widget.listBannerImage[index].hqImageFile,
                       fit: BoxFit.contain),
+                resetDuration: const Duration(milliseconds: 100),
+               maxScale: 2.5,
+               onZoomStart: (){print('Start zooming');},
+                onZoomEnd: (){print('Stop zooming');},
+             )
+                 
+                  ,
               ),
               )
             ,

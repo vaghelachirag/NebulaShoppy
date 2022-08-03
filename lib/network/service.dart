@@ -449,20 +449,23 @@ class Service {
     }
   }
 
-  Future<dynamic> getDeleteCartResponse(
-      String issuccess, String userid, String deviceid) async {
-    Map<String, dynamic> body = {
+  Future<dynamic> getDeleteCartResponse(String issuccess, String userid, String deviceid) async {
+    
+      var queryparams = {
       'issuccess': issuccess,
       'userid': userid,
       'deviceid': deviceid
     };
 
-    final response = await http.post(Uri.parse(BASE_URL + WS_GET_DELETE_CART),
-        //body: body,
-        body: body,
-        encoding: Encoding.getByName("utf-8"));
+    Uri httpsUri = Uri(
+        scheme: Scheme,
+        host: Host,
+        path: WS_GET_DELETE_CART,
+        queryParameters: queryparams);
 
-    print("Response" + response.statusCode.toString());
+    final response = await http.post(httpsUri);
+
+    print("Response" + response.toString());
 
     if (response.statusCode == 200) {
       return GetDeleteCartResponse.fromJson(jsonDecode(response.body));

@@ -16,6 +16,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../widget/paymentcancelledwidget.dart';
 import 'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
+import 'package:provider/provider.dart';
+import '../../widget/cartCounter.dart';
 
 class OrderSummery extends StatefulWidget {
   String str_Title = "";
@@ -75,7 +77,6 @@ class _OrderSummeryState extends State<OrderSummery>
   int? int_Total = 0;
   int? int_SubTotal = 0;
   int? int_ShippingCharge = 0;
-
   @override
   void initState() {
     super.initState();
@@ -93,12 +94,13 @@ class _OrderSummeryState extends State<OrderSummery>
         getTotalCountResponse();
       });
     });
+    
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
+    initilizationCounter(context);
     ScreenUtil.init(context);
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
@@ -505,7 +507,7 @@ class _OrderSummeryState extends State<OrderSummery>
         amount: int_Total.toString(),
         hashUrl: '<Checksum URL to generate dynamic hashes>',
         productInfo: widget.productInfo,
-        transactionId: "Order_637946852342729071",
+        transactionId: widget.txnID,
         showExitConfirmation: true,
         showLogs: false, // true for debugging, false for production
         userCredentials: MerchantKey + ":" + widget.email,
@@ -606,6 +608,7 @@ class _OrderSummeryState extends State<OrderSummery>
                 }
               else
                 {
+                  cartCounter.setCartZero(),
                   handlePaymentSuccess()
                 }
             });

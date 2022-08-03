@@ -9,6 +9,8 @@ import 'clip_shadow_path.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:nebulashoppy/screen/productdetail.dart';
 import 'package:nebulashoppy/screen/categorylist.dart';
+import 'package:pinch_zoom/pinch_zoom.dart';
+
 
 class CategoryProductWidget extends StatelessWidget {
   final Product product;
@@ -304,7 +306,23 @@ showAlertDialog(BuildContext context, String icon, String name) {
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text(name,style: TextStyle(color: Colors.black,fontSize: 16, fontFamily: EmberBold),),
-    content: Image(image: NetworkImage(icon)),
+    content: 
+    SizedBox(
+      width: MediaQuery.of(context).size.width / 2,
+      height: MediaQuery.of(context).size.height / 3,
+      child:  PinchZoom(
+               child: FadeInImage.assetNetwork(
+                      placeholder: placeholder_path,
+                      image:icon,
+                      fit: BoxFit.contain),
+                resetDuration: const Duration(milliseconds: 100),
+               maxScale: 2.5,
+               onZoomStart: (){print('Start zooming');},
+                onZoomEnd: (){print('Stop zooming');},
+             ),
+    )
+   ,
+ 
     actions: [
       okButton,
     ],
