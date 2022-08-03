@@ -182,6 +182,10 @@ String str_Ewalltet = "0.0";
 
  late CartCounter cartCounter ;
 
+// For Product Counter
+int? int_CartQuantity = 0;
+int? productid = 0;
+
 String register =
     'https://nebulacompanies.net/Structure/Register/IndexMobileView?Isloggedin=False';
 

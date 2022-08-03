@@ -469,6 +469,7 @@ handlePaymentFailure(String errorMessage){
 
                       is_ShowBottomBar = true;
                       print("Categorylist" + _listCartItem.length.toString());
+                       compareproductquntity(_listCartItem);
                     } else {
                       showSnakeBar(context, somethingWrong);
                       print("Categorylist" + "Opps Something Wrong!");
@@ -479,6 +480,23 @@ handlePaymentFailure(String errorMessage){
                 {showSnakeBar(context, somethingWrong)}
             }
         });
+  }
+   void compareproductquntity(List<ItemCart> listCartItem) {
+    if (listCartItem.isNotEmpty) {
+      for (int i = 0; i < listCartItem.length; i++) {
+        print("CartItem" +
+            listCartItem[i].productId.toString() +
+            " " +
+            productid.toString());
+        if (listCartItem[i].productId == productid) {
+          print("CartItemQuanity" + listCartItem[i].cartQuantity.toString());
+          setState(() {
+            int_CartQuantity = listCartItem[i].cartQuantity;
+          });
+          break;
+        }
+      }
+    }
   }
 
   void getCartItemListwithLogin() {
@@ -692,7 +710,7 @@ handlePaymentFailure(String errorMessage){
                       setState(() {
                         //  _listCartItem.clear();
                         getMyCartList();
-                       getCartCount();
+                        getCartCount();
                       });
                     } else {
                       showSnakeBar(context, "Opps! Something Wrong");
@@ -976,6 +994,7 @@ handlePaymentFailure(String errorMessage){
                   if (value.toString() != str_NoDataMsg)
                     {
                       setState((() {
+                     
                         print("CartList" + value.toString());
                         if (value.statusCode == 1) {
                           _listCartItem = value.data.cart;
@@ -985,6 +1004,7 @@ handlePaymentFailure(String errorMessage){
                           });
 
                           is_ShowBottomBar = true;
+                          compareproductquntity(_listCartItem);
                           print(
                               "Categorylist" + _listCartItem.length.toString());
                         } else {

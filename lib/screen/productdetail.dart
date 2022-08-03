@@ -84,7 +84,6 @@ class _ProductDetailState extends State<ProductDetail> {
   String str_SelectedSize = "";
 
   int? int_ProductQuantity = 0;
-  int? int_CartQuantity = 0;
   int? int_CartCounter = 0;
   bool is_ShowDescription = false;
   bool is_ShowCart = false;
@@ -98,6 +97,8 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   void initState() {
     super.initState();
+    productid = widget.productid;
+    int_CartQuantity = 0 ;
     is_ShowProductVariant = false;
     print("Detail" + widget.productid.toString() + " " + widget.id.toString());
     hideProgressBar();
