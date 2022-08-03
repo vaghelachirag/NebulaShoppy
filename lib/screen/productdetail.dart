@@ -94,7 +94,7 @@ class _ProductDetailState extends State<ProductDetail> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
-  late CartCounter cartCounter ;
+  late CartCounter cartCounter;
   @override
   void initState() {
     super.initState();
@@ -295,11 +295,14 @@ class _ProductDetailState extends State<ProductDetail> {
                                   child: GestureDetector(
                                     child: Container(
                                       decoration: BoxDecoration(
-                                         shape: BoxShape.circle,
-                                         color:  int_SelectedVariantId == index
-                                      ? Colors.black
-                                      : Colors.white
-                                    ),
+                                          border: Border.all(
+                                            color:
+                                                int_SelectedVariantId == index
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(40))),
                                       child: Padding(
                                         padding: EdgeInsets.all(2),
                                         child: CircleAvatar(
@@ -362,7 +365,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       itemBuilder: (context, index) {
                         return Container(
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),),
+                              border: Border.all(color: Colors.black),
+                            ),
                             child: FutureBuilder(
                               future: setSelectedHeighlitWeightId(
                                   _listProductVariantWeight),
@@ -414,23 +418,21 @@ class _ProductDetailState extends State<ProductDetail> {
                       onTap: () {
                         print("OnCart" + "Add ToCart");
                       },
-                      child: 
-                      Align(
+                      child: Align(
                         alignment: Alignment.centerLeft,
-                        child:  Container(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: CircleAvatar(
-                              backgroundColor: buttonColor,
-                              maxRadius: 20,
-                              child: Icon(
-                                CommunityMaterialIcons.heart,
-                                color: Colors.white,
-                              )),
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.all(0),
+                            child: CircleAvatar(
+                                backgroundColor: buttonColor,
+                                maxRadius: 20,
+                                child: Icon(
+                                  CommunityMaterialIcons.heart,
+                                  color: Colors.white,
+                                )),
+                          ),
                         ),
                       ),
-                      )
-                     ,
                     )),
                 Align(
                     alignment: Alignment.centerRight,
@@ -443,7 +445,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 Container(
                   child: GestureDetector(
                       onTap: () {
-                        if(int_CartQuantity == 0){
+                        if (int_CartQuantity == 0) {
                           return;
                         }
                         setState(() {
@@ -461,9 +463,8 @@ class _ProductDetailState extends State<ProductDetail> {
                         padding: EdgeInsets.all(0),
                         child: CircleAvatar(
                             backgroundColor: int_CartQuantity == 0
-                              ? Colors.amber.shade100
-                              :buttonColor,
-                          
+                                ? Colors.amber.shade100
+                                : buttonColor,
                             maxRadius: 20,
                             child: setBoldText("-", 16, Colors.black)
                             // Text(
@@ -543,7 +544,8 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: setRegularText("Nebulacare Customised", 10, Colors.black))
+                child:
+                    setRegularText("Nebulacare Customised", 10, Colors.black))
           ],
         )
       ],
@@ -680,7 +682,10 @@ class _ProductDetailState extends State<ProductDetail> {
       children: [
         Text(
           _listBannerImage[0].name,
-          style: TextStyle(fontSize: 14, color: Colors.red[100],fontStyle: FontStyle.normal),
+          style: TextStyle(
+              fontSize: 14,
+              color: Colors.red[100],
+              fontStyle: FontStyle.normal),
         )
       ],
     );
@@ -733,8 +738,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              setRegularText(
-                                  _listBannerImage[0].name, 16, productNameColor),
+                              setRegularText(_listBannerImage[0].name, 16,
+                                  productNameColor),
                               // Text(
                               //   _listBannerImage[0].name,
                               //   style: TextStyle(
@@ -748,19 +753,20 @@ class _ProductDetailState extends State<ProductDetail> {
                               // ),
                             ],
                           ),
-                          Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),child:
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: setItalicText(
-                                str_ShortDescription, 12, productDetailColor),
-                            // Text(
-                            //   str_ShortDescription,
-                            //   style: TextStyle(
-                            //       fontSize: 14,
-                            //       color: Colors.grey,
-                            //       fontWeight: FontWeight.normal),
-                            // ),
-                          ))
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: setItalicText(str_ShortDescription, 12,
+                                    productDetailColor),
+                                // Text(
+                                //   str_ShortDescription,
+                                //   style: TextStyle(
+                                //       fontSize: 14,
+                                //       color: Colors.grey,
+                                //       fontWeight: FontWeight.normal),
+                                // ),
+                              ))
                         ],
                       )),
                   Column(
@@ -1190,7 +1196,8 @@ class _ProductDetailState extends State<ProductDetail> {
                     // ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: setRegularText(removeDecimalAmount(str_PV), 12, Colors.red),
+                      child: setRegularText(
+                          removeDecimalAmount(str_PV), 12, Colors.red),
                       // Text(
                       //   str_PV,
                       //   style: TextStyle(
@@ -1212,7 +1219,8 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setRegularText(removeDecimalAmount(str_BV), 12, Colors.red)
+                        child: setRegularText(
+                            removeDecimalAmount(str_BV), 12, Colors.red)
                         // Text(
                         //   str_BV,
                         //   style: TextStyle(
@@ -1234,7 +1242,8 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                     Padding(
                         padding: EdgeInsets.only(left: 5),
-                        child: setRegularText(removeDecimalAmount(str_NV), 12, Colors.red)
+                        child: setRegularText(
+                            removeDecimalAmount(str_NV), 12, Colors.red)
                         // Text(
                         //   str_NV,
                         //   style: TextStyle(
@@ -1295,7 +1304,6 @@ class _ProductDetailState extends State<ProductDetail> {
             Text("Capacity"),
             Row(
               children: <Widget>[
-               
                 SizedBox(
                   width: 8,
                 ),
@@ -1307,15 +1315,12 @@ class _ProductDetailState extends State<ProductDetail> {
             Text("Color"),
             Row(
               children: <Widget>[
-              
                 SizedBox(
                   width: 8,
                 ),
-               
                 SizedBox(
                   width: 8,
                 ),
-                
               ],
             ),
           ],
@@ -2069,7 +2074,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       hideProgressBar();
                       if (value.statusCode == 1) {
                         if (flag == Flag_Plus) {
-                        //  cartCounter.addItemInCart();
+                          //  cartCounter.addItemInCart();
                           showSnakeBar(context, "Item Added to Cart!");
                           setState(() {
                             int_CartCounters = int_CartCounters + 1;
@@ -2088,7 +2093,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               setState(() {});
                             }
                           });
-                         // cartCounter.removeItemFromCart();
+                          // cartCounter.removeItemFromCart();
                           showSnakeBar(context, "Item Removed from Cart!");
                         }
                       } else {

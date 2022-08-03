@@ -38,7 +38,7 @@ class SearchItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 0.0),
               child: Card(
-                elevation: 0,
+                elevation: 5,
                 color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
@@ -119,7 +119,8 @@ class SearchItem extends StatelessWidget {
                 padding: EdgeInsets.only(top: 5),
                 child: Row(
                   children: <Widget>[
-                    setBoldText(removeDecimalAmount(product.price), 14, Colors.red),
+                    setBoldText(
+                        removeDecimalAmount(product.price), 14, Colors.red),
                     // Text(product.price,
                     //     style: TextStyle(
                     //         fontSize: 16,
@@ -128,7 +129,7 @@ class SearchItem extends StatelessWidget {
                     Padding(
                         padding: EdgeInsets.only(left: 3),
                         child: Text(
-                          removeDecimalAmount(product.mrp)                          ,
+                          removeDecimalAmount(product.mrp),
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 10,

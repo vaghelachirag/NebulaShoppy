@@ -102,6 +102,7 @@ class _SearchState extends State<Search> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Theme(
                           child: Container(
+                            height: 40,
                             child: TextFormField(
                               controller: searchData,
                               enabled: bl_IsEdibleSearch,
@@ -205,8 +206,8 @@ class _SearchState extends State<Search> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          margin: EdgeInsets.all(0),
+          padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
           height: MediaQuery.of(context).size.height,
           child: ListView.builder(
             itemCount: _listSearch.length,
