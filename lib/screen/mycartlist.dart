@@ -785,7 +785,8 @@ handlePaymentFailure(String errorMessage){
                     });
                   }, onNewAddressSelection: () { 
                     print("NewAddress"+"New Address");
-                     Navigator.push(context,PageTransition(type: PageTransitionType.fade,child: AddNewAddress(),));
+                    gotoAddNewAddress();
+                  //   Navigator.push(context,PageTransition(type: PageTransitionType.fade,child: AddNewAddress(),));
                    },
                 ),
               ),
@@ -873,7 +874,15 @@ handlePaymentFailure(String errorMessage){
       ],
     );
   }
-
+ void gotoAddNewAddress() async{
+   var push_AddNewAddress = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => AddNewAddress(),
+    ));
+    if (push_AddNewAddress == null || push_AddNewAddress == true) {
+     Navigator.pop(context);
+        onLocationPressed();
+    }
+  }
   void openCheckoutDialoug() {
       if(!is_Login){
          showDialog(

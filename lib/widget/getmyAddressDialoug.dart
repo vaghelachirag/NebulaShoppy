@@ -38,6 +38,14 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
   final List<GetMyAddressData> _listMyAddress = [];
   List<GetMyAddressData> _listMyAddressList = [];
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    hideProgressBar();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +107,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       child: Row(
                         children: [
                             Container(
-                          margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                           width: 45,
                           height: 45,                    
                     child:  Image.asset(assestPath + 'doorstep_icon.png'),),
