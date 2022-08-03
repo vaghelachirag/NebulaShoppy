@@ -495,6 +495,9 @@ handlePaymentFailure(String errorMessage){
           });
           break;
         }
+        else{
+            int_CartQuantity = 0;
+        }
       }
     }
   }
