@@ -41,6 +41,8 @@ class OrderSummery extends StatefulWidget {
   String phone = "";
   String email = "";
   String productInfo = "";
+  String  str_AddressType = "";
+    String str_Address = "";
 
   OrderSummery({
     required this.str_Title,
@@ -53,6 +55,7 @@ class OrderSummery extends StatefulWidget {
     required this.is_WalletFreez,
     required this.is_EwalletOnOff,
     required this.int_E_WalletAmount,
+    required this.str_AddressType
   });
 
   @override
@@ -77,6 +80,8 @@ class _OrderSummeryState extends State<OrderSummery>
   int? int_Total = 0;
   int? int_SubTotal = 0;
   int? int_ShippingCharge = 0;
+
+
   @override
   void initState() {
     super.initState();
@@ -90,10 +95,17 @@ class _OrderSummeryState extends State<OrderSummery>
       getDeviceId();
       setSummeryData();
       Future.delayed(Duration(seconds: 0), () {
-        print("DeviceId" + DeviceId);
+        print("DeviceId" + widget.str_AddressType);
         getTotalCountResponse();
       });
     });
+
+    if(widget.str_AddressType == "1"){
+      widget.str_Address = "Pickup Point";
+    }
+    else{
+      widget.str_Address = "Deliver To";
+    }
     
   }
 
@@ -336,8 +348,8 @@ class _OrderSummeryState extends State<OrderSummery>
           padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
           child: Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              "Pickup Point",
+            child: Text( 
+                widget.str_Address,
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

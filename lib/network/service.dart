@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:nebulashoppy/model/generateorderresponse/generateorderResponse.dart';
+import 'package:nebulashoppy/model/getAppVersionResponse/getAppVersionResponse.dart';
 import 'package:nebulashoppy/model/getCartItemDeleteResponse/getCartItemDeleteResponse.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
 import 'package:nebulashoppy/model/getCityByStateResponse/getCityByStateResponse.dart';
@@ -924,4 +925,42 @@ class Service {
 
     return generateOrderPayUMoneyFromJson(jsons);
   }
+
+
+   Future<dynamic> getProductAvailabilityCheck(String pickupid) async {
+       requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
+    var client = http.Client();
+
+     Uri uri = Uri.parse(BASE_URL +
+       WS_GET_PRODUCT_AVAILABILITY+ "?" +
+        "pickupid=" +
+        "0");
+  
+    var response = await client.get(uri, headers: requestHeaders);
+    var json = response.body;
+
+    print("Response" + BASE_URL +
+       WS_GET_PRODUCT_AVAILABILITY+
+        "?" +
+        "pickupid=" +
+        "0" + requestHeaders.toString());
+
+    if (response.statusCode == 200) {
+      return getProductAvailabilityCheck(json);
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+  
+  Future<GetAppVersionResponse> getAppVersion() async {
+    var client = http.Client();
+    var response = await client.get(Uri.parse(BASE_URL + WS_GET_APP_VERISON));
+    var json = response.body;
+    print("Json" + json.toString());
+    return getAppVersionResponseFromJson(json);
+  }
+
 }

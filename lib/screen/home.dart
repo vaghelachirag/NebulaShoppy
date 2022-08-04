@@ -14,6 +14,7 @@ import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/AppBarWidget.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:nebulashoppy/widget/noInternet.dart';
+import 'package:nebulashoppy/widget/updateAppVersion.dart';
 import '../database/sQLHelper.dart';
 import '../model/homescreen/itembannerimage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -72,6 +73,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       bl_ShowCart = true;
     });
     _refreshRecentData();
+    getAppVersion();
   }
 
   @override
@@ -632,6 +634,31 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     setState(() {
       isConnectedToInternet();
     });
+  }
+
+  void getAppVersion() {
+       Service().getAppVersion()
+        .then((value) => {
+              if (value.toString() == str_ErrorMsg)
+                {
+                 print("Success"+"Fail")
+                }
+              else
+                {
+                //  showUpdateAppDialoug(),
+                 print("Success" + value.data)
+                }
+            });
+  }
+
+  showUpdateAppDialoug() {
+     showDialog(
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return UpdateAppVersion();
+      },
+    );
   }
   }
 

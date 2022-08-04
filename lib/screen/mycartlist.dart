@@ -794,8 +794,8 @@ handlePaymentFailure(String errorMessage){
                     setState(() {
                       str_SelectedAddress = str_SelectedAddress;
                       str_SelectedAddressType = str_SelectedAddressType;
-                     getMyCartList();
-                     
+                       getMyCartList();
+                     //  getProductAvailabilityCheck();
                       print("AddressType"+str_SelectedAddressType);
                       
                     });
@@ -809,6 +809,14 @@ handlePaymentFailure(String errorMessage){
             ),
           );
         });
+  }
+
+  getProductAvailabilityCheck(){
+    Service()
+        .getProductAvailabilityCheck("0")
+        .then((value) => {
+              print("CartList" + value.toString())
+            });
   }
 
   Column locationaddressData() {
@@ -936,6 +944,7 @@ handlePaymentFailure(String errorMessage){
               int_E_WalletAmount: getCartItemData?.ewalletAmount,
               is_EwalletOnOff: getCartItemData?.isEwalletOnOff,
               is_WalletFreez: getCartItemData?.isEwalletfreeze,
+              str_AddressType: str_SelectedAddressType,
             ),
           ));
       }
