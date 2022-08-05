@@ -97,6 +97,7 @@ class _CategoryListState extends State<CategoryList>
 
   @override
   Widget build(BuildContext context) {
+       initilizationCounter(context);
      cartCounter = Provider.of<CartCounter>(context);
     cartCounter.setCartCountity(int_CartCounters);
     ScreenUtil.init(context);
@@ -543,8 +544,9 @@ class _CategoryListState extends State<CategoryList>
                 setState((() {
                   hideProgressBar();
                   showSnakeBar(context, "Item Added to Cart!");
-                  getCartCount();
-                  // if (_dialogKey.currentContext != null) {
+                  int_CartCounters = int_CartCounters + 1;
+                  cartCounter.setCartCountity(int_CartCounters);
+                  // ifc(_dialogKey.currentContext != null) {
                   //   //Navigator.pop(_dialogKey.currentContext!);
                     
                   // }

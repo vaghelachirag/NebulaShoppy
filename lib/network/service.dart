@@ -49,7 +49,7 @@ class Service {
         Uri.parse(BASE_URL + WS_ADVERTISEMENT_IMAGES_ECOM),
         headers: requestHeaders);
     var json = response.body;
-    print("Response" + json.toString());
+    print("HomeBanner" + BASE_URL + WS_ADVERTISEMENT_IMAGES_ECOM);
     return itembannerimageFromJson(json);
   }
 
@@ -58,6 +58,7 @@ class Service {
     var response = await client.get(Uri.parse(BASE_URL + WS_GET_CATEGORY_LIST),
         headers: requestHeaders);
     var json = response.body;
+    print("Home"+ BASE_URL + WS_GET_CATEGORY_LIST);
     return itemhomecategoryFromJson(json);
   }
 

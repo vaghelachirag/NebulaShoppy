@@ -482,7 +482,7 @@ void getCartCount() async {
     if (!is_Login) {
       Service().getCartCount(DeviceId.toString(), "").then((value) => {
             int_CartCounters = value.data!.sumOfQty,
-            QTYCount = value.data!.sumOfQty.toString(),
+             QTYCount = value.data!.sumOfQty.toString(),
              cartCounter.setCartCountity(int_CartCounters)
           });
     } else {
