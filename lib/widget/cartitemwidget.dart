@@ -134,6 +134,7 @@ class CartItemWidget extends StatelessWidget {
                       id: product.id,
                       productid: product.productid,
                       categoryid: product.productid,
+                      product: product,
                     ),
                   ));
             },

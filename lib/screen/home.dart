@@ -268,7 +268,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       remainingQuantity: 5,
                       price: '\$' + "Test",
                       mrp: '\$' + "Test",
-                      qunatity: 1),
+                      qunatity: 1, bv: '1', nv: '1', pv: '1',sku: '',desc: ''),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {},
                 );
@@ -309,7 +309,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       mrp: rupees_Sybol +
                           "" +
                           _listNewLaunched[index].mrp.toString(),
-                      qunatity: _listNewLaunched[index].quantity),
+                      qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bv.toString(), nv: _listNewLaunched[index].nv.toString(), pv: _listNewLaunched[index].pv.toString(),sku: _listNewLaunched[index].sku.toString(),
+                      desc: _listNewLaunched[index].description.toString()),
+                      
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
                     _refreshRecentData();
@@ -357,7 +359,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       mrp: rupees_Sybol +
                           "" +
                           _listRecentView[index].mrp.toString(),
-                      qunatity: 1),
+                      qunatity: 1, bv: '' , nv: '', pv: '',sku: '', desc: ''),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
                     _refreshRecentData();
@@ -529,7 +531,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     mrp: rupees_Sybol +
                         "" +
                         _listNewLaunched[index].mrp.toString(),
-                    qunatity: _listNewLaunched[index].quantity),
+                    qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bvString.toString(), nv:   _listNewLaunched[index].nv.toString(), pv: _listNewLaunched[index].pv.toString(),sku: _listNewLaunched[index].sku.toString(),
+                    desc:  _listNewLaunched[index].description.toString()),
                 onBackPressClicked: () {
                   _refreshRecentData();
                   getCartCount();

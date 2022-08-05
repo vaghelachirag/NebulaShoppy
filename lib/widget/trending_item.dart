@@ -166,6 +166,9 @@ class TrendingItem extends StatelessWidget {
         id: product.id,
         productid: product.productid,
         categoryid: product.catid,
+        product: product,
+
+
       ),
     ));
 

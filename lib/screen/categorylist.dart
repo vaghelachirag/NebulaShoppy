@@ -308,13 +308,13 @@ class _CategoryListState extends State<CategoryList>
                     icon: _listproductList[index].mainImage.toString(),
                     rating: 5,
                     remainingQuantity: 5,
-                    price: rupees_Sybol +
+                    price:rupees_Sybol+
                         " " +
                         _listproductList[index].salePrice.toString(),
                     mrp: rupees_Sybol +
                         " " +
                         _listproductList[index].mrp.toString(),
-                        qunatity: _listproductList[index].quantity),
+                        qunatity: _listproductList[index].quantity, bv:  _listproductList[index].bv.toString(), nv:   _listproductList[index].nv.toString(), pv:   _listproductList[index].pv.toString(), sku: _listproductList[index].sku.toString(), desc: _listproductList[index].description.toString()),
                 gradientColors: [Colors.white, Colors.white],
                 onCartAddClick: () {
                   setState(() {
@@ -389,7 +389,7 @@ class _CategoryListState extends State<CategoryList>
                           rating: 5,
                           remainingQuantity: 5,
                           price: '\$' + "Test",
-                          mrp: '\$' + "Test", qunatity: _listproductList[index].quantity),
+                          mrp: '\$' + "Test", qunatity: _listproductList[index].quantity, bv: '', nv: '', pv: '', sku: '', desc: ''),
                       gradientColors: [Colors.white, Colors.white],
                       onCartAddClick: () {},
                       onCartRemovedClick: () {},
@@ -435,9 +435,9 @@ class _CategoryListState extends State<CategoryList>
                   icon: _listproductList[index].mainImage.toString(),
                   rating: 5,
                   remainingQuantity: 5,
-                  price: _listproductList[index].salePrice.toString(),
-                  mrp: _listproductList[index].mrp.toString(),
-                  qunatity: _listproductList[index].quantity),
+                  price:  rupees_Sybol +_listproductList[index].salePrice.toString(),
+                  mrp:  rupees_Sybol +_listproductList[index].mrp.toString(),
+                  qunatity: _listproductList[index].quantity, bv: _listproductList[index].bv.toString(), nv: _listproductList[index].nv.toString(), pv: _listproductList[index].pv.toString(), sku: _listproductList[index].sku.toString(), desc:_listproductList[index].description.toString()),
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
                 print("CartAdd" + "This");

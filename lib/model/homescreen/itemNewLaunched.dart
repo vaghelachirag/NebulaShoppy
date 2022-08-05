@@ -133,7 +133,7 @@ class itemNewLaunchedProduct {
   double? pv;
   String? pvString;
   double? bv;
-  BvString? bvString;
+  String? bvString;
   double? nv;
   String? nvString;
   int? displayOrder;
@@ -182,7 +182,7 @@ class itemNewLaunchedProduct {
         pv: json["PV"],
         pvString: json["PVString"],
         bv: json["BV"],
-        bvString: bvStringValues.map[json["BVString"]],
+        bvString:  json["BVString"],
         nv: json["NV"],
         nvString: json["NVString"],
         displayOrder: json["DisplayOrder"],
@@ -231,7 +231,7 @@ class itemNewLaunchedProduct {
         "PV": pv,
         "PVString": pvString,
         "BV": bv,
-        "BVString": bvStringValues.reverse[bvString],
+        "BVString": bvString,
         "NV": nv,
         "NVString": nvString,
         "DisplayOrder": displayOrder,

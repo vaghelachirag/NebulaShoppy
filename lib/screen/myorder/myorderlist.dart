@@ -167,7 +167,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                       remainingQuantity: 5,
                       price: "Test",
                       mrp: "Test",
-                      qunatity: 1),
+                      qunatity: 1, bv: '', nv: '', pv: '', sku: '', desc: ''),
                   gradientColors: [Colors.white, Colors.white],
                     int_width: MediaQuery.of(context).size.width/ 4,
                 ),

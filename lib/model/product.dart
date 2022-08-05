@@ -10,6 +10,11 @@ class Product {
   final String mrp;
   final int remainingQuantity;
   final int? qunatity;
+  final String pv;
+  final String bv;
+  final String nv;
+  final String sku;
+  final String desc;
 
   Product(
       {required this.id,
@@ -22,5 +27,10 @@ class Product {
       required this.price,
       required this.mrp,
       required this.remainingQuantity,
-      required this.qunatity});
+      required this.qunatity,
+      required this.pv,
+      required this.bv,
+      required this.nv,
+      required this.sku,
+       required this.desc});
 }

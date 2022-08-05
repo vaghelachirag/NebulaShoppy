@@ -45,13 +45,15 @@ class ProductDetail extends StatefulWidget {
   int categoryid;
   String device_Id = "";
   String mrp = "";
+  dynamic product;
 
   ProductDetail(
       {Key? key,
       required this.id,
       required this.productid,
-      required this.categoryid})
+      required this.categoryid,  required this.product})
       : super(key: key);
+
   @override
   State<ProductDetail> createState() => _ProductDetailState();
 }
@@ -71,6 +73,7 @@ class _ProductDetailState extends State<ProductDetail> {
   List<int> _listProductVariantSizeSkuList = [];
 
   // Product Detail Data
+  String str_Name = "";
   String str_Mrp = "";
   String str_saleprice = "";
   String str_PV = "";
@@ -100,7 +103,8 @@ class _ProductDetailState extends State<ProductDetail> {
     productid = widget.productid;
     int_CartQuantity = 0 ;
     is_ShowProductVariant = false;
-    print("Detail" + widget.productid.toString() + " " + widget.id.toString());
+    print("Detail" + widget.product.price.toString());
+    setData();
     hideProgressBar();
     setDeviceId();
     getCartCounter();
@@ -114,6 +118,17 @@ class _ProductDetailState extends State<ProductDetail> {
       backgroundColor: Colors.transparent,
       child: dialogContent(context),
     );
+  }
+    void setData() {
+      
+    str_NV = widget.product.nv.toString();
+    str_BV = widget.product.bv.toString();
+    str_PV = widget.product.pv.toString();
+    str_SKU = widget.product.sku.toString();
+    str_Description = widget.product.desc.toString();
+    str_Name = widget.product.company.toString();
+    str_ShortDescription = widget.product.name.toString();
+    print("SetDesc"+ str_ShortDescription);
   }
 
   @override
@@ -151,6 +166,44 @@ class _ProductDetailState extends State<ProductDetail> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Padding(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 3),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              setRegularText(str_Name, 16,
+                                  productNameColor),
+                              // Text(
+                              //   _listBannerImage[0].name,
+                              //   style: TextStyle(
+                              //       fontSize: 20,
+                              //       color: Colors.red,
+                              //       fontWeight: FontWeight.normal),
+                              // ),
+                              // Align(
+                              //   alignment: Alignment.topRight,
+                              //   child: StarRating(rating: 5, size: 16),
+                              // ),
+                            ],
+                          ),
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: setItalicText(str_ShortDescription, 12,
+                                    productDetailColor),
+                                // Text(
+                                //   str_ShortDescription,
+                                //   style: TextStyle(
+                                //       fontSize: 14,
+                                //       color: Colors.grey,
+                                //       fontWeight: FontWeight.normal),
+                                // ),
+                              ))
+                        ],
+                      )),
                 _getTopImage(context),
                 _setNubulaCustomised(),
                 Visibility(
@@ -732,44 +785,6 @@ class _ProductDetailState extends State<ProductDetail> {
             } else {
               return Column(
                 children: [
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(10, 10, 10, 3),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              setRegularText(_listBannerImage[0].name, 16,
-                                  productNameColor),
-                              // Text(
-                              //   _listBannerImage[0].name,
-                              //   style: TextStyle(
-                              //       fontSize: 20,
-                              //       color: Colors.red,
-                              //       fontWeight: FontWeight.normal),
-                              // ),
-                              // Align(
-                              //   alignment: Alignment.topRight,
-                              //   child: StarRating(rating: 5, size: 16),
-                              // ),
-                            ],
-                          ),
-                          Padding(
-                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: setItalicText(str_ShortDescription, 12,
-                                    productDetailColor),
-                                // Text(
-                                //   str_ShortDescription,
-                                //   style: TextStyle(
-                                //       fontSize: 14,
-                                //       color: Colors.grey,
-                                //       fontWeight: FontWeight.normal),
-                                // ),
-                              ))
-                        ],
-                      )),
                   Column(
                     children: [
                       SizedBox(
@@ -1146,7 +1161,7 @@ class _ProductDetailState extends State<ProductDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                setRegularText('\u{20B9}${str_saleprice}', 20, Colors.black)
+                setRegularText('${widget.product.price}', 20, Colors.black)
                 // Text(
                 //   '\u{20B9}${str_saleprice}',
                 //   style: TextStyle(
@@ -1163,7 +1178,7 @@ class _ProductDetailState extends State<ProductDetail> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "MRP:  " + rupees_Sybol,
+                  "MRP:  ",
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 14,
@@ -1173,7 +1188,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 Padding(
                     padding: EdgeInsets.only(left: 1),
                     child: Text(
-                      removeDecimalAmount(str_Mrp),
+                      removeDecimalAmount(widget.product.mrp),
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
@@ -1604,7 +1619,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           mrp: rupees_Sybol +
                               "" +
                               _listNewLaunched[index].mrp.toString(),
-                          qunatity: _listNewLaunched[index].quantity),
+                          qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bv.toString(), nv: _listNewLaunched[index].nv.toString(), pv: _listNewLaunched[index].pv.toString(),sku:  _listNewLaunched[index].sku.toString(), desc: _listNewLaunched[index].description.toString()),
                       gradientColors: [Colors.white, Colors.white],
                       onBackPressClicked: () {},
                     );
@@ -1641,7 +1656,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       remainingQuantity: 5,
                       price: '\$' + "Test",
                       mrp: '\$' + "Test",
-                      qunatity: 1),
+                      qunatity: 1, bv: '', nv: '', pv: '',sku: '', desc: '' ),
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {},
                 );
@@ -2331,4 +2346,6 @@ class _ProductDetailState extends State<ProductDetail> {
     _listProductVariantSize = [];
     _listProductVariantSizeSkuList = [];
   }
+
+
 }

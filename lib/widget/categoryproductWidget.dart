@@ -149,6 +149,7 @@ class CategoryProductWidget extends StatelessWidget {
         id: product.id,
         productid: product.productid,
         categoryid: product.catid,
+        product: product,
       ),
     ));
 
@@ -224,10 +225,10 @@ Column setProductPrice(Product product) {
     children: [
       Container(
         padding: EdgeInsets.only(left: 8, top: 10, right: 8),
-        child: setBoldText(rupees_Sybol + removeDecimalAmount(product.price) , 14, priceColor),
+        child: setBoldText(removeDecimalAmount(product.price) , 14, priceColor),
       ),
       Text(
-        rupees_Sybol + removeDecimalAmount(product.mrp),
+        removeDecimalAmount(product.mrp),
         style: TextStyle(
             color: productDetailColor,
             fontSize: 12,

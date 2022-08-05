@@ -147,7 +147,7 @@ class Service {
         Uri.parse(BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + ""),
         headers: requestHeaders);
     var json = response.body;
-    //  print("Json" + json.toString());
+      print("Json" + BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + "");
     return searchProductFromJson(json);
   }
 

@@ -189,7 +189,7 @@ class _SearchState extends State<Search> {
                       remainingQuantity: 5,
                       price: "Test",
                       mrp: "Test",
-                      qunatity: 1),
+                      qunatity: 1, bv: '', nv: '', pv: '', sku: '', desc: ''),
                   gradientColors: [Colors.white, Colors.white],
                   int_width: MediaQuery.of(context).size.width / 4,
                 ),
@@ -223,6 +223,7 @@ class _SearchState extends State<Search> {
                           id: _listSearch[index].id,
                           productid: _listSearch[index].productId,
                           categoryid: _listSearch[index].categoryId,
+                          product: _listSearch[index],
                         ),
                       ));
                 },
@@ -239,7 +240,7 @@ class _SearchState extends State<Search> {
                       price: rupees_Sybol +
                           _listSearch[index].salePrice.toString(),
                       mrp: rupees_Sybol + _listSearch[index].mrp.toString(),
-                      qunatity: _listSearch[index].quantity),
+                      qunatity: _listSearch[index].quantity, bv: '', nv: '', pv: '', sku:  _listSearch[index].sku.toString(), desc:  _listSearch[index].description.toString()),
                   gradientColors: [Colors.white, Colors.white],
                   int_width: MediaQuery.of(context).size.width / 4,
                 ),
