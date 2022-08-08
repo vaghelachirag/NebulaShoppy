@@ -106,7 +106,7 @@ class MyOrderWiget extends StatelessWidget {
             Container(
                 padding: EdgeInsets.only(top: 8),
                 width: MediaQuery.of(context).size.width / 2 ,
-                height:  MediaQuery.of(context).size.height / 17,
+                height:  MediaQuery.of(context).size.height / 20,
                 child: MainButtonWidget(
                   buttonText: "View Order",
                   onPress: () {

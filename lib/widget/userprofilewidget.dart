@@ -54,7 +54,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
               alignment: Alignment.topRight,
               child:  IconButton(onPressed: () {
                 Navigator.pop(context);
-              }, icon: Icon(CommunityMaterialIcons.close_box),  color: Colors.cyan),
+              }, icon: Icon(CommunityMaterialIcons.close_box),  color: loginButtonColor),
             ),
            Text("My Profile",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500),),
           SizedBox(height: 15),
