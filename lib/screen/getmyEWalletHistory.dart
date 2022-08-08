@@ -51,9 +51,9 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
   String str_IboKey = "";
   String string_Date = "";
   List<String> _orderDate = [];
+  int int_DatePosition = 0;
 
   List<GetEWalletHistoryData> _GetMyEWalletHistory = [];
-
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
 
   @override
@@ -93,7 +93,7 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
               DataColumn(label: Text('Remarks'))
             ],
             rows:
-                _GetMyEWalletHistory // Loops through dataColumnText, each iteration assigning the value to element
+                _GetMyEWalletHistory
                     .map(
               ((element) => DataRow(
                     cells: <DataCell>[
@@ -115,12 +115,12 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
                             fontWeight: FontWeight.bold),
                       ))),
                       DataCell(FutureBuilder(
-                        future: convertDate(element.createdOn.toString()),
+                        future: getformatedDate(element.longCreatedOn),
                         builder: (context, snapshot) {
                           if (_orderDate.isEmpty) {
                             return Text("");
                           } else {
-                            return Text(string_Date);
+                            return Text(getConvertDate(element.longCreatedOn));
                           }
                           ;
                         },
@@ -135,6 +135,15 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
           ],
         ) 
         );
+  }
+  String getConvertDate(int longCreatedOn){
+       var date =
+        new DateTime.fromMillisecondsSinceEpoch(longCreatedOn * 1000, isUtc: false);
+    var timezone = date.timeZoneName;
+    final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
+    var dates = formatter.format(date.toUtc());
+     print("OrderDare" + dates.toString());
+   return   string_Date = dates.toString();
   }
 
   Container getTable() {
@@ -181,6 +190,8 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
         });
   }
 
+  
+
   Container setTableTitle(String str_Title) {
     return Container(
       color: Colors.cyan[400],
@@ -207,22 +218,18 @@ class _GetMyEWalletHistoryState extends State<GetMyEWalletHistory>
     var date =
         new DateTime.fromMillisecondsSinceEpoch(orderDate * 1000, isUtc: false);
     var timezone = date.timeZoneName;
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    var dates = formatter.format(date.toUtc()) + "GMT-0";
-    print("OrderDare" + dates.toString());
-    setState(() {
-      string_Date = formatter.format(date);
+    final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
+    var dates = formatter.format(date.toUtc());
+     print("OrderDare" + dates.toString());
+      string_Date = dates.toString();
+    //  print("OrderDare" + dates.toString() + " "+string_Date);
       _orderDate.add(string_Date);
-    });
+      if(_orderDate.length  >=  int_DatePosition){
+        print("Position" +_orderDate.length.toString() +" " +  int_DatePosition.toString());
+      // int_DatePosition  = int_DatePosition + 1 ;
+      }
   }
 
-  convertDate(String str_Date) {
-    DateTime now = DateTime.parse(str_Date);
-    string_Date = DateFormat('dd-MM-yyyy').format(now);
-    setState(() {
-      _orderDate.add(string_Date);
-    });
-  }
 
  Container setWalletHeader() {
     return Container(

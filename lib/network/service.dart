@@ -597,7 +597,11 @@ class Service {
     var response = await client.get(uri);
     var json = response.body;
 
-    print("Response" + response.body.toString());
+    print("Response" + BASE_URL +
+        "API/EComCouponCode/GetIBOWalletList" +
+        "?" +
+        "IBOKeyID=" +
+        _ibokey);
 
     if (response.statusCode == 200) {
       return getMyEwalletHistoryResponseFromJson(json);

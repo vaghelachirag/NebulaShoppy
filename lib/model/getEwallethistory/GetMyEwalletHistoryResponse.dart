@@ -36,7 +36,7 @@ class GetEWalletHistoryData {
         this.transactiontype,
         this.remark,
         this.createdOn,
-        this.longCreatedOn,
+        required this.longCreatedOn,
     });
 
     String ?iboKeyId;
@@ -45,7 +45,7 @@ class GetEWalletHistoryData {
     String ?transactiontype;
     String ?remark;
     DateTime ?createdOn;
-    int ?longCreatedOn;
+    int longCreatedOn;
 
     factory GetEWalletHistoryData.fromJson(Map<String, dynamic> json) => GetEWalletHistoryData(
         iboKeyId: json["IBOKeyID"],

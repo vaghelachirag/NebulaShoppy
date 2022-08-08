@@ -211,7 +211,7 @@ Container loadNewLaunchSkeleton() {
 
 Padding loadSkeletonLoaders(Widget box, Axis vertical) {
   return Padding(
-    padding: const EdgeInsets.all(0.0),
+    padding: const EdgeInsets.all(5.0),
     child: ListView.builder(
         itemCount: 20,
         scrollDirection: vertical,
