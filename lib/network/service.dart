@@ -10,6 +10,7 @@ import 'package:nebulashoppy/model/getMyAddressResponse/getAddressByCityResponse
 import 'package:nebulashoppy/model/getMyAddressResponse/getMyAddressResponse.dart';
 import 'package:nebulashoppy/model/getMyAddressResponse/getdeleteAddressResponse.dart';
 import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
+import 'package:nebulashoppy/model/getNewProductResponse/getNewProductResponse.dart';
 import 'package:nebulashoppy/model/getSendPasswordOptionResponse/getSendPasswordOptionResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
@@ -243,6 +244,24 @@ class Service {
 
     // print("ProductVarint " + json.toString());
     return getCartTotalResponseFromJson(json);
+  }
+
+   Future<dynamic> getNewProductList() async {
+    var client = http.Client();
+    dynamic response = await client.get(
+        Uri.parse(BASE_URL + WS_GET_NEW_PRODUCT_LIST));
+    dynamic jsons = response.body;
+    
+      final jsonBody = json.decode(response.body);
+      if (response.statusCode == 200) {
+      if (jsonBody["StatusCode"] == 0) {
+        return str_NoDataMsg;
+      } else {
+        return getNewProductResponseFromJson(jsons);
+      }
+    } else {
+      return str_ErrorMsg;
+    }
   }
 
   Future<GetAddToCartResponse> getAddToCartResponse(

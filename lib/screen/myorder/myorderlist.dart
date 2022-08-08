@@ -199,9 +199,10 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
         new DateTime.fromMillisecondsSinceEpoch(orderDate * 1000, isUtc: false);
     var timezone = date.timeZoneName;
     final DateFormat formatter = DateFormat('dd-MMMM-yyyy (hh:mm a)');
-    var dates = formatter.format(date.toUtc()) + "GMT-0";
+    var dates = formatter.format(date.toUtc());
     print("OrderDare" + dates.toString());
-     string_Date = formatter.format(date);
+      string_Date = dates.toString();
+      print("OrderDare" + dates.toString() + " "+string_Date);
       _orderDate.add(string_Date);
   }
 

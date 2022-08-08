@@ -55,98 +55,98 @@ class Data {
 class itemNewLaunchedProduct {
   itemNewLaunchedProduct({
     required this.id,
-    this.projectId,
+   required this.projectId,
     required this.productId,
     required this.categoryId,
-    this.categoryName,
-    this.pDetailsId,
-    this.cartId,
-    this.name,
-    this.description,
-    this.sku,
-    this.comboId,
-    this.mrp,
+   required this.categoryName,
+   required this.pDetailsId,
+   required this.cartId,
+  required  this.name,
+   required this.description,
+   required this.sku,
+   required this.comboId,
+   required this.mrp,
     required this.salePrice,
-    this.distributorPrice,
-    this.saving,
-    this.savingString,
-    this.quantity,
-    this.maxSaleQuantity,
-    this.inStock,
-    this.isComboProduct,
-    this.returnPolicy,
-    this.warranty,
-    this.mainImage,
-    this.thumbnailImage,
-    this.weight,
-    this.dimension,
-    this.manufacturer,
-    this.volWt,
-    this.pv,
-    this.pvString,
-    this.bv,
-    this.bvString,
-    this.nv,
-    this.nvString,
-    this.displayOrder,
-    this.shortDescription,
-    this.taxRate,
-    this.taxAmount,
-    this.total,
-    this.discount,
-    this.productClass,
-    this.isCancellable,
-    this.showShareLink,
-    this.averageRating,
-    this.showInNebPro,
-    this.eComProductDetailsModel,
+  required  this.distributorPrice,
+  required  this.saving,
+   required this.savingString,
+   required this.quantity,
+   required this.maxSaleQuantity,
+   required this.inStock,
+   required this.isComboProduct,
+   required this.returnPolicy,
+  required  this.warranty,
+  required  this.mainImage,
+  required  this.thumbnailImage,
+   required this.weight,
+   required this.dimension,
+  required  this.manufacturer,
+  required  this.volWt,
+  required  this.pv,
+   required this.pvString,
+  required  this.bv,
+  required  this.bvString,
+  required  this.nv,
+  required  this.nvString,
+  required  this.displayOrder,
+  required  this.shortDescription,
+  required  this.taxRate,
+   required this.taxAmount,
+   required this.total,
+   required this.discount,
+   required this.productClass,
+   required this.isCancellable,
+   required this.showShareLink,
+   required this.averageRating,
+   required this.showInNebPro,
+   required this.eComProductDetailsModel,
   });
 
   int id;
-  int? projectId;
+  int projectId;
   int productId;
   int categoryId;
   CategoryName? categoryName;
-  int? pDetailsId;
-  int? cartId;
-  String? name;
-  String? description;
-  String? sku;
-  int? comboId;
-  double? mrp;
+  int pDetailsId;
+  int cartId;
+  String name;
+  String description;
+  String sku;
+  int comboId;
+  double mrp;
   double salePrice;
-  double? distributorPrice;
-  double? saving;
-  SavingString? savingString;
-  int? quantity;
-  int? maxSaleQuantity;
-  bool? inStock;
-  bool? isComboProduct;
-  ReturnPolicy? returnPolicy;
-  Warranty? warranty;
-  String? mainImage;
-  String? thumbnailImage;
-  VolWt? weight;
-  Dimension? dimension;
-  Manufacturer? manufacturer;
-  VolWt? volWt;
-  double? pv;
-  String? pvString;
-  double? bv;
-  String? bvString;
-  double? nv;
-  String? nvString;
-  int? displayOrder;
-  String? shortDescription;
-  double? taxRate;
-  double? taxAmount;
-  double? total;
-  double? discount;
-  dynamic? productClass;
-  bool? isCancellable;
-  bool? showShareLink;
-  double? averageRating;
-  bool? showInNebPro;
+  double distributorPrice;
+  double saving;
+  String savingString;
+  int quantity;
+  int maxSaleQuantity;
+  bool inStock;
+  bool isComboProduct;
+  String returnPolicy;
+  String warranty;
+  String mainImage;
+  String thumbnailImage;
+  String weight;
+  String dimension;
+  String manufacturer;
+  String volWt;
+  double pv;
+  String pvString;
+  double bv;
+  String bvString;
+  double nv;
+  String nvString;
+  int displayOrder;
+  String shortDescription;
+  double taxRate;
+  double taxAmount;
+  double total;
+  double discount;
+  dynamic productClass;
+  bool isCancellable;
+  bool showShareLink;
+  double averageRating;
+  bool showInNebPro;
   dynamic? eComProductDetailsModel;
 
   factory itemNewLaunchedProduct.fromJson(Map<String, dynamic> json) =>
@@ -166,19 +166,19 @@ class itemNewLaunchedProduct {
         salePrice: json["SalePrice"],
         distributorPrice: json["DistributorPrice"],
         saving: json["Saving"],
-        savingString: savingStringValues.map[json["SavingString"]],
+        savingString: json["SavingString"],
         quantity: json["Quantity"],
         maxSaleQuantity: json["MaxSaleQuantity"],
         inStock: json["InStock"],
         isComboProduct: json["IsComboProduct"],
-        returnPolicy: returnPolicyValues.map[json["ReturnPolicy"]],
-        warranty: warrantyValues.map[json["Warranty"]],
+        returnPolicy: json["ReturnPolicy"],
+        warranty: json["Warranty"],
         mainImage: json["MainImage"],
         thumbnailImage: json["ThumbnailImage"],
-        weight: volWtValues.map[json["Weight"]],
-        dimension: dimensionValues.map[json["Dimension"]],
-        manufacturer: manufacturerValues.map[json["Manufacturer"]],
-        volWt: volWtValues.map[json["VolWt"]],
+        weight: json["Weight"],
+        dimension: json["Dimension"],
+        manufacturer: json["Manufacturer"],
+        volWt: json["VolWt"],
         pv: json["PV"],
         pvString: json["PVString"],
         bv: json["BV"],
@@ -215,19 +215,19 @@ class itemNewLaunchedProduct {
         "SalePrice": salePrice,
         "DistributorPrice": distributorPrice,
         "Saving": saving,
-        "SavingString": savingStringValues.reverse[savingString],
+        "SavingString": savingString,
         "Quantity": quantity,
         "MaxSaleQuantity": maxSaleQuantity,
         "InStock": inStock,
         "IsComboProduct": isComboProduct,
-        "ReturnPolicy": returnPolicyValues.reverse[returnPolicy],
-        "Warranty": warrantyValues.reverse[warranty],
+        "ReturnPolicy":returnPolicy,
+        "Warranty": warranty,
         "MainImage": mainImage,
         "ThumbnailImage": thumbnailImage,
-        "Weight": volWtValues.reverse[weight],
-        "Dimension": dimensionValues.reverse[dimension],
-        "Manufacturer": manufacturerValues.reverse[manufacturer],
-        "VolWt": volWtValues.reverse[volWt],
+        "Weight": weight,
+        "Dimension": dimension,
+        "Manufacturer": manufacturer,
+        "VolWt": volWt,
         "PV": pv,
         "PVString": pvString,
         "BV": bv,

@@ -114,9 +114,27 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                    Align(
                          alignment: Alignment.topRight,
                          child:    
-                         setRegularText(widget.ordernumber.toString(), 14, Colors.blue)
-                    )
-                  ],
+                         Row(
+                          children: [
+                          setRegularText(widget.ordernumber.toString(), 14, Colors.blue),
+                             SizedBox(
+                      width: 20,
+                      child:  IconButton(
+                icon: Icon(CommunityMaterialIcons.download),
+                onPressed: () {
+                  print("Order"+ "Order");
+                  if( widget.int_orderDeviveryStatus == 3){
+                    showSnakeBar(context, 'Invoice is not generated yet. ');
+                  }
+                  else{
+                    showSnakeBar(context, 'Your order is not yet dispatched.');
+                  }
+              } ,
+              ),
+              )
+              ],
+              )),
+              ],
                 ),)
               ,      
               dividerLine(),

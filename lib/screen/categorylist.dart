@@ -11,6 +11,7 @@ import 'package:nebulashoppy/widget/common_widget.dart';
 import 'package:nebulashoppy/widget/filterWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../model/getNewProductResponse/getNewProductResponse.dart';
 import '../model/homescreen/itemNewLaunched.dart';
 import '../model/homescreen/itemhomecategory.dart';
 import '../model/product.dart';
@@ -37,8 +38,10 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList>
     with WidgetsBindingObserver {
   List<HomeCategoryData> _listHomeCategory = [];
-  List<itemNewLaunchedProduct> _listproductList = [];
-  List<itemNewLaunchedProduct> _listDisplayproductList = [];
+  List<dynamic> _listproductList = [];
+  List<dynamic> _listDisplayproductList = [];
+  List<dynamic> _listNewLaunch = [];
+
 
   get somethingWrong => null;
   var selectedPosition = 0;
@@ -235,6 +238,7 @@ class _CategoryListState extends State<CategoryList>
                   getProductListByCategory(
                       _listHomeCategory[index].id.toString());
                   selectedPosition = index;
+                  selectedId = _listHomeCategory[index].id;
                   print("Home" + selectedPosition.toString());
                 });
               },
@@ -348,6 +352,7 @@ class _CategoryListState extends State<CategoryList>
               print("Categorylist" + value.message);
               _listproductList = value.data.products;
               _listDisplayproductList = value.data.products;
+           //   getNewLaunchProduct();
               //  filterList(0);
               print("Filter" + _listDisplayproductList.length.toString());
               setState(() {
@@ -568,7 +573,7 @@ class _CategoryListState extends State<CategoryList>
     // }
 
    if (index.toString() == "0") {
-      
+      _listNewLaunch = _listDisplayproductList;
     }
     if (index.toString() == "1") {
       _listproductList.sort((a, b) {
@@ -601,6 +606,18 @@ class _CategoryListState extends State<CategoryList>
       });
     }
 
+
+    if (index.toString() == "5") {
+      print("Index" + "5");
+    
+    }
+
+    
+    if (index.toString() == "6") {
+      print("Index" + "6");
+    //   filterToNewLaunch();
+  
+    }
     print("FilterList" + index.toString());
     // if (index.toString() == "0") {
     //   print("FilterList" + "0");
@@ -646,5 +663,30 @@ class _CategoryListState extends State<CategoryList>
     // _listproductList.sort((a, b) {
     //   return a.salePrice.compareTo(b.salePrice);
     // });
+  }
+
+  void getNewLaunchProduct() {
+    Service().getNewProductList().then((value) => {
+          setState((() {
+            if (value.statusCode == 1) {
+              _listNewLaunch = [];
+              _listNewLaunch = value.data ;
+                print("NewLaunch"+_listNewLaunch.length.toString());
+            } else {
+                print("NewLaunch"+ "No Data");
+            }
+          }))
+        });
+  }
+
+  void filterToNewLaunch() {
+    _listproductList.clear();
+    for(int i=0; i<_listNewLaunch.length; i++){
+      if(_listNewLaunch[i].categoryId.toString() == selectedId.toString()){
+        print("NewLuanch"+_listNewLaunch[i].categoryName.toString());
+      _listproductList.add(itemNewLaunchedProduct(id: _listNewLaunch[i].id, productId: _listNewLaunch[i].productId, categoryId: _listNewLaunch[i].categoryId, salePrice: _listNewLaunch[i].mrp, averageRating:  _listNewLaunch[i].mrp, bv:  _listNewLaunch[i].bV, bvString:  _listNewLaunch[i].bV, cartId: _listNewLaunch[i].categoryId, categoryName: _listNewLaunch[i].categoryName, comboId:  _listNewLaunch[i].categoryId, description: '', dimension: _listNewLaunch[i].dimension, discount: _listNewLaunch[i].dimension, displayOrder: _listNewLaunch[i].displayOrder, distributorPrice: _listNewLaunch[i].displayOrder, eComProductDetailsModel: _listNewLaunch[i].displayOrder, weight: _listNewLaunch[i].volWt, inStock: true, isCancellable: false, isComboProduct: false, manufacturer:  _listNewLaunch[i].volWt , mainImage: '', maxSaleQuantity: 0, mrp: _listNewLaunch[i].mRP, name: '', nv: _listNewLaunch[i].nV, nvString: '', pDetailsId: _listNewLaunch[i].nV, productClass: null, projectId: _listNewLaunch[i].productId, pv: _listNewLaunch[i].pV, pvString: '', quantity: 0, returnPolicy: _listNewLaunch[i].volWt, saving: _listNewLaunch[i].volWt, savingString: _listNewLaunch[i].volWt, shortDescription: '', showInNebPro: _listNewLaunch[i].volWt, showShareLink: _listNewLaunch[i].volWt, sku: '', taxAmount: _listNewLaunch[i].volWt, taxRate: 0, thumbnailImage: '', total: _listNewLaunch[i].volWt, volWt: _listNewLaunch[i].volWt, warranty: _listNewLaunch[i].volWt)); 
+      } 
+    }
+     print("NewLuanch"+_listproductList.length.toString());
   }
 }
