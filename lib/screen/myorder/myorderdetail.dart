@@ -62,6 +62,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   @override
   void initState() {
     super.initState();
+    print("Pickup"+ widget.isPickupPoint.toString());
     if( widget.status.toString() == 'DatumStatus.PROCESSING'){
       setState(() {
          widget.int_orderDeviveryStatus = 1;
@@ -155,7 +156,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                      FutureBuilder(
                        builder: (context, snapshot) {
                          if(widget.isPickupPoint == 0){
-                           return  setPickupLocation();
+                           return  setShippingDetailLocation();
                          }
                          else{
                            return   setPickupLocation();
@@ -215,6 +216,25 @@ class _MyOrderDetailState extends State<MyOrderDetail>
      ),
    );
  }
+
+ Column setShippingDetailLocation(){
+    return Column(
+      children: [
+      Padding(padding: EdgeInsets.all(10),
+                      child: Align(
+                         alignment: Alignment.topLeft,
+                         child:   
+                         setBoldText('Shipping Detail', 14, Colors.black)
+                         //setHeaderText('Pickup Location',14)                     
+                    ),),
+     //  setPickupLocationText(widget.billingAddressUser.toString()),
+       setPickupLocationText(widget.billingAddress.toString()),
+        setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
+      
+      ],
+    );
+  }
+
   Column setPickupLocation(){
     return Column(
       children: [
