@@ -140,6 +140,7 @@ class CartItemWidget extends StatelessWidget {
             Visibility(
               visible: product.is_Free,
               child:  Wrap(
+           runAlignment: WrapAlignment.start,     
           direction: Axis.vertical,
           children: _getFreeText(),
         )))

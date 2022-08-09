@@ -61,21 +61,16 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   @override
   void initState() {
     super.initState();
-    print("Test"+ widget.status.toString());
     if( widget.status.toString() == 'DatumStatus.PROCESSING'){
       setState(() {
          widget.int_orderDeviveryStatus = 1;
-      });
-     
+      });   
     }
      if( widget.status.toString() == 'DatumStatus.DELIVERED'){
       setState(() {
          widget.int_orderDeviveryStatus = 3;
       });
-     
     }
-    
-   
   }
 
 
@@ -94,11 +89,12 @@ class _MyOrderDetailState extends State<MyOrderDetail>
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: appBarWidget(context, 3, "Order Summary", false)),
-      body:  SingleChildScrollView(child:   Column(
-        children:  <Widget>[
+      body:  
+      SingleChildScrollView(
+        child: 
+        Column(
+        children: [
            Container(
-             width: MediaQuery.of(context).size.width,
-             height: MediaQuery.of(context).size.height,
              color: Colors.white,
              padding:  EdgeInsets.all(10),
              child:  Column(
@@ -182,7 +178,8 @@ class _MyOrderDetailState extends State<MyOrderDetail>
             ),
            )
         ],
-      ) ,)
+      ),
+      ) 
         
       ,
     );
@@ -268,7 +265,8 @@ class _MyOrderDetailState extends State<MyOrderDetail>
       child:   Container(
           margin: EdgeInsets.all(10),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: ListView.builder(
+          child: 
+          ListView.builder(
             itemCount: widget.orderDetails!.length,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
@@ -281,8 +279,8 @@ class _MyOrderDetailState extends State<MyOrderDetail>
               );
               ;
             },
-          ),
-        ) );
+          )),
+         );
   }
   
   
@@ -354,8 +352,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
             Align(
               alignment: Alignment.topLeft,
               child: Row(
-                children: [
-                
+               children: [       
                   IconButton(
                       onPressed: () {
                      
