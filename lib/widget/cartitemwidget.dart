@@ -47,7 +47,10 @@ class CartItemWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Card(
                 elevation: 5,
-                child: Row(
+                child: 
+                Column(
+                  children: [
+                  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
@@ -62,6 +65,7 @@ class CartItemWidget extends StatelessWidget {
                                 children: <Widget>[
                                   _productImage(context),
                                   _productDetails(context),
+                                
                                   // Container(
                                   //   alignment: Alignment.topRight,
                                   //   width: MediaQuery.of(context).size.width / 6,
@@ -77,11 +81,15 @@ class CartItemWidget extends StatelessWidget {
                                   // )
                                 ],
                               ),
+                             
                             ],
                           ),
                         ),
                       ),
                     ),
+                    Visibility(
+                      visible: !product.is_Free,
+                      child: 
                     Container(
                       alignment: Alignment.topRight,
                       width: MediaQuery.of(context).size.width / 6,
@@ -94,13 +102,31 @@ class CartItemWidget extends StatelessWidget {
                             },
                             icon: Icon(CommunityMaterialIcons.delete)),
                       ),
-                    )
+                    ))
                   ],
-                )),
+                ),
+                _freeProduct(context)
+                  ],
+                )
+              ),
           ),
         ],
       ),
       onTap: () {},
+    );
+  }
+
+ Visibility _freeProduct(BuildContext context){
+    return 
+     Visibility(
+      visible: product.is_Free,
+      child: Container(
+      padding: EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width ,
+      color: REWARD_COLOR,
+        child: Text(product.rankRewardText,style: TextStyle(fontSize: 12,color: BLACK,fontFamily: EmberBold),),
+      )
+      ,
     );
   }
 
@@ -186,7 +212,7 @@ class CartItemWidget extends StatelessWidget {
                               print("Cart" + "Removed inner");
                               onCartRemovedClick();
                             },
-                            onCountChanged: (int) {},
+                            onCountChanged: (int) {}, is_Freee: product.is_Free,
                           ),
                         )),
                   ]),

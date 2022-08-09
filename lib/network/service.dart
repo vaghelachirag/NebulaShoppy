@@ -539,6 +539,8 @@ class Service {
     var client = http.Client();
     Uri uri = Uri.parse(BASE_URL + WS_GET_MY_ORDER_LIST);
 
+      print("Response" + BASE_URL + WS_GET_MY_ORDER_LIST);
+
     var response = await client.get(uri, headers: requestHeaders);
     if (response.statusCode == 200) {
       var json = response.body;

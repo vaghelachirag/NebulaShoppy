@@ -14,12 +14,14 @@ class AddToCart extends StatelessWidget {
   final VoidCallback onItemRemoved;
   final VoidCallback onItemAdd;
   final Function(int) onCountChanged;
+  final bool is_Freee ;
 
   AddToCart({
     required this.count,
     required this.onItemRemoved,
     required this.onItemAdd,
     required this.onCountChanged,
+    required this.is_Freee 
   });
 
   @override
@@ -30,13 +32,17 @@ class AddToCart extends StatelessWidget {
           GestureDetector(
             onTap: () {
               print("Cart" + "Removed");
+             if(!is_Freee){
               onItemRemoved();
+              }          
             },
             child: Container(
               child: Padding(
                 padding: EdgeInsets.all(0),
                 child: CircleAvatar(
-                  backgroundColor: buttonColor,
+                  backgroundColor: is_Freee == true
+                                ? Colors.amber.shade100
+                                : buttonColor,
                   maxRadius: 15,
                   child: Text(
                     "-",
@@ -64,7 +70,9 @@ class AddToCart extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              onItemAdd();
+              if(!is_Freee){
+               onItemAdd();
+              }          
             },
             child: Align(
                 alignment: Alignment.topRight,
@@ -72,7 +80,9 @@ class AddToCart extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(0),
                     child: CircleAvatar(
-                      backgroundColor: buttonColor,
+                      backgroundColor: is_Freee == true
+                                ? Colors.amber.shade100
+                                : buttonColor,
                       maxRadius: 15,
                       child: Text(
                         "+",

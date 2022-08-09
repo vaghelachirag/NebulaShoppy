@@ -145,6 +145,7 @@ const SEGMENTCLR = Color(0XFFE1E1E1);
 const HOME_CIGAR = Color(0XFF924D23);
 const CARD_BORDER = Color(0XFFDEDEDE);
 const WRITE_REVIEW = Color(0XFFF2970E);
+const REWARD_COLOR = Color(0XFFfaf8df);
 const SHADOW_GRAY = Color.fromRGBO(0, 0, 0, 0.16);
 const LIGHT_ACCENT_GRAY = Color(0xFFE5DBDD);
 const PRODUCT_PRICE = Color(0xFF44293B);

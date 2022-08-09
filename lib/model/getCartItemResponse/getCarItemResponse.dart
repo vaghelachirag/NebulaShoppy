@@ -163,7 +163,7 @@ class ItemCart {
     this.nv,
     this.isPromo,
     this.isOnePlusOnePromo,
-    this.isFree,
+    required this.isFree,
     this.isRankRewardBronze,
     this.isRankRewardSilver,
     this.isRankRewardGold,
@@ -171,7 +171,7 @@ class ItemCart {
     this.rankRewardBronzeText,
     this.rankRewardSilverText,
     this.rankRewardGoldText,
-    this.rankRewardText,
+    required this.rankRewardText,
     this.variants,
     this.weightInGrams,
     this.weightQty,
@@ -207,7 +207,7 @@ class ItemCart {
   int? nv;
   bool? isPromo;
   bool? isOnePlusOnePromo;
-  bool? isFree;
+  bool isFree;
   bool? isRankRewardBronze;
   bool? isRankRewardSilver;
   bool? isRankRewardGold;
@@ -215,7 +215,7 @@ class ItemCart {
   String? rankRewardBronzeText;
   String? rankRewardSilverText;
   String? rankRewardGoldText;
-  String? rankRewardText;
+  String rankRewardText;
   int? variants;
   double? weightInGrams;
   double? weightQty;

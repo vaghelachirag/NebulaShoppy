@@ -559,7 +559,8 @@ handlePaymentFailure(String errorMessage){
                 pv: "Test",
                 bv: "Test",
                 nv: "Test",
-                int_cartQuntity: 0,
+                int_cartQuntity: 0, is_Free: false, rankRewardText: '',
+                
               ),
               gradientColors: [Colors.white, Colors.white],
               onItemRemovedClick: (int) {},
@@ -594,6 +595,7 @@ handlePaymentFailure(String errorMessage){
                     bv: _listCartItem[index].bv.toString(),
                     nv: _listCartItem[index].nv.toString(),
                     int_cartQuntity: _listCartItem[index].cartQuantity,
+                    is_Free: _listCartItem[index].isFree, rankRewardText: _listCartItem[index].rankRewardText
                   ),
                   gradientColors: [Colors.white, Colors.white],
                   onItemRemovedClick: (int) {

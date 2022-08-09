@@ -9,6 +9,8 @@ class SetCartItem {
   final String nv;
   final String bv; 
   final int  int_cartQuntity; 
+  final bool is_Free ;
+  final String rankRewardText ;
  
 
   SetCartItem(
@@ -21,5 +23,5 @@ class SetCartItem {
       required this.pv,
       required this.nv,
       required this.bv,
-      required this.int_cartQuntity});
+      required this.int_cartQuntity,required this.is_Free,required this.rankRewardText});
 }
