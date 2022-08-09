@@ -43,9 +43,11 @@ class CartItemWidget extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
+            color: white,
             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
             width: MediaQuery.of(context).size.width,
             child: Card(
+              color: white,
                 elevation: 5,
                 child: 
                 Column(
@@ -54,7 +56,6 @@ class CartItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 0.0),
                         child: Padding(
@@ -105,7 +106,7 @@ class CartItemWidget extends StatelessWidget {
                     ))
                   ],
                 ),
-                _freeProduct(context)
+                 _freeProduct(context)
                   ],
                 )
               ),
@@ -124,7 +125,7 @@ class CartItemWidget extends StatelessWidget {
       padding: EdgeInsets.all(5),
       width: MediaQuery.of(context).size.width ,
       color: REWARD_COLOR,
-        child: Text(product.rankRewardText,style: TextStyle(fontSize: 12,color: BLACK,fontFamily: EmberBold),),
+        child: Text(product.rankRewardText,style: TextStyle(fontSize: 12,color: BLACK,fontFamily: EmberBold,fontWeight: FontWeight.bold),),
       )
       ,
     );
@@ -133,7 +134,17 @@ class CartItemWidget extends StatelessWidget {
   _productImage(BuildContext context) {
     return Stack(
       children: <Widget>[
-        ClipPath(
+        Row(
+          children: [
+            Padding(padding: EdgeInsets.all(0),child: 
+            Visibility(
+              visible: product.is_Free,
+              child:  Wrap(
+          direction: Axis.vertical,
+          children: _getFreeText(),
+        )))
+           ,
+      ClipPath(
           clipper: ProductImageContainerClipper(),
           child: Container(
             decoration: BoxDecoration(
@@ -174,10 +185,18 @@ class CartItemWidget extends StatelessWidget {
             ),
           ),
         ))
+          ],
+        )
+       
       ],
     );
   }
-
+List<Widget> _getFreeText() {
+    const text = "F  R  E  E";
+    List<Widget> res = [];
+    res.add(RotatedBox(quarterTurns: 1, child: Text(text,style: TextStyle(color: BLACK,fontSize: 12,fontFamily: EmberBold,fontWeight: FontWeight.bold),)));
+    return res;
+  }
   _productDetails(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width - 200,
