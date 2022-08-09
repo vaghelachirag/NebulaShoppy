@@ -7,8 +7,8 @@ import '../uttils/constant.dart';
 class TimelineComponet extends StatelessWidget {
 
   final int? ticks;
-
- const  TimelineComponet({@required this.ticks});
+  final String statusUpdatedOn; 
+ const  TimelineComponet({@required this.ticks,required this.statusUpdatedOn});
 
 
   @override
@@ -102,6 +102,11 @@ class TimelineComponet extends StatelessWidget {
   }
 
    Widget orderDilivered() {
-    return Text("Delivered",style: TextStyle(fontSize: 12,color: Colors.black),);
+    return Column(
+      children: [Text("Delivered",style: TextStyle(fontSize: 12,color: Colors.black),),
+      Padding(padding: EdgeInsets.only(top: 2),child: 
+      Text(statusUpdatedOn,style: TextStyle(fontSize: 12,color: Colors.black)))],
+    );
+    
   }
 }

@@ -65,7 +65,7 @@ class GetMyOrderData {
         this.isFullOrderDelivered,
         this.imageUrl,
         this.status,
-        this.statusUpdatedOn,
+        required this.statusUpdatedOn,
         this.eWalletAmount,
         this.orderDetails,
     });
@@ -105,7 +105,7 @@ class GetMyOrderData {
     bool ?isFullOrderDelivered;
     String ?imageUrl;
     DatumStatus ?status;
-    String ?statusUpdatedOn;
+    String statusUpdatedOn;
     double ?eWalletAmount;
     List<OrderDetail> ?orderDetails;
 

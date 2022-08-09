@@ -131,7 +131,7 @@ class MyOrderWiget extends StatelessWidget {
                                 shippingAddressUser:
                                     product.ordershippingAddressUser,
                                 orderDetails: product.data.orderDetails,
-                                status: product.data.status.toString())));
+                                status: product.data.status.toString(), statusUpdatedOn:  product.data.statusUpdatedOn,)));
                   },
                 )
 

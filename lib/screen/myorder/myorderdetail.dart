@@ -39,13 +39,14 @@ class MyOrderDetail extends StatefulWidget {
    final String? shippingAddressUser; 
   final String? billingAddressUser; 
   final String? status; 
+  final String statusUpdatedOn; 
 
   List<OrderDetail> ?orderDetails = [];
   int int_orderDeviveryStatus = 0;
   
   MyOrderDetail(
       {Key? key,
-      required this.ordernumber,required this.shippingAddress,required this.billingAddress,required this.mobileNumber,required this.subTotal,required this.shippingCharge,required this.grandTotal,required this.shippingTransectionId,required this.isPickupPoint,required this.shippingAddressUser,required this.billingAddressUser,required this.orderDetails,required this.status})
+      required this.ordernumber,required this.shippingAddress,required this.billingAddress,required this.mobileNumber,required this.subTotal,required this.shippingCharge,required this.grandTotal,required this.shippingTransectionId,required this.isPickupPoint,required this.shippingAddressUser,required this.billingAddressUser,required this.orderDetails,required this.status,required this.statusUpdatedOn})
       : super(key: key);
 
 
@@ -192,7 +193,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
      Padding(padding: EdgeInsets.all(10),
           child: Align(
                alignment: Alignment.center,
-               child:  TimelineComponet(ticks:  widget.int_orderDeviveryStatus) ,
+               child:  TimelineComponet(ticks:  widget.int_orderDeviveryStatus,statusUpdatedOn: widget.statusUpdatedOn,) ,
              ) ,));
             
   }
