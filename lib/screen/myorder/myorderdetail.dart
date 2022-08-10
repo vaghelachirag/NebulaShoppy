@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -18,12 +19,15 @@ import '../../model/homescreen/itemhomecategory.dart';
 import '../../model/product.dart';
 import '../../network/service.dart';
 import '../../uttils/constant.dart';
+import '../../widget/mainButton.dart';
 import '../../widget/myOrderDetailWidget.dart';
 import '../../widget/timelineComponent.dart';
 import '../../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+
+import '../webview.dart';
 
 class MyOrderDetail extends StatefulWidget {
 
@@ -40,6 +44,8 @@ class MyOrderDetail extends StatefulWidget {
   final String? billingAddressUser; 
   final String? status; 
   final String statusUpdatedOn; 
+
+ 
 
   List<OrderDetail> ?orderDetails = [];
   int int_orderDeviveryStatus = 0;
@@ -59,6 +65,9 @@ class _MyOrderDetailState extends State<MyOrderDetail>
  
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
    
+   String str_ShippingProvider = ""; 
+   String str_AwsNo = ""; 
+   String str_TrackingUrl = ""; 
   @override
   void initState() {
     super.initState();
@@ -220,21 +229,52 @@ class _MyOrderDetailState extends State<MyOrderDetail>
  Column setShippingDetailLocation(){
     return Column(
       children: [
-      Padding(padding: EdgeInsets.all(10),
+      Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                       child: Align(
                          alignment: Alignment.topLeft,
                          child:   
-                         setBoldText('Shipping Detail', 14, Colors.black)
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                       setBoldText('Shipping Detail', 14, Colors.black),
+                       MainButtonWidget(
+                        buttonText: "Track",
+                        onPress: () {
+                        if(str_TrackingUrl == ""){
+                          showSnakeBar(context, "Tracking not available");
+                        }
+                        else{
+                             openWebview(context, str_TrackingUrl, "Tracking");
+                        }
+                       },
+                            )
+                          ],
+                         )
+                         
                          //setHeaderText('Pickup Location',14)                     
                     ),),
      //  setPickupLocationText(widget.billingAddressUser.toString()),
-       setPickupLocationText(widget.billingAddress.toString()),
-        setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
+          setPickupLocationText(widget.billingAddress.toString()),
+          setPickupLocationText("Mobile: " +widget.mobileNumber.toString()),
+          setShippingProviderDetails()
       
       ],
     );
   }
 
+
+  void openWebview(BuildContext context, String about, String title) {
+    Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          child: Webview(
+            str_Title: title,
+            str_Url: about,
+          ),
+        ));
+  }
+  
   Column setPickupLocation(){
     return Column(
       children: [
@@ -386,6 +426,55 @@ class _MyOrderDetailState extends State<MyOrderDetail>
         ));
   }
 
+   getTrackMyOrderResponse() {
+     Service().getTrackMyOrder(widget.ordernumber.toString()).then((value) => {
+              if (value.toString() == str_ErrorMsg)
+                {
+                  showSnakeBar(context, "The user name or password is incorrect"),
+                  str_ShippingProvider = "",
+                  str_AwsNo = "",
+                  str_TrackingUrl = ""
+                }
+              else
+                {
+                  setState(() {
+                  str_ShippingProvider =  value.data.trackingData.shippingProvider.toString();
+                  str_AwsNo =  value.data.trackingData.awbNo.toString();
+                  str_TrackingUrl =  value.data.trackingData.trackUrl.toString();
+                  })
+                }
+            });
+  }
 
-   
+  setShippingProviderDetails() {
+    return FutureBuilder(
+      future:  getTrackMyOrderResponse(),
+      builder: (context, snapshot) {
+       if(str_ShippingProvider == ""){
+       return  Text('');
+      }
+    else{
+      return Container(
+        padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+             setBoldText("Shipping Provider", 14, BLACK),
+             setPickupLocationText(str_ShippingProvider)
+            ],
+          ),
+           Row(
+            children: [
+             setBoldText("AWS No", 14, BLACK),
+             setPickupLocationText(str_AwsNo)
+            ],
+          )
+        ],
+      ),
+    );
+     }
+    },);
+
+  }
 }

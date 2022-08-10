@@ -6,19 +6,19 @@ String getTrackOrderResponseToJson(GetTrackOrderResponse data) => json.encode(da
 
 class GetTrackOrderResponse {
     GetTrackOrderResponse({
-        required this.statusCode,
-        required this.message,
+        this.statusCode,
+        this.message,
         required this.data,
     });
 
-    int statusCode;
-    String message;
-    GetTrackOrderData data;
+    int ?statusCode;
+    String ?message;
+    Data data;
 
     factory GetTrackOrderResponse.fromJson(Map<String, dynamic> json) => GetTrackOrderResponse(
         statusCode: json["StatusCode"],
         message: json["Message"],
-        data: GetTrackOrderData.fromJson(json["Data"]),
+        data: Data.fromJson(json["Data"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,14 +28,14 @@ class GetTrackOrderResponse {
     };
 }
 
-class GetTrackOrderData {
-    GetTrackOrderData({
+class Data {
+    Data({
         required this.trackingData,
     });
 
     TrackingData trackingData;
 
-    factory GetTrackOrderData.fromJson(Map<String, dynamic> json) => GetTrackOrderData(
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         trackingData: TrackingData.fromJson(json["tracking_data"]),
     );
 
@@ -46,14 +46,14 @@ class GetTrackOrderData {
 
 class TrackingData {
     TrackingData({
-        required this.trackUrl,
-        required this.awbNo,
-        required this.shippingProvider,
+        this.trackUrl,
+        this.awbNo,
+        this.shippingProvider,
     });
 
-    String trackUrl;
-    String awbNo;
-    String shippingProvider;
+    String ?trackUrl;
+    String ?awbNo;
+    String ?shippingProvider;
 
     factory TrackingData.fromJson(Map<String, dynamic> json) => TrackingData(
         trackUrl: json["track_url"],

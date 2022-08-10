@@ -12,6 +12,7 @@ import 'package:nebulashoppy/model/getMyAddressResponse/getdeleteAddressResponse
 import 'package:nebulashoppy/model/getMyWallteResponse.dart/getMyWalletResponse.dart';
 import 'package:nebulashoppy/model/getNewProductResponse/getNewProductResponse.dart';
 import 'package:nebulashoppy/model/getSendPasswordOptionResponse/getSendPasswordOptionResponse.dart';
+import 'package:nebulashoppy/model/getTrackOrderResponse/getTrackOrderResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
@@ -546,6 +547,21 @@ class Service {
       var json = response.body;
       print("Response" + response.body.toString());
       return getMyOrderResponseFromJson(json);
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+  Future<dynamic> getTrackMyOrder(String orderId) async {
+      var client = http.Client();
+    Uri uri = Uri.parse(
+        BASE_URL + WS_GET_TRACk_ORDER + "?" + "order_id=" + orderId);
+
+    var response = await client.get(uri);
+    var json = response.body;
+    if (response.statusCode == 200) {
+       print("Tracking"+ response.statusCode.toString());
+      return getTrackOrderResponseFromJson(json);
     } else {
       return str_ErrorMsg;
     }

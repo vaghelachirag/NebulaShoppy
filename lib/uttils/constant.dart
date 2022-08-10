@@ -70,6 +70,8 @@ const WS_GET_DELETE_CART = '/API/ECom/MarkCartDelete';
 const WS_GET_NEW_PRODUCT_LIST = '/API/ECom/NewProductList';
 const WS_GET_PRODUCT_AVAILABILITY = '/API/ECom/GetOutOfStock';
 const WS_GET_APP_VERISON = "/Api/Dashboard/VersionCheckerNebPro";
+const WS_GET_TRACk_ORDER = "/Api/ECom/GetOrderDetailWithTrackOrder";
+
 
 const MerchantKey = "0w2qzK";
 const MerchantSalt = "Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU";
