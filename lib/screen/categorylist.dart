@@ -418,6 +418,12 @@ class _CategoryListState extends State<CategoryList>
     return Container(
       child: Flexible(
           child: 
+           NotificationListener<OverscrollIndicatorNotification>(
+                 onNotification: (OverscrollIndicatorNotification overscroll) {
+                overscroll.disallowGlow();
+               return false;
+               },
+                child: 
           SingleChildScrollView(
             child: 
           GridView.builder(
@@ -466,7 +472,7 @@ class _CategoryListState extends State<CategoryList>
           crossAxisSpacing: 2,
           mainAxisSpacing: 2,
         ),
-      ))),
+      )))),
     );
   }
 

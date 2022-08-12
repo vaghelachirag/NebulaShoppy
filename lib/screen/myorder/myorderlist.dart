@@ -78,7 +78,13 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
               if (_orderList.isEmpty) {
                 return loadSkeletonLoaders(boxOrderList(), Axis.vertical);
               } else {
-                return ListView.builder(
+                return
+                 NotificationListener<OverscrollIndicatorNotification>(
+                 onNotification: (OverscrollIndicatorNotification overscroll) {
+                overscroll.disallowGlow();
+               return false;
+               },
+                child:  ListView.builder(
                   itemCount: _orderList.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
@@ -124,7 +130,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
                     );
                     ;
                   },
-                );
+                ));
               }
             },
           )),

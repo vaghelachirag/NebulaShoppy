@@ -105,7 +105,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
          print("Home"+"Retry");
       },) :  
          WillPopScope(
-          child: SingleChildScrollView(
+          child: 
+          NotificationListener<OverscrollIndicatorNotification>(
+  onNotification: (OverscrollIndicatorNotification overscroll) {
+    overscroll.disallowGlow();
+    return false;
+  },
+  child: SingleChildScrollView(
               child: ConstrainedBox(
             constraints: BoxConstraints(),
             child: Column(
@@ -172,7 +178,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 )
               ],
             ),
-          )),
+          ))),
           onWillPop:
               onWillPop), // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -285,7 +291,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           margin: EdgeInsets.all(0),
           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
           height: MediaQuery.of(context).size.height / 4,
-          child: ListView.builder(
+          child: 
+          ListView.builder(
             itemCount: _listNewLaunched.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {

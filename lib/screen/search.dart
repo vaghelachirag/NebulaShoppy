@@ -91,7 +91,13 @@ class _SearchState extends State<Search> {
                 print("Home" + "Retry");
               },
             )
-          : SingleChildScrollView(
+          : 
+           NotificationListener<OverscrollIndicatorNotification>(
+  onNotification: (OverscrollIndicatorNotification overscroll) {
+    overscroll.disallowGlow();
+    return false;
+  },
+      child:     SingleChildScrollView(
               child: ConstrainedBox(
               constraints: BoxConstraints(),
               child: Column(
@@ -158,7 +164,7 @@ class _SearchState extends State<Search> {
                       ))
                 ],
               ),
-            )), // This trailing comma makes auto-formatting nicer for build methods.
+            ))), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

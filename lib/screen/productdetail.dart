@@ -162,7 +162,12 @@ class _ProductDetailState extends State<ProductDetail> {
         children: [
           showMaterialProgressbar(5),
           Expanded(
-              child: SingleChildScrollView(
+              child:  NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (OverscrollIndicatorNotification overscroll) {
+    overscroll.disallowGlow();
+    return false;
+  },
+  child:  SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -221,7 +226,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 _buildProducts(context),
               ],
             ),
-          ))
+          )))
         ],
       ),
     );

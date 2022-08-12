@@ -77,11 +77,6 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
     checkUserLoginOrNot();
     getMyCartList();
     hideProgressBar();
-
-    // Future.delayed(const Duration(seconds: 5), () {
-    //    handlePaymentFailure("Error Message");
-    // });
-  
   }
 
   @override
@@ -170,7 +165,12 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
           showMaterialProgressbar(5),
            Expanded(
             child: 
-           getMyCartData())
+            NotificationListener<OverscrollIndicatorNotification>(
+           onNotification: (OverscrollIndicatorNotification overscroll) {
+          overscroll.disallowGlow();
+         return false;
+         },
+        child: getMyCartData()))
         ])
         ),
     );
@@ -200,7 +200,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
           ),);
   }
 
-handlePaymentFailure(String errorMessage){
+   handlePaymentFailure(String errorMessage){
   print("Payment"+"Fail" + errorMessage);
   showDialog(
         barrierColor: Colors.black26,
