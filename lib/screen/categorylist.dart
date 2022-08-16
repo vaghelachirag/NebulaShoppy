@@ -557,27 +557,12 @@ class _CategoryListState extends State<CategoryList>
                   showSnakeBar(context, "Item Added to Cart!");
                   int_CartCounters = int_CartCounters + 1;
                   cartCounter.setCartCountity(int_CartCounters);
-                  // ifc(_dialogKey.currentContext != null) {
-                  //   //Navigator.pop(_dialogKey.currentContext!);
-                    
-                  // }
-                  
                 }))
               });
     });
   }
 
   void filterList(int index) {
-    // if (index.toString() == "0") {
-    //   setState(() {
-    //     //  _listproductList.clear();
-    //     for (int i = 0; i < _listDisplayproductList.length; i++) {
-    //       _listproductList.add(_listDisplayproductList[i]);
-    //     }
-    //     print("FliterZero" + _listDisplayproductList.length.toString());
-    //   });
-    // }
-
    if (index.toString() == "0") {
       _listNewLaunch = _listDisplayproductList;
     }
@@ -615,14 +600,12 @@ class _CategoryListState extends State<CategoryList>
 
     if (index.toString() == "5") {
       print("Index" + "5");
-    
     }
 
     
     if (index.toString() == "6") {
       print("Index" + "6");
     //   filterToNewLaunch();
-  
     }
     print("FilterList" + index.toString());
     // if (index.toString() == "0") {

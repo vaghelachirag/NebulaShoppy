@@ -98,7 +98,9 @@ class _SearchState extends State<Search> {
     return false;
   },
       child:     SingleChildScrollView(
-              child: ConstrainedBox(
+              child: Container(
+                color: white,
+                child:ConstrainedBox(
               constraints: BoxConstraints(),
               child: Column(
                 children: [
@@ -143,20 +145,27 @@ class _SearchState extends State<Search> {
                       child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
-                          child: Center(
-                            child: Text(
+                          child:  Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(width: MediaQuery.of(context).size.width/3,height:  MediaQuery.of(context).size.height/5,
+           child:  Image.asset(assestPath+'no_search.jpg',
+            fit: BoxFit.fill,
+              ),)  ,
+              Padding(padding: EdgeInsets.all(30),child: 
+                                 Text(
                               "No Data Found!",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ))),
+                            ))
+                              ],
+                            ))),
                   Visibility(
                       visible: !bl_showNoData,
                       child: FutureBuilder(
                         builder: (context, snapshot) {
                           if (_listSearch.isEmpty) {
-                            return loadSkeletonLoaders(
-                                boxseach(), Axis.vertical);
+                            return loadSkeletonLoaders(boxseach(), Axis.vertical);
                           } else {
                             return buildSearchProduct();
                           }
@@ -164,7 +173,9 @@ class _SearchState extends State<Search> {
                       ))
                 ],
               ),
-            ))), // This trailing comma makes auto-formatting nicer for build methods.
+            )) ,
+              )
+              ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

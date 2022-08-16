@@ -28,10 +28,7 @@ class _SplashState extends State<Splash> {
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(50),
         color: color,
-        child: Image.asset(
-          'assets/images/nebula_logo_news.gif',
-          fit: BoxFit.contain,
-        ),
+        child: Image.asset('assets/images/nebula_logo_news.gif', fit: BoxFit.contain,),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

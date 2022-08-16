@@ -122,7 +122,6 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    print("object" + "onTap");
                   },
                   child: AccountWiget(
                     product: SetMyAccount(

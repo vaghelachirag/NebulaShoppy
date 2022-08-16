@@ -164,10 +164,10 @@ class _ProductDetailState extends State<ProductDetail> {
           Expanded(
               child:  NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overscroll) {
-    overscroll.disallowGlow();
+     overscroll.disallowGlow();
     return false;
-  },
-  child:  SingleChildScrollView(
+     },
+   child:  SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -1398,135 +1398,6 @@ class _ProductDetailState extends State<ProductDetail> {
     );
   }
 
-  _buildComments(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(width: 1.0, color: Colors.black12),
-          bottom: BorderSide(width: 1.0, color: Colors.black12),
-        ),
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Comments",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black54),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                StarRating(rating: 4, size: 20),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  "1250 Comments",
-                  style: TextStyle(color: Colors.black54),
-                )
-              ],
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-              ),
-              subtitle: Text(
-                  "Cats are good pets, for they are clean and are not noisy."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "12 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://www.familiadejesusperu.org/images/avatar/john-doe-13.jpg"),
-              ),
-              subtitle: Text(
-                  "There was no ice cream in the freezer, nor did they have money to go to the store."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "15 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://pbs.twimg.com/profile_images/1020903668240052225/_6uVaH4c.jpg"),
-              ),
-              subtitle: Text(
-                  "I think I will buy the red car, or I will lease the blue one."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "25 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   _buildProductImageData(BuildContext context) {
     return FutureBuilder(
       future: getProductDetailImage(),
@@ -1672,9 +1543,7 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   getNewLaunchedProduct() async {
-    Service()
-        .getNewLaunched(widget.categoryid.toString(), "0", 1, 50)
-        .then((value) => {
+    Service().getNewLaunched(widget.categoryid.toString(), "0", 1, 50).then((value) => {
               setState((() {
                 if (value.statusCode == 1) {
                   // print("Categorylist" + value.message);

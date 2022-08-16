@@ -184,8 +184,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
            SizedBox(width: MediaQuery.of(context).size.width/3,height:  MediaQuery.of(context).size.height/5,
-           child:  Image.asset(
-            'assets/images/no_cart.png',
+           child:  Image.asset(assestPath+'no_cart.png',
             fit: BoxFit.fill,
           ),)     
           ,    
