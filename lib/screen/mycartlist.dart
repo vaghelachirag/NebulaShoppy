@@ -67,6 +67,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   @override
   void initState() {
     super.initState();
+    hideProgressBar();
     WidgetsBinding.instance?.addObserver(this);
     isConnectedToInternet();
     setState(() {
@@ -804,6 +805,9 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
                        getMyCartList();
                      //  getProductAvailabilityCheck();
                       print("AddressType"+str_SelectedAddressType);
+                       setState(() {
+                      showProgressbar();
+                       });
                       getOutOfStockResponse();
                       
                     });

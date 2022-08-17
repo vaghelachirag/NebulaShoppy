@@ -57,6 +57,7 @@ class _ProductAvailabilityState extends State<ProductAvailability> {
   @override
   void initState() {
     super.initState();
+    hideProgressBar();
     print("List"+  widget.listOutOfStock[0]['Id'].toString());
 
   }
@@ -103,9 +104,14 @@ class _ProductAvailabilityState extends State<ProductAvailability> {
 
 
 void removeCartItem() {
-showProgressbar();
+  setState(() {
+    showProgressbar();
+  });
+
 Service().getRemoveOutOfStock(str_UserId,"0").then((value) => {print("Remove"+"Remove"),
-hideProgressBar(),
+ setState(() {
+  hideProgressBar();
+  }),
  Navigator.pop(context)
 });
 }
