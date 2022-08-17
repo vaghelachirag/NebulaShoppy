@@ -1013,14 +1013,14 @@ class Service {
     var jsons = response.body;
 
     final jsonBody = json.decode(response.body);
-    print("Status"+ jsonBody["Data"]["Count"].toString());
-
+  
     if (response.statusCode == 200) {
       if(jsonBody["Data"]["Count"] == 0){
            return str_NoDataMsg;
       }
       else{
-       return getOutOfStockResponse(jsons);
+       print("Status"+ jsonBody["Data"]["Count"].toString());
+       return jsonBody;
       }      
     } else {
       return str_ErrorMsg;

@@ -5,6 +5,7 @@ import 'package:flutter_launcher_icons/android.dart';
 import 'package:nebulashoppy/screen/address/addnewAddress.dart';
 import 'package:nebulashoppy/screen/home.dart';
 import 'package:nebulashoppy/screen/ordersummery.dart';
+import 'package:nebulashoppy/screen/productavailability.dart';
 import 'package:nebulashoppy/screen/search.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/uttils/sharedpref.dart';
@@ -19,6 +20,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../model/getCartItemResponse/getCarItemResponse.dart';
 import '../model/getCartItemResponse/setcartitem.dart';
+import '../model/getcheckproductAvailabiltyResponse/getcheckproductAvailabiltyResponse.dart';
 import '../model/homescreen/itemNewLaunched.dart';
 import '../model/homescreen/itemhomecategory.dart';
 import '../model/product.dart';
@@ -58,6 +60,10 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   String str_UserIds = "";
    var size ;
  late CartCounter cartCounter;
+
+
+  List<dynamic> _listOutOfStock = [];
+
   @override
   void initState() {
     super.initState();
@@ -815,15 +821,13 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
    getOutOfStockResponse(){
        Service().getOutOfStockResponse(str_UserId)
         .then((value) => {
-           if (value.toString() == str_NoDataMsg){
+            if (value.toString() == str_NoDataMsg){
                print("Outof"+ "NoData")
             }
-            else{
-            if (value.statusCode == 1) {
-              print("Outof"+ "Data")
-            } else {
-             print("Outof"+ "Something Wrong")              
-            }
+            else{    
+            _listOutOfStock = value["Data"]["OutOfStockProducts"],
+            print("Outof"+ _listOutOfStock.length.toString()),
+             redirectToProductAvailabity(_listOutOfStock)
             }          
             });
    }
@@ -1060,4 +1064,15 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
 
 
   void onRetryClick() {}
+
+  redirectToProductAvailabity(List listOutOfStock) {
+     Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: ProductAvailability(
+                listOutOfStock: _listOutOfStock,
+            ),
+          ));
+  }
 }
