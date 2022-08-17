@@ -1065,14 +1065,14 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
 
   void onRetryClick() {}
 
-  redirectToProductAvailabity(List listOutOfStock) {
-     Navigator.push(
-          context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: ProductAvailability(
-                listOutOfStock: _listOutOfStock,
-            ),
-          ));
+  redirectToProductAvailabity(List listOutOfStock) async{
+     var push_ProductDetail = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ProductAvailability( listOutOfStock: _listOutOfStock,),
+    ));
+
+    if (push_ProductDetail == null || push_ProductDetail == true) {
+      print("Back" + "Product Back");
+      getCartItem();
+    }
   }
 }

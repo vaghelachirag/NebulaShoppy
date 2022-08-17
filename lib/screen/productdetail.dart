@@ -89,7 +89,7 @@ class _ProductDetailState extends State<ProductDetail> {
   int? int_ProductQuantity = 0;
   int? int_CartCounter = 0;
   bool is_ShowDescription = false;
-  bool is_ShowCart = false;
+  bool is_ShowCart = true;
   bool is_ShowProductVariant = false;
   int int_SelectedVariantId = 0;
 
@@ -1593,7 +1593,7 @@ class _ProductDetailState extends State<ProductDetail> {
     print("ProductData" + int_ProductQuantity.toString());
     if (int_ProductQuantity == 0) {
       print("ProductData" + "No Product");
-      is_ShowCart = false;
+      is_ShowCart = true;
       showNoProduct();
     }
     if (int_ProductQuantity! > 0) {

@@ -1011,9 +1011,7 @@ class Service {
     Uri uri = Uri.parse(BASE_URL +WS_GET_OUT_OF_STOCK+ "?" + "pickupid=" + "0");
     var response = await client.get(uri, headers: requestHeaders);
     var jsons = response.body;
-
     final jsonBody = json.decode(response.body);
-  
     if (response.statusCode == 200) {
       if(jsonBody["Data"]["Count"] == 0){
            return str_NoDataMsg;
@@ -1022,6 +1020,24 @@ class Service {
        print("Status"+ jsonBody["Data"]["Count"].toString());
        return jsonBody;
       }      
+    } else {
+      return str_ErrorMsg;
+    }
+  }
+
+    Future<dynamic> getRemoveOutOfStock(String userId,String pickupId) async {
+      print("Remove"+ (BASE_URL + WS_GET_REMOVE_OUT_OF_STOCK+ "?" + "pickupid=" + pickupId));
+     requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL + WS_GET_REMOVE_OUT_OF_STOCK+ "?" + "pickupid=" + pickupId);
+    var response = await client.get(uri, headers: requestHeaders);
+    print("Remove"+ (BASE_URL + WS_GET_REMOVE_OUT_OF_STOCK+ "?" + "pickupid=" + pickupId));
+    var jsons = response.body;
+    final jsonBody = json.decode(response.body);
+    if (response.statusCode == 200) {
+      return jsonBody;   
     } else {
       return str_ErrorMsg;
     }

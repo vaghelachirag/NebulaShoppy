@@ -72,6 +72,7 @@ const WS_GET_PRODUCT_AVAILABILITY = '/API/ECom/GetOutOfStock';
 const WS_GET_APP_VERISON = "/Api/Dashboard/VersionCheckerNebPro";
 const WS_GET_TRACk_ORDER = "/Api/ECom/GetOrderDetailWithTrackOrder";
 const WS_GET_OUT_OF_STOCK = '/Api/ECom/GetOutOfStock';
+const WS_GET_REMOVE_OUT_OF_STOCK = '/Api/ECom/RemoveOutOfStock';
 
 const MerchantKey = "0w2qzK";
 const MerchantSalt = "Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU";

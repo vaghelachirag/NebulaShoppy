@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nebulashoppy/model/getCartItemResponse/getCarItemResponse.dart';
@@ -95,15 +95,27 @@ class _ProductAvailabilityState extends State<ProductAvailability> {
             ),
             child:   MainButtonWidget(
                 onPress: () {
+                 print("Remove"+"Remove");
+                 removeCartItem();              
                 },
                 buttonText: "Remove the items out of stock")));
   }
 
 
+void removeCartItem() {
+showProgressbar();
+Service().getRemoveOutOfStock(str_UserId,"0").then((value) => {print("Remove"+"Remove"),
+hideProgressBar(),
+ Navigator.pop(context)
+});
+}
+                  
+
   Container setProductAvailability(){
     return Container(
       child: Column(
         children: [
+         showMaterialProgressbar(5),
           Row(
             children: [
               IconButton(
@@ -163,5 +175,7 @@ Column  buildProductAvailablity() {
       ],
     );
 }
+
+ 
 
 }
