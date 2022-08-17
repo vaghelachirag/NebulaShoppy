@@ -30,6 +30,7 @@ import 'package:shimmer/shimmer.dart';
 import '../model/product.dart';
 import '../widget/cartCounter.dart';
 import '../widget/common_widget.dart';
+import '../widget/mainButton.dart';
 import '../widget/productAvailability.dart';
 import '../widget/soldoutdialoug.dart';
 import '../widget/star_rating.dart';
@@ -66,12 +67,39 @@ class _ProductAvailabilityState extends State<ProductAvailability> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Availability Check", false)),
-          body: SingleChildScrollView(
+           bottomNavigationBar: Visibility(
+           child: removeItemContainer(),
+             ),
+          body:
+           SingleChildScrollView(
             child: setProductAvailability() ,
           )
          ,
     );
   }
+
+   Container removeItemContainer() {
+    return Container(
+       decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                colors: [Color(0xff87dae0), Color(0xff9ce3d3)])),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 10,
+        child: Container(
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.black12),
+            ),
+            child:   MainButtonWidget(
+                onPress: () {
+                },
+                buttonText: "Remove the items out of stock")));
+  }
+
+
   Container setProductAvailability(){
     return Container(
       child: Column(
@@ -84,21 +112,21 @@ class _ProductAvailabilityState extends State<ProductAvailability> {
                 icon: Icon(CommunityMaterialIcons.information_outline),
                 onPressed: () {},
                 color: buttonColor,
-              )),
+              )),      
               Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: Text( "Few items from your cart are not available. We regret the inconvenience.", maxLines: 2,  style: TextStyle(color:buttonColor,fontSize: 14,),),
               ),
             ],
           ),
-            buildProductAvailablity()       
+          Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),child:
+            buildProductAvailablity())
         ],
       ),
     );
   }
 
 Column  buildProductAvailablity() {
-
   return  Column(
       children: <Widget>[
         Container(
