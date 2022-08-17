@@ -798,6 +798,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
                        getMyCartList();
                      //  getProductAvailabilityCheck();
                       print("AddressType"+str_SelectedAddressType);
+                      getOutOfStockResponse();
                       
                     });
                   }, onNewAddressSelection: () { 
@@ -811,7 +812,21 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
           );
         });
   }
-
+   getOutOfStockResponse(){
+       Service().getOutOfStockResponse(str_UserId)
+        .then((value) => {
+           if (value.toString() == str_NoDataMsg){
+               print("Outof"+ "NoData")
+            }
+            else{
+            if (value.statusCode == 1) {
+              print("Outof"+ "Data")
+            } else {
+             print("Outof"+ "Something Wrong")              
+            }
+            }          
+            });
+   }
   getProductAvailabilityCheck(){
     Service()
         .getProductAvailabilityCheck("0")

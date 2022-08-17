@@ -20,6 +20,7 @@ import 'package:nebulashoppy/model/getgeneratepayumoneyresponse/getgeneatepaymon
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
 import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
+import 'package:nebulashoppy/model/getoutofstockresponse/getoutofstockresponse.dart';
 import 'package:nebulashoppy/model/getstateResponse.dart';
 import 'package:nebulashoppy/model/homescreen/itemNewLaunched.dart';
 import 'package:nebulashoppy/model/homescreen/itembannerimage.dart';
@@ -730,12 +731,9 @@ class Service {
     var json = response.body;
 
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
       return getdeleteaddressResponseFromJson(json);
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
+
       throw Exception('Failed to create album.');
     }
   }
@@ -1005,4 +1003,27 @@ class Service {
     return getAppVersionResponseFromJson(json);
   }
 
+   Future<dynamic> getOutOfStockResponse(String userId) async {
+     requestHeaders = {
+      'Authorization': '${str_AuthId}',
+    };
+    var client = http.Client();
+    Uri uri = Uri.parse(BASE_URL +WS_GET_OUT_OF_STOCK+ "?" + "pickupid=" + "0");
+    var response = await client.get(uri, headers: requestHeaders);
+    var jsons = response.body;
+
+    final jsonBody = json.decode(response.body);
+    print("Status"+ jsonBody["Data"]["Count"].toString());
+
+    if (response.statusCode == 200) {
+      if(jsonBody["Data"]["Count"] == 0){
+           return str_NoDataMsg;
+      }
+      else{
+       return getOutOfStockResponse(jsons);
+      }      
+    } else {
+      return str_ErrorMsg;
+    }
+  }
 }
