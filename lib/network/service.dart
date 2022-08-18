@@ -1003,12 +1003,12 @@ class Service {
     return getAppVersionResponseFromJson(json);
   }
 
-   Future<dynamic> getOutOfStockResponse(String userId) async {
+   Future<dynamic> getOutOfStockResponse(String userId, String str_selectedAddressType) async {
      requestHeaders = {
       'Authorization': '${str_AuthId}',
     };
     var client = http.Client();
-    Uri uri = Uri.parse(BASE_URL +WS_GET_OUT_OF_STOCK+ "?" + "pickupid=" + "0");
+    Uri uri = Uri.parse(BASE_URL +WS_GET_OUT_OF_STOCK+ "?" + "pickupid=" + str_selectedAddressType);
     var response = await client.get(uri, headers: requestHeaders);
     var jsons = response.body;
     final jsonBody = json.decode(response.body);

@@ -802,6 +802,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
                     setState(() {
                       str_SelectedAddress = str_SelectedAddress;
                       str_SelectedAddressType = str_SelectedAddressType;
+                       
                        getMyCartList();
                      //  getProductAvailabilityCheck();
                       print("AddressType"+str_SelectedAddressType);
@@ -823,26 +824,23 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
         });
   }
    getOutOfStockResponse(){
-       Service().getOutOfStockResponse(str_UserId)
-        .then((value) => {
+       Service().getOutOfStockResponse(str_UserId,str_SelectedAddressType)
+        .then((value) => { 
+             setState(() {
+               hideProgressBar();
+              }),             
             if (value.toString() == str_NoDataMsg){
-               print("Outof"+ "NoData")
+               print("Outof"+ "NoData"),
+               redirectToOrderSummery()
             }
             else{    
             _listOutOfStock = value["Data"]["OutOfStockProducts"],
-            print("Outof"+ _listOutOfStock.length.toString()),
+             print("Outof"+ _listOutOfStock.length.toString()),
              redirectToProductAvailabity(_listOutOfStock)
             }          
             });
    }
-  getProductAvailabilityCheck(){
-    Service()
-        .getProductAvailabilityCheck("0")
-        .then((value) => {
-              print("CartList" + value.toString())
-            });
-  }
-
+  
   Column locationaddressData() {
     return Column(
       children: [
@@ -953,24 +951,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
       }
       else{
           // showSnakeBar(context, "Login");
-           Navigator.push(
-          context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: OrderSummery(
-              str_Title: "Order Summery",
-              int_SubTotal: getCartItemData?.subTotal,
-              int_GrandTotal: getCartItemData?.grandTotal,
-              int_ShippingCharge: getCartItemData?.shippingCharge,
-              int_GrandTotalWallet: getCartItemData?.grandTotalWithEwallet,
-              int_ShippingChargeWallet: getCartItemData?.shippingWithEwallet,
-              int_SubTotalWallet: getCartItemData?.subTotalWithEwallet,
-              int_E_WalletAmount: getCartItemData?.ewalletAmount,
-              is_EwalletOnOff: getCartItemData?.isEwalletOnOff,
-              is_WalletFreez: getCartItemData?.isEwalletfreeze,
-              str_AddressType: str_SelectedAddressType,
-            ),
-          ));
+          redirectToOrderSummery();
       }
     // if (!is_Login) {
     //   showDialog(
@@ -1071,12 +1052,33 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
 
   redirectToProductAvailabity(List listOutOfStock) async{
      var push_ProductDetail = await Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => ProductAvailability( listOutOfStock: _listOutOfStock,),
+      builder: (context) => ProductAvailability( listOutOfStock: _listOutOfStock,str_AddressType: str_SelectedAddressType,),
     ));
 
     if (push_ProductDetail == null || push_ProductDetail == true) {
       print("Back" + "Product Back");
       getCartItem();
     }
+  }
+
+   redirectToOrderSummery() {
+     Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: OrderSummery(
+              str_Title: "Order Summery",
+              int_SubTotal: getCartItemData?.subTotal,
+              int_GrandTotal: getCartItemData?.grandTotal,
+              int_ShippingCharge: getCartItemData?.shippingCharge,
+              int_GrandTotalWallet: getCartItemData?.grandTotalWithEwallet,
+              int_ShippingChargeWallet: getCartItemData?.shippingWithEwallet,
+              int_SubTotalWallet: getCartItemData?.subTotalWithEwallet,
+              int_E_WalletAmount: getCartItemData?.ewalletAmount,
+              is_EwalletOnOff: getCartItemData?.isEwalletOnOff,
+              is_WalletFreez: getCartItemData?.isEwalletfreeze,
+              str_AddressType: str_SelectedAddressType,
+            ),
+          ));
   }
 }

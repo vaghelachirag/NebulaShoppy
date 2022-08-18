@@ -44,7 +44,7 @@ class ProductAvailabilityItem extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: Row(
-                    children: <Widget>[_productImage(), _productDetails()],
+                    children: <Widget>[_productImage(context), _productDetails()],
                   ),
                 ),
               ),
@@ -69,30 +69,27 @@ class ProductAvailabilityItem extends StatelessWidget {
     );
   }
 
-  _productImage() {
-    return Stack(
-      children: <Widget>[
-        ClipPath(
-          clipper: ProductImageContainerClipper(),
-          child: Container(
-            height: 120,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: gradientColors)),
-          ),
-        ),
-        Center(
-            child: Container(
-          width: int_width,
-          height: 120,
-          child: FadeInImage.assetNetwork(
-              placeholder: placeholder_path,
-              image: product.icon,
-              fit: BoxFit.contain),
-        ))
-      ],
+  _productImage(BuildContext context){
+    return Container(
+     width: MediaQuery.of(context).size.width / 3,
+     height: MediaQuery.of(context).size.height / 6,
+     child: Stack(children: <Widget>[
+       Container(
+                  width:  MediaQuery.of(context).size.width / 3,
+                    height:  MediaQuery.of(context).size.height / 6,
+                    child: FadeInImage.assetNetwork(
+                        placeholder: placeholder_path,
+                        image: product.icon,
+                        fit: BoxFit.contain)),
+                        Center(
+                          child:  Container(
+                        
+                             padding: EdgeInsets.all(10),
+                            color: Colors.grey[300],
+                            child: setBoldText("OUT OF STOCK", 12, Colors.red) 
+                          ),
+                        )                 
+     ]),
     );
   }
 

@@ -44,8 +44,9 @@ import 'package:provider/provider.dart';
 
 class ProductAvailability extends StatefulWidget {
   List<dynamic> listOutOfStock = [];
+  String str_AddressType; 
 
-  ProductAvailability({Key? key, required this.listOutOfStock,})
+  ProductAvailability({Key? key, required this.listOutOfStock, required this.str_AddressType})
       : super(key: key);
 
   @override
@@ -58,8 +59,6 @@ class _ProductAvailabilityState extends State<ProductAvailability> {
   void initState() {
     super.initState();
     hideProgressBar();
-    print("List"+  widget.listOutOfStock[0]['Id'].toString());
-
   }
   @override
   Widget build(BuildContext context) {
@@ -108,7 +107,7 @@ void removeCartItem() {
     showProgressbar();
   });
 
-Service().getRemoveOutOfStock(str_UserId,"0").then((value) => {print("Remove"+"Remove"),
+Service().getRemoveOutOfStock(str_UserId,str_SelectedAddressType).then((value) => {print("Remove"+"Remove"),
  setState(() {
   hideProgressBar();
   }),
@@ -137,7 +136,7 @@ Service().getRemoveOutOfStock(str_UserId,"0").then((value) => {print("Remove"+"R
               ),
             ],
           ),
-          Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),child:
+          Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),child:
             buildProductAvailablity())
         ],
       ),

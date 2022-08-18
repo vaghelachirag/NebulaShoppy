@@ -196,8 +196,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                     padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: addNewAddress())),
                   ],
-                ),
-                  
+                ),           
                   ),
                 )
                
