@@ -97,6 +97,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
   late CartCounter cartCounter;
+  bool isClick = false;
   @override
   void initState() {
     super.initState();
@@ -538,8 +539,24 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
                 Align(
                     alignment: Alignment.center,
-                    child: setBoldText(
-                        int_CartQuantity.toString(), 16, Colors.black)
+                    child:   AnimatedDefaultTextStyle(
+                curve: Curves.easeInOutBack,
+                style: !isClick
+                    ? 
+                    TextStyle(
+                        color:  Colors.grey,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold)
+                    : TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                duration: Duration(milliseconds: 500),
+                child: Text( int_CartQuantity.toString()),
+              )
+                    
+                    // setBoldText(
+                    //     int_CartQuantity.toString(), 16,cccc)
                     // Text(
                     //   int_CartQuantity.toString(),
                     //   style: TextStyle(
@@ -1932,13 +1949,17 @@ class _ProductDetailState extends State<ProductDetail> {
                     hideProgressBar();
                     if (value.statusCode == 1) {
                       if (flag == Flag_Plus) {
-                        showSnakeBar(context, "Item Added to Cart!");
+                       // showSnakeBar(context, "Item Added to Cart!");                
+                     
                         setState(() {
                           int_CartCounters = int_CartCounters + 1;
                           int_CartQuantity = int_CartQuantity! + 1;
                           int_CartCounter = int_CartCounter! + 1;
                           QTYCount = int_CartCounter.toString();
-                          setState(() {});
+                          isClick = true;
+                          setState(() {
+                            
+                          });
                         });
                       } else {
                         setState(() {
@@ -1976,6 +1997,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             int_CartQuantity = int_CartQuantity! + 1;
                             int_CartCounter = int_CartCounter! + 1;
                             QTYCount = int_CartCounter.toString();
+                            isClick = true;
                             setState(() {});
                           });
                         } else {

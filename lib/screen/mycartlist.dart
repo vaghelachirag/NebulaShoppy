@@ -60,10 +60,11 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
   String str_UserIds = "";
    var size ;
  late CartCounter cartCounter;
+ List<dynamic> _listOutOfStock = [];
 
 
-  List<dynamic> _listOutOfStock = [];
-
+  // For Animation
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   @override
   void initState() {
     super.initState();
