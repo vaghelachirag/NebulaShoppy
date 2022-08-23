@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:nebulashoppy/uttils/constant.dart';
 import 'package:nebulashoppy/widget/common_widget.dart';
+import 'package:nebulashoppy/widget/delayed_display.dart';
 
 import '../screen/tabscreen.dart';
 
@@ -26,7 +27,7 @@ class PaymentSucessWidget extends StatefulWidget {
 }
 
 class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
-  
+    final Duration initialDelay = Duration(seconds: 1);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,12 +47,16 @@ class _PaymentSucessWidgetState extends State<PaymentSucessWidget> {
           Padding(padding: EdgeInsets.fromLTRB(0, 8, 0, 0),child:   SizedBox(
             width: MediaQuery.of(context).size.width / 5,
             height:  MediaQuery.of(context).size.height / 10,
-            child: AnimatedContainer(
-          child: Image.asset(assestPath+ 'success.png',fit: BoxFit.contain,color:Colors.lightGreen,) ,
-        duration: Duration(milliseconds: 5000),
-       curve: Curves.bounceInOut,),
-          ),)
-        
+            child:
+             DelayedDisplay(
+                  delay: Duration(seconds: initialDelay.inSeconds),
+                  child:  AnimatedContainer(
+            child: Image.asset(assestPath+ 'success.png',fit: BoxFit.contain,color:Colors.lightGreen,) ,
+           duration: Duration(milliseconds: 5000),
+          curve: Curves.bounceInOut,),
+                ),
+  
+          ),)    
           ,
            Container(
             margin: EdgeInsets.fromLTRB(0, 5, 0, 0),

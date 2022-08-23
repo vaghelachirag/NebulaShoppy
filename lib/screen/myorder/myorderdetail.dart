@@ -68,6 +68,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
    String str_ShippingProvider = ""; 
    String str_AwsNo = ""; 
    String str_TrackingUrl = ""; 
+
   @override
   void initState() {
     super.initState();
@@ -98,7 +99,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(int_AppBarWidth),
           child: appBarWidget(context, 3, "Order Summary", false)),
       body:  
       SingleChildScrollView(
@@ -107,10 +108,9 @@ class _MyOrderDetailState extends State<MyOrderDetail>
         children: [
            Container(
              color: Colors.white,
-             padding:  EdgeInsets.all(10),
              child:  Column(
               children: [
-                Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),child:   Row(
+                Padding(padding: EdgeInsets.fromLTRB(10, 10, 5, 0),child:   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Align(
@@ -124,21 +124,26 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                          Row(
                           children: [
                           setRegularText(widget.ordernumber.toString(), 14, Colors.blue),
-                             SizedBox(
-                      width: 20,
-                      child:  IconButton(
-                icon: Icon(CommunityMaterialIcons.download),
-                onPressed: () {
-                  print("Order"+ "Order");
-                  if( widget.int_orderDeviveryStatus == 3){
-                    showSnakeBar(context, 'Invoice is not generated yet. ');
-                  }
-                  else{
-                    showSnakeBar(context, 'Your order is not yet dispatched.');
-                  }
-              } ,
-              ),
-              )
+                          Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0),child:  
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 30,
+                            height: MediaQuery.of(context).size.height / 25,
+                            child: Container(
+                              child: GestureDetector(
+                                onTap: () {
+                              if( widget.int_orderDeviveryStatus == 3){
+                               showSnakeBar(context, 'Invoice is not generated yet. ');
+                              }
+                            else{
+                            showSnakeBar(context, 'Your order is not yet dispatched.');
+                              }
+                                },
+                                child:   Image.asset(assestPath + "download.png"),
+                              )
+                            ,
+                            )
+                            ,
+                          )),
               ],
               )),
               ],

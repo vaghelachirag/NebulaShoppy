@@ -96,7 +96,7 @@ class _OrderSummeryState extends State<OrderSummery>
       setSummeryData();
       Future.delayed(Duration(seconds: 0), () {
         print("DeviceId" + widget.str_AddressType);
-        getTotalCountResponse();
+        getTotalCountResponse();  
       });
     });
 
@@ -211,7 +211,7 @@ class _OrderSummeryState extends State<OrderSummery>
                         "Grand Total", int_Total.toString(), true, "Black"),
                   ],
                 ),
-                 Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 8),child: divider(context),),
+              Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 8),child: divider(context),),
               setPickupAddress(),
             ],
           ),

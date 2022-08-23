@@ -35,10 +35,13 @@ class MyOrderDetailWidget extends StatelessWidget {
           width: 80,
           height: 80,
           color: Colors.white,
-          child: FadeInImage.assetNetwork(
+          child: 
+           FadeInImage.assetNetwork(
+            width: 80,
+            height: 80,
               placeholder: placeholder_path,
               image: product.productimage.toString(),
-              fit: BoxFit.fill),
+              fit: BoxFit.contain),
         ),
         _productDetails(),
         Visibility(
