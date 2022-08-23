@@ -100,6 +100,7 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                       print("Tap" + "Dorr Click");
                     },
                     child: Card(
+                      
                       color: isDoorStepDelivery == true
                           ? buttonColor
                           : Colors.white,
@@ -111,13 +112,14 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                           width: 45,
                           height: 45,                    
                     child:  Image.asset(assestPath + 'doorstep_icon.png'),),
-                          Text(
-                            "Door step delivery (shipping charges applicable).",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          )
+                    setRegularText("Door step delivery (shipping charges applicable).", 14, Colors.black)
+                          // Text(
+                          //   ,
+                          //   style: TextStyle(
+                          //       color: Colors.black,
+                          //       fontSize: 14,
+                          //       fontWeight: FontWeight.w400),
+                          // )
                         ],
                       ),
                     ))),
@@ -162,14 +164,9 @@ class _GETMYADDRESSDIALOUGState extends State<GETMYADDRESSDIALOUG> {
                         border: Border.all(
                       color: selectpickuppointBg,),
                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child:  Image.asset(assestPath + 'choose_location.png'),),               
-                        Text(
-                          "Select a pickup point.",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
+                    child:  Image.asset(assestPath + 'choose_location.png'),),  
+                         setRegularText("Select a pickup point.", 14, Colors.black)         
+                        
                       ],
                     ),
                   ),

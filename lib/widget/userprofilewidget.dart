@@ -36,8 +36,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
 
   bool _passwordInVisible = true;
   final GlobalKey<State> _dialogKey = GlobalKey<State>();
+
+  double padding = 0.0 ;
+
   @override
   Widget build(BuildContext context) {
+    padding = MediaQuery.of(context).size.width / 10 ;
     return Dialog(
       elevation: 0,
       backgroundColor: Color(0xffffffff),
@@ -83,7 +87,7 @@ Row setUserProfileName(){
                     IconButton(onPressed: () {          
                     }, icon: Icon(CommunityMaterialIcons.account_circle_outline)),
                     Text("Name",style: TextStyle(color: Colors.black38,fontSize: 12),),
-                    Padding(padding: EdgeInsets.only(left: 50),
+                    Padding(padding: EdgeInsets.only(left: padding),
                     child: Text(widget.name,style: TextStyle(color: Colors.black,fontSize: 14 ),),)
                   ],
                 );
@@ -95,7 +99,7 @@ Row setUserProfileMobile(){
                     IconButton(onPressed: () {          
                     }, icon: Icon(CommunityMaterialIcons.cellphone)),
                     Text("Mobile",style: TextStyle(color: Colors.black38,fontSize: 12),),
-                    Padding(padding: EdgeInsets.only(left: 50),
+                    Padding(padding: EdgeInsets.only(left: padding),
                     child: Text(widget.mobile,style: TextStyle(color: Colors.black,fontSize: 14 ),),)
                   ],
                 );
@@ -105,8 +109,8 @@ Row setUserProfileEmail(){
   return   Row(children: [
                     IconButton(onPressed: () {          
                     }, icon: Icon(CommunityMaterialIcons.email)),
-                    Text("Email",style: TextStyle(color: Colors.black38,fontSize: 12),),
-                    Padding(padding: EdgeInsets.only(left: 50),
+                    Text("Email",style: TextStyle(color: Color(0x60000000),fontSize: 12),),
+                    Padding(padding: EdgeInsets.only(left: padding),
                     child: Text(widget.email,style: TextStyle(color: Colors.black,fontSize: 14 ),),)
                   ],
                 );
@@ -117,7 +121,7 @@ Row setUserProfileGender(){
                     IconButton(onPressed: () {          
                     }, icon: Icon(CommunityMaterialIcons.gender_female)),
                     Text("Gender",style: TextStyle(color: Colors.black38,fontSize: 12),),
-                    Padding(padding: EdgeInsets.only(left: 50),
+                    Padding(padding: EdgeInsets.only(left: padding),
                     child: Text(widget.gender,style: TextStyle(color: Colors.black,fontSize: 14 ),),)
                   ],
                 );
