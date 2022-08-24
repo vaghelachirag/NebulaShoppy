@@ -2089,6 +2089,9 @@ class _ProductDetailState extends State<ProductDetail> {
           print("CartItemQuanity" + listCartItem[i].cartQuantity.toString());
           setState(() {
             int_CartQuantity = listCartItem[i].cartQuantity;
+            if(int_CartCounter !> 0){
+                isClick = true;
+            }
           });
           break;
         }

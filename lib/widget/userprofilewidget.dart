@@ -126,6 +126,5 @@ Row setUserProfileGender(){
                   ],
                 );
 }
-
 }
 

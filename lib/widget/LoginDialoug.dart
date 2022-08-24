@@ -162,10 +162,10 @@ class _LoginDialougState extends State<LoginDialoug> {
                           );
                         },
                       )),
-                  Padding(
+                       GestureDetector(
+                      child:  Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: GestureDetector(
-                      child: setRegularText("Register Here", 14, Colors.black),
+                    child:  setRegularText("Register Here", 14, Colors.black)),
                       onTap: () {
                         print("Register" + "Register");
                         Navigator.push(
@@ -178,8 +178,8 @@ class _LoginDialougState extends State<LoginDialoug> {
                               ),
                             ));
                       },
-                    ),
-                  )
+                    )
+                 
                 ],
               )
             ],
