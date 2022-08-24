@@ -153,7 +153,7 @@ InputDecoration logininputText(String hint) {
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           borderSide: BorderSide(color: Colors.black)),
-      contentPadding: const EdgeInsets.all(10),
+       contentPadding: EdgeInsets.symmetric(vertical: 5),
       prefixIcon: const Padding(
       padding: EdgeInsets.only(top: 0), // add padding to adjust icon
       child: Icon(

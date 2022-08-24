@@ -119,6 +119,7 @@ class _SearchState extends State<Search> {
                               textAlignVertical: TextAlignVertical.center,
                               onChanged: (value) => _runFilter(value),
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 5),
                                 border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),

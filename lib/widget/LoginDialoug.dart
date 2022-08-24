@@ -201,6 +201,7 @@ class _LoginDialougState extends State<LoginDialoug> {
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         hintText: getHint,
+         contentPadding: EdgeInsets.symmetric(vertical: 5),
         prefixIcon: const Padding(
           padding: EdgeInsets.only(top: 0), // add padding to adjust icon
           child: Icon(
@@ -299,7 +300,8 @@ class _LoginDialougState extends State<LoginDialoug> {
               widget.onLoginSuccess(),
               if(widget.blisrefresh){
                refreshApp(context)
-              }           
+              }
+             
             }
         });
   }

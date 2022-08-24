@@ -102,12 +102,12 @@ class _GetMyAddressState extends State<GetMyAddress>
                       alignment: Alignment.topLeft,
                       child: setBoldText("Your Addresses", 16, Colors.black))),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 40,
-              child:  addnewAddress(context),
-            )
-           ,
+            // SizedBox(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 40,
+            //   child:  addnewAddress(context),
+            // ),
+             addNewAddressText(),
             Visibility(
                 visible: bl_ShowAddress,
                 child: Padding(
@@ -121,6 +121,40 @@ class _GetMyAddressState extends State<GetMyAddress>
         ),
       ),
     );
+  }
+
+ Container addNewAddressText(){
+    return  Container(
+                      height: MediaQuery.of(context).size.height / 15,
+            margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: const EdgeInsets.all(0.5),
+            decoration:
+                BoxDecoration(border: Border.all(color: raiseissuebg), borderRadius: BorderRadius.circular(10),color: white),
+            child: _addNewAddressData(context),
+          );
+   }
+
+     _addNewAddressData(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(left: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            setRegularText("Add a new Address", 14, Colors.black),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Row(
+               children: [       
+                  IconButton(
+                      onPressed: () {
+                        navigateToAddNewScreen();
+                      },
+                      icon: Icon(CommunityMaterialIcons.chevron_right,size: 20,))
+                ],
+              ),
+            )
+          ],
+        ));
   }
 
   getMyAddress() {
@@ -192,7 +226,7 @@ class _GetMyAddressState extends State<GetMyAddress>
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 5, 10),
+          padding: EdgeInsets.fromLTRB(10, 5, 5, 10),
           child: Column(
             children: [
               FutureBuilder(

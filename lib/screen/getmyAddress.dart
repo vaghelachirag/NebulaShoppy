@@ -98,6 +98,7 @@ class _GetMyAddressState extends State<GetMyAddress>
         child: Text("Your Addresses",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),),
       ) ,),
       addnewAddress(context),
+      addNewAddressText(),
        Visibility(
          visible: bl_ShowAddress,
          child: Padding(padding: EdgeInsets.all(10),child:  Align(
@@ -112,6 +113,45 @@ class _GetMyAddressState extends State<GetMyAddress>
    
       ,
     );
+  }
+
+   Container addNewAddressText(){
+    return  Container(
+                      height: MediaQuery.of(context).size.height / 15,
+            margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: const EdgeInsets.all(0.5),
+            decoration:
+                BoxDecoration(border: Border.all(color: raiseissuebg)),
+            child: _productDetails(context),
+          );
+   }
+   
+  _productDetails(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(left: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            setRegularText("Raise an issue", 16, Colors.black),
+            // Text(
+            // "Raise an issue",
+            //   maxLines: 1,
+            //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            // ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Row(
+               children: [       
+                  IconButton(
+                      onPressed: () {
+                     
+                      },
+                      icon: Icon(CommunityMaterialIcons.chevron_right,size: 20,))
+                ],
+              ),
+            )
+          ],
+        ));
   }
 
    getMyAddress() {
@@ -144,7 +184,7 @@ class _GetMyAddressState extends State<GetMyAddress>
 
  addnewAddress(BuildContext context) {
     return  Card(
-      margin: EdgeInsets.all(20),
+  margin: EdgeInsets.all(20),
   elevation: 5,
   shape: RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(10),

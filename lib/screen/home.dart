@@ -506,6 +506,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   aspectRatio: 16 / 9,
                   autoPlay: true,
                   enlargeCenterPage: true,
+                  onPageChanged: (index, reason){
+                    print("Changed"+ ""+index.toString());
+                  },
                 )))
       ],
     );

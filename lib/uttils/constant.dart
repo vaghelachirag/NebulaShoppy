@@ -179,6 +179,9 @@ const raiseissuebg =  Color(0xFFe2e2e2);
 const cancelledbg =  Color(0xFFe11a1c);
 const mobilebg =  Color(0xFFa9cbc4);
 
+const kPrimaryColor = Color(0xFF3366FF);
+const kPrimaryLightColor = Color(0xFF00CCFF);
+
 // Font Family
 const String Montserrat = "Montserrat";
 const String Ember = "Ember";
@@ -205,7 +208,7 @@ String register =
 bool showProgress = true;
 
 // Is Interent Connected
-bool is_InternetConnected = false;
+bool is_InternetConnected = true;
 
 showSnakeBar(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
