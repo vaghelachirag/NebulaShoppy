@@ -109,8 +109,10 @@ class _SearchState extends State<Search> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Theme(
-                          child: Container(
-                            height: 40,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: ScreenUtil().setSp(40),
+                            child: Container(
                             child: TextFormField(
                               controller: searchData,
                               enabled: bl_IsEdibleSearch,
@@ -135,6 +137,8 @@ class _SearchState extends State<Search> {
                               autofocus: false,
                             ),
                           ),
+                          )
+                          ,
                           data: Theme.of(context).copyWith(
                             primaryColor: Colors.grey[600],
                           )),

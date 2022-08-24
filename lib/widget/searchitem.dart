@@ -39,6 +39,7 @@ class SearchItem extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 0.0),
               child: Card(
                 elevation: 5,
+                 margin: EdgeInsets.all(2),
                 color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),

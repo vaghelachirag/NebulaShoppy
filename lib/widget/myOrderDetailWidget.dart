@@ -95,7 +95,7 @@ class MyOrderDetailWidget extends StatelessWidget {
      return  Align(
               alignment: Alignment.topRight,
               child: 
-              setBoldText("Cancelled", 16, Colors.red),
+              setBoldText("Cancelled", 16, cancelledbg),
             );
   }
 }

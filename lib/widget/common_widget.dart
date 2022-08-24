@@ -200,6 +200,14 @@ Container divider(BuildContext context) {
   );
 }
 
+Container dividerGray(BuildContext context) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    color: dividerbg,
+    height: 0.5,
+  );
+}
+
 Container loadNewLaunchSkeleton() {
   return Container(
     margin: EdgeInsets.all(5),

@@ -172,7 +172,12 @@ const productPriceBg =  Color(0xFFaaaaaa);
 const selectpaymentBg =  Color(0xFFfdf9ee);
 const selectpickuppointBg =  Color(0xFF12808d);
 
-
+const orderIdBg =  Color(0xFF0c14a6);
+const subTotalBg =  Color(0xFF6c6c6c);
+const dividerbg =  Color(0xFF4e4e4e);
+const raiseissuebg =  Color(0xFFe2e2e2);
+const cancelledbg =  Color(0xFFe11a1c);
+const mobilebg =  Color(0xFFa9cbc4);
 
 // Font Family
 const String Montserrat = "Montserrat";

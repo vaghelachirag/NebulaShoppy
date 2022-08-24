@@ -26,7 +26,7 @@ import '../../widget/trending_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../webview.dart';
 
 class MyOrderDetail extends StatefulWidget {
@@ -108,6 +108,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
         children: [
            Container(
              color: Colors.white,
+             margin: EdgeInsets.all(10),
              child:  Column(
               children: [
                 Padding(padding: EdgeInsets.fromLTRB(10, 10, 5, 0),child:   Row(
@@ -123,10 +124,10 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                          child:    
                          Row(
                           children: [
-                          setRegularText(widget.ordernumber.toString(), 14, Colors.blue),
+                          setRegularText(widget.ordernumber.toString(), 14, orderIdBg),
                           Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0),child:  
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 30,
+                            width: MediaQuery.of(context).size.width / 25,
                             height: MediaQuery.of(context).size.height / 25,
                             child: Container(
                               child: GestureDetector(
@@ -154,16 +155,17 @@ class _MyOrderDetailState extends State<MyOrderDetail>
               TotalText("","Shipping Charges",widget.shippingCharge.toString()),
               TotalText("","Grand Total",widget.grandTotal.toString()),
               dividerLine(),
-              Padding(padding: EdgeInsets.all(10),child: Align(
+              Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),child: Align(
                          alignment: Alignment.topLeft,
                          child:  
-                         setBoldText('Payment', 14, Colors.black)
+                         setBoldText('Payment', 16, Colors.black)
                         //setHeaderText('Payment',14)                           
                     ),),
                  Padding(padding: EdgeInsets.fromLTRB(10,0,10,0),child: Align(
                          alignment: Alignment.topLeft,
-                         child:  
-                         setRegularText("Transaction ID:" + " "+widget.ordernumber.toString(), 12, Colors.grey)
+                         child:
+                         Padding(padding: EdgeInsets.fromLTRB(0, 3, 0, 0),child: 
+                         setRegularText("Transaction ID:" + " "+widget.ordernumber.toString(), 14, Colors.grey))
                          
                     ),),
                     dividerLine(),
@@ -182,10 +184,11 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                      dividerLine(),
                      needHelpContainer(),
                     Container(
-            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            padding: const EdgeInsets.all(1.0),
+                      height: MediaQuery.of(context).size.height / 15,
+            margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: const EdgeInsets.all(0.5),
             decoration:
-                BoxDecoration(border: Border.all(color: Colors.black45)),
+                BoxDecoration(border: Border.all(color: raiseissuebg)),
             child: _productDetails(context),
           ),
          
@@ -215,14 +218,14 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   
  Container needHelpContainer(){
    return Container(
-     padding: EdgeInsets.all(10),
+     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
      margin: EdgeInsets.all(5),
      child: Column(
        children: [
        Align(
          alignment: Alignment.topLeft,
          child: 
-          setBoldText("Need help with this order?", 20, Colors.black)
+          setBoldText("Need help with this order?", 18, Colors.black)
          // setHeaderText("Need help with this order?", 20) ,
        )  
  
@@ -267,6 +270,40 @@ class _MyOrderDetailState extends State<MyOrderDetail>
     );
   }
 
+ Container setMobileNumber(){
+  return Container(
+    child: Row(
+      children: [
+        setPickupLocationText("Mobile: "),
+        GestureDetector(
+          onTap: () {
+            _makingPhoneCall();
+          },
+          child:  Container(
+          child:  Text(
+  widget.mobileNumber.toString(),
+  style: TextStyle(
+    fontFamily: EmberBold,
+    decoration: TextDecoration.underline,
+    color: mobilebg
+  ),
+),
+),
+)      
+],
+    ),
+  );
+ }
+
+ _makingPhoneCall() async {
+  print("Mobile"+ "Mobile");
+  var url = Uri.parse("tel:" + widget.mobileNumber.toString());
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
   void openWebview(BuildContext context, String about, String title) {
     Navigator.push(
@@ -283,16 +320,17 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   Column setPickupLocation(){
     return Column(
       children: [
-      Padding(padding: EdgeInsets.all(10),
+      Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 2),
                       child: Align(
                          alignment: Alignment.topLeft,
                          child:   
-                         setBoldText('Pickup Location', 14, Colors.black)
+                         setBoldText('Pickup Location', 16, Colors.black)
                          //setHeaderText('Pickup Location',14)                     
                     ),),
-       setPickupLocationText(widget.billingAddressUser.toString()),
-       setPickupLocationText(widget.billingAddress.toString()),
-        setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
+        setPickupLocationText(widget.billingAddressUser.toString()),
+        setPickupLocationText(widget.billingAddress.toString()),
+         setMobileNumber(),
+       // setPickupLocationText("Mobile: " +widget.mobileNumber.toString())
       
       ],
     );
@@ -316,11 +354,11 @@ class _MyOrderDetailState extends State<MyOrderDetail>
  
 
  Padding setPickupLocationText(String str_Data){
-   return   Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+   return   Padding(padding: EdgeInsets.fromLTRB(10, 2, 10, 0),
                       child: Align(
                          alignment: Alignment.topLeft,
                          child: 
-                         setRegularText(str_Data, 14, Colors.black45)
+                         setRegularText(str_Data, 16, Colors.black45)
                         // Text(str_Data,style: TextStyle(fontSize: 14),)              
                     ),);
  }
@@ -352,7 +390,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
   
 
   Padding dividerLine(){
-  return    Padding(padding: EdgeInsets.only(top: 10),child:    divider(context));
+  return    Padding(padding: EdgeInsets.only(top: 5),child:    dividerGray(context));
   }
 
   Padding TotalText(String title, String subheader, String str_data){
@@ -366,14 +404,20 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                     ),
                    Align(
                          alignment: Alignment.topRight,
-                         child:  setRegularText(subheader, 14, Colors.grey)
+                         child:  setRegularText(subheader, 14, subTotalBg)
                           // Text(subheader,style: TextStyle(color: Colors.black38, fontWeight: FontWeight.bold,fontSize: 14))                     
     
                     ),
                        Align(
                          alignment: Alignment.topRight,
                          child:    
-                         setRegularText(str_data, 14, Colors.red)
+                         Row(
+                          children: [
+                        setRegularText(rupees_Sybol, 14, BLACK),                   
+                        setRegularText( removeDecimalAmount(str_data), 16, priceColor)
+                          ],
+                         )
+                        
                        //  Text(str_data,style: TextStyle(color: Colors.red, fontWeight: FontWeight.normal,fontSize: 14))                     
     
                     )
@@ -405,11 +449,11 @@ class _MyOrderDetailState extends State<MyOrderDetail>
 
   _productDetails(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 5),
+        padding: EdgeInsets.only(left: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            setRegularText("Raise an issue", 16, Colors.black54),
+            setRegularText("Raise an issue", 16, Colors.black),
             // Text(
             // "Raise an issue",
             //   maxLines: 1,
@@ -423,7 +467,7 @@ class _MyOrderDetailState extends State<MyOrderDetail>
                       onPressed: () {
                      
                       },
-                      icon: Icon(CommunityMaterialIcons.arrow_right))
+                      icon: Icon(CommunityMaterialIcons.chevron_right,size: 20,))
                 ],
               ),
             )
