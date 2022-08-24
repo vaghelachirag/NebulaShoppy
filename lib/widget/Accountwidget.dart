@@ -95,7 +95,8 @@ class AccountWiget extends StatelessWidget {
               title: "SoldOut",
               description:
                   "This product may not be available at the selected address.",
-                   onLoginSuccess: () {  },
+                   onLoginSuccess: () {  },               
+                   blisrefresh: true,
             );
           },
         );

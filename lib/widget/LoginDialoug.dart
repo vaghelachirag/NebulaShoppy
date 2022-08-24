@@ -19,12 +19,14 @@ class LoginDialoug extends StatefulWidget {
    final VoidCallback onLoginSuccess;
 
 
-  final String title, description;
+   final String title, description;
+   bool blisrefresh = false;
 
    LoginDialoug({
      required this.title,
-    required this.description,
-      required this.onLoginSuccess
+     required this.description,
+      required this.onLoginSuccess,
+      required this.blisrefresh
   });
 
 
@@ -294,8 +296,10 @@ class _LoginDialougState extends State<LoginDialoug> {
               Navigator.pop(context),
               showSnakeBar(context, "Login Successfully!"),
               setLoginData(value),
-              widget.onLoginSuccess()
-           //   refreshApp(context)
+              widget.onLoginSuccess(),
+              if(widget.blisrefresh){
+               refreshApp(context)
+              }           
             }
         });
   }
@@ -305,15 +309,15 @@ class _LoginDialougState extends State<LoginDialoug> {
     String refreshToken = value.tokenType + value.refreshToken;
     String role = value.tokenType + value.role;
     String displayName = value.displayName;
-    String ibo_key_id = value.iboKeyId;
-    String ibo_ref_id = value.encryptUserName;
+    String iboKeyId = value.iboKeyId;
+    String iboRefId = value.encryptUserName;
 
     SharedPref.saveString(str_Token, token);
     SharedPref.saveString(str_RefreshToken, refreshToken);
     SharedPref.saveString(str_Role, role);
     SharedPref.saveString(str_DisplayName, displayName);
-    SharedPref.saveString(str_IBO_Id, ibo_key_id);
-    SharedPref.saveString(str_Refrence_Id, ibo_ref_id);
+    SharedPref.saveString(str_IBO_Id, iboKeyId);
+    SharedPref.saveString(str_Refrence_Id, iboRefId);
     SharedPref.saveBoolean(str_IsLogin, true);
     
   }

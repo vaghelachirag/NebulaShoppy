@@ -938,6 +938,7 @@ class _MyCartListState extends State<MyCartList> with WidgetsBindingObserver  {
         builder: (context) {
           return LoginDialoug(
             title: "SoldOut",
+            blisrefresh: false,
             description:
                 "This product may not be available at the selected address.", onLoginSuccess: () { 
                   print("onLogin"+"OnloginnSuccess");

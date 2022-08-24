@@ -468,14 +468,6 @@ refreshApp(BuildContext context) {
                 int_Selectedtab: 0,
               )),
       ModalRoute.withName("/tabscreen"));
-
-  // dsdsd
-  // Navigator.push(
-  //     context,
-  //     PageTransition(
-  //       type: PageTransitionType.fade,
-  //       child: TabScreen(),
-  //     ));
 }
 
 void clearSession(BuildContext context) async {

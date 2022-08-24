@@ -68,6 +68,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           builder: (context) {
             return LoginDialoug(
               title: "SoldOut",
+              blisrefresh: true,
               description:
                   "This product may not be available at the selected address.", onLoginSuccess: () {  
                     setState(() {
