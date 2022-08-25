@@ -23,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 import '../model/product.dart';
 import '../uttils/sharedpref.dart';
 import '../widget/Accountwidget.dart';
+import '../widget/myProfileDialog.dart';
 import '../widget/LoginDialoug.dart';
 import '../widget/cartCounter.dart';
 import '../widget/common_widget.dart';
@@ -217,7 +218,14 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
           setState((() {
             //    Navigator.pop(_dialogKey.currentContext!);
             if (value.statusCode == 1) {
-              showProfileDialoug(value);
+           //   showProfileDialoug(value);
+             showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return MyProfileDialoug(context,name: value.data.firstName,mobile:value.data.mobile,email: value.data.email,gender: value.data.gender,);
+                  });
+              ;
+            
             } else {
               bl_showNoData = true;
               showSnakeBar(context, "Opps! Something Wrong");

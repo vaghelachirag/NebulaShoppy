@@ -182,6 +182,11 @@ const mobilebg =  Color(0xFFa9cbc4);
 const kPrimaryColor = Color(0xFF3366FF);
 const kPrimaryLightColor = Color(0xFF00CCFF);
 
+const myProfileBg = Color(0xFF66ccce);
+const myProfileTitleBg = Color(0xFF131313);
+const myProfileDataBg = Color(0xFF444444);
+
+
 // Font Family
 const String Montserrat = "Montserrat";
 const String Ember = "Ember";
