@@ -224,7 +224,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           setState((() {
             if (value.statusCode == 1) {
               // print("Categorylist" + value.message);
-              _listNewLaunched = value.data.products;
+              _listNewLaunched = value.data!.products;
             } else {
               showSnakeBar(context, somethingWrong);
               print("Categorylist" + "Opps Something Wrong!");
@@ -242,7 +242,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             height: 75,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(_listNewLaunched[0].mainImage.toString()),
+                  image: NetworkImage(_listNewLaunched[0]!.mainImage.toString()),
                   fit: BoxFit.contain),
             ),
           ),
@@ -302,22 +302,22 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 },
                 child: TrendingItem(
                   product: Product(
-                      id: _listNewLaunched[index].id,
-                      productid: _listNewLaunched[index].productId,
-                      catid: _listNewLaunched[index].categoryId,
-                      company: _listNewLaunched[index].name.toString(),
-                      name: _listNewLaunched[index].shortDescription.toString(),
-                      icon: _listNewLaunched[index].mainImage.toString(),
+                      id: _listNewLaunched[index]!.id,
+                      productid: _listNewLaunched[index]!.productId,
+                      catid: _listNewLaunched[index]!.categoryId,
+                      company: _listNewLaunched[index]!.name.toString(),
+                      name: _listNewLaunched[index]!.shortDescription.toString(),
+                      icon: _listNewLaunched[index]!.mainImage.toString(),
                       rating: 5,
                       remainingQuantity: 5,
                       price: rupees_Sybol +
                           "" +
-                          _listNewLaunched[index].salePrice.toString(),
+                          _listNewLaunched[index]!.salePrice.toString(),
                       mrp: rupees_Sybol +
                           "" +
-                          _listNewLaunched[index].mrp.toString(),
-                      qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bv.toString(), nv: _listNewLaunched[index].nv.toString(), pv: _listNewLaunched[index].pv.toString(),sku: _listNewLaunched[index].sku.toString(),
-                      desc: _listNewLaunched[index].description.toString()),
+                          _listNewLaunched[index]!.mRP.toString(),
+                      qunatity: _listNewLaunched[index]!.quantity, bv: _listNewLaunched[index]!.bV.toString(), nv: _listNewLaunched[index].nV.toString(), pv: _listNewLaunched[index]!.pV.toString(),sku: _listNewLaunched[index]!.sKU.toString(),
+                      desc: _listNewLaunched[index]!.description.toString()),
                       
                   gradientColors: [Colors.white, Colors.white],
                   onBackPressClicked: () {
@@ -527,22 +527,22 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             itemBuilder: (context, index) {
               return TrendingItem(
                 product: Product(
-                    id: _listNewLaunched[index].id,
-                    productid: _listNewLaunched[index].productId,
-                    catid: _listNewLaunched[index].categoryId,
-                    company: _listNewLaunched[index].name.toString(),
-                    name: _listNewLaunched[index].shortDescription.toString(),
-                    icon: _listNewLaunched[index].mainImage.toString(),
+                    id: _listNewLaunched[index]!.id,
+                    productid: _listNewLaunched[index]!.productId,
+                    catid: _listNewLaunched[index]!.categoryId,
+                    company: _listNewLaunched[index]!.name.toString(),
+                    name: _listNewLaunched[index]!.shortDescription.toString(),
+                    icon: _listNewLaunched[index]!.mainImage.toString(),
                     rating: 5,
                     remainingQuantity: 5,
                     price: rupees_Sybol +
                         "" +
-                        _listNewLaunched[index].salePrice.toString(),
+                        _listNewLaunched[index]!.salePrice.toString(),
                     mrp: rupees_Sybol +
                         "" +
-                        _listNewLaunched[index].mrp.toString(),
-                    qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bvString.toString(), nv:   _listNewLaunched[index].nv.toString(), pv: _listNewLaunched[index].pv.toString(),sku: _listNewLaunched[index].sku.toString(),
-                    desc:  _listNewLaunched[index].description.toString()),
+                        _listNewLaunched[index]!.mRP.toString(),
+                    qunatity: _listNewLaunched[index]!.quantity, bv: _listNewLaunched[index]!.bVString.toString(), nv:   _listNewLaunched[index]!.nV.toString(), pv: _listNewLaunched[index]!.pV.toString(),sku: _listNewLaunched[index]!.sKU.toString(),
+                    desc:  _listNewLaunched[index]!.description.toString()),
                 onBackPressClicked: () {
                   _refreshRecentData();
                   getCartCount();

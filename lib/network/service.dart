@@ -37,6 +37,7 @@ import '../model/getRegisterFcmTokenResponse/getRegisterFcmTokenResponse.dart';
 import '../model/productdetail/productbanner.dart';
 import '../model/search/SearchProduct.dart';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 class Service {
   Map<String, String> rerequestHeaders = Map();
@@ -56,20 +57,31 @@ class Service {
     return itembannerimageFromJson(json);
   }
 
-  Future<Itemhomecategory> getHomeCategory() async {
-    var client = http.Client();
-    var response = await client.get(Uri.parse(BASE_URL + WS_GET_CATEGORY_LIST),
-        headers: requestHeaders);
-    var json = response.body;
-    print("Home"+ BASE_URL + WS_GET_CATEGORY_LIST);
-    return itemhomecategoryFromJson(json);
+  Future<itemHomeCategory> getHomeCategory() async {
+     var getUsersData ;
+   try {
+      var response = await Dio().get(BASE_URL + WS_GET_CATEGORY_LIST );
+      if (response.statusCode == 200) {
+       getUsersData = response.data ;
+       var itemHome =  itemHomeCategory.fromJson(getUsersData);
+        print("User Data"+ itemHome.data!.length.toString());
+        return itemHome;
+      } else {
+        throw Exception('Failed to load users');
+        
+      }
+    } catch (e) {
+      print(e);
+    }
+    return  itemHomeCategory.fromJson(getUsersData);
   }
 
   Future<ItemNewLaunched> getNewLaunched(
       String _catid, String pickupid, int pageindex, int pagelenth) async {
-    var client = http.Client();
-    var response = await client.get(
-        Uri.parse(BASE_URL +
+    var getProduct ;
+  
+   try {
+      var response = await Dio().get(BASE_URL +
             WS_CATEGORY +
             "?" +
             "catid=" +
@@ -81,48 +93,42 @@ class Service {
             "PageIndex=" +
             pageindex.toString() +
             "&" "PageLength=" +
-            pagelenth.toString()),
-        headers: requestHeaders);
-    var json = response.body;
-    //   print("Json" + json.toString());
-    return itemNewLaunchedFromJson(json);
+            pagelenth.toString());
+            
+      if (response.statusCode == 200) {
+        getProduct = response.data ;
+       var itemProduct =  ItemNewLaunched.fromJson(getProduct);
+        print("User Data"+ getProduct.data!.length.toString());
+        return getProduct;
+      } else {
+        throw Exception('Failed to load users');
+        
+      }
+    } catch (e) {
+      print(e);
+    }
+    return ItemNewLaunched.fromJson(getProduct);
   }
 
   Future<ItemNewLaunched> getProductListByCategory(
       String _catid, String pickupid, int pageindex, int pagelenth) async {
-    var client = http.Client();
-    var response = await client.get(
-        Uri.parse(BASE_URL +
-            WS_CATEGORY +
-            "?" +
-            "catid=" +
-            _catid +
-            "&" +
-            "pickupid=" +
-            pickupid +
-            "&" +
-            "PageIndex=" +
-            pageindex.toString() +
-            "&" "PageLength=" +
-            pagelenth.toString()),
-        headers: requestHeaders);
-    print("object " +
-        BASE_URL +
-        WS_CATEGORY +
-        "?" +
-        "catid=" +
-        "1" +
-        "&" +
-        "pickupid=" +
-        pickupid +
-        "&" +
-        "PageIndex=" +
-        pageindex.toString() +
-        "&" "PageLength=" +
-        pagelenth.toString());
-    var json = response.body;
-    //  print("Json" + json.toString());
-    return itemNewLaunchedFromJson(json);
+          var getProduct ;
+   try {
+      var response = await Dio().get(BASE_URL + WS_GET_CATEGORY_LIST );
+      if (response.statusCode == 200) {
+       getProduct = response.data ;
+       print("User Data"+ getProduct);
+       var itemProduct =  itemNewLaunchedProduct.fromJson(getProduct);
+        print("User Data"+ getProduct.data!.length.toString());
+        return getProduct;
+      } else {
+        throw Exception('Failed to load users');
+        
+      }
+    } catch (e) {
+      print(e);
+    }
+    return ItemNewLaunched.fromJson(getProduct);
   }
 
   Future<dynamic> getProductBanner(String _productid) async {

@@ -1511,8 +1511,8 @@ class _ProductDetailState extends State<ProductDetail> {
                               _listNewLaunched[index].salePrice.toString(),
                           mrp: rupees_Sybol +
                               "" +
-                              _listNewLaunched[index].mrp.toString(),
-                          qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bv.toString(), nv: _listNewLaunched[index].nv.toString(), pv: _listNewLaunched[index].pv.toString(),sku:  _listNewLaunched[index].sku.toString(), desc: _listNewLaunched[index].description.toString()),
+                              _listNewLaunched[index].mRP.toString(),
+                          qunatity: _listNewLaunched[index].quantity, bv: _listNewLaunched[index].bV.toString(), nv: _listNewLaunched[index].nV.toString(), pv: _listNewLaunched[index].pV.toString(),sku:  _listNewLaunched[index].sKU.toString(), desc: _listNewLaunched[index].description.toString()),
                       gradientColors: [Colors.white, Colors.white],
                       onBackPressClicked: () {},
                     );
@@ -1564,7 +1564,7 @@ class _ProductDetailState extends State<ProductDetail> {
               setState((() {
                 if (value.statusCode == 1) {
                   // print("Categorylist" + value.message);
-                  _listNewLaunched = value.data.products;
+                  _listNewLaunched = value.data!.products;
                 } else {
                   showSnakeBar(context, somethingWrong);
                   print("Categorylist" + "Opps Something Wrong!");

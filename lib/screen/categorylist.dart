@@ -350,8 +350,8 @@ class _CategoryListState extends State<CategoryList>
           setState((() {
             if (value.statusCode == 1) {
               print("Categorylist" + value.message);
-              _listproductList = value.data.products;
-              _listDisplayproductList = value.data.products;
+              _listproductList = value.data!.products;
+              _listDisplayproductList = value.data!.products;
            //   getNewLaunchProduct();
               //  filterList(0);
               print("Filter" + _listDisplayproductList.length.toString());
@@ -673,7 +673,7 @@ class _CategoryListState extends State<CategoryList>
     for(int i=0; i<_listNewLaunch.length; i++){
       if(_listNewLaunch[i].categoryId.toString() == selectedId.toString()){
         print("NewLuanch"+_listNewLaunch[i].categoryName.toString());
-      _listproductList.add(itemNewLaunchedProduct(id: _listNewLaunch[i].id, productId: _listNewLaunch[i].productId, categoryId: _listNewLaunch[i].categoryId, salePrice: _listNewLaunch[i].mrp, averageRating:  _listNewLaunch[i].mrp, bv:  _listNewLaunch[i].bV, bvString:  _listNewLaunch[i].bV, cartId: _listNewLaunch[i].categoryId, categoryName: _listNewLaunch[i].categoryName, comboId:  _listNewLaunch[i].categoryId, description: '', dimension: _listNewLaunch[i].dimension, discount: _listNewLaunch[i].dimension, displayOrder: _listNewLaunch[i].displayOrder, distributorPrice: _listNewLaunch[i].displayOrder, eComProductDetailsModel: _listNewLaunch[i].displayOrder, weight: _listNewLaunch[i].volWt, inStock: true, isCancellable: false, isComboProduct: false, manufacturer:  _listNewLaunch[i].volWt , mainImage: '', maxSaleQuantity: 0, mrp: _listNewLaunch[i].mRP, name: '', nv: _listNewLaunch[i].nV, nvString: '', pDetailsId: _listNewLaunch[i].nV, productClass: null, projectId: _listNewLaunch[i].productId, pv: _listNewLaunch[i].pV, pvString: '', quantity: 0, returnPolicy: _listNewLaunch[i].volWt, saving: _listNewLaunch[i].volWt, savingString: _listNewLaunch[i].volWt, shortDescription: '', showInNebPro: _listNewLaunch[i].volWt, showShareLink: _listNewLaunch[i].volWt, sku: '', taxAmount: _listNewLaunch[i].volWt, taxRate: 0, thumbnailImage: '', total: _listNewLaunch[i].volWt, volWt: _listNewLaunch[i].volWt, warranty: _listNewLaunch[i].volWt)); 
+      _listproductList.add(itemNewLaunchedProduct(id: _listNewLaunch[i].id, productId: _listNewLaunch[i].productId, categoryId: _listNewLaunch[i].categoryId, salePrice: _listNewLaunch[i].mrp, averageRating:  _listNewLaunch[i].mrp, bV:  _listNewLaunch[i].bV, bVString:  _listNewLaunch[i].bV, cartId: _listNewLaunch[i].categoryId, categoryName: _listNewLaunch[i].categoryName, comboID:  _listNewLaunch[i].categoryId, description: '', dimension: _listNewLaunch[i].dimension, discount: _listNewLaunch[i].dimension, displayOrder: _listNewLaunch[i].displayOrder, distributorPrice: _listNewLaunch[i].displayOrder, eComProductDetailsModel: _listNewLaunch[i].displayOrder, weight: _listNewLaunch[i].volWt, inStock: true, isCancellable: false, isComboProduct: false, manufacturer:  _listNewLaunch[i].volWt , mainImage: '', maxSaleQuantity: 0, mRP: _listNewLaunch[i].mRP, name: '', nV: _listNewLaunch[i].nV, nVString: '', pDetailsId: _listNewLaunch[i].nV, projectId: _listNewLaunch[i].productId, pV: _listNewLaunch[i].pV, pVString: '', quantity: 0, returnPolicy: _listNewLaunch[i].volWt, saving: _listNewLaunch[i].volWt, savingString: _listNewLaunch[i].volWt, shortDescription: '', showInNebPro: _listNewLaunch[i].volWt, showShareLink: _listNewLaunch[i].volWt, sKU: '', taxAmount: _listNewLaunch[i].volWt, taxRate: 0, thumbnailImage: '', total: _listNewLaunch[i].volWt, volWt: _listNewLaunch[i].volWt, warranty: _listNewLaunch[i].volWt)); 
       } 
     }
      print("NewLuanch"+_listproductList.length.toString());

@@ -1,62 +1,56 @@
+class itemHomeCategory {
+  int? statusCode;
+  String? message;
+ late List<HomeCategoryData> data;
 
-import 'dart:convert';
+  itemHomeCategory({this.statusCode, this.message, required this.data});
 
-Itemhomecategory itemhomecategoryFromJson(String str) => Itemhomecategory.fromJson(json.decode(str));
+  itemHomeCategory.fromJson(Map<String, dynamic> json) {
+    statusCode = json['StatusCode'];
+    message = json['Message'];
+    if (json['Data'] != null) {
+      data = <HomeCategoryData>[];
+      json['Data'].forEach((v) {
+        data.add(new HomeCategoryData.fromJson(v));
+      });
+    }
+  }
 
-String itemhomecategoryToJson(Itemhomecategory data) => json.encode(data.toJson());
-
-class Itemhomecategory {
-    Itemhomecategory({
-        required this.statusCode,
-        required this.message,
-        required this.data,
-    });
-
-    int statusCode;
-    String message;
-    List<HomeCategoryData> data;
-
-    factory Itemhomecategory.fromJson(Map<String, dynamic> json) => Itemhomecategory(
-        statusCode: json["StatusCode"],
-        message: json["Message"],
-        data: List<HomeCategoryData>.from(json["Data"].map((x) => HomeCategoryData.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "StatusCode": statusCode,
-        "Message": message,
-        "Data": List<dynamic>.from(data.map((x) => x.toJson())),
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['StatusCode'] = this.statusCode;
+    data['Message'] = this.message;
+    if (this.data != null) {
+      data['Data'] = this.data.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 class HomeCategoryData {
-    HomeCategoryData({
-        required this.id,
-        required this.name,
-        required this.description,
-        required this.displayOrder,
-        required this.image,
-    });
+ late int id;
+  String? name;
+  String? description;
+  int? displayOrder;
+ late  String image;
 
-    int id;
-    String name;
-    String description;
-    int displayOrder;
-    String image;
+  HomeCategoryData({required this.id, this.name, this.description, this.displayOrder, required this.image});
 
-    factory HomeCategoryData.fromJson(Map<String, dynamic> json) => HomeCategoryData(
-        id: json["Id"],
-        name: json["Name"],
-        description: json["Description"],
-        displayOrder: json["DisplayOrder"],
-        image: json["Image"],
-    );
+  HomeCategoryData.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    name = json['Name'];
+    description = json['Description'];
+    displayOrder = json['DisplayOrder'];
+    image = json['Image'];
+  }
 
-    Map<String, dynamic> toJson() => {
-        "Id": id,
-        "Name": name,
-        "Description": description,
-        "DisplayOrder": displayOrder,
-        "Image": image,
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['Name'] = this.name;
+    data['Description'] = this.description;
+    data['DisplayOrder'] = this.displayOrder;
+    data['Image'] = this.image;
+    return data;
+  }
 }
