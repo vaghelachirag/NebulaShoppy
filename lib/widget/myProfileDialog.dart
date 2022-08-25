@@ -134,6 +134,7 @@ Container setUserProfileEmail(BuildContext context){
 
 Container setUserProfileGender(BuildContext context){
   return   Container(
+    margin: EdgeInsets.only(bottom: 5),
     height: 35,  child: Row(children: [
                     IconButton(onPressed: () {          
                     }, icon: Icon(CommunityMaterialIcons.gender_female)),
