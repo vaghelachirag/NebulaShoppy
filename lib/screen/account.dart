@@ -34,8 +34,6 @@ import '../widget/star_rating.dart';
 import '../widget/trending_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-
-import '../widget/userprofilewidget.dart';
 import 'package:provider/provider.dart';
 
 
@@ -234,21 +232,7 @@ class _AccountState extends State<Account> with WidgetsBindingObserver {
         });
   }
 
-  void showProfileDialoug(value) {
-    showDialog(
-      barrierColor: Colors.black26,
-      context: context,
-      builder: (context) {
-        return UserProfileWidget(
-          context,
-          name: value.data.firstName,
-          mobile: value.data.mobile,
-          email: value.data.email,
-          gender: value.data.gender,
-        );
-      },
-    );
-  }
+ 
 
   void getEWalletResponse() {
     Service().getMyWalletResponse(str_IboKey).then((value) => {

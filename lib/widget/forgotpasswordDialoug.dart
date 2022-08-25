@@ -37,79 +37,22 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
   String email = "";
   String password = "";
   String sendOption = "";
+
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      elevation: 0,
-      backgroundColor: Color(0xffffffff),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(10),
       ),
-      child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: showMaterialProgressbar(6)),
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(CommunityMaterialIcons.close_box),
-                    color: loginButtonColor),
-              ),
-              Text(
-                "Forgot Password",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ),
-              SizedBox(height: 10),
-             Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: SizedBox(
-                width: 500,
-                height: 45,
-                child: getLoginText("Associate / IBO Login", _usernameController,
-                    "Please enter Login Id", 100, TextInputType.name,context),
-              ),
-              ),
-              ),
-              Visibility(
-                  visible: _showNextStep, child: sendPasswordOption(email)),
-              Visibility(
-                  visible: _showNextStep, child: sendPasswordOption(password)),
-              SizedBox(height: 20),
-              ElevatedButton(
-                // style: elevatedButtonStyle(),
-                style: buttonShapeLogin(),
-                onPressed: () async {
-                  FocusScope.of(context).unfocus();
-                  if (_formKey.currentState!.validate()) {
-                    print("Valid" + "Valid");
-                    getLoginResponse();
-                  }
-                },
-                child: const Text(
-                  'Get Password',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-            ],
-          )),
+      elevation: 0.0,
+      backgroundColor: Colors.transparent,
+      child: dialogContent(context),
     );
+
+
+     
   }
 
   void getLoginResponse() {
@@ -196,4 +139,105 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
           ],
         ));
   }
+
+   dialogContent(BuildContext context) {
+    double  padding = MediaQuery.of(context).size.width / 10 ;
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 20.0,
+            offset: const Offset(0.0, 10.0),
+          ),
+        ],
+      ),
+      child:  Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: showMaterialProgressbar(6)),
+                Container(
+           decoration: myProfileboxDecoration(), 
+           child:  Stack(
+                children: <Widget>[
+                  Center(child: 
+                  Padding(padding: EdgeInsets.all(10),child:  setBoldText("Forgot Password?", 16, Colors.white),)
+                 ,),
+                 Padding(padding: EdgeInsets.all(10),child: Container(
+                    alignment: Alignment.centerRight,
+                    child:  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                          Navigator.pop(context);
+                      },
+                      child:  Icon(Icons.close, color: Colors.white,size: 20,),
+                    )
+                   ,)
+                  ,
+                 ),
+                  )
+                ],
+              ), 
+           ),
+              SizedBox(height: 30),
+             Container(
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: SizedBox(
+                width: 500,
+                height: 45,
+                child: getLoginText("Associate / IBO Login", _usernameController,
+                    "Please enter Login Id", 100, TextInputType.name,context),
+              ),
+              ),
+              ),
+              Visibility(
+                  visible: _showNextStep, child: sendPasswordOption(email)),
+              Visibility(
+                  visible: _showNextStep, child: sendPasswordOption(password)),
+              SizedBox(
+                 width: 200,
+                child:  ElevatedButton(
+                // style: elevatedButtonStyle(),
+                style: buttonShapeLogin(),
+                onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  if (_formKey.currentState!.validate()) {
+                    print("Valid" + "Valid");
+                    getLoginResponse();
+                  }
+                },
+                child: const Text(
+                  'Get Password',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              )
+             ,
+              SizedBox(height: 10),
+            ],
+          )),
+    );
+  }
+}
+BoxDecoration myProfileboxDecoration(){
+ return new BoxDecoration(
+              color: myProfileBg,
+             shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)),
+            );
 }
