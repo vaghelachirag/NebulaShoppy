@@ -206,6 +206,7 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
                   visible: _showNextStep, child: sendPasswordOption(email)),
               Visibility(
                   visible: _showNextStep, child: sendPasswordOption(password)),
+                    SizedBox(height: 10),
               SizedBox(
                  width: 200,
                 child:  ElevatedButton(
@@ -228,7 +229,7 @@ class _forgotpasswordDialougState extends State<forgotpasswordDialoug> {
               ),
               )
              ,
-              SizedBox(height: 10),
+              SizedBox(height: 20),
             ],
           )),
     );

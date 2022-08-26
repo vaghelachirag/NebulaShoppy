@@ -94,9 +94,17 @@ Container setUserProfileName(BuildContext context){
    Container(
     height: 35,
     child:   Row(children: [
-                    IconButton(onPressed: () {          
-                    }, icon: Icon(CommunityMaterialIcons.account_circle_outline)),
-                    setRegularText("Name", 12, myProfileTitleBg),
+                    SizedBox(
+                      width: 77,
+                      child: Row(
+                        children: [
+                       IconButton(onPressed: () {          
+                    }, icon: Icon(CommunityMaterialIcons.account_circle_outline,size: 25)),
+                    setRegularText("Name", 12, myProfileTitleBg)
+                        ],
+                      ),
+                    )
+                   ,
                     Padding(padding: EdgeInsets.only(left:  MediaQuery.of(context).size.width / 10),
                     child:   setRegularText(name, 12, myProfileDataBg),),
                   ],
@@ -108,9 +116,17 @@ Container  setUserProfileMobile(BuildContext context){
   return  Container(
     height: 35,
     child: Row(children: [
-                    IconButton(onPressed: () {          
-                    }, icon: Icon(CommunityMaterialIcons.cellphone)),
-                     setRegularText("Mobile", 12, myProfileTitleBg),
+                      SizedBox(
+                      width: 80,
+                      child: Row(
+                        children: [
+                       IconButton(onPressed: () {          
+                    }, icon: Icon(CommunityMaterialIcons.cellphone,size: 25)),
+                     setRegularText("Mobile", 12, myProfileTitleBg)
+                        ],
+                      ),
+                    ),
+                   
                     Padding(padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 10),
                     child: setRegularText(mobile, 12, myProfileDataBg),),
                   ],
@@ -123,9 +139,17 @@ Container setUserProfileEmail(BuildContext context){
   return   Container(
     height: 35,  child:
    Row(children: [
-                    IconButton(onPressed: () {          
-                    }, icon: Icon(CommunityMaterialIcons.email)),
-                    setRegularText("Email", 12, myProfileTitleBg),
+                SizedBox(
+                      width: 80,
+                      child: Row(
+                        children: [
+                         IconButton(onPressed: () {          
+                    }, icon: Icon(CommunityMaterialIcons.email_outline,size: 25,)),
+                    setRegularText("Email  ", 12, myProfileTitleBg)
+                        ],
+                      ),
+                    )
+                  ,
                     Padding(padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 10),
                     child: setRegularText(email, 12, myProfileDataBg),),
                   ],
@@ -136,9 +160,17 @@ Container setUserProfileGender(BuildContext context){
   return   Container(
     margin: EdgeInsets.only(bottom: 5),
     height: 35,  child: Row(children: [
-                    IconButton(onPressed: () {          
-                    }, icon: Icon(CommunityMaterialIcons.gender_female)),
-                   setRegularText("Gender", 12, myProfileTitleBg),
+                 SizedBox(
+                      width: 80,
+                      child: Row(
+                        children: [
+                       IconButton(onPressed: () {          
+                    }, icon: Icon(CommunityMaterialIcons.gender_female,size: 25,)),
+                   setRegularText("Gender", 12, myProfileTitleBg)
+                        ],
+                      ),
+                    )
+                   ,
                     Padding(padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 10),
                     child: setRegularText(gender, 12, myProfileDataBg),),
                   ],

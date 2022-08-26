@@ -318,8 +318,8 @@ class _CategoryListState extends State<CategoryList>
                         _listproductList[index].salePrice.toString(),
                     mrp: rupees_Sybol +
                         " " +
-                        _listproductList[index].mrp.toString(),
-                        qunatity: _listproductList[index].quantity, bv:  _listproductList[index].bv.toString(), nv:   _listproductList[index].nv.toString(), pv:   _listproductList[index].pv.toString(), sku: _listproductList[index].sku.toString(), desc: _listproductList[index].description.toString()),
+                        _listproductList[index].mRP.toString(),
+                        qunatity: _listproductList[index].quantity, bv:  _listproductList[index].bV.toString(), nv:   _listproductList[index].nV.toString(), pv:   _listproductList[index].pV.toString(), sku: _listproductList[index].sKU.toString(), desc: _listproductList[index].description.toString()),
                 gradientColors: [Colors.white, Colors.white],
                 onCartAddClick: () {
                   setState(() {
@@ -448,8 +448,8 @@ class _CategoryListState extends State<CategoryList>
                   rating: 5,
                   remainingQuantity: 5,
                   price:  rupees_Sybol +_listproductList[index].salePrice.toString(),
-                  mrp:  rupees_Sybol +_listproductList[index].mrp.toString(),
-                  qunatity: _listproductList[index].quantity, bv: _listproductList[index].bv.toString(), nv: _listproductList[index].nv.toString(), pv: _listproductList[index].pv.toString(), sku: _listproductList[index].sku.toString(), desc:_listproductList[index].description.toString()),
+                  mrp:  rupees_Sybol +_listproductList[index].mRP.toString(),
+                  qunatity: _listproductList[index].quantity, bv: _listproductList[index].bV.toString(), nv: _listproductList[index].nV.toString(), pv: _listproductList[index].pV.toString(), sku: _listproductList[index].sKU.toString(), desc:_listproductList[index].description.toString()),
               gradientColors: [Colors.white, Colors.white],
               onCartAddClick: () {
                 print("CartAdd" + "This");
