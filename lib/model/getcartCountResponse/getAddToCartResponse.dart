@@ -1,29 +1,21 @@
-import 'dart:convert';
-
-GetAddToCartResponse getAddToCartResponseFromJson(String str) => GetAddToCartResponse.fromJson(json.decode(str));
-
-String getAddToCartResponseToJson(GetAddToCartResponse data) => json.encode(data.toJson());
-
 class GetAddToCartResponse {
-    GetAddToCartResponse({
-        this.statusCode,
-        this.message,
-        this.data,
-    });
+  int? statusCode;
+  String? message;
+  int? data;
 
-    int ?statusCode;
-    String ?message;
-    int ?data;
+  GetAddToCartResponse({this.statusCode, this.message, this.data});
 
-    factory GetAddToCartResponse.fromJson(Map<String, dynamic> json) => GetAddToCartResponse(
-        statusCode: json["StatusCode"],
-        message: json["Message"],
-        data: json["Data"],
-    );
+  GetAddToCartResponse.fromJson(Map<String, dynamic> json) {
+    statusCode = json['StatusCode'];
+    message = json['Message'];
+    data = json['Data'];
+  }
 
-    Map<String, dynamic> toJson() => {
-        "StatusCode": statusCode,
-        "Message": message,
-        "Data": data,
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['StatusCode'] = this.statusCode;
+    data['Message'] = this.message;
+    data['Data'] = this.data;
+    return data;
+  }
 }

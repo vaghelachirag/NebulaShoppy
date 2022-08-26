@@ -113,12 +113,24 @@ class Service {
   Future<ItemNewLaunched> getProductListByCategory(
       String _catid, String pickupid, int pageindex, int pagelenth) async {
           var getProduct ;
-   try {
-      var response = await Dio().get(BASE_URL + WS_GET_CATEGORY_LIST );
+  try {  
+      var response = await Dio().get(BASE_URL +
+            WS_CATEGORY +
+            "?" +
+            "catid=" +
+            _catid +
+            "&" +
+            "pickupid=" +
+            pickupid +
+            "&" +
+            "PageIndex=" +
+            pageindex.toString() +
+            "&" "PageLength=" +
+            pagelenth.toString());
+            
       if (response.statusCode == 200) {
-       getProduct = response.data ;
-       print("User Data"+ getProduct);
-       var itemProduct =  itemNewLaunchedProduct.fromJson(getProduct);
+        getProduct = response.data ;
+       var itemProduct =  ItemNewLaunched.fromJson(getProduct);
         print("User Data"+ getProduct.data!.length.toString());
         return getProduct;
       } else {
@@ -272,12 +284,12 @@ class Service {
     }
   }
 
-  Future<GetAddToCartResponse> getAddToCartResponse(
-      String _deviceid,
+ Future<GetAddToCartResponse> getAddToCartResponse(String _deviceid,
       String _userid,
       String productid,
       String quantity,
       String cartFlag) async {
+
     var queryparams = {
       'deviceid': _deviceid,
       'userid': _userid,
@@ -285,25 +297,45 @@ class Service {
       'quantity': quantity,
       'CartFlag': cartFlag
     };
-
-    // Uri httpsUri = Uri(
-    //     scheme: Scheme,
-    //     host: Host,
-    //     path: WS_ADD_TO_CART,
-    //     queryParameters: queryparams);
-
-    Uri httpsUri = Uri.https(Host, WS_ADD_TO_CART, queryparams);
-
-    final response = await http.post(httpsUri);
-    print("ResponseCode" + httpsUri.toString());
-    print("AddToCart" + httpsUri.toString());
-
-    if (response.statusCode == 200) {
-      return GetAddToCartResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to create album.');
-    }
+     var itemaddtocart ;
+     Uri httpsUri = Uri.https(Host, WS_ADD_TO_CART, queryparams);
+     var response = await Dio().postUri(httpsUri);
+      if (response.statusCode == 200) {
+        var getUsersData = response.data ;
+        itemaddtocart = GetAddToCartResponse.fromJson(getUsersData);
+        print("User Data"+ getUsersData.toString());
+        return itemaddtocart;
+      } else {
+        throw Exception('Failed to load users');     
+      } 
   }
+
+  // Future<GetAddToCartResponse> getAddToCartResponse(
+  //     String _deviceid,
+  //     String _userid,
+  //     String productid,
+  //     String quantity,
+  //     String cartFlag) async {
+
+  //   var queryparams = {
+  //     'deviceid': _deviceid,
+  //     'userid': _userid,
+  //     'productid': productid,
+  //     'quantity': quantity,
+  //     'CartFlag': cartFlag
+  //   };
+
+  //   Uri httpsUri = Uri.https(Host, WS_ADD_TO_CART, queryparams);
+  //   final response = await http.post(httpsUri);
+  //   print("ResponseCode" + httpsUri.toString() + " "+ queryparams.toString());
+  //   print("AddToCart" + httpsUri.toString());
+
+  //   if (response.statusCode == 200) {
+  //     return GetAddToCartResponse.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Failed to create album.');
+  //   }
+  // }
 
   Future<dynamic> getCartItemWithoutLogin(
       String _deviceid, String _pickupid) async {
@@ -661,8 +693,6 @@ class Service {
         return getCartlistItemFromJson(jsons);
       }
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
       return str_ErrorMsg;
     }
   }
@@ -677,7 +707,7 @@ class Service {
     var response = await client.get(uri, headers: requestHeaders);
     if (response.statusCode == 200) {
       var json = response.body;
-      print("Response" + response.body.toString());
+      print("Response" + uri.toString()+ " ");
       return getMyAddressResponseFromJson(json);
     } else {
       return str_ErrorMsg;
@@ -711,9 +741,7 @@ class Service {
 
     var response = await client.get(uri);
     var json = response.body;
-
     print("Response" + response.body.toString());
-
     if (response.statusCode == 200) {
       return getCityByStateResponseFromJson(json);
     } else {
@@ -739,7 +767,6 @@ class Service {
     if (response.statusCode == 200) {
       return getdeleteaddressResponseFromJson(json);
     } else {
-
       throw Exception('Failed to create album.');
     }
   }
@@ -755,8 +782,7 @@ class Service {
     return getstateResponseFromJson(json);
   }
 
-  Future<GetAddressByCityResponse> getAddressByCitySelection(
-      String cityId) async {
+  Future<GetAddressByCityResponse> getAddressByCitySelection(String cityId) async {
     var client = http.Client();
     var response = await client.get(
         Uri.parse(BASE_URL + WS_GET_ADDRESS_BY_CITY + "?" + "cityId=" + cityId),
@@ -777,6 +803,7 @@ class Service {
       String _pinCode,
       String _addressType,
       String _deviceid) async {
+     
     requestHeaders = {
       'Authorization': '${str_AuthId}',
     };
@@ -793,21 +820,25 @@ class Service {
       'deviceid': _deviceid
     };
 
+    
+     var itemaddtocart ;
+
     Uri httpsUri = Uri(
         scheme: 'https',
         host: Host,
         path: WS_GET_ADD_ADDRESS,
         queryParameters: queryparams);
-
-    final response = await http.post(httpsUri, headers: requestHeaders);
-    print("Response" + response.body.toString() + " " + queryparams.toString());
-    var json = response.body;
-
-    if (response.statusCode == 200) {
-      return getAddToCartResponseFromJson(json);
-    } else {
-      throw Exception('Failed to create album.');
-    }
+      Dio dio = new Dio();
+      dio.options.headers['Authorization'] = '${str_AuthId}';
+     var response = await dio.postUri(httpsUri);
+      if (response.statusCode == 200) {
+        var getUsersData = response.data ;
+        itemaddtocart = GetAddToCartResponse.fromJson(getUsersData);
+        print("User Data"+ getUsersData.toString());
+        return itemaddtocart;
+      } else {
+        throw Exception('Failed to load users');     
+      } 
   }
 
   Future<dynamic> getEditAddressResponse(
@@ -836,22 +867,20 @@ class Service {
       'addressType': _addressType,
       'id': _id
     };
-
-    Uri httpsUri = Uri(
-        scheme: 'https',
-        host: Host,
-        path: WS_GET_EDIT_ADDRESS,
-        queryParameters: queryparams);
-
-    final response = await http.post(httpsUri, headers: requestHeaders);
-    print("Response" + response.body.toString() + " " + queryparams.toString());
-    var json = response.body;
-
-    if (response.statusCode == 200) {
-      return getAddToCartResponseFromJson(json);
-    } else {
-      throw Exception('Failed to create album.');
-    }
+       
+     var itemaddtocart ;
+     Uri httpsUri = Uri.https(Host, WS_GET_EDIT_ADDRESS, queryparams);
+      Dio dio = new Dio();
+      dio.options.headers['Authorization'] = '${str_AuthId}';
+     var response = await dio.postUri(httpsUri);
+      if (response.statusCode == 200) {
+        var getUsersData = response.data ;
+        itemaddtocart = GetAddToCartResponse.fromJson(getUsersData);
+        print("User Data"+ getUsersData.toString());
+        return itemaddtocart;
+      } else {
+        throw Exception('Failed to load users');     
+      } 
   }
 
   Future<GetGenerateOrderResponse> getGenerateOrderResponse(
