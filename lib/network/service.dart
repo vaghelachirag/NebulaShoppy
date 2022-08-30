@@ -15,6 +15,7 @@ import 'package:nebulashoppy/model/getSendPasswordOptionResponse/getSendPassword
 import 'package:nebulashoppy/model/getTrackOrderResponse/getTrackOrderResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getAddToCartResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getCartTotalResponse.dart';
+import 'package:nebulashoppy/model/getcartCountResponse/getMyCartCountResponse.dart';
 import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dart';
 import 'package:nebulashoppy/model/getgeneratepayumoneyresponse/getgeneatepaymoneyresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
@@ -112,11 +113,9 @@ class Service {
       if (response.statusCode == 200) {
         getProduct = response.data ;
        var itemProduct =  ItemNewLaunched.fromJson(getProduct);
-        print("User Data"+ getProduct.data!.length.toString());
         return getProduct;
       } else {
-        throw Exception('Failed to load users');
-        
+        throw Exception('Failed to load users');  
       }
     } catch (e) {
       print(e);
@@ -145,11 +144,9 @@ class Service {
       if (response.statusCode == 200) {
         getProduct = response.data ;
        var itemProduct =  ItemNewLaunched.fromJson(getProduct);
-        print("User Data"+ getProduct.data!.length.toString());
         return getProduct;
       } else {
         throw Exception('Failed to load users');
-        
       }
     } catch (e) {
       print(e);
@@ -274,10 +271,41 @@ class Service {
         str_UserId));
     var json = response.body;
 
-    print("CartCount"+ json.toString());
+    print("CartCount"+ BASE_URL +
+        WS_GET_CART_COUNT +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+        "userid=" +
+        str_UserId);
 
     return getCartCountResponseFromJson(json);
   }
+
+ Future<getMyCartCountResponse> getMyCartCount(
+      String _deviceid, String _userid) async {
+
+     Dio dio = new Dio();
+      var response = await dio.get(BASE_URL + WS_GET_CART_COUNT +
+        "?" +
+        "deviceid=" +
+        _deviceid +
+        "&" +
+        "userid=" +
+        str_UserId);
+    
+      var getCartCounter ;
+      if (response.statusCode == 200) {
+        getCartCounter = response.data ;
+        var itemHome =  getMyCartCountResponse.fromJson(getCartCounter);
+         print("Data"+itemHome.data.sumOfQty.toString());
+      } else {
+        throw Exception('Failed to load users'); 
+      }
+    return getMyCartCountResponse.fromJson(getCartCounter);
+  }
+
 
   Future<GetCartTotalResponse> getCartTotal(
       String _deviceid, String _userid) async {
@@ -735,6 +763,7 @@ class Service {
     Uri uri = Uri.parse(BASE_URL + WS_GET_MY_ADDRESS);
 
     var response = await client.get(uri, headers: requestHeaders);
+     print("Response" + BASE_URL + WS_GET_MY_ADDRESS);
     if (response.statusCode == 200) {
       var json = response.body;
       print("Response" + uri.toString()+ " ");

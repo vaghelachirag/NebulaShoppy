@@ -32,7 +32,7 @@ class OrderSummery extends StatefulWidget {
   int? int_SubTotalWallet = 0;
 
   bool? is_WalletFreez = false;
-  String is_EwalletOnOff = "0";
+  String? is_EwalletOnOff = "0";
   int? int_E_WalletAmount = 0;
   int? int_SettleAmount = 0;
 
