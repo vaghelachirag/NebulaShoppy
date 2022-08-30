@@ -67,8 +67,7 @@ class Service {
        var itemHome =  itemHomeCategory.fromJson(getUsersData);
         return itemHome;
       } else {
-        throw Exception('Failed to load users');
-        
+        throw Exception('Failed to load users');      
       }
     } catch (e) {
       print(e);
@@ -178,15 +177,31 @@ class Service {
     }
   }
 
-  Future<SearchProduct> getSearchProduct() async {
-    var client = http.Client();
-    var response = await client.get(
-        Uri.parse(BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + ""),
-        headers: requestHeaders);
-    var json = response.body;
-      print("Json" + BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + "");
-    return searchProductFromJson(json);
+  // Future<SearchProduct> getSearchProduct() async {
+  //   var client = http.Client();
+  //   var response = await client.get(
+  //       Uri.parse(BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + ""),
+  //       headers: requestHeaders);
+  //   var json = response.body;
+  //     print("Json" + BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + "");
+  //   return searchProductFromJson(json);
+  // }
+
+
+ Future<getSearchDataResonse> getSearchProduct() async{
+    Dio dio = new Dio();
+     var response = await dio.get(BASE_URL + WS_GET_SEARCH + "?" + "searchtext=" + "");
+      var getUsersData ;
+      if (response.statusCode == 200) {
+        getUsersData = response.data ;
+        var itemHome =  getSearchDataResonse.fromJson(getUsersData);
+         print("Data"+itemHome.data![0].name.toString());
+      } else {
+        throw Exception('Failed to load users'); 
+      }
+      return getSearchDataResonse.fromJson(getUsersData);
   }
+
 
   Future<ItemProductDetail> getProductDetail(
       String _productid, String pickupid) async {

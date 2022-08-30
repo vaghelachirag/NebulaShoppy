@@ -50,10 +50,11 @@ class _SearchState extends State<Search> {
   }
 
   getseachProduct() async {
-    Service().getSearchProduct().then((value) => {
-          setState(() {
+    
+     Service().getSearchProduct().then((value) => {
+       setState(() {
             if (value.statusCode == 1) {
-              _listSearch = value.data;
+              _listSearch = value.data!;
               _listSearchAllList = _listSearch;
               bl_IsEdibleSearch = true;
               _listSearch.sort((a, b) {
@@ -70,7 +71,8 @@ class _SearchState extends State<Search> {
               bl_IsEdibleSearch = false;
             }
           })
-        });
+     });
+
   }
 
   @override
@@ -261,8 +263,8 @@ class _SearchState extends State<Search> {
                       remainingQuantity: 5,
                       price: rupees_Sybol +
                           _listSearch[index].salePrice.toString(),
-                      mrp: rupees_Sybol + _listSearch[index].mrp.toString(),
-                      qunatity: _listSearch[index].quantity, bv: '', nv: '', pv: '', sku:  _listSearch[index].sku.toString(), desc:  _listSearch[index].description.toString()),
+                      mrp: rupees_Sybol + _listSearch[index].mRP.toString(),
+                      qunatity: _listSearch[index].quantity, bv: '', nv: '', pv: '', sku:  _listSearch[index].sKU.toString(), desc:  _listSearch[index].description.toString()),
                   gradientColors: [Colors.white, Colors.white],
                   int_width: MediaQuery.of(context).size.width / 4,
                 ),

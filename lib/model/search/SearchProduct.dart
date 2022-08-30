@@ -1,73 +1,49 @@
-import 'dart:convert';
-
-SearchProduct searchProductFromJson(String str) =>
-    SearchProduct.fromJson(json.decode(str));
-
-String searchProductToJson(SearchProduct data) => json.encode(data.toJson());
-
-class SearchProduct {
-  SearchProduct({
-    this.statusCode,
-    this.message,
-    required this.data,
-  });
-
+class getSearchDataResonse {
   int? statusCode;
   String? message;
-  List<SearchData> data;
+  List<SearchData>? data;
 
-  factory SearchProduct.fromJson(Map<String, dynamic> json) => SearchProduct(
-        statusCode: json["StatusCode"],
-        message: json["Message"],
-        data: List<SearchData>.from(
-            json["Data"].map((x) => SearchData.fromJson(x))),
-      );
+  getSearchDataResonse({this.statusCode, this.message, this.data});
 
-  Map<String, dynamic> toJson() => {
-        "StatusCode": statusCode,
-        "Message": message,
-        "Data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+  getSearchDataResonse.fromJson(Map<String, dynamic> json) {
+    statusCode = json['StatusCode'];
+    message = json['Message'];
+    if (json['Data'] != null) {
+      data = <SearchData>[];
+      json['Data'].forEach((v) {
+        data!.add(new SearchData.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['StatusCode'] = this.statusCode;
+    data['Message'] = this.message;
+    if (this.data != null) {
+      data['Data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 class SearchData {
-  SearchData({
-    required this.id,
-    this.projectId,
-    required this.productId,
-    required this.categoryId,
-    this.name,
-    this.description,
-    this.mrp,
-    this.salePrice,
-    this.saving,
-    this.quantity,
-    this.maxSaleQuantity,
-    this.mainImage,
-    this.inStock,
-    this.sku,
-    this.weight,
-    this.dimension,
-    this.manufacturer,
-    this.volWt,
-    this.homeStorePercent,
-    this.homeStorePrice,
-  });
-
-  int id;
-  int? projectId;
-  int productId;
-  int categoryId;
+ late int id;
+ late int? projectId;
+ late int productId;
+ late  int categoryId;
   String? name;
   String? description;
-  double? mrp;
+  double? mRP;
   double? salePrice;
   String? saving;
   int? quantity;
   int? maxSaleQuantity;
+  String? returnPolicy;
+  String? warranty;
   String? mainImage;
   bool? inStock;
-  String? sku;
+  String? sKU;
   String? weight;
   String? dimension;
   String? manufacturer;
@@ -75,50 +51,79 @@ class SearchData {
   double? homeStorePercent;
   double? homeStorePrice;
 
-  factory SearchData.fromJson(Map<String, dynamic> json) => SearchData(
-        id: json["Id"],
-        projectId: json["ProjectId"],
-        productId: json["ProductId"],
-        categoryId: json["CategoryId"],
-        name: json["Name"],
-        description: json["Description"],
-        mrp: json["MRP"],
-        salePrice: json["SalePrice"],
-        saving: json["Saving"],
-        quantity: json["Quantity"],
-        maxSaleQuantity: json["MaxSaleQuantity"],
-        mainImage: json["MainImage"],
-        inStock: json["InStock"],
-        sku: json["SKU"],
-        weight: json["Weight"] == null ? null : json["Weight"],
-        dimension: json["Dimension"],
-        manufacturer:
-            json["Manufacturer"] == null ? null : json["Manufacturer"],
-        volWt: json["VolWt"] == null ? null : json["VolWt"],
-        homeStorePercent: json["HomeStorePercent"].toDouble(),
-        homeStorePrice: json["HomeStorePrice"],
-      );
+  SearchData(
+      {required this.id,
+      this.projectId,
+      required this.productId,
+      required this.categoryId,
+      this.name,
+      this.description,
+      this.mRP,
+      this.salePrice,
+      this.saving,
+      this.quantity,
+      this.maxSaleQuantity,
+      this.returnPolicy,
+      this.warranty,
+      this.mainImage,
+      this.inStock,
+      this.sKU,
+      this.weight,
+      this.dimension,
+      this.manufacturer,
+      this.volWt,
+      this.homeStorePercent,
+      this.homeStorePrice});
 
-  Map<String, dynamic> toJson() => {
-        "Id": id,
-        "ProjectId": projectId,
-        "ProductId": productId,
-        "CategoryId": categoryId,
-        "Name": name,
-        "Description": description,
-        "MRP": mrp,
-        "SalePrice": salePrice,
-        "Saving": saving,
-        "Quantity": quantity,
-        "MaxSaleQuantity": maxSaleQuantity,
-        "MainImage": mainImage,
-        "InStock": inStock,
-        "SKU": sku,
-        "Weight": weight == null ? null : weight,
-        "Dimension": dimension,
-        "Manufacturer": manufacturer == null ? null : manufacturer,
-        "VolWt": volWt == null ? null : volWt,
-        "HomeStorePercent": homeStorePercent,
-        "HomeStorePrice": homeStorePrice,
-      };
+  SearchData.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    projectId = json['ProjectId'];
+    productId = json['ProductId'];
+    categoryId = json['CategoryId'];
+    name = json['Name'];
+    description = json['Description'];
+    mRP = json['MRP'];
+    salePrice = json['SalePrice'];
+    saving = json['Saving'];
+    quantity = json['Quantity'];
+    maxSaleQuantity = json['MaxSaleQuantity'];
+    returnPolicy = json['ReturnPolicy'];
+    warranty = json['Warranty'];
+    mainImage = json['MainImage'];
+    inStock = json['InStock'];
+    sKU = json['SKU'];
+    weight = json['Weight'];
+    dimension = json['Dimension'];
+    manufacturer = json['Manufacturer'];
+    volWt = json['VolWt'];
+    homeStorePercent = json['HomeStorePercent'];
+    homeStorePrice = json['HomeStorePrice'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['ProjectId'] = this.projectId;
+    data['ProductId'] = this.productId;
+    data['CategoryId'] = this.categoryId;
+    data['Name'] = this.name;
+    data['Description'] = this.description;
+    data['MRP'] = this.mRP;
+    data['SalePrice'] = this.salePrice;
+    data['Saving'] = this.saving;
+    data['Quantity'] = this.quantity;
+    data['MaxSaleQuantity'] = this.maxSaleQuantity;
+    data['ReturnPolicy'] = this.returnPolicy;
+    data['Warranty'] = this.warranty;
+    data['MainImage'] = this.mainImage;
+    data['InStock'] = this.inStock;
+    data['SKU'] = this.sKU;
+    data['Weight'] = this.weight;
+    data['Dimension'] = this.dimension;
+    data['Manufacturer'] = this.manufacturer;
+    data['VolWt'] = this.volWt;
+    data['HomeStorePercent'] = this.homeStorePercent;
+    data['HomeStorePrice'] = this.homeStorePrice;
+    return data;
+  }
 }
