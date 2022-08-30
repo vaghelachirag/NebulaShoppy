@@ -188,6 +188,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
   }
 
   void getMyOrderList() async {
+  
     Service().getMyOrderList().then((value) => {
           setState((() {
             if (value.statusCode == 1) {
@@ -198,7 +199,7 @@ class _MyOrderListState extends State<MyOrderList> with WidgetsBindingObserver {
               showSnakeBar(context, "Opps! Something Wrong");
             }
           }))
-        });
+    });
   }
 
   getformatedDate(int orderDate) async {

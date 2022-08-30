@@ -62,6 +62,7 @@ class _CategoryListState extends State<CategoryList>
     getDeviceId();
     getCartCount();
     getHomeCategory();
+    getProductListByCategory(selectedId.toString());
     checkUserLoginOrNot();
   }
 
@@ -203,7 +204,7 @@ class _CategoryListState extends State<CategoryList>
             if (value.statusCode == 1) {
               //  print("Categorylist" + value.message);
               _listHomeCategory = value.data;
-              getProductListByCategory(selectedId.toString());
+           //   getProductListByCategory(selectedId.toString());
             } else {
               showSnakeBar(context, somethingWrong);
               //  print("Categorylist" + "Opps Something Wrong!");

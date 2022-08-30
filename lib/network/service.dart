@@ -19,6 +19,7 @@ import 'package:nebulashoppy/model/getcartCountResponse/getcartCountResponse.dar
 import 'package:nebulashoppy/model/getgeneratepayumoneyresponse/getgeneatepaymoneyresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getgeneratetokenresponse.dart';
 import 'package:nebulashoppy/model/getloginresponse/getloginresponse.dart';
+import 'package:nebulashoppy/model/getmyorderresponse/getmyorderlistResponse.dart';
 import 'package:nebulashoppy/model/getmyorderresponse/getmyorderresponse.dart';
 import 'package:nebulashoppy/model/getoutofstockresponse/getoutofstockresponse.dart';
 import 'package:nebulashoppy/model/getstateResponse.dart';
@@ -62,9 +63,8 @@ class Service {
    try {
       var response = await Dio().get(BASE_URL + WS_GET_CATEGORY_LIST );
       if (response.statusCode == 200) {
-       getUsersData = response.data ;
+       getUsersData = response.data! ;
        var itemHome =  itemHomeCategory.fromJson(getUsersData);
-        print("User Data"+ itemHome.data!.length.toString());
         return itemHome;
       } else {
         throw Exception('Failed to load users');
@@ -75,6 +75,21 @@ class Service {
     }
     return  itemHomeCategory.fromJson(getUsersData);
   }
+
+  
+  Future<dynamic> getOrderList() async{
+     Dio dio = new Dio();
+     dio.options.headers['Authorization'] =  '${str_AuthId}';
+     var response = await dio.get(BASE_URL + WS_GET_MY_ORDER_LIST );
+      var getUsersData ;
+      if (response.statusCode == 200) {
+        getUsersData = response.data ;
+        var itemHome =  getMyOrderListResponse.fromJson(getUsersData);
+      } else {
+        throw Exception('Failed to load users'); 
+      }
+  }
+
 
   Future<ItemNewLaunched> getNewLaunched(
       String _catid, String pickupid, int pageindex, int pagelenth) async {
