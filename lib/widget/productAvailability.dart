@@ -105,9 +105,19 @@ class ProductAvailabilityItem extends StatelessWidget {
             //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             // ),
             setRegularText(product.company, 16, Colors.black),
-            Padding(
+            FutureBuilder(builder: (context, snapshot) {
+              if(product.remainingQuantity > 1){
+                return  Padding(
                 padding: EdgeInsets.only(top: 5),
-                child: setRegularText(product.remainingQuantity.toString() + " items out of stock", 12, Colors.black)),
+                child: setRegularText(product.remainingQuantity.toString() + " items out of stock", 12, Colors.black));
+              }
+              else{
+                return Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: setRegularText(product.remainingQuantity.toString() + " item out of stock", 12, Colors.black));
+              }
+            },)
+           ,
             // Text(
             //   product.name,
             //   maxLines: 1,

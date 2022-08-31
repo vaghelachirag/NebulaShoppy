@@ -107,7 +107,8 @@ void removeCartItem() {
     showProgressbar();
   });
 
-Service().getRemoveOutOfStock(str_UserId,str_SelectedAddressType).then((value) => {print("Remove"+"Remove"),
+Service().getRemoveOutOfStock(str_UserId,str_SelectedAddressType).then((value) => {
+  print("Remove"+"Remove"),
  setState(() {
   hideProgressBar();
   }),
@@ -129,11 +130,11 @@ Service().getRemoveOutOfStock(str_UserId,str_SelectedAddressType).then((value) =
                 icon: Icon(CommunityMaterialIcons.information_outline),
                 onPressed: () {},
                 color: buttonColor,
-              )),      
+              )),    
               Container(
-                width: MediaQuery.of(context).size.width - 50,
-                child: Text( "Few items from your cart are not available. We regret the inconvenience.", maxLines: 2,  style: TextStyle(color:buttonColor,fontSize: 14,),),
-              ),
+                      width: MediaQuery.of(context).size.width - 50,
+                     child: Text( "Few items from your cart are not available. We regret the inconvenience.", maxLines: 2,  style: TextStyle(color:buttonColor,fontSize: 14,),),
+                      )
             ],
           ),
           Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),child:
