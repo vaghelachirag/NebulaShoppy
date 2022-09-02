@@ -42,6 +42,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       print(" --- foreground message received ---" + notification!.body.toString());
       final _localNotifications = FlutterLocalNotificationsPlugin();
        showlocalNotification(_localNotifications,notification,android);
+       print("ImageUrl"+ android!.imageUrl.toString() + " "+android.smallIcon.toString() + " "+ remoteMessage.notification!.android!.imageUrl.toString());
     });
   }
 
@@ -51,8 +52,8 @@ FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 Future<void> _generateNotification(
     RemoteMessage message, RemoteNotification notification) async {
  
-  if (notification.android!.smallIcon.toString().isNotEmpty &&
-      notification.android!.smallIcon.toString() != "") {
+  if (message.notification!.android!.imageUrl.toString().isNotEmpty &&
+    message.notification!.android!.imageUrl.toString().toString() != "") {
     flutterLocalNotificationsPlugin?.show(
       notification.hashCode,
       notification.title,
@@ -60,7 +61,7 @@ Future<void> _generateNotification(
       NotificationDetails(
         android: AndroidNotificationDetails(channel.id, channel.name,
             icon: '@mipmap/ic_launcher',
-            importance: Importance.max,
+            importance: Importance.max, 
             priority: Priority.high,
             playSound: true,
             styleInformation: BigPictureStyleInformation(
@@ -86,6 +87,7 @@ Future<void> _generateNotification(
         icon: '@mipmap/ic_launcher',
         importance: Importance.max,
         priority: Priority.high,
+        
         playSound: true,
       )),
     );
@@ -106,6 +108,7 @@ Future<void> _generateNotification(
 
   // _onClickNotification(message.data);
 }
+
 
 void main() async {
 
