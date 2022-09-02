@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/android.dart';
+import 'package:nebulashoppy/main.dart';
 import 'package:nebulashoppy/uttils/CircularProgress.dart';
 import 'package:nebulashoppy/uttils/helper.dart';
 import 'package:page_transition/page_transition.dart';
@@ -37,7 +38,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:payumoney_pro_unofficial/payumoney_pro_unofficial.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Test extends StatefulWidget {
   @override
@@ -45,89 +46,76 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> with RouteAware {
-  final controller = PageController(viewportFraction: 1, keepPage: true);
-    bool isReadmore= false;
-
-     var scrollController = ScrollController();
+ late  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  late AndroidNotificationChannel channel;
      
   @override
   void initState() {
     super.initState();
-   
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSetttings = new InitializationSettings();
+    flutterLocalNotificationsPlugin.initialize(initSetttings);
   }
-
-
   
-  @override
-  void didPush() {
-    print('HomePage: Called didPush');
-    super.didPush();
+  Future onSelectNotification(String payload) async {
+    debugPrint("payload : $payload");
+    showDialog(
+      context: context,
+      builder: (_) => new AlertDialog(
+        title: new Text('Notification'),
+        content: new Text('$payload'),
+      ),
+    );
   }
 
-  @override
-  void didPop() {
-    print('HomePage: Called didPop');
-    super.didPop();
-  }
 
-  @override
-  void didPopNext() {
-    print('HomePage: Called didPopNext');
-    super.didPopNext();
-  }
-
-  @override
-  void didPushNext() {
-    print('HomePage: Called didPushNext');
-    super.didPushNext();
-  }
  @override
   Widget build(BuildContext context) {
-   return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Payu Money Flutter'),
-        ),
-       body: Center(
-          child: ElevatedButton(
-            child: Text("Make Payment"),
-            onPressed: () async {
-              // // Every Transaction should have a unique ID. I am using timestamp as transactionid. Because its always unique :)
-              String orderId = DateTime.now().millisecondsSinceEpoch.toString();
-              // Amount is in rs. Enter 100 for Rs100.
-              final String amount = "1";
-
-              // Phone Number should be 10 digits. Please validate it before passing else it will throw error.
-              // hashUrl is required. check github documentation for nodejs code.
-              var response = await PayumoneyProUnofficial.payUParams(
-                  email: 'vaghelacd99@gmail.com',
-                  firstName: "chirag vaghela",
-                  merchantName: 'chirag',
-                  isProduction: true,
-                  merchantKey:
-                      '0w2qzK', //You will find these details from payumoney dashboard
-                  merchantSalt: 'Oa3o6OCxGvidPIIxnP2tlZ7Wq9z1VEpU',
-                  amount: '1.00',
-                  productInfo: 'iPhone 12', // Enter Product Name
-                  transactionId:
-                      orderId, //Every Transaction should have a unique ID
-                  hashUrl: '',
-                  userCredentials: '0w2qzK:tvaghelacd99@gmail.com',
-                  showLogs: true,
-                  userPhoneNumber: '9999999999');
-              // handling success response
-              if (response['status'] == PayUParams.success)
-                handlePaymentSuccess(amount);
-              // handling failure response
-              if (response['status'] == PayUParams.failed)
-                handlePaymentFailure(amount, response['message']);
-            },
+    return Scaffold(
+      appBar: new AppBar(
+        title: new Text('Flutter Local Notification'),
+      ),
+      body: new Center(
+        child: new RaisedButton(
+          onPressed:() {
+          //  showlocalNotification(flutterLocalNotificationsPlugin);
+          },
+          child: new Text(
+            'Demo'
           ),
         ),
       ),
     );
-
   }
+
+// showLocaNotification() async {
+//  print("Click"+"Click");
+//  AndroidNotificationChannel   channel = const AndroidNotificationChannel(
+//     'nebulashoppy', // id
+//     'Nebula Shoppy', // title
+//     importance: Importance.high,
+//     enableLights: true,
+//     enableVibration: true,
+//     showBadge: true,
+//    );
+
+//     flutterLocalNotificationsPlugin.show(
+//      2,
+//      "test",
+//       "test",
+//       NotificationDetails(
+//           android: AndroidNotificationDetails(
+//         channel.id,
+//         channel.name,
+//         icon: '@mipmap/ic_launcher',
+//         importance: Importance.max,
+//         priority: Priority.high,
+//         playSound: true,
+//       )),
+//     );
+//   }
 
   // Function to implement business login on payment success
   handlePaymentSuccess(String amount) {
@@ -142,7 +130,9 @@ class _TestState extends State<Test> with RouteAware {
     // Implement your logic here for failed payment.
   }
 }
- 
+
   void startPayment() async {
   
   }
+
+ 

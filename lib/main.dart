@@ -35,15 +35,22 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message 3${message.messageId}');
 }
 
-late AndroidNotificationChannel channel;
+  void _registerForegroundMessageHandler() {
+      FirebaseMessaging.onMessage.listen((remoteMessage) {
+       RemoteNotification? notification = remoteMessage.notification;
+       AndroidNotification? android = remoteMessage.notification?.android;
+      print(" --- foreground message received ---" + notification!.body.toString());
+      final _localNotifications = FlutterLocalNotificationsPlugin();
+       showlocalNotification(_localNotifications,notification,android);
+    });
+  }
 
+late AndroidNotificationChannel channel;
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 Future<void> _generateNotification(
     RemoteMessage message, RemoteNotification notification) async {
-  print(notification.android!.imageUrl.toString());
-  print(notification.android!.smallIcon.toString());
-
+ 
   if (notification.android!.smallIcon.toString().isNotEmpty &&
       notification.android!.smallIcon.toString() != "") {
     flutterLocalNotificationsPlugin?.show(
@@ -87,12 +94,21 @@ Future<void> _generateNotification(
   FirebaseMessaging.onMessage.listen((RemoteMessage event) {
     print("message recieved");
     print(event.notification!.body);
+   _generateNotification(message, notification);
+  });
+  
+ 
+ FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
+    print("Notification Recevied");
+    print(event.notification!.body);
+     _generateNotification(message, notification);
   });
 
   // _onClickNotification(message.data);
 }
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseMessaging.instance
@@ -111,6 +127,7 @@ void main() async {
     enableVibration: true,
     showBadge: true,
   );
+
   runApp(MyApp());
 }
 
@@ -121,6 +138,8 @@ class MyApp extends StatelessWidget {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     checkUserLoginOrNot();
     getToken();
+    init();
+
     return ChangeNotifierProvider(
       create: (context) => CartCounter(),
       child: MaterialApp(
@@ -135,6 +154,23 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+ Future init() async {
+   _registerForegroundMessageHandler();
+  }
+
+ Future<NotificationSettings> _requestPermission() async {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+    return await _firebaseMessaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        announcement: false);
+  }
+
 
 int currentIndex = 1;
 

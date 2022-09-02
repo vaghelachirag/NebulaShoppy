@@ -21,6 +21,10 @@ import '../widget/restartWidget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:provider/provider.dart';
+import 'package:nebulashoppy/fcm/messaging_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const HOME_SCREEN = 'home_screen';
 
@@ -226,6 +230,81 @@ showSnakeBar(BuildContext context, String msg) {
 
 initilizationCounter(BuildContext context){
    cartCounter = Provider.of<CartCounter>(context);
+}
+
+
+showlocalNotification(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin, RemoteNotification notification, AndroidNotification? android) async {
+ print("Click"+"Click");
+ AndroidNotificationChannel   channel = const AndroidNotificationChannel(
+    'nebulashoppy', // id
+    'Nebula Shoppy', // title
+    importance: Importance.high,
+    enableLights: true,
+    enableVibration: true,
+    showBadge: true,
+   );
+
+    flutterLocalNotificationsPlugin.show(
+     notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+          android: AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        icon: '@mipmap/ic_launcher',
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+      )),
+    );
+  }
+
+
+Future<void> generateNotification( RemoteMessage message, RemoteNotification notification) async {
+  print(notification.android!.imageUrl.toString());
+  print(notification.android!.smallIcon.toString());
+
+  if (notification.android!.smallIcon.toString().isNotEmpty &&
+      notification.android!.smallIcon.toString() != "") {
+    flutterLocalNotificationsPlugin?.show(
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(channel.id, channel.name,
+            icon: '@mipmap/ic_launcher',
+            importance: Importance.max,
+            priority: Priority.high,
+            playSound: true,
+            styleInformation: BigPictureStyleInformation(
+              FilePathAndroidBitmap("bigPicturePath"),
+              largeIcon: FilePathAndroidBitmap("bigPicturePath"),
+              contentTitle: notification.title,
+              htmlFormatContentTitle: true,
+              summaryText: notification.body,
+              hideExpandedLargeIcon: true,
+              htmlFormatSummaryText: true,
+            )),
+      ),
+    );
+  } else {
+    flutterLocalNotificationsPlugin?.show(
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+          android: AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        icon: '@mipmap/ic_launcher',
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+      )),
+    );
+  }
+
 }
 
 changeBaseURL(int int_BaseUrl) {
