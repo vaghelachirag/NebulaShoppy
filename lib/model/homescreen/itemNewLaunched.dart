@@ -1,14 +1,14 @@
 class ItemNewLaunched {
 	int? statusCode;
   late	String message;
-	Data? data;
+	ItemNewLaunchedData? data;
 
 	ItemNewLaunched({this.statusCode, required this.message, this.data});
 
 	ItemNewLaunched.fromJson(Map<String, dynamic> json) {
 		statusCode = json['StatusCode'];
 		message = json['Message'];
-		data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
+		data = json['Data'] != null ? new ItemNewLaunchedData.fromJson(json['Data']) : null;
 	}
 
 	Map<String, dynamic> toJson() {
@@ -22,13 +22,13 @@ class ItemNewLaunched {
 	}
 }
 
-class Data {
+class ItemNewLaunchedData {
 	int? totalRecord;
 	late List<itemNewLaunchedProduct> products;
 
-	Data({this.totalRecord, required this.products});
+	ItemNewLaunchedData({this.totalRecord, required this.products});
 
-	Data.fromJson(Map<String, dynamic> json) {
+	ItemNewLaunchedData.fromJson(Map<String, dynamic> json) {
 		totalRecord = json['TotalRecord'];
 		if (json['Products'] != null) {
 			products = <itemNewLaunchedProduct>[];
@@ -58,7 +58,7 @@ class itemNewLaunchedProduct {
 	String? description;
 	String? sKU;
 	int? comboID;
- late	double mRP;
+  late	double mRP;
 	double? salePrice;
 	double? distributorPrice;
 	double? saving;

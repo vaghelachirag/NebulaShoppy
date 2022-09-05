@@ -91,7 +91,7 @@ class Service {
   }
 
 
-  Future<ItemNewLaunched> getNewLaunched(
+  Future<dynamic> getNewLaunched(
       String _catid, String pickupid, int pageindex, int pagelenth) async {
     var getProduct ;
   
@@ -112,8 +112,8 @@ class Service {
             
       if (response.statusCode == 200) {
         getProduct = response.data ;
-       var itemProduct =  ItemNewLaunched.fromJson(getProduct);
-        return getProduct;
+        var itemProduct =  ItemNewLaunched.fromJson(getProduct);
+        return itemProduct;
       } else {
         throw Exception('Failed to load users');  
       }
@@ -123,7 +123,7 @@ class Service {
     return ItemNewLaunched.fromJson(getProduct);
   }
 
-  Future<ItemNewLaunched> getProductListByCategory(
+  Future<dynamic> getProductListByCategory(
       String _catid, String pickupid, int pageindex, int pagelenth) async {
           var getProduct ;
   try {  
